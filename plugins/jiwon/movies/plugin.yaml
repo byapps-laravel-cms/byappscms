@@ -1,0 +1,11 @@
+plugin:
+    name: 'jiwon.movies::lang.plugin.name'
+    description: 'jiwon.movies::lang.plugin.description'
+    author: Jiwon
+    icon: oc-icon-video-camera
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: Movies
+        url: jiwon/movies/movies
+        icon: icon-video-camera
