@@ -1,0 +1,58 @@
+Arguments: 
+  /usr/bin/node /usr/bin/yarn add sass-loader@7.* sass resolve-url-loader@2.3.1 --dev --production=false
+
+PATH: 
+  /usr/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/home/vagrant/code/myoctober/node_modules/.bin:/usr/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/home/vagrant/code/myoctober/node_modules/.bin:/home/vagrant/.composer/vendor/bin:/usr/local/go/bin:/home/vagrant/.rbenv/plugins/ruby-build/bin:/home/vagrant/.rbenv/shims:/home/vagrant/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/vagrant/.dotnet/tools
+
+Yarn version: 
+  1.13.0
+
+Node version: 
+  10.15.1
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: EPROTO: protocol error, symlink '../../../parser/bin/babel-parser.js' -> '/home/vagrant/code/myoctober/node_modules/@babel/core/node_modules/.bin/parser'
+
+npm manifest: 
+  {
+    "name": "myoctober",
+    "version": "1.0.0",
+    "description": "[OctoberCMS](https://octobercms.com/)",
+    "main": "index.js",
+    "directories": {
+      "test": "tests"
+    },
+    "dependencies": {},
+    "devDependencies": {
+      "laravel-mix": "^4.0.15"
+    },
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "dev": "npm run development",   
+      "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+      "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+      "hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",   
+      "prod": "npm run production",
+      "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/2jiwon/myoctober.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/2jiwon/myoctober/issues"
+    },
+    "homepage": "https://github.com/2jiwon/myoctober#readme"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
