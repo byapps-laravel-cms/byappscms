@@ -1,3 +1,4 @@
-import sayHi from './sayHi';
+import { sayHi, sayBye } from './sayHi';
 
 sayHi('John');
+sayBye('Sally');

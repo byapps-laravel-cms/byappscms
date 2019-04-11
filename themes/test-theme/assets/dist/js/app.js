@@ -97,7 +97,8 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sayHi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sayHi */ "./themes/test-theme/assets/javascript/sayHi.js");
 
-Object(_sayHi__WEBPACK_IMPORTED_MODULE_0__["default"])('John');
+Object(_sayHi__WEBPACK_IMPORTED_MODULE_0__["sayHi"])('John');
+Object(_sayHi__WEBPACK_IMPORTED_MODULE_0__["sayBye"])('Sally');
 
 /***/ }),
 
@@ -105,14 +106,19 @@ Object(_sayHi__WEBPACK_IMPORTED_MODULE_0__["default"])('John');
 /*!******************************************************!*\
   !*** ./themes/test-theme/assets/javascript/sayHi.js ***!
   \******************************************************/
-/*! exports provided: default */
+/*! exports provided: sayHi, sayBye */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (function (name) {
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sayHi", function() { return sayHi; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sayBye", function() { return sayBye; });
+function sayHi(name) {
   alert('Hello ' + name);
-});
+}
+function sayBye(name) {
+  alert('Bye ' + name);
+}
 
 /***/ }),
 
