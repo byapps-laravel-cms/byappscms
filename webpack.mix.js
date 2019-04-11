@@ -15,6 +15,13 @@ mix.setPublicPath('./themes/test-theme/assets/');
 
 mix.js('./themes/test-theme/assets/javascript/app.js', 'dist/js').sass('./themes/test-theme/assets/sass/style.scss', 'dist/css');
 
+mix.browserSync({
+  proxy: 'my.october',
+  host: 'my.october',
+  notify: false,
+  files: [ "./themes/test-theme/assets/dist/css/*.css", "./themes/test-theme/**/*.htm", "./themes/test-theme/assets/dist/js/app.js"]
+});
+
 // Full API
 // mix.js(src, output);
 // mix.react(src, output); <-- Identical to mix.js(), but registers React Babel compilation.

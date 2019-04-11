@@ -8,6 +8,8 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "browser-sync": "^2.26.3",
+    "browser-sync-webpack-plugin": "^2.0.1",
     "cross-env": "^5.2.0",
     "laravel-mix": "^4.0.15",
     "vue-template-compiler": "^2.6.10"
