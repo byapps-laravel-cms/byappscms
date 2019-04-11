@@ -90,14 +90,29 @@
 /*!****************************************************!*\
   !*** ./themes/test-theme/assets/javascript/app.js ***!
   \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-function sayHi(name) {
-  alert('Hello' + name);
-}
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _sayHi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sayHi */ "./themes/test-theme/assets/javascript/sayHi.js");
 
-sayHi('John');
+Object(_sayHi__WEBPACK_IMPORTED_MODULE_0__["default"])('John');
+
+/***/ }),
+
+/***/ "./themes/test-theme/assets/javascript/sayHi.js":
+/*!******************************************************!*\
+  !*** ./themes/test-theme/assets/javascript/sayHi.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (function (name) {
+  alert('Hello ' + name);
+});
 
 /***/ }),
 

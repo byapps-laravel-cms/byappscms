@@ -1,5 +1,3 @@
-function sayHi(name){
-  alert('Hello' + name);
-}
+import sayHi from './sayHi';
 
 sayHi('John');
