@@ -96,9 +96,18 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sayHi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sayHi */ "./themes/test-theme/assets/javascript/sayHi.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-Object(_sayHi__WEBPACK_IMPORTED_MODULE_0__["sayHi"])('John');
-Object(_sayHi__WEBPACK_IMPORTED_MODULE_0__["sayBye"])('Sally');
+ //sayHi('John');
+//sayBye('Sally');
+
+var HelloWorld = function HelloWorld() {
+  _classCallCheck(this, HelloWorld);
+
+  alert('Hello World');
+};
+
+new HelloWorld();
 
 /***/ }),
 
