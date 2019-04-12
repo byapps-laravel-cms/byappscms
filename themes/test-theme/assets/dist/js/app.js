@@ -96,18 +96,17 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sayHi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sayHi */ "./themes/test-theme/assets/javascript/sayHi.js");
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
  //sayHi('John');
 //sayBye('Sally');
-
-var HelloWorld = function HelloWorld() {
-  _classCallCheck(this, HelloWorld);
-
-  alert('Hello World');
-};
-
-new HelloWorld();
+//class HelloWorld
+//{
+//    constructor() {
+//      alert('Hello World');
+//    }
+//}
+//
+//new HelloWorld;
+//
 
 /***/ }),
 
@@ -149,8 +148,8 @@ function sayBye(name) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/myoctober/themes/test-theme/assets/javascript/app.js */"./themes/test-theme/assets/javascript/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/myoctober/themes/test-theme/assets/sass/style.scss */"./themes/test-theme/assets/sass/style.scss");
+__webpack_require__(/*! /mnt/c/Users/ljw/Documents/vagrant-project/myoctober/themes/test-theme/assets/javascript/app.js */"./themes/test-theme/assets/javascript/app.js");
+module.exports = __webpack_require__(/*! /mnt/c/Users/ljw/Documents/vagrant-project/myoctober/themes/test-theme/assets/sass/style.scss */"./themes/test-theme/assets/sass/style.scss");
 
 
 /***/ })

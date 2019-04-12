@@ -4,12 +4,12 @@ import { sayHi, sayBye } from './sayHi';
 //sayBye('Sally');
 
 
-class HelloWorld
-{
-    constructor() {
-      alert('Hello World');
-    }
-}
-
-new HelloWorld;
-
+//class HelloWorld
+//{
+//    constructor() {
+//      alert('Hello World');
+//    }
+//}
+//
+//new HelloWorld;
+//
