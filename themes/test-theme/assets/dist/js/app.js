@@ -149,8 +149,8 @@ function sayBye(name) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /mnt/c/Users/ljw/Documents/vagrant-project/myoctober/themes/test-theme/assets/javascript/app.js */"./themes/test-theme/assets/javascript/app.js");
-module.exports = __webpack_require__(/*! /mnt/c/Users/ljw/Documents/vagrant-project/myoctober/themes/test-theme/assets/sass/style.scss */"./themes/test-theme/assets/sass/style.scss");
+__webpack_require__(/*! /home/vagrant/code/myoctober/themes/test-theme/assets/javascript/app.js */"./themes/test-theme/assets/javascript/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/myoctober/themes/test-theme/assets/sass/style.scss */"./themes/test-theme/assets/sass/style.scss");
 
 
 /***/ })
