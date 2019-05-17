@@ -9,3 +9,8 @@ navigation:
         label: Movies
         url: jiwon/movies/movies
         icon: icon-video-camera
+        sideMenu:
+            side-menu-item:
+                label: 'Menu Item'
+                url: /
+                icon: icon-sitemap

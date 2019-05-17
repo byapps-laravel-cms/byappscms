@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'debug' => true,
+    'debug' => env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -41,7 +41,7 @@ return [
     |
     */
 
-    'url' => 'http://my.october',
+    'url' => env('APP_URL', 'http://ljw1.innoi.kr'),
 
     /*
     |--------------------------------------------------------------------------
@@ -101,7 +101,7 @@ return [
     |
     */
 
-    'key' => '3oo3Hf4Uh9EyKPtGQF3d2b7XRTfOm4Bl',
+    'key' => env('APP_KEY', ''),
 
     'cipher' => 'AES-256-CBC',
 

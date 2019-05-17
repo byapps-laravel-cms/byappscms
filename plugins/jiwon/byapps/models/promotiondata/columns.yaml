@@ -1,0 +1,34 @@
+columns:
+    idx:
+        label: idx
+        type: number
+    mem_id:
+        label: mem_id
+        type: text
+    pm_code:
+        label: pm_code
+        type: text
+    pm_used:
+        label: pm_used
+        type: text
+    pm_title:
+        label: pm_title
+        type: text
+    mem_name:
+        label: mem_name
+        type: text
+    pm_target:
+        label: pm_target
+        type: text
+    pm_content:
+        label: pm_content
+        type: text
+    pm_comment:
+        label: pm_comment
+        type: text
+    used_time:
+        label: used_time
+        type: number
+    reg_time:
+        label: reg_time
+        type: number

@@ -1,0 +1,10 @@
+name: PayManages
+form: $/jiwon/byapps/models/paymanage/fields.yaml
+modelClass: Jiwon\Byapps\Models\PayManage
+defaultRedirect: jiwon/byapps/paymanages
+create:
+    redirect: 'jiwon/byapps/paymanages/update/:id'
+    redirectClose: jiwon/byapps/paymanages
+update:
+    redirect: jiwon/byapps/paymanages
+    redirectClose: jiwon/byapps/paymanages

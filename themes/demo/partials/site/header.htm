@@ -9,16 +9,112 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ 'home'|page }}">October Demo</a>
+            <!-- <a class="navbar-brand" href="{{ 'home'|page }}">October Demo</a> -->
+            
+            <a href="{{ 'home'|page }}"><img width="150px" height="auto" src="/storage/app/media/byapps_logo_b_1.png" alt="logo"></a>
+            
         </div>
         <div class="collapse navbar-collapse navbar-main-collapse">
             <ul class="nav navbar-nav">
                 <li class="separator hidden-xs"></li>
-                <li class="{% if this.page.id == 'home' %}active{% endif %}"><a href="{{ 'home'|page }}">Basic concepts</a></li>
-                <li class="{% if this.page.id == 'ajax' %}active{% endif %}"><a href="{{ 'ajax'|page }}">AJAX framework</a></li>
-                <li class="{% if this.page.id == 'plugins' %}active{% endif %}"><a href="{{ 'plugins'|page }}">Plugin components</a></li>
-                <li class="{% if this.page.id == 'blog' %}active{% endif %}"><a href="{{ 'blog'|page }}">Blog</a></li>
+              <!--   <li class="{% if this.page.id == 'home' %}active{% endif %}"><a href="{{ 'home'|page }}">Basic concepts</a></li>
+              <li class="{% if this.page.id == 'ajax' %}active{% endif %}"><a href="{{ 'ajax'|page }}">AJAX framework</a></li>
+              <li class="{% if this.page.id == 'plugins' %}active{% endif %}"><a href="{{ 'plugins'|page }}">Plugin components</a></li> -->
+                
+                <!--Dropdown primary-->
+                <li class="nav-item dropdown {% if this.page.id == 'payManage' %}active{% endif %}">
+					<a class="nav-link dropdown-toggle" href="{{ 'payManage'|page }}" id="navbarDropdown_01" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						결제 관리
+						<i class="fas fa-caret-down"></i>
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown_01">
+						<a class="dropdown-item" href="{{ 'payManage'|page }}">결제 관리</a>
+						<a class="dropdown-item" href="{{ 'payPromotion'|page }}">프로모션</a>
+					</div>
+				</li>
+				
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_02" data-toggle="dropdown">
+						앱 관리
+						<i class="fas fa-caret-down"></i>
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown_02">
+						<a class="dropdown-item" href="#sub">앱 접수</a>
+						<a class="dropdown-item" href="#">업데이트 관리</a>
+						<a class="dropdown-item" href="#">apk 관리</a>
+						<a class="dropdown-item" href="{{ 'appsList'|page }}">앱 목록</a>
+						<a class="dropdown-item" href="#">푸쉬 현황</a>
+						<a class="dropdown-item" href="#">소식 관리</a>
+						<a class="dropdown-item" href="#">인증회원 관리</a>
+						<a class="dropdown-item" href="#">앱포인트 관리</a>
+						<a class="dropdown-item" href="#">테스터</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#">Something else here</a>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_03" data-toggle="dropdown">
+						부가서비스
+						<i class="fas fa-caret-down"></i>
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown_03">
+						<a class="dropdown-item" href="#">부가서비스 접수</a>
+						<a class="dropdown-item" href="#">MA 이용 업체</a>
+						<a class="dropdown-item" href="#">프리미엄통계 업체</a>
+						<a class="dropdown-item" href="#">기타 서비스</a>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_04" data-toggle="dropdown">
+						통계
+						<i class="fas fa-caret-down"></i>
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown_04">
+						<a class="dropdown-item" href="#">앱 설치 통계</a>
+						<a class="dropdown-item" href="#">앱 이용 통계</a>
+						<a class="dropdown-item" href="#">앱 매출 통계</a>
+						<a class="dropdown-item" href="#">푸쉬 허용 통계</a>
+						<a class="dropdown-item" href="#">리타게팅 푸쉬 통계</a>
+						<a class="dropdown-item" href="#">부가서비스 매출 통계</a>
+						<a class="dropdown-item" href="#">프리미엄 통계</a>
+						<a class="dropdown-item" href="#">통계 매출</a>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="{{ 'usersManage'|page }}" id="navbarDropdown_05" data-toggle="dropdown">
+						회원 관리
+						<i class="fas fa-caret-down"></i>
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown_05">
+						<a class="dropdown-item" href="{{ 'usersManage'|page }}">회원 정보</a>
+						<a class="dropdown-item" href="#">회원 문의</a>
+						<a class="dropdown-item" href="#">고객 상담</a>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_06" data-toggle="dropdown">
+						리셀러 관리
+						<i class="fas fa-caret-down"></i>
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown_06">
+						<a class="dropdown-item" href="#">리셀러 정보</a>
+						<a class="dropdown-item" href="#">리셀러 정산</a>
+						<a class="dropdown-item" href="#">리셀러 방문 통계</a>
+					</div>
+				</li>
+                <!--/Dropdown primary-->
+                
             </ul>
+            
+            <ul class="nav justify-content-end" style="display:inline-block;">
+            {% if not user %}
+                <li class="nav-item nav-link" ><a href="{{ 'register'|page }}">회원가입</a></li>
+                <li class="nav-item nav-link" ><a href="{{ 'login'|page }}">로그인</a></li>
+            {% elseif user %}
+                <li class="nav-item nav-link"><a data-request="onLogout" data-request-data="redirect: '/login'">로그아웃</a></li>
+            {% endif %}
+            </ul>
+             
         </div>
     </div>
 </nav>

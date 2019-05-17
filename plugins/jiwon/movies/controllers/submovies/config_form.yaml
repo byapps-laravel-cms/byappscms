@@ -1,0 +1,10 @@
+name: SubMovies
+form: $/jiwon/movies/models/movie/fields.yaml
+modelClass: Jiwon\Movies\Models\Movie
+defaultRedirect: jiwon/movies/submovies
+create:
+    redirect: 'jiwon/movies/submovies/update/:id'
+    redirectClose: jiwon/movies/submovies
+update:
+    redirect: jiwon/movies/submovies
+    redirectClose: jiwon/movies/submovies

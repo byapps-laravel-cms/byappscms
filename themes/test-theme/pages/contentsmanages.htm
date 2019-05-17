@@ -1,0 +1,16 @@
+title = "ContentsManages"
+url = "/contentsmanages"
+layout = "default"
+is_hidden = 0
+
+[builderList]
+modelClass = "Jiwon\Contentsmanages\Models\ContentsManage"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "title"
+noRecordsMessage = "No records found"
+detailsPage = "-"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+==
+{% component 'builderList' %}

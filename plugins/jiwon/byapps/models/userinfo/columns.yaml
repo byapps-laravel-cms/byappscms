@@ -1,0 +1,58 @@
+columns:
+    idx:
+        label: idx
+        type: number
+    mem_id:
+        label: mem_id
+        type: text
+    recom_id:
+        label: recom_id
+        type: text
+    mem_nick:
+        label: mem_nick
+        type: text
+    mem_email:
+        label: mem_email
+        type: text
+    passwd:
+        label: passwd
+        type: text
+    mem_level:
+        label: mem_level
+        type: text
+    mem_name:
+        label: mem_name
+        type: text
+    mem_job:
+        label: mem_job
+        type: text
+    ceo_name:
+        label: ceo_name
+        type: text
+    cellno:
+        label: cellno
+        type: text
+    phoneno:
+        label: phoneno
+        type: text
+    zipcode:
+        label: zipcode
+        type: text
+    address:
+        label: address
+        type: text
+    getemail:
+        label: getemail
+        type: text
+    getsms:
+        label: getsms
+        type: text
+    profile_icon:
+        label: profile_icon
+        type: text
+    ip:
+        label: ip
+        type: text
+    reg_date:
+        label: reg_date
+        type: text

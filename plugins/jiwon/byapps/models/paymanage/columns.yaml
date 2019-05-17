@@ -1,0 +1,42 @@
+columns:
+    id:
+        label: 번호
+        type: number
+        sortable: true
+    pay_date:
+        label: 결제일
+        type: datetime
+        sortable: true
+    app_name:
+        label: 앱명
+        type: text
+    is_new:
+        label: 구분
+        type: text
+    period:
+        label: 기간
+        type: text
+    order_number:
+        label: 주문번호
+        type: text
+    user_id:
+        label: 회원ID
+        type: text
+    recipe:
+        label: '영수증 발행'
+        type: number
+    pay_amount:
+        label: 결제금액
+        type: text
+    created_at:
+        label: created_at
+        type: datetime
+    updated_at:
+        label: updated_at
+        type: datetime
+    start_date:
+        label: 시작일
+        type: date
+    end_date:
+        label: 종료일
+        type: date

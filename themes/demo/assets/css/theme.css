@@ -462,3 +462,18 @@
 body {
   padding-top: 70px;
 }
+
+
+
+.jumbotron {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  margin-bottom: 15px;
+  color: inherit;
+  background-color: #eeeeee;
+}
+
+/* #layout-footer {
+  position: fixed;
+  bottom: 0;
+} */

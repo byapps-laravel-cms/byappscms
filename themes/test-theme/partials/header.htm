@@ -1,11 +1,13 @@
+==
 <header class="main-header">
   <div class="container clearfix">
-    <h1 class="logo">October Movies</h1>
+    <h1 class="logo"><img src="storage/app/media/logo.png"></h1>
 
     <nav class="main-nav">
       <ul>
         <li class="{% if this.page.id == 'homepage' %} active {% endif %}"><a href="{{ 'homepage'|page }}">Home</a></li>
         <li class="{% if this.page.id == 'movies' %} active {% endif %}"><a href="{{ 'movies'|page }}">Movies</a></li>
+        <li class="{% if this.page.id == 'contentsmanages' %} active {% endif %}"><a href="{{ 'contentsmanages'|page }}">컨텐츠관리</a></li>
         <li></li>
       </ul>
     

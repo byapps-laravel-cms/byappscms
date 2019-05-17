@@ -1,0 +1,38 @@
+title = "로그인"
+url = "/login"
+layout = "default"
+is_hidden = 0
+
+[account]
+redirect = "home"
+paramCode = "code"
+forceSecure = 0
+==
+{% if not user %}
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <h3>로그인</h3>
+            {% partial account ~ '::signin' %}
+        </div>
+
+       <!--  <div class="col-md-6">
+           {% partial account ~ '::register' %}
+       </div> -->
+
+    </div>
+
+</div>
+
+{% else %}
+
+   <!--  {% partial account ~ '::activation_check' %}
+   
+   {% partial account ~ '::update' %}
+   
+   {% partial account ~ '::deactivate_link' %} -->
+
+{% endif %}

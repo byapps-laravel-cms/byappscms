@@ -1,0 +1,202 @@
+columns:
+    idx:
+        label: idx
+        type: number
+    o_idx:
+        label: o_idx
+        type: number
+    mem_id:
+        label: mem_id
+        type: text
+    app_id:
+        label: app_id
+        type: text
+    recom_id:
+        label: recom_id
+        type: text
+    app_cate:
+        label: app_cate
+        type: text
+    app_process:
+        label: app_process
+        type: text
+    app_name:
+        label: app_name
+        type: text
+    service_type:
+        label: service_type
+        type: text
+    server_group:
+        label: server_group
+        type: text
+    apps_type:
+        label: apps_type
+        type: text
+    app_os_type:
+        label: app_os_type
+        type: text
+    byapps_ver:
+        label: byapps_ver
+        type: text
+    app_ver:
+        label: app_ver
+        type: text
+    app_ver_ios:
+        label: app_ver_ios
+        type: text
+    app_build:
+        label: app_build
+        type: text
+    app_build_ios:
+        label: app_build_ios
+        type: text
+    app_lang:
+        label: app_lang
+        type: text
+    packagename:
+        label: packagename
+        type: text
+    bundleid:
+        label: bundleid
+        type: text
+    app_android_url:
+        label: app_android_url
+        type: text
+    app_ios_url:
+        label: app_ios_url
+        type: text
+    app_icon:
+        label: app_icon
+        type: text
+    noti_gcm:
+        label: noti_gcm
+        type: text
+    noti_ios:
+        label: noti_ios
+        type: text
+    noti_gcm_num:
+        label: noti_gcm_num
+        type: text
+    noti_fcm_num:
+        label: noti_fcm_num
+        type: text
+    noti_ios_cerp:
+        label: noti_ios_cerp
+        type: text
+    push_server:
+        label: push_server
+        type: text
+    developer_account:
+        label: developer_account
+        type: text
+    developer_info:
+        label: developer_info
+        type: text
+    app_intro:
+        label: app_intro
+        type: text
+    order_id:
+        label: order_id
+        type: text
+    cscall:
+        label: cscall
+        type: text
+    kakaocell:
+        label: kakaocell
+        type: text
+    sns1:
+        label: sns1
+        type: text
+    sns2:
+        label: sns2
+        type: text
+    smsg:
+        label: smsg
+        type: text
+    surl:
+        label: surl
+        type: text
+    reward_opt:
+        label: reward_opt
+        type: text
+    scurl:
+        label: scurl
+        type: text
+    txtencode:
+        label: txtencode
+        type: text
+    tabstyle:
+        label: tabstyle
+        type: text
+    tabcustom:
+        label: tabcustom
+        type: text
+    splash:
+        label: splash
+        type: text
+    splash_ios:
+        label: splash_ios
+        type: text
+    splash_showtime:
+        label: splash_showtime
+        type: text
+    push_confirm:
+        label: push_confirm
+        type: text
+    settings_links:
+        label: settings_links
+        type: text
+    add_shortcut:
+        label: add_shortcut
+        type: text
+    auto_login:
+        label: auto_login
+        type: text
+    login_point:
+        label: login_point
+        type: text
+    push_point:
+        label: push_point
+        type: text
+    install_point:
+        label: install_point
+        type: text
+    point_transfer_btn:
+        label: point_transfer_btn
+        type: text
+    lock_screen:
+        label: lock_screen
+        type: text
+    app_cart:
+        label: app_cart
+        type: text
+    app_retarget:
+        label: app_retarget
+        type: text
+    app_ma:
+        label: app_ma
+        type: text
+    app_members:
+        label: app_members
+        type: text
+    bottom_menu_show:
+        label: bottom_menu_show
+        type: text
+    bottom_menu_ani:
+        label: bottom_menu_ani
+        type: text
+    finish_popup:
+        label: finish_popup
+        type: text
+    push_msg_show:
+        label: push_msg_show
+        type: text
+    push_popup:
+        label: push_popup
+        type: text
+    push_call_back:
+        label: push_call_back
+        type: text
+    script_popup:
+        label: script_popup
+        type: text

@@ -1,12 +1,21 @@
-title = "Homepage"
+title = "Home"
 url = "/"
 layout = "default"
+is_hidden = 0
+
+[session]
+security = "all"
 ==
 <div class="jumbotron">
     <div class="container">
         {% content "welcome.htm" %}
     </div>
 </div>
+{% component 'session' %}
+
+
+<br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br />
 
 <div class="container">
 

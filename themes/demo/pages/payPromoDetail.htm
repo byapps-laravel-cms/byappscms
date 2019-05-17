@@ -1,0 +1,123 @@
+title = "프로모션 상세"
+url = "/pay/promodetail/:idx"
+layout = "default"
+is_hidden = 0
+
+[builderDetails]
+modelClass = "Jiwon\Byapps\Models\PromotionData"
+identifierValue = "{{ :idx }}"
+modelKeyColumn = "idx"
+displayColumn = "mem_name"
+notFoundMessage = "Record not found"
+==
+<?php
+use Jiwon\Byapps\Models\PromotionData;
+
+function onStart()
+{
+    //$this['record'] = PromotionData::where('idx', '=', $this->param('idx'))->first();
+}
+?>
+==
+<div class="jumbotron title-js">
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+              <h3>프로모션</h3>
+              <small>프로모션 관리를 하실 수 있습니다</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+{% set record = builderDetails.record %}
+{% set displayColumn = builderDetails.displayColumn %}
+{% set notFoundMessage = builderDetails.notFoundMessage %}
+
+    <div class="alert alert-info">
+    {% if record %}
+       <!--  <h4>Row modifier class included</h4> -->
+        <p>
+           {{ attribute(record, displayColumn) }}
+        </p>
+
+    {% else %}
+        {{ notFoundMessage }}
+    {% endif %}
+  </div>
+
+    <hr />
+
+    <div class="method">
+        <div class="row margin-0">
+
+          <form>
+
+            <div class="form-group row">
+              <label for="process" class="col-sm-2 col-form-label">프로모션명</label>
+                <div class="col-sm-4">
+                <input type="text" class="form-control" id="process" placeholder="" value="{{ record.pm_title }}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="process" class="col-sm-2 col-form-label">프로모션코드</label>
+                <div class="col-sm-4">
+                <input type="text" class="form-control" id="process" placeholder="" value="{{ record.pm_code }}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="process" class="col-sm-2 col-form-label">발급대상 회원ID</label>
+                <div class="col-sm-4">
+                <input type="text" class="form-control" id="process" placeholder="" value="{{ record.mem_id }}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="process" class="col-sm-2 col-form-label">회원명</label>
+                <div class="col-sm-4">
+                <input type="text" class="form-control" id="process" placeholder="" value="{{ record.mem_name }}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="process" class="col-sm-2 col-form-label">적용대상</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="process" placeholder="" value="{{ record.pm_target }}">
+                마케팅오토메이션 앱서비스
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="process" class="col-sm-2 col-form-label">적용내용</label>
+                <div class="col-sm-4">
+                <input type="text" class="form-control" id="process" placeholder="" value="{{ record.pm_content }}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="process" class="col-sm-2 col-form-label">발급사유</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="process" placeholder="" value="{{ record.pm_comment }}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="process" class="col-sm-2 col-form-label">옵션</label>
+                <div class="col-sm-4">
+                수정하기 삭제하기
+              </div>
+            </div>
+
+
+
+
+          </form>
+
+        </div>
+    </div>
+
+</div>

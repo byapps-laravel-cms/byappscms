@@ -1,0 +1,29 @@
+plugin:
+    name: 'jiwon.byapps::lang.plugin.name'
+    description: 'jiwon.byapps::lang.plugin.description'
+    author: Jiwon
+    icon: oc-icon-bars
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: 결제관리
+        url: jiwon/byapps/paymentdatas
+        icon: icon-credit-card
+        sideMenu:
+            side-menu-item:
+                label: '프로모션 관리'
+                url: jiwon/byapps/promotiondatas
+                icon: icon-star
+    main-menu-item2:
+        label: '앱 관리'
+        url: jiwon/byapps/appsmanages
+        icon: icon-android
+        sideMenu:
+            side-menu-item:
+                label: 'APK 관리'
+                url: jiwon/byapps/apkmanages
+                icon: icon-square
+    main-menu-item3:
+        label: 회원관리
+        url: jiwon/byapps/usersinfos
+        icon: icon-user

@@ -1,0 +1,25 @@
+columns:
+    idx:
+        label: idx
+        type: number
+    app_id:
+        label: app_id
+        type: text
+    app_idx:
+        label: app_idx
+        type: number
+    app_process:
+        label: app_process
+        type: text
+    app_name:
+        label: app_name
+        type: text
+    app_type:
+        label: app_type
+        type: text
+    apk_file:
+        label: apk_file
+        type: text
+    reg_time:
+        label: reg_time
+        type: number
