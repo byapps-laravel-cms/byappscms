@@ -1,4 +1,0 @@
-title: SubMovies
-modelClass: Jiwon\Movies\Models\Movie
-toolbar:
-    buttons: reorder_toolbar

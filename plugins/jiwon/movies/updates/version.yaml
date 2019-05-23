@@ -1,5 +1,0 @@
-1.0.1:
-    - 'Initialize plugin.'
-1.0.2:
-    - 'Created table jiwon_movies_'
-    - builder_table_create_jiwon_movies_.php
