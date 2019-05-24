@@ -13,6 +13,11 @@ identifierValue = "{{ :idx }}"
 modelKeyColumn = "idx"
 displayColumn = "app_name"
 notFoundMessage = "Record not found"
+
+[session]
+security = "user"
+allowedUserGroups[] = "admin_level_2"
+redirect = "permission"
 ==
 <?php
 use Jiwon\Byapps\Models\PayManage;

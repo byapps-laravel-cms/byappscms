@@ -4,13 +4,3 @@ plugin:
     author: Jiwon
     icon: oc-icon-video-camera
     homepage: ''
-navigation:
-    main-menu-item:
-        label: Movies
-        url: jiwon/movies/movies
-        icon: icon-video-camera
-        sideMenu:
-            side-menu-item:
-                label: 'Menu Item'
-                url: /
-                icon: icon-sitemap

@@ -18,6 +18,11 @@ detailsKeyColumn = "idx"
 detailsUrlParameter = "idx"
 recordsPerPage = 20
 pageNumber = "{{ :page }}"
+
+[session]
+security = "user"
+allowedUserGroups[] = "admin_level_1"
+redirect = "permission"
 ==
 <?php
 use Jiwon\Byapps\Models\PaymentData;

@@ -2,6 +2,10 @@ title = "앱 상세"
 url = "/apps/data/:idx"
 layout = "default"
 is_hidden = 0
+child_of = "mey_no_parent"
+hide_crumb = 0
+remove_crumb_trail = 0
+crumb_disabled = 0
 
 [builderDetails]
 modelClass = "Jiwon\Byapps\Models\AppsData"
@@ -9,6 +13,11 @@ identifierValue = "{{ :idx }}"
 modelKeyColumn = "idx"
 displayColumn = "app_name"
 notFoundMessage = "Record not found"
+
+[session]
+security = "user"
+allowedUserGroups[] = "admin_level_2"
+redirect = "permission"
 ==
 <?php
 use Jiwon\Byapps\Models\AppsData;
