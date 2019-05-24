@@ -1,4 +1,4 @@
-*
-!.gitignore
-!media
-!uploads
+
+#!.gitignore
+#imedia
+#!uploads
