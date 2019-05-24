@@ -7389,3 +7389,12 @@ a .icon-flip-vertical:before {
 .vertical_center{
       margin: 4px 0;
 }
+.chart_box{
+  margin:0 auto;
+  border:5px solid #eee;
+  padding:10px;
+  height:270px;
+  margin-top:10px;
+  float:left;
+ }
+
