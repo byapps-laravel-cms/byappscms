@@ -3,16 +3,16 @@ columns:
         label: idx
         type: number
     app_id:
-        label: app_id
+        label: 앱아이디
         type: text
-    app_idx:
-        label: app_idx
-        type: number
+    # app_idx:
+    #     label: app_idx
+    #     type: number
     app_process:
-        label: app_process
+        label: 등록상태
         type: text
     app_name:
-        label: app_name
+        label: 앱명
         type: text
     app_type:
         label: app_type
@@ -21,5 +21,5 @@ columns:
         label: apk_file
         type: text
     reg_time:
-        label: reg_time
-        type: number
+        label: 등록일
+        type: date
