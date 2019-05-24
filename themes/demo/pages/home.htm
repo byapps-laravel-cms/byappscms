@@ -2,125 +2,74 @@ title = "Home"
 url = "/"
 layout = "default"
 is_hidden = 0
+child_of = "mey_no_parent"
+hide_crumb = 0
+remove_crumb_trail = 0
+crumb_disabled = 0
 
 [session]
 security = "all"
 ==
-<div class="jumbotron">
-    <div class="container">
-        {% content "welcome.htm" %}
+{% component 'session' %}
+<div class="container" style="padding:50px 100px;">
+{% if not user %}
+<h2><center>로그인하는페이지</center></h2>
+{% elseif user %}
+<div style="margin:0 auto;border:5px solid #eee; padding:30px; height:180px;">
+    <div class="c_box_1">
+        <div class="circle1" style="background-color:#56d2ff;">
+            <p class="vertical_center">10</p>
+        </div>
+        <p class="c_box_1_font">주문접수</p>
+    </div>
+    <div class="c_box_1">
+        <div class="circle1" style="background-color:#63ed96;">
+            <p class="vertical_center">10</p>
+        </div>
+        <p class="c_box_1_font">부가서비스접수</p>
+    </div>
+    <div class="c_box_1">
+        <div class="circle1" style="background-color:#ffca51;">
+            <p class="vertical_center">10</p>
+        </div>
+        <p class="c_box_1_font">업데이트접수</p>
+    </div>
+    <div class="c_box_1">
+        <div class="circle1" style="background-color:#ff472b;">
+            <p class="vertical_center">10</p>
+        </div>
+        <p class="c_box_1_font">고객문의</p>
+    </div>
+    <div class="c_box_1">
+        <div class="circle1" style="background-color:#212121;">
+            <p class="vertical_center">10</p>
+        </div>
+        <p class="c_box_1_font">1:1문의</p>
     </div>
 </div>
-{% component 'session' %}
+<!-- Layouts -->
+<h3>매출통계현황</h3>
+<p>
+    <code>이번달매출</code>56,293,600 원
+</p>
+<p>The page menu and footer in the Demo theme are defined in the layout as well.</p>
 
+<hr />
 
-<br /><br /><br /><br /><br /><br />
-<br /><br /><br /><br /><br /><br />
+<!-- Pages -->
+<h3>iOS 계정 만료예정업체</h3>
 
-<div class="container">
+<pre>
+미건스타일(2019-01-16), 제이콜링(2019-02-19), 모두베베(2019-03-08), 가나베베(2019-03-19), 단순한부띠끄(2019-04-04), 하니모크(2019-04-16), 보라킴(2019-04-16), 디자인워터(2019-04-17), </br>발란스코드(2019-04-27), 오블레스(2019-04-27), 햇츠온(2019-04-30), 3tempo(2019-05-01), black level(2019-05-02), 아름다운여행(2019-05-02), 벤제프(2019-05-02), 하린샵(2019-05-02), 에스앤리(2019-05-08), 럭스앤홀릭 명품멀티샵 통합앱(2019-05-08), 174(2019-05-12), VIBRATE-바이브레이트(2019-05-17), 치크릿(2019-05-17), 마미마미(2019-05-18), 리얼옐로우(2019-05-18), 핑크시크릿(2019-05-23), 핫선글라스(2019-05-23), 로즐리(2019-05-24), 리시안하우스(2019-05-24), 플라이모델(2019-05-24), 모하니샵(2019-05-25), </br>아동복쇼핑몰 계란후라이(2019-05-26), damvimall(2019-05-26), 바니앤버니(2019-05-26), 엠스타일(2019-05-27), 비바문(2019-05-28), SKINPARK(2019-05-29), 루벨리(2019-05-29), 오즈키즈(2019-05-29), 멀티쇼핑몰 콘티(CON.T)(2019-05-29), 랑팡 (2019-05-29), 자비노(2019-05-30), 헤리스토리지(2019-06-01), 성토옴므(2019-06-01), 퀼팅맘(2019-06-01), 주붕샵(2019-06-01), 멀티카오몰(2019-06-04), 미니클레프(2019-06-06), 아이유로(2019-06-07), 나우인파리(2019-06-07), 샵피라(2019-06-07), 모옌(2019-06-07), 헨느(2019-06-07), </br>토픽 헤어메이크업(2019-06-08), 베이비짐머(2019-06-08), 솔가몰(2019-06-08), 리리앤코(2019-06-09), 센스있는 ACC, 코스모크래츠(2019-06-11), 더제이니(2019-06-11), 티아그 - 남성의류 쇼핑몰(2019-06-14), 더펫코리아(2019-06-14), 파리앤뉴욕(2019-06-15), 아이스탁몰(2019-06-19), 페미니크(2019-06-19), 워치보이(2019-06-19), 배꼽(2019-06-21), THEKIMCHI(2019-06-21)
+</pre>
 
-    <div class="page-header">
-        <h2>Overview <small>Basic concepts</small></h2>
-    </div>
-    <p>
-        This page demonstrates the basic CMS features.
-        Usually each page built with October is a combination of a layout, page, partials and content blocks,
-        although in simple cases you can just use a page without anything else.
-    </p>
+<hr />
 
-    <!-- Layouts -->
-    <h3>Layouts</h3>
-    <p class="lead">
-        <i class="icon-th-large"></i> &nbsp; Layouts define the page scaffold.
-    </p>
-    <p>
-        The layout file <code>layouts/default.htm</code> defines the page scaffold &mdash;
-        everything that repeats on each page, such as the HTML, HEAD and BODY tags, StyleSheet and JavaScript references.
-    </p>
-    <p>The page menu and footer in the Demo theme are defined in the layout as well.</p>
+<h3>작업처리로그</h3>
+<p>??? : 처리완료</p>
+<br />
 
-    <hr />
-
-    <!-- Pages -->
-    <h3>Pages</h3>
-    <p class="lead">
-        <i class="icon-copy"></i> &nbsp; Pages hold the content for each URL.
-    </p>
-    <p>
-        The page file <code>pages/home.htm</code> defines the page URL (<code>/</code> for this page) and the page content.
-        Pages are rendered inside layouts with this function that should be called in the layout code:
-    </p>
-    <pre>{{ "{% page %}" }}</pre>
-    <p>Using a layout for pages is optional &mdash; you can define everything right in the page file.</p>
-
-    <hr />
-
-    <!-- Partials -->
-    <h3>Partials</h3>
-    <p class="lead">
-        <i class="icon-tags"></i> &nbsp; Partials contain reusable chunks of HTML markup.
-    </p>
-    <p>
-        Partials are chunks of HTML defined in separate files that can be included anywhere.
-        Partials are rendered with:
-    </p>
-    <pre>{{ "{% partial \"partial-name\" %}" }}</pre>
-    <p>You may place partials inside folders too. In this example we placed the footer content to the <code>partials/site/footer.htm</code> partial.</p>
-    <pre>{{ "{% partial \"site/footer\" %}" }}</pre>
-    <p>Partials can be used inside pages, layouts or other partials.</p>
-
-    <hr />
-
-    <!-- Content blocks -->
-    <h3>Content blocks</h3>
-    <p class="lead">
-        <i class="icon-font"></i> &nbsp; Content blocks are text or HTML blocks that can be edited separately from the page or layout.
-    </p>
-    <p>
-        The introductory text used on this page is defined in the <code>content/welcome.htm</code> file.
-        Content blocks are defined and rendered with:
-        <pre>{{ "{% content \"content-name.htm\" %}" }}</pre>
-    </p>
-
-    <hr />
-
-    <!-- Placeholders -->
-    <h3>Placeholders</h3>
-    <p class="lead">
-        <i class="icon-bookmark"></i> &nbsp; Placeholders allow pages to inject content to a layout.
-    </p>
-    <p>
-        The common use is injecting page-specific links to StyleSheet or JavaScript files to the HEAD tag defined in the layout.
-        Placeholders are defined in the layout file and they have names so that they can be referred in the page.
-        Example:
-    </p>
-    <div class="row">
-        <div class="col-md-6">
-            <p>Layout file:</p>
-            <pre>{% content "placeholder/layout.txt" %}</pre>
-        </div>
-        <div class="col-md-6">
-            <p>Page file:</p>
-            <pre>{% content "placeholder/page.txt" %}</pre>
-        </div>
-    </div>
-
-    <hr />
-
-    <!-- Assets -->
-    <h3>Assets</h3>
-    <p class="lead">
-        <i class="icon-picture"></i> &nbsp; Assets are resource files like images and stylesheets.
-    </p>
-    <p>This theme stores its asset files (JavaScript, StyleSheet, images, fonts, etc) in the <code>themes/demo/assets</code> directory. This theme is also packaged with these useful 3rd party tools:</p>
-    <ul class="list-inline">
-        <li><a target="_blank" href="http://getbootstrap.com/">Twitter Bootstrap</a></li>
-        <li><a target="_blank" href="http://fontawesome.io/3.2.1/">Font Awesome</a></li>
-        <li><a target="_blank" href="http://www.google.com/fonts/specimen/Lato">Lato webfont</a></li>
-    </ul>
-    <p>You might prefer to remove them for your website implementation.</p>
-
-    <br />
+{% endif %}
 
     <div class="text-center">
         <p><a href="{{ 'ajax'|page }}" class="btn btn-lg btn-default">Continue to AJAX framework</a></p>
