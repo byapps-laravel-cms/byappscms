@@ -11,7 +11,7 @@ crumb_disabled = 0
 security = "all"
 ==
 {% component 'session' %}
-<div class="container" style="padding:50px 100px;">
+<div class="container" style="padding:50px 50px;">
 {% if not user %}
 <h2><center>로그인하는페이지</center></h2>
 {% elseif user %}
@@ -47,40 +47,45 @@ security = "all"
         <p class="c_box_1_font">1:1문의</p>
     </div>
 </div>
-<div class="chart_box" style="width:59%; margin-right:1%;">
-<div id="first_chart"></div>
-  <div id="sec_chart"></div> 
+<div class="chart_box_l">
+    <div class="relative_chart">
+        <p>APP 통계</p>
+        <div id="app_stats"></div>
+    </div>
+    <div class="relative_chart">
+        <p>MA 통계</p>
+        <div id="ma_stats"></div>
+    </div>
 </div>
-<div class="chart_box" style="width:40%;">
+    <div class="chart_box_r">
+        <div id="sale_stats"></div>
+    </div>
+<div style="margin:0 auto; border:5px solid #eee; padding:10px; height:200px; margin-top:10px; float:left; width:100%;">
+        <div class="cal_box">
+            <h2 style="margin-top:0; font-weight:bold;float:left;">만료예정업체</h2>
+            <div class="cal_menu">
+                <div class="cal_sub_menu"><div class="circle2" style="background-color: #ffca51;"></div><p class="cal_font">IOS 계정</p></div>
+                <div class="cal_sub_menu"><div class="circle2" style="background-color: #ff472b;"></div><p class="cal_font">푸쉬 인증서</p></div>
+                <div class="cal_sub_menu"><div class="circle2" style="background-color: #212121;"></div><p class="cal_font">MA서비스</p></div>
+            </div>
+        </div>
+        <div class="calender_box">
+            <div class="calendar">
+                <input type="button" value="<" class="btn_comm_1">
+                <div>{{ node.getCreatedTime()|date('Y m d l') }}</div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <input type="button" value=">" class="btn_comm_1">
+            </div>
 </div>
 
 <!-- Pages -->
-<div class="chart_box" style="width:100%;">
-<h3>iOS 계정 만료예정업체</h3>
-<p>{{ node.getCreatedTime()|date('d F Y') }}</p>
-    <div class="calendar">
-        <input type="button" value="<">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <input type="button" value=">">
-    </div>
-</div>
 
-<hr />
-
-<h3>작업처리로그</h3>
-<p>??? : 처리완료</p>
-<br />
 
 {% endif %}
-
-    <div class="text-center">
-        <p><a href="{{ 'ajax'|page }}" class="btn btn-lg btn-default">Continue to AJAX framework</a></p>
-    </div>
 
 </div>
