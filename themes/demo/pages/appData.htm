@@ -25,28 +25,62 @@ use Jiwon\Byapps\Models\AppsData;
 function onStart()
 {
     $this['record'] = AppsData::where('idx', '=', $this->param('idx'))->first();
-
+    
     $this['itemlist'] = array(
-        array('Process'),
+        array('Process','name="mem_id"',$this['record']->process,'selectBox',array(
+                array('','선택해주세요'),
+                array(1,'개발준비중'),
+                array(2,'개발진행중'),
+                array(3,'심사중'),
+                array(4,'등록거부'),
+                array(5,'재심사중'),
+                array(6,'등록대기'),
+                array(7,'등록완료'),
+                array(8,'서비스중지'),
+                array(10,'서비스유효'),
+            )),
         array('RESELLER ID','disabled',$this['record']->recom_id),
         array('등록일','disabled',$this['record']->start_time),
         array('주문번호','disabled',$this['record']->order_id),
         array('회원ID','name="mem_id"',$this['record']->mem_id),
         array('App ID','disabled',$this['record']->app_id),
-        array('Service Type'),
-        array('App OS'),
+        array('Service Type','name ="service_type"',$this['record']->service_type,'radoiButton',array(
+                array('biz','일반'),
+                array('lite','라이트'),
+                array('tester','테스터'),
+            )),
+        array('app OS','name ="service_type"',$this['record']->apps_type,'radoiButton',array(
+                array('안드로이드','안드로이드'),
+                array('안드로이드+iOS','안드로이드+iOS'),
+            )),
         array('App Display','name="o_idx"',$this['record']->o_idx),
         array('App Name','name="app_name"',$this['record']->app_name),
         array('Byapps Ver','name="byapps_ver"',$this['record']->byapps_ver),
         array('Android Version','name="app_ver"',$this['record']->app_ver,'name="app_build"',$this['record']->app_build != "" ? $this['record']->app_build : "empty",'build:'),
         array('Ios Version','name="app_ver_ios"',$this['record']->app_ver_ios,'name="app_build_ios"',$this['record']->app_build_ios != "" ? $this['record']->app_build_ios : "empty",'build:'),
-        array('App Category'),
+        array('App Category','name="app_cate"',$this['record']->app_cate,'selectBox',array(
+                array('','선택해주세요'),
+                array('01','패션/의류'),
+                array('06','화장품/뷰티'),
+                array('07','아동/유아'),
+                array('02','스포츠/레져'),
+                array('03','건강/농수산물'),
+                array('04','가전/가구'),
+                array('05','기타'),
+            )),
         array('Server Group','disabled',$this['record']->server_group." 그룹"),
         array('GCM Key','name="noti_gcm"',$this['record']->noti_gcm),
         array('GCM Number','name="noti_gcm_num"',$this['record']->noti_gcm_num),
         array('Google App ID','name="noti_fcm_num"',$this['record']->noti_fcm_num),
         array('APNS Pass'),
-        array('PUSH SERVER'),
+        array('Process','name="push_server"',$this['record']->push_server,'selectBox',array(
+                array('','default'),
+                array('http://byapps.cafe24app.com/','http://byapps.cafe24app.com/'),
+                array('http://push1.cafe24app.com/','http://push1.cafe24app.com/'),
+                array('http://byappspush2.cafe24app.com/','http://byappspush2.cafe24app.com/'),
+                array('http://byappspush3.cafe24app.com/','http://byappspush3.cafe24app.com/'),
+                array('http://byappspush4.cafe24app.com/','http://byappspush4.cafe24app.com/'),
+            )),
         array('PUSH TOKEN','name="push_token"',$this['record']->push_token),
         array('Period of Use','disabled',"start_date",'name="end_date"','end_date','~'),
         array('URL'),
@@ -56,15 +90,36 @@ function onStart()
         array('Hash Key','name="hashkey placeholder= 안드로이드_무결성_검증',$this['record']->hashkey),
         array('iOS Hash	','name="ioshack" placeholder= IOS_무결성_검증',$this['record']->ioshack),
         array('Cafe24 Mall ID','name="host_id"',$this['record']->host_id),
-        array('','name="noti_gcm"',$this['record']->noti_gcm),
-        array('','name="noti_gcm"',$this['record']->noti_gcm),
-        array('','name="noti_gcm"',$this['record']->noti_gcm),
-        array('','name="noti_gcm"',$this['record']->noti_gcm),
-        array('','name="noti_gcm"',$this['record']->noti_gcm),
-        array('','name="noti_gcm"',$this['record']->noti_gcm),
-        array('','name="noti_gcm"',$this['record']->noti_gcm),
-        array('','name="noti_gcm"',$this['record']->noti_gcm),
-        array('','name="noti_gcm"',$this['record']->noti_gcm),
+        array('Charset','name="txtencode"',$this['record']->txtencode,'radoiButton',array(
+                array('utf-8','utf-8'),
+                array('EUC-KR','EUC-KR'),
+            )),
+        array('Hosting Com','name="host_name"',$this['record']->host_name,'radoiButton',array(
+                array('cafe24','카페24'),
+                array('makeshop','메이크샵'),
+                array('godo','고도몰'),
+                array('wisa','위사'),
+                array('etc','기타'),
+            )),
+        array('Language','name="app_lang[]"',$this['record']->app_lang,'checkBox',array(
+                array('ko','한국어',strpos($this['record']->app_lang,'ko') || $this['record']->app_lang == 'ko' ? "checked" : ""),
+                array('en','영어',strpos($this['record']->app_lang,'en') || $this['record']->app_lang == 'en' ? "checked" : ""),
+                array('zh','중국어',strpos($this['record']->app_lang,'zh') || $this['record']->app_lang == 'zh' ? "checked" : ""),
+                array('tw','대만어',strpos($this['record']->app_lang,'tw') || $this['record']->app_lang == 'tw' ? "checked" : ""),
+                array('ja','일본어',strpos($this['record']->app_lang,'ja') || $this['record']->app_lang == 'ja' ? "checked" : ""),
+            )),
+        array('고객센터','name="cscall"',$this['record']->cscall),
+        array('카톡연락처','name="kakaocell"',$this['record']->kakaocell),
+        array('페이스북','name="sns1"',$this['record']->sns1),
+        array('트위터','name="sns2"',$this['record']->sns2),
+        array('추천메시지','name="smsg"',$this['record']->smsg),
+        array('팀메뉴커스텀','name="tabcustom"',$this['record']->tabcustom),
+        array('자동로그인','name="auto_login"',$this['record']->auto_login,'checkBox',array(
+                array('Y','자동로그인 허용',$this['record']->auto_login == 'Y' ? "checked" : "")
+            )),
+        array('출석체크','name="login_point"',$this['record']->login_point,'checkBox',array(
+                array('Y','출석체크 포인트 서비스 허용',$this['record']->login_point == 'Y' ? "checked" : "")
+            )),
     );
     
     /*
@@ -115,69 +170,33 @@ function onStart()
           <form>
           
             {% for item in itemlist %}
-                {% if item.0 == 'Process' %}
+                {% if item.3 == 'selectBox' %}
                     <div class="form-group row">
-                      <label for="process" class="col-sm-2 col-form-label">Process</label>
+                      <label for="process" class="col-sm-2 col-form-label">{{ item.0 }}</label>
                         <div class="col-sm-4">
-                        <select name="app_process" class="form-control">
-                            <option value="">선택해주세요</option>
-                            <option value="1" {{ record.app_process == 1 ? "selected" : "" }} >개발준비중</option>
-                            <option value="2" {{ record.app_process == 2 ? "selected" : "" }} >개발진행중</option>
-                            <option value="3" {{ record.app_process == 3 ? "selected" : "" }} >심사중</option>
-                            <option value="4" {{ record.app_process == 4 ? "selected" : "" }} >등록거부</option>
-                            <option value="5" {{ record.app_process == 5 ? "selected" : "" }} >재심사중</option>
-                            <option value="6" {{ record.app_process == 6 ? "selected" : "" }} >등록대기</option>
-                            <option value="7" {{ record.app_process == 7 ? "selected" : "" }} >등록완료</option>
-                            <option value="8" {{ record.app_process == 8 ? "selected" : "" }} >서비스중지</option>
-                            <option value="10" {{ record.app_process == 10 ? "selected" : "" }} >서비스유효</option>
+                        <select {{ item.1 }} class="form-control">
+                            {% for option in item.4 %}
+                                <option value="{{ option.0 }}" {{ item.2 == option.0 ? "selected" : "" }} >{{ option.1 }}</option>
+                            {% endfor %}
                         </select>
                       </div>
                     </div>
-                {% elseif item.0 == 'Service Type' %}
+                {% elseif item.3 == 'radoiButton' %}
                     <div class="form-group row">
-                      <label for="process" class="col-sm-2 col-form-label">Service Type</label>
+                      <label for="process" class="col-sm-2 col-form-label">{{ item.0 }}</label>
                         <div class="col-sm-4">
-                        <label><input type="radio" name="service_type" value="biz" {{ record.service_type == "biz" ? "checked" : "" }}>일반</label>
-                        <label><input type="radio" name="service_type" value="lite" {{ record.service_type == "lite" ? "checked" : "" }}>라이트</label>
-                        <label><input type="radio" name="service_type" value="tester" {{ record.service_type == tester ? "checked" : "" }}>테스터</label>
+                        {% for option in item.4 %}
+                            <label><input type="radio" {{ item.1 }} value="{{ option.0 }}" {{ item.2 == option.0 ? "checked" : "" }}>{{ option.1 }}</label>
+                        {% endfor %}
                       </div>
                     </div>
-                {% elseif item.0 == 'App OS' %}
+                {% elseif item.3 == 'checkBox' %}
                     <div class="form-group row">
-                      <label for="process" class="col-sm-2 col-form-label">app OS</label>
+                      <label for="process" class="col-sm-2 col-form-label">{{ item.0 }}</label>
                         <div class="col-sm-4">
-                        <label><input type="radio" name="service_type" value="biz" value="안드로이드" {{ record.apps_type == "안드로이드" ? "checked" : "" }}>안드로이드</label>
-                        <label><input type="radio" name="service_type" value="lite" value="안드로이드+iOS" {{ record.apps_type == "안드로이드+iOS" ? "checked" : "" }}>안드로이드+ios</label>
-                      </div>
-                    </div>
-                {% elseif item.0 == 'App Category' %}
-                    <div class="form-group row">
-                      <label for="process" class="col-sm-2 col-form-label">App Category</label>
-                        <div class="col-sm-4">
-                        <select name="app_process" class="form-control">
-                            <option value="">선택해주세요</option>
-                            <option value="01" {{ record.app_cate == "01" ? "selected" : "" }}>패션/의류</option>
-                            <option value="06" {{ record.app_cate == "06" ? "selected" : "" }}>화장품/뷰티</option>
-                            <option value="07" {{ record.app_cate == "07" ? "selected" : "" }}>아동/유아</option>
-                            <option value="02" {{ record.app_cate == "02" ? "selected" : "" }}>스포츠/레져</option>
-                            <option value="03" {{ record.app_cate == "03" ? "selected" : "" }}>건강/농수산물</option>
-                            <option value="04" {{ record.app_cate == "04" ? "selected" : "" }}>가전/가구</option>
-                            <option value="05" {{ record.app_cate == "05" ? "selected" : "" }}>기타</option>
-                        </select>
-                      </div>
-                    </div>
-                {% elseif item.0 == 'PUSH SERVER' %}
-                    <div class="form-group row">
-                      <label for="process" class="col-sm-2 col-form-label">PUSH SERVER</label>
-                        <div class="col-sm-4">
-                        <select name="push_server" class="form-control">
-                            <option value="default">default</option>
-                            <option value="http://byapps.cafe24app.com/" {{ record.push_server == 'http://byapps.cafe24app.com/' ? "selected" : "" }}>http://byapps.cafe24app.com/</option>
-                            <option value="http://push1.cafe24app.com/" {{ record.push_server == 'http://push1.cafe24app.com/' ? "selected" : "" }}>http://push1.cafe24app.com/</option>
-                            <option value="http://byappspush2.cafe24app.com/" {{ record.push_server == 'http://byappspush2.cafe24app.com/' ? "selected" : "" }}>http://byappspush2.cafe24app.com/</option>
-                            <option value="http://byappspush3.cafe24app.com/" {{ record.push_server == 'http://byappspush3.cafe24app.com/' ? "selected" : "" }}>http://byappspush3.cafe24app.com/</option>
-                            <option value="http://byappspush4.cafe24app.com/" {{ record.push_server == 'http://byappspush4.cafe24app.com/' ? "selected" : "" }}>http://byappspush4.cafe24app.com/</option>
-                        </select>
+                        {% for option in item.4 %}
+                            <label><input type="checkbox" {{ item.1 }} {{ option.2 }} value="{{ option.0 }}">{{ option.1 }}</label>
+                        {% endfor %}
                       </div>
                     </div>
                 {% elseif item.0 == 'URL' %}
