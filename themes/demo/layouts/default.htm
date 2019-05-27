@@ -13,6 +13,7 @@ description = "Default layout"
         <link rel="icon" type="image/png" href="{{ 'assets/images/october.png'|theme }}">
         <link href="{{ 'assets/css/vendor.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/theme.css'|theme }}" rel="stylesheet">
+        <link href="{{ 'assets/css/temp.css'|theme }}" rel="stylesheet">
        
         <!-- For Datatable -->
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -20,20 +21,6 @@ description = "Default layout"
         <!-- For Datatable 끝 -->
         
         {% styles %}
-        <style>
-        .dropdown-item {
-            display: block;
-            width: 100%;
-            padding: .25rem 1.5rem;
-            clear: both;
-            font-weight: 400;
-            color: #212529;
-            text-align: inherit;
-            white-space: nowrap;
-            background-color: transparent;
-            border: 0;
-        }
-        </style>
     </head>
     <body>
 
@@ -56,6 +43,7 @@ description = "Default layout"
         <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/bootstrap.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/app.js'|theme }}"></script>
+        <script src="{{ 'assets/javascript/temp.js'|theme }}"></script>
         {% framework extras %}
         {% scripts %}
 
