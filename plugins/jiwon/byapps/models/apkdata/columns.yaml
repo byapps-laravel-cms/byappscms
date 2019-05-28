@@ -10,10 +10,12 @@ columns:
     #     type: number
     app_process:
         label: 등록상태
+        select: 'CASE app_process WHEN 1 THEN ''완료'' WHEN 2 THEN ''대기'' END'
         type: text
     app_name:
         label: 앱명
         type: text
+        searchable: true
     app_type:
         label: app_type
         type: text

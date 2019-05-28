@@ -1113,3 +1113,19 @@ html.gecko .fancy-layout .control-tabs.secondary-tabs >div >ul.nav-tabs >li.acti
 .flyout-toggle:hover i {color:#fff}
 body.flyout-visible {overflow:hidden}
 body.flyout-visible .flyout-overlay {background-color:rgba(0,0,0,0.3)}
+
+/* badge 추가 */
+.badge {
+      display: inline-block;
+      min-width: 10px;
+      padding: 3px 7px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      color: #fff;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      background-color: orange;
+      border-radius: 10px;
+}

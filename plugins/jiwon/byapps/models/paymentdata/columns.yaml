@@ -3,49 +3,52 @@ columns:
         label: idx
         type: number
         sortable: true
-    mem_id:
-        label: mem_id
-        type: text
-    order_id:
-        label: order_id
-        type: text
-    recom_id:
-        label: recom_id
-        type: text
-    process:
-        label: process
-        type: text
-    pay_type:
-        label: pay_type
-        type: text
+    # mem_id:
+    #     label: mem_id
+    #     type: text
+    # order_id:
+    #     label: order_id
+    #     type: text
+    # recom_id:
+    #     label: recom_id
+    #     type: text
+    # process:
+    #     label: process
+    #     type: text
+    # pay_type:
+    #     label: pay_type
+    #     type: text
     apps_type:
-        label: apps_type
+        label: 구분
         type: text
     app_name:
-        label: app_name
+        label: 앱명
         type: text
         sortable: true
     term:
-        label: term
+        label: 기간
         type: number
     start_time:
-        label: start_time
-        type: number
+        label: 시작일
+        type: date
+        format: Y-m-d
     end_time:
-        label: end_time
-        type: number
+        label: 종료일
+        type: date
+        format: Y-m-d
     amount:
-        label: amount
+        label: 결제금액
         type: number
-    payment:
-        label: payment
-        type: text
-    receipt:
-        label: receipt
-        type: text
-    promotion:
-        label: promotion
-        type: text
+    # payment:
+    #     label: payment
+    #     type: text
+    # receipt:
+    #     label: receipt
+    #     type: text
+    # promotion:
+    #     label: promotion
+    #     type: text
     reg_time:
-        label: reg_time
-        type: number
+        label: 등록일
+        type: date
+        format: Y-m-d
