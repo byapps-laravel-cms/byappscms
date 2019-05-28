@@ -344,6 +344,7 @@ function onStart()
                 {% elseif item.5 %}
                         <input type="text" {{ item.1 }} class="form-control" value="{{ item.2 }}">
                         {{ item.5 }}<input type="text" {{ item.3 }} class="form-control" value="{{ item.4 == "empty" ? "" : item.4 }}">
+                        {{ item.0 == 'Android Version' ? '<input type="button" value="업데이트">' : "" }}
                 {% else %}
                         <input type="text" {{ item.1 }} class="form-control" value="{{ item.2 }}">
                 {% endif %}

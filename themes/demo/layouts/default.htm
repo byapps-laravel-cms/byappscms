@@ -1,5 +1,12 @@
 description = "Default layout"
 ==
+<?php
+function onStart()
+{
+    
+}
+?>
+==
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,16 +33,22 @@ description = "Default layout"
         {% styles %}
     </head>
     <body>
-
         <!-- Header -->
         <header id="layout-header">
             {% partial 'site/header' %}
         </header>
-
+    
         <!-- Content -->
         <section id="layout-content">
+            {% if this.page.title != 'Home' %}
+                <!-- aside -->
+                <div class="aside_btn"></div>
+                <div class="aside">
+                    {% partial 'site/aside' %}
+                </div>
+            {% endif %}
             {% page %}
-            <!-- {% partial 'site/aside' %} -->
+            
         </section>
 
         <!-- Footer -->

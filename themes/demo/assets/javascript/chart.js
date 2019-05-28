@@ -60,8 +60,8 @@ google.charts.load("current", {packages:["corechart"]});
       function sale_stats() {
         var data = google.visualization.arrayToDataTable([
           ['','전체매출', '신규', '연장', '기타'],//가로축 값 값 값
-          ['이번', $('.chart_box_r .chart_value').eq(0).text()*1, $('.chart_box_r .chart_value').eq(1).text()*1, $('.chart_box_r .chart_value').eq(2).text()*1,$('.chart_box_r .chart_value').eq(3).text()*1], //
-          ['2015', $('.chart_box_r .chart_value').eq(4).text()*1, $('.chart_box_r .chart_value').eq(5).text()*1, $('.chart_box_r .chart_value').eq(6).text()*1,$('.chart_box_r .chart_value').eq(7).text()*1],
+          ['저번달', $('.chart_box_r .chart_value').eq(0).text()*1, $('.chart_box_r .chart_value').eq(1).text()*1, $('.chart_box_r .chart_value').eq(2).text()*1,$('.chart_box_r .chart_value').eq(3).text()*1],
+          ['이번달', $('.chart_box_r .chart_value').eq(4).text()*1, $('.chart_box_r .chart_value').eq(5).text()*1, $('.chart_box_r .chart_value').eq(6).text()*1,$('.chart_box_r .chart_value').eq(7).text()*1],
         ]);
 
         var options = {

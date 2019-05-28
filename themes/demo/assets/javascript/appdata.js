@@ -8,4 +8,11 @@ $(document).ready(function (){
             $("#arrow").attr("src", "http://pji.innoi.kr/themes/demo/assets/images/up_array.png");
         }
     })
+    $("#aside_show_btn").click(function (){
+        if($(".aside").css("width")=="3%"){
+            $(".aside").animate({"width":"30%"},1000);
+        }else{
+             $(".aside").animate({"width":"3%"},1000);
+        }
+    })
 })

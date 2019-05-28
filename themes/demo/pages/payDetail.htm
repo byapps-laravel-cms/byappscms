@@ -86,7 +86,7 @@ function onStart()
            <div class="col-md-5">
                <div class="cell">
                    <div class="description td_style_1">
-                     {{ record.order_id }}
+                     {{ record.order_id }} <a href="#" title="삭제" class="btn_del"></a>
                    </div>
                </div>
            </div>
@@ -105,6 +105,7 @@ function onStart()
                      {{ record.mem_id }}
                      <input class="nbutton3" type="button" value="회원정보">
                      <input class="nbutton3" type="button" value="주문내역">
+                     <input class="nbutton3" type="button" value="앱관리">
                    </div>
                </div>
            </div>
@@ -130,7 +131,9 @@ function onStart()
            <div class="col-md-5">
                <div class="cell">
                    <div class="description td_style_1">
-                   1원
+                   1원 
+                   <input class="cbutton3" type="button" value="결제취소">
+                   <input class="cbutton3" type="button" value="무료처리">
                    </div>
                    
                </div>

@@ -47,7 +47,6 @@ redirect = "permission"
 <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>앱 아이디</th>
                 <th>앱명</th>
                 <th>버전</th>
@@ -57,14 +56,12 @@ redirect = "permission"
                 <th>커스텀</th>
                 <th>신청OS</th>
                 <th>서비스기간</th>
-
             </tr>
         </thead>
 
         <tbody>
          {% for record in records %}
             <tr>
-                <td>{{ record.idx }}</td>
                 <td>{{ record.app_id }}</td>
                 <td>
                 {% if detailsPage %}
