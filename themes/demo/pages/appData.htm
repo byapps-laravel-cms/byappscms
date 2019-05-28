@@ -354,10 +354,12 @@ function onStart()
             <a href="#" onclick="view_user()">팝업보기</a>
 
    <div id="popup_update" class="Pstyle">
-      <h3>관리자 업데이트 접수</h3>
+   <div class="pop_head th_style_1">
+      <h3 class="update_pop_name">관리자 업데이트 접수</h3>
      <span class="b-close btn_del"></span>
+     </div>
       <div class="content2" style="height:auto; width:650px;"> 
-       <div>App. ID <input type="text" name="App_id" ></div>
+       <div>App. ID <input type="text" name="App_id" value=""></div>
        <div>App. Name : <input type="text" name="App_name" ></div>
        <div>Service Type <input type="checkbox" name="Andriod" >안드로이드<input type="checkbox" name="IOS" >아이폰</div>
        <div>사용자구분 : <input type="text" name="update_log"></div>

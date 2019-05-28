@@ -7354,10 +7354,11 @@ a .icon-flip-vertical:before {
    opacity : 0;
    display : none;
    position : relative;
-   width : 300px;
+   width : 80%;
    border : 5px solid #fff;
-   padding : 20px;
+   padding : 10px;
    background-color : #fff;
+   border-radius: 10px;
 }
 .b-close {
    position : absolute;
@@ -7366,4 +7367,15 @@ a .icon-flip-vertical:before {
    padding : 0px; /* padding : 5px; */
    display : inline-block;
    cursor : pointer;
+}
+.update_pop_name{
+     position : absolute;
+   left : 5px;
+   top : -18px;
+   font-weight:bold;
+   font-size:15px;
+    }
+.pop_head{
+    width:100%;
+    height:50px;
 }
