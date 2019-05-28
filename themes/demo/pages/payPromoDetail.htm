@@ -32,7 +32,7 @@ function onStart()
     <div class="container">
         <div class="row">
             <div class="col-8">
-              <h3>프로모션</h3>
+              <h3>프로모션 상세</h3>
               <small>프로모션 관리를 하실 수 있습니다</small>
             </div>
         </div>
@@ -74,7 +74,7 @@ function onStart()
             <div class="form-group row">
               <label for="process" class="col-sm-2 col-form-label">프로모션코드</label>
                 <div class="col-sm-4">
-                <input type="text" class="form-control" id="process" placeholder="" value="{{ record.pm_code }}">
+                <input type="text" disabled class="form-control" id="process" placeholder="" value="{{ record.pm_code }}">
               </div>
             </div>
 
@@ -95,15 +95,15 @@ function onStart()
             <div class="form-group row">
               <label for="process" class="col-sm-2 col-form-label">적용대상</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" id="process" placeholder="" value="{{ record.pm_target }}">
-                마케팅오토메이션 앱서비스
+                <label><input type="radio" name="pm_target" value="ma" {{ record.pm_target == 'ma' ? "checked" : "" }}>마케팅오토메이션</label>
+                <label><input type="radio" name="pm_target" value="app" {{ record.pm_target == 'app' ? "checked" : "" }}>앱서비스</label>
               </div>
             </div>
 
             <div class="form-group row">
               <label for="process" class="col-sm-2 col-form-label">적용내용</label>
                 <div class="col-sm-4">
-                <input type="text" class="form-control" id="process" placeholder="" value="{{ record.pm_content }}">
+                <select name="" class="form-control"></select>
               </div>
             </div>
 

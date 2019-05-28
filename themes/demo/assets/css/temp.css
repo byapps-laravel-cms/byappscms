@@ -165,42 +165,10 @@
     background-color:#262a30;    
 }
 }
-.calender_box{
+.app_box{
     width:100%;
-    height:57%;
+    height:60%;
 }
-.slide_left_btn{
-    width:3%;
-    height:100%;
-    border:0;
-    float:left;
-}
-.slide_right_btn{
-    width:3%;
-    height:100%;
-    border:0;
-    float:left;
-}
-.date_slide{
-    width:94%;
-    height:100%;
-    overflow:hidden;
-    float:left;
-    position:relative;
-}
-.date_slide ul{
-    width:10000rem;
-    height:100%;
-    list-style:none;
-    position:absolute;
-    padding:0;
-}
-.date_slide ul li{
-    width: 14rem;
-    height:100%;
-    float:left;
-}
-
 .cal_box{
     width:100%;
     height:43%;
@@ -274,31 +242,37 @@
     padding: 0 15px;
     
 }
-.aside{
-    width: 3%;
-    left: 100%;
-    height: 100%;
-    top: 50%;
-    float: right;
-    background-color: #d6d4d4;
+.aside_open_btn{
+    width: 3vw;
+    height: 100vh;
     position: absolute;
+    left: 96vw;
+    text-align: center;
+    line-height: 100vh;
+    background-color: #d6d4d4;
+    cursor:pointer;
 }
-.asside_hidden_tab{
-    width:100%;
+.aside{
+    width: 30vw;
+    height: 100vh;
+    float: right;
+    background-color: #000;
+    position: absolute;
+    left: 69vw;
+    display: none;
+}
+.aside_close_btn{
+    width:10%;
     height:100%;
     background-color:#d6d4d4;     
-    float:right;
-    display:none;
-}
-#aside_show_btn{
-    width:100%;
-    height:10%;
-    float:left;
-    top:50%;
-    transform: translate(-50%, -50%);
+    position:absolute;
+    z-index:10;
+    text-align:center;
+    line-height: 100vh;
+    cursor:pointer;
 }
 .btn_del{
-        display: inline-block;
+    display: inline-block;
     width: 10px;
     height: 10px;
     background: url(/storage/app/media/btn_del.gif) no-repeat;

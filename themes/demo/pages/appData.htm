@@ -344,14 +344,25 @@ function onStart()
                 {% elseif item.5 %}
                         <input type="text" {{ item.1 }} class="form-control" value="{{ item.2 }}">
                         {{ item.5 }}<input type="text" {{ item.3 }} class="form-control" value="{{ item.4 == "empty" ? "" : item.4 }}">
-                        {{ item.0 == 'Android Version' ? '<input type="button" value="업데이트">' : "" }}
+                        {{ item.0 == 'Android Version' ? '<input type="button" value="업데이트" onclick="view_user()">' : "" }}
                 {% else %}
                         <input type="text" {{ item.1 }} class="form-control" value="{{ item.2 }}">
                 {% endif %}
                   </div>
                 </div>
             {% endfor %}
-            
+            <a href="#" onclick="view_user()">팝업보기</a>
+
+   <div id="popup_update" class="Pstyle">
+      <h3>관리자 업데이트 접수</h3>
+     <span class="b-close btn_del"></span>
+      <div class="content2" style="height:auto; width:650px;"> 
+       <div>App. ID <input type="text" name="App_id" ></div>
+       <div>App. Name : <input type="text" name="App_name" ></div>
+       <div>Service Type <input type="checkbox" name="Andriod" >안드로이드<input type="checkbox" name="IOS" >아이폰</div>
+       <div>사용자구분 : <input type="text" name="update_log"></div>
+      </div>
+ </div>
           </form>
 
         </div>
