@@ -335,7 +335,7 @@ function onStart()
                             <label><input type="checkbox" {{ item.1 }} {{ option.2 }} value="{{ option.0 }}">{{ option.1 }}</label>
                         {% endfor %}
                 {% elseif item.0 == 'URL' %}
-                        <ul>
+                        <ul class="url_select">
                             <li><a href="{{ record.app_android_url }}" target="_sub"><input type="button" value="안드로이드"></a></li>
                             <li><a href="{{ record.app_ios_url }}" target="_sub"><input type="button" value="IOS"></a></li>
                             <li><a href="{{ record.surl }}" target="_sub"><input type="button" value="모바일 웹"></a></li>
@@ -353,21 +353,28 @@ function onStart()
             {% endfor %}
             <a href="#" onclick="view_user()">팝업보기</a>
 
-   <div id="popup_update" class="Pstyle">
-   <div class="pop_head th_style_1">
-      <h3 class="update_pop_name">관리자 업데이트 접수</h3>
-     <span class="b-close btn_del"></span>
-     </div>
-      <div class="content2" style="height:auto; width:650px;"> 
-       <div>App. ID <input type="text" name="App_id" value=""></div>
-       <div>App. Name : <input type="text" name="App_name" ></div>
-       <div>Service Type <input type="checkbox" name="Andriod" >안드로이드<input type="checkbox" name="IOS" >아이폰</div>
-       <div>사용자구분 : <input type="text" name="update_log"></div>
-      </div>
- </div>
+
           </form>
 
         </div>
     </div>
-
+      <from id="popup_update" class="Pstyle">
+   <div class="pop_head th_style_1">
+      <h3 class="update_pop_name">관리자 업데이트 접수</h3>
+     <span class="b-close btn_del pop_x"></span>
+     </div>
+      <div class="content2"> 
+       <div class="td_style_2"><div class="th_style_2">App. ID</div><input class="pop_input_1" type="text" name="App_id" value=""></div>
+       <div class="td_style_2"><div class="th_style_2">App. Name</div><input class="pop_input_1" type="text" name="App_name" style="width: 400px;"></div>
+       <div class="td_style_2"><div class="th_style_2">Service Type</div>
+       <div class="check_box_1"><input type="checkbox" name="Andriod" >안드로이드</div>
+       <div class="check_box_1"><input type="checkbox" name="IOS">아이폰</div>
+       </div>
+       <div class="td_style_2"><div class="th_style_2">사용자구분</div><input class="pop_input_1" type="text" name="update_log" style="width: 600px;"></div>
+      </div>
+      <div class="pop_foot">
+          <input class="nbutton pop_f_btn" type ="submit" value="등록하기">
+          <input class="nbutton pop_f_btn b-close"type="button" value="취소">
+      </div>
+ </from>
 </div>
