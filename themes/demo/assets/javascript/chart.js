@@ -3,8 +3,8 @@ google.charts.load("current", {packages:["corechart"]});
       function app_stats() {
         var data = google.visualization.arrayToDataTable([
           ['index', 'value'],
-          ['유료',     11],
-          ['무료',      2],
+          [$('.chart_box_l .chart_title').eq(0).text(),$('.chart_box_l .chart_value').eq(0).text()*1],
+          [$('.chart_box_l .chart_title').eq(1).text(),$('.chart_box_l .chart_value').eq(1).text()*1],
         ]);
 
         var options = {
@@ -32,8 +32,8 @@ google.charts.load("current", {packages:["corechart"]});
       function ma_stats() {
         var data = google.visualization.arrayToDataTable([
           ['index', 'value'],
-          ['유료',     11],
-          ['무료',      2],
+          [$('.chart_box_l .chart_title').eq(2).text(),$('.chart_box_l .chart_value').eq(2).text()*1],
+          [$('.chart_box_l .chart_title').eq(3).text(),$('.chart_box_l .chart_value').eq(3).text()*1],
         ]);
 
         var options = {

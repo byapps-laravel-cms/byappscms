@@ -26,7 +26,7 @@ function onStart()
 {
     $this['record'] = PayManage::where('id', '=', $this->param('id'))->first();
 
-    $this['itemlist'] = array("주문번호", "결제날짜", "회원ID", "App 명", "결제기간", "결제금액", "영수증정보");
+    $this['itemlist'] = array("주문번호", "결제날짜", "회원ID", "App 명", "결제기간", "결제금액","결제정보" , "영수증정보");
     //$this['itemvalue'] = array("{{ record.order_number }}", "{{ record.pay_date }}", "{{ record.user_id }}", "{{ record.app_name }}", "{{ pay_period }}", "{{ pay_amount }}", "{{ recipe }}");
 }
 ?>
@@ -35,6 +35,9 @@ function onStart()
     <div class="container">
         <div class="row">
             <div class="col-8">
+            <div style="float:right;margin:20px 30px 0 0;">
+                <input type="button" value="별도결제" class="nbutton">
+            </div>
                 <h3>결제 관리</h3>
                 <small>결제 관리를 하실 수 있습니다</small>
             </div>
@@ -73,7 +76,7 @@ function onStart()
            <div class="col-md-3">
                <div class="cell">
   {% for i in itemlist %}
-                   <div class="propertyname">
+                   <div class="propertyname th_style_1">
                      {{ i }}
                    </div>
   {% endfor %}
@@ -82,7 +85,7 @@ function onStart()
 
            <div class="col-md-5">
                <div class="cell">
-                   <div class="description">
+                   <div class="description td_style_1">
                      {{ record.order_id }}
                    </div>
                </div>
@@ -90,7 +93,7 @@ function onStart()
 
            <div class="col-md-5">
                <div class="cell">
-                   <div class="description">
+                   <div class="description td_style_1">
                      {{ record.reg_time }}
                    </div>
                </div>
@@ -98,15 +101,17 @@ function onStart()
 
            <div class="col-md-5">
                <div class="cell">
-                   <div class="description">
+                   <div class="description td_style_1">
                      {{ record.mem_id }}
+                     <input class="nbutton3" type="button" value="회원정보">
+                     <input class="nbutton3" type="button" value="주문내역">
                    </div>
                </div>
            </div>
 
            <div class="col-md-5">
                <div class="cell">
-                   <div class="description">
+                   <div class="description td_style_1">
                      {{ record.app_name }}
                    </div>
                    
@@ -115,8 +120,8 @@ function onStart()
            
            <div class="col-md-5">
                <div class="cell">
-                   <div class="description">
-                   
+                   <div class="description td_style_1">
+                   11
                    </div>
                    
                </div>
@@ -124,8 +129,8 @@ function onStart()
            
            <div class="col-md-5">
                <div class="cell">
-                   <div class="description">
-                   
+                   <div class="description td_style_1">
+                   1원
                    </div>
                    
                </div>
@@ -133,8 +138,17 @@ function onStart()
            
            <div class="col-md-5">
                <div class="cell">
-                   <div class="description">
-                     <!-- <textarea name="receipt" style="width:400px;height:150px;"></textarea> -->
+                   <div class="description td_style_1">
+                   <input class="nbutton3" type="button" value="입금확인">
+                   </div>
+                   
+               </div>
+           </div>
+           
+           <div class="col-md-5">
+               <div class="cell">
+                   <div class="description td_style_1">
+                     <textarea name="receipt" style="width:400px;height:150px;"></textarea>
                    </div>
                    
                </div>

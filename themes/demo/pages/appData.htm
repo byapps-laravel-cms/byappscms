@@ -26,6 +26,14 @@ function onStart()
 {
     $this['record'] = AppsData::where('idx', '=', $this->param('idx'))->first();
     
+    $this['util'] = new Class {
+        public function dateFormat($val)
+        {
+           $dateString = date("Y-m-d h:i:s", $val);
+           return $dateString;
+        }
+    };
+    
     $this['itemlist'] = array(
         array('Process','name="mem_id"',$this['record']->process,'selectBox',array(
                 array('','선택해주세요'),
@@ -40,7 +48,7 @@ function onStart()
                 array(10,'서비스유효'),
             )),
         array('RESELLER ID','disabled',$this['record']->recom_id),
-        array('등록일','disabled',$this['record']->start_time),
+        array('등록일','disabled',$this['util']->dateFormat($this['record']->start_time)),
         array('주문번호','disabled',$this['record']->order_id),
         array('회원ID','name="mem_id"',$this['record']->mem_id),
         array('App ID','disabled',$this['record']->app_id),
@@ -225,7 +233,89 @@ function onStart()
     <div class="method">
         <div class="row margin-0">
           <form>
-          
+          <div class="top_banner">
+                  <table>
+                      <tr>
+                          <th>ID</th>
+                          <td>
+                              <input type="text" name=""><span>(ex : abc@byapps.co.kr)</span>
+                              <a href="#"><input type="button" value="회원로그인"></a>
+                              <a href="#"><input type="button" value="주문내역"></a>
+                              <a href="#"><input type="button" value="결제내역"></a>
+                              <a href="#"><input type="button" value="앱관리"></a>
+                              <a href="#"><input type="button" value="프로모션발급"></a>
+                              <a href="#"><input type="button" value="ID변경"></a>
+                              <a href="#"><input type="button" value="리샐러지정"></a>
+                          </td>
+                      </tr>
+                      <tr>
+                          <th>새 비밀번호</th>
+                          <td>
+                              <input type="password" name="">
+                              <span>새비밀번호확인</span>
+                              <input type="password" name="">
+                              <a href="#"><input type="button" value="비밀번호 초기화메일발송"></a>
+                          </td>
+                      </tr>
+                      <tr>
+                          <th>업체명</th>
+                          <td>
+                              <input type="text" name="">
+                          </td>
+                      </tr>
+                      <tr>
+                          <th>대표자명</th>
+                          <td>
+                              <input type="text" name="">
+                          </td>
+                      </tr>
+                      <tr>
+                          <th>담당자명</th>
+                          <td>
+                              <input type="text" name="">
+                          </td>
+                      </tr>
+                      <tr>
+                          <th>연락처</th>
+                          <td>
+                              <input type="text" name="" maxlength="3" size="10">-
+                              <input type="text" name="" maxlength="4"size="10">-
+                              <input type="text" name="" maxlength="4"size="10">
+                              <input type="button" value="SMS 보내기">
+                          </td>
+                      </tr>
+                      <tr>
+                          <th>완료알림 연락처</th>
+                          <td>
+                              <input type="text" name="" maxlength="3" size="10">-
+                              <input type="text" name="" maxlength="4" size="10">-
+                              <input type="text" name="" maxlength="4" size="10">
+                          </td>
+                      </tr>
+                      <tr>
+                          <th>이메일</th>
+                          <td>
+                              <input type="text" name="">
+                          </td>
+                      </tr>
+                      <tr>
+                          <th>로그정보</th>
+                          <td>
+                              <span></span>
+                          </td>
+                      </tr>
+                      <tr>
+                          <th>Option</th>
+                          <td>
+                              <input type="radio" name="option" checked><span>수정</span>
+                              <input type="radio" name="option"><span>삭제</span>
+                          </td>
+                      </tr>
+                  </table>
+              </div>
+              <div class="show_btn">
+                  <img src="http://pji.innoi.kr/themes/demo/assets/images/under_array.png" alt="button" id="arrow">
+              </div>
             {% for item in itemlist %}
                 <div class="form-group row">
                   <label for="process" class="col-sm-2 col-form-label">{{ item.0 }}</label>
