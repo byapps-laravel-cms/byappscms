@@ -49,7 +49,7 @@ function onStart()
                 array('lite','라이트'),
                 array('tester','테스터'),
             )),
-        array('app OS','name ="service_type"',$this['record']->apps_type,'radoiButton',array(
+        array('app OS','name ="apps_type"',$this['record']->apps_type,'radoiButton',array(
                 array('안드로이드','안드로이드'),
                 array('안드로이드+iOS','안드로이드+iOS'),
             )),
@@ -109,9 +109,9 @@ function onStart()
                 array('ja','일본어',strpos($this['record']->app_lang,'ja') || $this['record']->app_lang == 'ja' ? "checked" : ""),
             )),
         array('고객센터','name="cscall"',$this['record']->cscall),
-        array('카톡연락처','name="kakaocell"',$this['record']->kakaocell),
-        array('페이스북','name="sns1"',$this['record']->sns1),
-        array('트위터','name="sns2"',$this['record']->sns2),
+        //array('카톡연락처','name="kakaocell"',$this['record']->kakaocell),
+        //array('페이스북','name="sns1"',$this['record']->sns1),
+        //array('트위터','name="sns2"',$this['record']->sns2),
         array('추천메시지','name="smsg"',$this['record']->smsg),
         array('팀메뉴커스텀','name="tabcustom"',$this['record']->tabcustom),
         array('자동로그인','name="auto_login"',$this['record']->auto_login,'checkBox',array(
@@ -120,6 +120,63 @@ function onStart()
         array('출석체크','name="login_point"',$this['record']->login_point,'checkBox',array(
                 array('Y','출석체크 포인트 서비스 허용',$this['record']->login_point == 'Y' ? "checked" : "")
             )),
+        array('푸쉬체크','name="push_point"',$this['record']->push_point,'checkBox',array(
+            array('Y','푸쉬체크 포인트 서비스 허용',$this['record']->push_point == 'Y' ? "checked" : "")
+        )),
+        array('앱설치포인트','name="install_point"',$this['record']->install_point,'checkBox',array(
+            array('Y','앱설치 포인트 서비스 허용',$this['record']->install_point == 'Y' ? "checked" : "")
+        )),
+        array('앱포인트 수동전환','name="point_transfer_btn"',$this['record']->point_transfer_btn,'checkBox',array(
+            array('Y','앱포인트 수동전환허용',$this['record']->point_transfer_btn == 'Y' ? "checked" : "")
+        )),
+        array('장바구니 리마인드','name="app_cart"',$this['record']->app_cart,'checkBox',array(
+            array('Y','장바구니 리마인드 서비스 허용',$this['record']->app_cart == 'Y' ? "checked" : "")
+        )),
+        array('유료 부가서비스','name="app_retarget"',$this['record']->app_retarget,'checkBox',array(
+            array('Y','리타겟팅 서비스 허용',$this['record']->app_retarget == 'Y' ? "checked" : ""),
+            array('Y','마케팅오토메이션 서비스 허용',$this['record']->app_retarget == 'Y' ? "checked" : ""),
+        )),
+        array('푸쉬메세지 설정','name="push_msg_show"',$this['record']->push_msg_show,'checkBox',array(
+            array('Y','푸쉬메세지 소식란에 보이도록 허용',$this['record']->push_msg_show == 'Y' ? "checked" : "")
+        )),
+        array('디바이스허용','name="script_api"',$this['record']->script_api,'checkBox',array(
+            array('Y','Device ID 값 리턴 허용',$this['record']->script_api == 'Y' ? "checked" : "")
+        )),
+        array('앱사용자 관리','name="app_members"',$this['record']->app_members,'checkBox',array(
+            array('Y','앱사용자 관리 허용',$this['record']->app_members == 'Y' ? "checked" : "")
+        )),
+        array('잠금화면','name="lock_screen"',$this['record']->lock_screen,'checkBox',array(
+            array('Y','잠금화면설정 서비스 허용',$this['record']->lock_screen == 'Y' ? "checked" : "")
+        )),
+        array('추천리워드','name="reward_opt"',$this['record']->reward_opt,'checkBox',array(
+            array('Y','추천리워드 허용',$this['record']->reward_opt == 'Y' ? "checked" : "")
+        )),
+        array('팝업푸쉬','name="push_popup"',$this['record']->push_popup,'checkBox',array(
+            array('Y','팝업푸쉬 허용',$this['record']->push_popup == 'Y' ? "checked" : "")
+        )),
+        array('푸쉬리시브콜백','name="push_call_back"',$this['record']->push_call_back,'checkBox',array(
+            array('Y','푸쉬 리시브 콜백 허용',$this['record']->push_call_back == 'Y' ? "checked" : "")
+        )),
+        array('FCM 적용','name="is_fcm"',$this['record']->is_fcm,'checkBox',array(
+            array('Y','푸쉬 FCM 발송 적용',$this['record']->is_fcm == 'Y' ? "checked" : "")
+        )),
+        array('스크립트설치','name="script_popup"',$this['record']->script_popup,'checkBox',array(
+            array('Y','스크립트 설치업체(앱설치배너,매출통계 등)',$this['record']->script_popup == 'Y' ? "checked" : "")
+        )),
+        array('안드로이드 자체개발계정','name="developer_account"',$this['record']->developer_account,'checkBox',array(
+            array('Y','안드로이드 자체개발자 계정',$this['record']->developer_account == 'Y' ? "checked" : "")
+        )),
+        array('SDK/커스텀','name="custom_sdk"',$this['record']->custom_sdk,'name="custom_etc"',$this['record']->custom_etc != "" ? $this['record']->custom_etc : "empty",'커스텀::'),
+        array('관리업체지정','name="vip_check"',$this['record']->vip_check,'selectBox',array(
+                array('','지정안함'),
+                array('#000|#ffff00','주요관리'),
+                array('#fff|#ff0000','사전고시 출시완료'),
+                array('#fff|#0000ff','신규연장 가능업체'),
+                array('#fff|#00ff00','사전고지등록'),
+                array('#000|#eee','개인화랜딩업체'),
+            )),
+        array('앱소개','name="app_intro"',$this['record']->app_intro),
+        array('Develop Info','name="developer_info"',$this['record']->developer_info),
     );
     
     /*
@@ -170,63 +227,38 @@ function onStart()
           <form>
           
             {% for item in itemlist %}
+                <div class="form-group row">
+                  <label for="process" class="col-sm-2 col-form-label">{{ item.0 }}</label>
+                    <div class="col-sm-4">
                 {% if item.3 == 'selectBox' %}
-                    <div class="form-group row">
-                      <label for="process" class="col-sm-2 col-form-label">{{ item.0 }}</label>
-                        <div class="col-sm-4">
                         <select {{ item.1 }} class="form-control">
                             {% for option in item.4 %}
                                 <option value="{{ option.0 }}" {{ item.2 == option.0 ? "selected" : "" }} >{{ option.1 }}</option>
                             {% endfor %}
                         </select>
-                      </div>
-                    </div>
                 {% elseif item.3 == 'radoiButton' %}
-                    <div class="form-group row">
-                      <label for="process" class="col-sm-2 col-form-label">{{ item.0 }}</label>
-                        <div class="col-sm-4">
                         {% for option in item.4 %}
-                            <label><input type="radio" {{ item.1 }} value="{{ option.0 }}" {{ item.2 == option.0 ? "checked" : "" }}>{{ option.1 }}</label>
+                            <label><input type="radio" {{ item.2 == option.0 ? "checked" : "" }} {{ item.1 }} value="{{ option.0 }}">{{ option.1 }}</label>
                         {% endfor %}
-                      </div>
-                    </div>
                 {% elseif item.3 == 'checkBox' %}
-                    <div class="form-group row">
-                      <label for="process" class="col-sm-2 col-form-label">{{ item.0 }}</label>
-                        <div class="col-sm-4">
                         {% for option in item.4 %}
                             <label><input type="checkbox" {{ item.1 }} {{ option.2 }} value="{{ option.0 }}">{{ option.1 }}</label>
                         {% endfor %}
-                      </div>
-                    </div>
                 {% elseif item.0 == 'URL' %}
-                    <div class="form-group row">
-                      <label for="process" class="col-sm-2 col-form-label">URL</label>
-                        <div class="col-sm-4">
                         <ul>
                             <li><a href="{{ record.app_android_url }}" target="_sub"><input type="button" value="안드로이드"></a></li>
                             <li><a href="{{ record.app_ios_url }}" target="_sub"><input type="button" value="IOS"></a></li>
                             <li><a href="{{ record.surl }}" target="_sub"><input type="button" value="모바일 웹"></a></li>
                             <li><a onclick="alert('수정')"><input type="button" value="수정"></a></li>
                         </ul>
-                      </div>
-                    </div>
                 {% elseif item.5 %}
-                    <div class="form-group row">
-                      <label for="process" class="col-sm-2 col-form-label">Android Version</label>
-                        <div class="col-sm-4">
                         <input type="text" {{ item.1 }} class="form-control" value="{{ item.2 }}">
                         {{ item.5 }}<input type="text" {{ item.3 }} class="form-control" value="{{ item.4 == "empty" ? "" : item.4 }}">
-                      </div>
-                    </div>
                 {% else %}
-                    <div class="form-group row">
-                      <label class="col-sm-2 col-form-label">{{ item.0 }}</label>
-                      <div class="col-sm-4">
                         <input type="text" {{ item.1 }} class="form-control" value="{{ item.2 }}">
-                      </div>
-                    </div>
                 {% endif %}
+                  </div>
+                </div>
             {% endfor %}
             
           </form>
