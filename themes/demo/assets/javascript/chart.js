@@ -59,11 +59,9 @@ google.charts.load("current", {packages:["corechart"]});
 
       function sale_stats() {
         var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses', 'Profit'],//가로축 값 값 값
-          ['2014', 1000, 400, 200], //
-          ['2015', 1170, 460, 250],
-          ['2016', 660, 1120, 300],
-          ['2017', 1030, 540, 350]
+          ['','전체매출', '신규', '연장', '기타'],//가로축 값 값 값
+          ['이번', $('.chart_box_r .chart_value').eq(0).text()*1, $('.chart_box_r .chart_value').eq(1).text()*1, $('.chart_box_r .chart_value').eq(2).text()*1,$('.chart_box_r .chart_value').eq(3).text()*1], //
+          ['2015', $('.chart_box_r .chart_value').eq(4).text()*1, $('.chart_box_r .chart_value').eq(5).text()*1, $('.chart_box_r .chart_value').eq(6).text()*1,$('.chart_box_r .chart_value').eq(7).text()*1],
         ]);
 
         var options = {

@@ -14,11 +14,12 @@
     background-color:#f7f7f7;
 }
 .show_btn{
-    width:10%;
+    width:100%;
     height:3rem;
-    margin:0 auto;
+    text-align:center;
+    background-color:#ccc7c7;
 }
 .show_btn img{
-    width:100%;
+    width:10%;
     height:90%;
 }

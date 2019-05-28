@@ -245,10 +245,9 @@
 }
 .nbutton{
     color: #000;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #fff), color-stop(0.5, #f7f7f7), color-stop(0.5, #f0f0f0),color-stop(1.0, #f7f7f7));
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #fff), color-stop(0.5, #f7f7f7), color-stop(0.5, #f0f0f0),color-stop(1.0, #f0f0f0));
     font-weight: bold;
     border: 1px solid #ccc;
-    border-color: #ccc #555 #555 #ccc;
     height: 32px;
     padding: 0 15px;
     cursor: pointer;    
