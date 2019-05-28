@@ -15,6 +15,8 @@ class ApkData extends Model
      */
     public $timestamps = false;
 
+    // 다른 DB불러오기
+    public $connection = 'byapps';
 
     /**
      * @var string The database table used by the model.
