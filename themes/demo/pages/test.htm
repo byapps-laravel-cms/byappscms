@@ -15,7 +15,7 @@ function onStart()
     $table = 'attendance';
     $member = array('박정인','박찬웅','조성현');
     $query = "select date from $table order by date desc limit 1";
-    $result = DB::table($table)->select('date')->first();
+    $result = DB::table($table)->select('date')->orderBy('date','desc')->first();
     $this['now'] = date("ymd",time());
     if(!isset($result->date) || $this['now']>$result->date){
         $random1 = mt_rand(0,2);
@@ -38,7 +38,6 @@ function onStart()
   <head>
     <meta charset="utf-8">
     <title>디지텍-출석부</title>
-    <link href="./css/mobile.css" media="screen and (min-width: 200px) and (max-width: 2000px)" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&amp;subset=korean" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Do+Hyeon|Nanum+Pen+Script&amp;subset=korean" rel="stylesheet">
     <style>

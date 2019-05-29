@@ -91,7 +91,9 @@ function onStart()
             )),
         array('PUSH TOKEN','name="push_token"',$this['record']->push_token),
         array('Period of Use','disabled',"start_date",'name="end_date"','end_date','~'),
-        array('URL'),
+        array('Android URL','name="app_android_url"',$this['record']->app_android_url,'input+button'),
+        array('iOS URL','name="app_ios_url"',$this['record']->app_ios_url,'input+button'),
+        array('Mobile URL','name="surl"',$this['record']->surl,'input+button'),
         array('PackageName(Android)','name="packagename" placeholder= 안드로이드_패키지명이_변경되었을때 ',$this['record']->packagename),
         array('Bundle ID(iOS)','name="bundleid" placeholder= 안드로이드_패키지명과_다를때_입력(아이폰_앱빌드옹) ',$this['record']->bundleid),
         array('Vender','name="vender" placeholder= 안드로이드_무결성_검증(ex:com.android.vending) ',$this['record']->vender),
@@ -184,7 +186,7 @@ function onStart()
                 array('#000|#eee','개인화랜딩업체'),
             )),
         array('앱소개','name="app_intro"',$this['record']->app_intro),
-        array('Develop Info','name="developer_info"',$this['record']->developer_info),
+        array('Develop Info'),
     );
     
     /*
@@ -333,21 +335,19 @@ function onStart()
                 {% elseif item.3 == 'checkBox' %}
                         {% for option in item.4 %}
                             <label><input type="checkbox" {{ item.1 }} {{ option.2 }} value="{{ option.0 }}">{{ option.1 }}</label>
-                        {% endfor %}
-                {% elseif item.0 == 'URL' %}
-                        <ul class="url_select">
-                            <li><a href="{{ record.app_android_url }}" target="_sub"><input type="button" value="안드로이드"></a></li>
-                            <li><a href="{{ record.app_ios_url }}" target="_sub"><input type="button" value="IOS"></a></li>
-                            <li><a href="{{ record.surl }}" target="_sub"><input type="button" value="모바일 웹"></a></li>
-                            <li><a onclick="alert('수정')"><input type="button" value="수정"></a></li>
-                        </ul>
+                        {% endfor %}                        
+                {% elseif item.0 == 'Develop Info' %}
+                            <textarea name="developer_info" class="form-control" style="height:300px;">{{ record.developer_info }}</textarea>
                 {% elseif item.5 %}
-                        <input type="text" {{ item.1 }} class="form-control" value="{{ item.2 }}">
-                        <span>{{ item.5 }}</span>
-                        <input type="text" {{ item.3 }} class="form-control" value="{{ item.4 == "empty" ? "" : item.4 }}">
+                        <input type="text" {{ item.1 }} class="form-control input_cnt2" value="{{ item.2 }}">
+                        <span class="input_cnt2">{{ item.5 }}</span>
+                        <input type="text" {{ item.3 }} class="form-control input_cnt2" value="{{ item.4 == "empty" ? "" : item.4 }}">
                         {{ item.0 == 'Android Version' ? '<input type="button" value="업데이트" onclick="view_user()">' : "" }}
                 {% else %}
                         <input type="text" {{ item.1 }} class="form-control" value="{{ item.2 }}">
+                    {% if item.3 == 'input+button' %}
+                        <a href="" target="_sub"><input class="form-control" type="button" value="새탭에서 열기"></a>
+                    {% endif %}
                 {% endif %}
                   </div>
                 </div>

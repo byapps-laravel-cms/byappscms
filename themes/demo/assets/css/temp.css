@@ -318,3 +318,33 @@
     height: 3rem;
     float: left;
 }
+.Pstyle {
+   opacity : 0;
+   display : none;
+   position : relative;
+   width : 80%;
+   border : 5px solid #fff;
+   padding : 10px;
+   background-color : #fff;
+   border-radius: 10px;
+   box-shadow: 6px 2px 7px 3px black;
+}
+.pop_x {
+   position : absolute;
+   right : 5px;
+   top : 5px;
+   padding : 0px;
+   display : inline-block;
+   cursor : pointer;
+}
+.update_pop_name{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 29px;
+    font-weight: bold;
+    margin-top: 0;
+}
+.pop_head {
+    height: 40px;
+}

@@ -472,6 +472,16 @@ body {
   color: inherit;
   background-color: #eeeeee;
 }
+.input_cnt2{
+    float: left;
+}
+input.input_cnt2{
+    width: 100px;
+}
+span.input_cnt2{
+    margin: 0 8px;
+    line-height: 39px;
+}
 
 /* #layout-footer {
   position: fixed;
