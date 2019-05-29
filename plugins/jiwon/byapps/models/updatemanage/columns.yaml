@@ -1,0 +1,36 @@
+columns:
+    idx:
+        label: idx
+        type: number
+        sortable: true
+    mem_id:
+        label: 회원아이디
+        type: text
+    app_id:
+        label: 앱아이디
+        type: text
+        searchable: true
+    app_process:
+        label: 앱상태
+        type: number
+    apps_type:
+        label: 앱타입
+        type: text
+    app_name:
+        label: 앱명
+        type: text
+        searchable: true
+    appicon:
+        label: 앱아이콘
+        type: text
+    appslash:
+        label: 스플래시
+        type: text
+    apptab:
+        label: 탭메뉴
+        type: text
+    reg_time:
+        label: 등록일
+        type: date
+        format: Y-m-d
+        sortable: true
