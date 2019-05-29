@@ -42,6 +42,7 @@ function onStart()
         <section id="layout-content">
             {% if this.page.title != 'Home' %}
                 <!-- aside -->
+                <a href="#layout-header"><div class="top_btn"></div></a>
                 <div class="aside_open_btn"></div>
                 {% partial 'site/aside' %}
             {% endif %}
@@ -58,8 +59,8 @@ function onStart()
         <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/bootstrap.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/jquery.bpopup.min.js'|theme }}"></script>
+        <script src="{{ 'assets/javascript/util.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/app.js'|theme }}"></script>
-        <script src="{{ 'assets/javascript/temp.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/chart.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/appdata.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/popup.js'|theme }}"></script>

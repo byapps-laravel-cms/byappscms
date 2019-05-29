@@ -122,7 +122,7 @@ function onStart()
         //array('카톡연락처','name="kakaocell"',$this['record']->kakaocell),
         //array('페이스북','name="sns1"',$this['record']->sns1),
         //array('트위터','name="sns2"',$this['record']->sns2),
-        array('추천메시지','name="smsg"',$this['record']->smsg),
+        array('추천메시지','name="smsg"',$this['record']->smsg,'textarea'),
         array('팀메뉴커스텀','name="tabcustom"',$this['record']->tabcustom),
         array('자동로그인','name="auto_login"',$this['record']->auto_login,'checkBox',array(
                 array('Y','자동로그인 허용',$this['record']->auto_login == 'Y' ? "checked" : "")
@@ -186,7 +186,7 @@ function onStart()
                 array('#000|#eee','개인화랜딩업체'),
             )),
         array('앱소개','name="app_intro"',$this['record']->app_intro),
-        array('Develop Info'),
+        array('Develop Info','name="developer_info"',stripslashes($this['record']->developer_info)),
     );
     
     /*
@@ -335,18 +335,20 @@ function onStart()
                 {% elseif item.3 == 'checkBox' %}
                         {% for option in item.4 %}
                             <label><input type="checkbox" {{ item.1 }} {{ option.2 }} value="{{ option.0 }}">{{ option.1 }}</label>
-                        {% endfor %}                        
+                        {% endfor %}          
+                {% elseif item.3 == 'textarea' %}              
+                            <textarea {{ itme.1 }} class="form-control" style="height:300px;">{{ item.2 }}</textarea>
                 {% elseif item.0 == 'Develop Info' %}
-                            <textarea name="developer_info" class="form-control" style="height:300px;">{{ record.developer_info }}</textarea>
+                            <textarea {{ item.1 }} class="form-control" style="height:300px;" id="develop_info">{{ item.2 }}</textarea>
                 {% elseif item.5 %}
                         <input type="text" {{ item.1 }} class="form-control input_cnt2" value="{{ item.2 }}">
                         <span class="input_cnt2">{{ item.5 }}</span>
                         <input type="text" {{ item.3 }} class="form-control input_cnt2" value="{{ item.4 == "empty" ? "" : item.4 }}">
                         {{ item.0 == 'Android Version' ? '<input type="button" value="업데이트" onclick="view_user()">' : "" }}
                 {% else %}
-                        <input type="text" {{ item.1 }} class="form-control" value="{{ item.2 }}">
+                        <input type="text" {{ item.1 }} class="form-control {{ item.3 == 'input+button' ? "" : "" }}" value="{{ item.2 }}">
                     {% if item.3 == 'input+button' %}
-                        <a href="" target="_sub"><input class="form-control" type="button" value="새탭에서 열기"></a>
+                        <a href="{{ item.2 }}" target="_sub"><input class="form-control" type="button" value="새탭에서 열기"></a>
                     {% endif %}
                 {% endif %}
                   </div>
@@ -360,18 +362,18 @@ function onStart()
         </div>
     </div>
    <from id="popup_update" class="Pstyle">
-   <div class="pop_head th_style_1">
+   <div class="pop_head th_style_1 pop_border">
       <h3 class="update_pop_name">관리자 업데이트 접수</h3>
      <span class="b-close btn_del pop_x"></span>
      </div>
       <div class="content2"> 
-       <div class="td_style_2"><div class="th_style_2">App. ID</div><input class="pop_input_1" type="text" name="App_id" value=""></div>
-       <div class="td_style_2"><div class="th_style_2">App. Name</div><input class="pop_input_1" type="text" name="App_name" ></div>
+       <div class="td_style_2" style="margin-top:13px;"><div class="th_style_2">App. ID</div><input class="pop_input_1" type="text" name="App_id" value=""></div>
+       <div class="td_style_2"><div class="th_style_2">App. Name</div><input style="width: 40%;" class="pop_input_1" type="text" name="App_name" ></div>
        <div class="td_style_2"><div class="th_style_2">Service Type</div>
-       <div class="check_box_1"><input type="checkbox" name="Andriod" >안드로이드</div>
+       <div class="check_box_1"><input tyle="margin-left: 32px;" type="checkbox" name="Andriod" >안드로이드</div>
        <div class="check_box_1"><input type="checkbox" name="IOS">아이폰</div>
        </div>
-       <div class="td_style_2"><div class="th_style_2">사용자구분</div><input class="pop_input_1" type="text" name="update_log"></div>
+       <div class="td_style_2"><div class="th_style_2">업데이트 내용</div><input style="width: 70%;" class="pop_input_1" type="text" name="update_log"></div>
       </div>
       <div class="pop_foot">
           <input class="nbutton pop_f_btn" type ="submit" value="업데이트">

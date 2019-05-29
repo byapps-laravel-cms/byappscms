@@ -268,6 +268,14 @@
     padding: 0 15px;
     
 }
+.top_btn{
+    width: 3vw;
+    height: 6vh;
+    background-color: #000;
+    position: fixed;
+    left: 92vw;
+    top: 93vh;
+}
 .aside_open_btn{
     width: 3vw;
     height: 100vh;
@@ -278,6 +286,7 @@
     background-color: #d6d4d4;
     cursor: pointer;
     top: 0%;
+    z-index:1;
 }
 .aside{
     width:30vw;
@@ -288,6 +297,7 @@
     left: 69vw;
     display: none;
     top: 7%;
+    z-index:1;
 }
 .aside_close_btn{
     width:10%;
@@ -339,12 +349,54 @@
 }
 .update_pop_name{
     position: absolute;
-    top: 5px;
-    left: 5px;
+    top: 8px;
+    left: 11px;
     font-size: 29px;
     font-weight: bold;
     margin-top: 0;
+    letter-spacing: -3px;
 }
 .pop_head {
     height: 40px;
+}
+.content2{
+    width: 98%;
+    border: 1px solid #ccc;
+    margin: 0 auto;
+    margin-top: 14px;
+}
+.td_style_2{
+    width: 80%;
+    margin-top: 5px;
+    margin-left: 27px;
+    height: 44px;
+}
+.th_style_2{
+    float: left;
+    border-bottom: 1px dotted #ccc;
+    margin-top: 6px;
+    width: 141px;
+    letter-spacing: -1px;
+}
+.check_box_1{
+    float: left;
+    width: 108px; 
+}
+.pop_foot{
+    margin-top:15px;
+    text-align:center;
+}
+.pop_f_btn{
+    box-shadow: 1px 1px 0px 0px black;
+}
+.pop_input_1{
+    height:28px;
+}
+.pop_border{
+    border-bottom: 1.5px solid#ccc;
+}
+.font_bold{
+    font-weight:bold;
+    letter-spacing: -1px;
+    margin-right: 7px;
 }
