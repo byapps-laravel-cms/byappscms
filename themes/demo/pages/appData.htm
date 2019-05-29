@@ -343,7 +343,8 @@ function onStart()
                         </ul>
                 {% elseif item.5 %}
                         <input type="text" {{ item.1 }} class="form-control" value="{{ item.2 }}">
-                        {{ item.5 }}<input type="text" {{ item.3 }} class="form-control" value="{{ item.4 == "empty" ? "" : item.4 }}">
+                        <span>{{ item.5 }}</span>
+                        <input type="text" {{ item.3 }} class="form-control" value="{{ item.4 == "empty" ? "" : item.4 }}">
                         {{ item.0 == 'Android Version' ? '<input type="button" value="업데이트" onclick="view_user()">' : "" }}
                 {% else %}
                         <input type="text" {{ item.1 }} class="form-control" value="{{ item.2 }}">
@@ -358,22 +359,22 @@ function onStart()
 
         </div>
     </div>
-      <from id="popup_update" class="Pstyle">
+   <from id="popup_update" class="Pstyle">
    <div class="pop_head th_style_1">
       <h3 class="update_pop_name">관리자 업데이트 접수</h3>
      <span class="b-close btn_del pop_x"></span>
      </div>
       <div class="content2"> 
        <div class="td_style_2"><div class="th_style_2">App. ID</div><input class="pop_input_1" type="text" name="App_id" value=""></div>
-       <div class="td_style_2"><div class="th_style_2">App. Name</div><input class="pop_input_1" type="text" name="App_name" style="width: 400px;"></div>
+       <div class="td_style_2"><div class="th_style_2">App. Name</div><input class="pop_input_1" type="text" name="App_name" ></div>
        <div class="td_style_2"><div class="th_style_2">Service Type</div>
        <div class="check_box_1"><input type="checkbox" name="Andriod" >안드로이드</div>
        <div class="check_box_1"><input type="checkbox" name="IOS">아이폰</div>
        </div>
-       <div class="td_style_2"><div class="th_style_2">사용자구분</div><input class="pop_input_1" type="text" name="update_log" style="width: 600px;"></div>
+       <div class="td_style_2"><div class="th_style_2">사용자구분</div><input class="pop_input_1" type="text" name="update_log"></div>
       </div>
       <div class="pop_foot">
-          <input class="nbutton pop_f_btn" type ="submit" value="등록하기">
+          <input class="nbutton pop_f_btn" type ="submit" value="업데이트">
           <input class="nbutton pop_f_btn b-close"type="button" value="취소">
       </div>
  </from>

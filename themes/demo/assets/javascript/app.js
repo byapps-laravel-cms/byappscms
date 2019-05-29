@@ -35,11 +35,13 @@ jQuery(document).ready(function($){
 
         // Scrolling up
         if (previousTop - currentTop > scrollDelta) {
-            $header.removeClass('is-hidden')
+            $header.removeClass('is-hidden');
+            $(".aside").css({"top":"7%"});
         }
         else if (currentTop - previousTop > scrollDelta && currentTop > scrollOffset) {
             // Scrolling down
-            $header.addClass('is-hidden')
+            $header.addClass('is-hidden');
+            $(".aside").css({"top":"0%"});
         }
 
         previousTop = currentTop

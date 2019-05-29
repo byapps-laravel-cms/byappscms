@@ -1,8 +1,4 @@
 $(document).ready(function (){
-    var view_height = $("#layout-content").height()+$(".container").height();
-    $(".aside").css({"height":view_height+"px"});
-    $(".aside_open_btn").css({"height":view_height+"px"});
-    
     $(".show_btn").click(function (){
         if($(".top_banner").css("display")=="block"){
             $(".top_banner").slideUp(500);

@@ -271,21 +271,23 @@
 .aside_open_btn{
     width: 3vw;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     left: 96vw;
     text-align: center;
     line-height: 100vh;
     background-color: #d6d4d4;
-    cursor:pointer;
+    cursor: pointer;
+    top: 0%;
 }
 .aside{
-    width: 30vw;
+    width:30vw;
     height: 100vh;
     float: right;
     background-color: #000;
-    position: absolute;
+    position: fixed;
     left: 69vw;
     display: none;
+    top: 7%;
 }
 .aside_close_btn{
     width:10%;
