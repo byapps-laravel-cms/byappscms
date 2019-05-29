@@ -185,9 +185,10 @@ function onStart()
                 array('#fff|#00ff00','사전고지등록'),
                 array('#000|#eee','개인화랜딩업체'),
             )),
-        array('앱소개','name="app_intro"',$this['record']->app_intro),
+        array('앱소개','name="app_intro"',$this['record']->app_intro,'textarea'),
         array('Develop Info','name="developer_info"',stripslashes($this['record']->developer_info)),
     );
+    $this['test'] = stripslashes($this['record']->developer_info);
     
     /*
     $this['itemlist'] = array(
@@ -217,7 +218,6 @@ function onStart()
 {% set record = builderDetails.record %}
 {% set displayColumn = builderDetails.displayColumn %}
 {% set notFoundMessage = builderDetails.notFoundMessage %}
-
     <div class="alert alert-info">
     {% if record %}
        <!--  <h4>Row modifier class included</h4> -->
@@ -339,7 +339,13 @@ function onStart()
                 {% elseif item.3 == 'textarea' %}              
                             <textarea {{ itme.1 }} class="form-control" style="height:300px;">{{ item.2 }}</textarea>
                 {% elseif item.0 == 'Develop Info' %}
-                            <textarea {{ item.1 }} class="form-control" style="height:300px;" id="develop_info">{{ item.2 }}</textarea>
+                            <ul class="develop_info_select">
+                                <li>텍스트로 보기</li>
+                                <li>HTML코드로 보기</li>
+                            </ul>
+                            <div class="develop_info">{{ item.2|raw }}</div>
+                            <textarea {{ item.1 }} class="form-control develop_info" style="height:300px;" id="develop_info">{{ item.2 }}</textarea>
+                            
                 {% elseif item.5 %}
                         <input type="text" {{ item.1 }} class="form-control input_cnt2" value="{{ item.2 }}">
                         <span class="input_cnt2">{{ item.5 }}</span>
@@ -354,8 +360,6 @@ function onStart()
                   </div>
                 </div>
             {% endfor %}
-            <a href="#" onclick="view_user()">팝업보기</a>
-
 
           </form>
 

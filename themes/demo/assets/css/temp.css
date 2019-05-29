@@ -1,3 +1,4 @@
+*{margin:0;padding:0;}
 .navright{
   margin: 10px 0;
   float: left;
@@ -131,6 +132,23 @@
     border: 0;
     font-size: 41px;
     }
+.develop_info_select{
+    width:100%;
+    height:3rem;
+    text-align:center;
+    line-height:3rem;
+    list-style:none;
+}
+.develop_info_select li{
+    width:50%;
+    height:100%;
+    float:left;
+}
+.develop_info{
+    width:100%;
+    height:100%;
+    display:none;
+}
 /* .calendar>input:nth-last-child(1){
     margin-left: 1%;
 }
@@ -300,9 +318,9 @@
     z-index:1;
 }
 .aside_close_btn{
-    width:10%;
-    height:100%;
-    background-color:#d6d4d4;     
+    width: 100%;
+    height: 5%;
+    background-color:#424242;     
     position:absolute;
     z-index:10;
     text-align:center;

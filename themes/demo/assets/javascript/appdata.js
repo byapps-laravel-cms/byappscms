@@ -36,3 +36,4 @@ $(".app_select li").click(function (){
     $(".app_box_cover").eq(index).css({"display":"block"}); 
     $(".app_select li").eq(index).css({"background-color":"#c2d4ef"});
 })
+$("#develop_info").html($("#develop_info").val());
