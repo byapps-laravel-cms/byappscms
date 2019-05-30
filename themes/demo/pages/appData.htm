@@ -127,55 +127,33 @@ function onStart()
         array('자동로그인','name="auto_login"',$this['record']->auto_login,'checkBox',array(
                 array('Y','자동로그인 허용',$this['record']->auto_login == 'Y' ? "checked" : "")
             )),
-        array('출석체크','name="login_point"',$this['record']->login_point,'checkBox',array(
-                array('Y','출석체크 포인트 서비스 허용',$this['record']->login_point == 'Y' ? "checked" : "")
-            )),
-        array('푸쉬체크','name="push_point"',$this['record']->push_point,'checkBox',array(
-            array('Y','푸쉬체크 포인트 서비스 허용',$this['record']->push_point == 'Y' ? "checked" : "")
-        )),
-        array('앱설치포인트','name="install_point"',$this['record']->install_point,'checkBox',array(
-            array('Y','앱설치 포인트 서비스 허용',$this['record']->install_point == 'Y' ? "checked" : "")
-        )),
-        array('앱포인트 수동전환','name="point_transfer_btn"',$this['record']->point_transfer_btn,'checkBox',array(
-            array('Y','앱포인트 수동전환허용',$this['record']->point_transfer_btn == 'Y' ? "checked" : "")
-        )),
-        array('장바구니 리마인드','name="app_cart"',$this['record']->app_cart,'checkBox',array(
-            array('Y','장바구니 리마인드 서비스 허용',$this['record']->app_cart == 'Y' ? "checked" : "")
-        )),
-        array('유료 부가서비스','name="app_retarget"',$this['record']->app_retarget,'checkBox',array(
-            array('Y','리타겟팅 서비스 허용',$this['record']->app_retarget == 'Y' ? "checked" : ""),
-            array('Y','마케팅오토메이션 서비스 허용',$this['record']->app_retarget == 'Y' ? "checked" : ""),
-        )),
-        array('푸쉬메세지 설정','name="push_msg_show"',$this['record']->push_msg_show,'checkBox',array(
-            array('Y','푸쉬메세지 소식란에 보이도록 허용',$this['record']->push_msg_show == 'Y' ? "checked" : "")
-        )),
-        array('디바이스허용','name="script_api"',$this['record']->script_api,'checkBox',array(
-            array('Y','Device ID 값 리턴 허용',$this['record']->script_api == 'Y' ? "checked" : "")
-        )),
-        array('앱사용자 관리','name="app_members"',$this['record']->app_members,'checkBox',array(
-            array('Y','앱사용자 관리 허용',$this['record']->app_members == 'Y' ? "checked" : "")
-        )),
-        array('잠금화면','name="lock_screen"',$this['record']->lock_screen,'checkBox',array(
-            array('Y','잠금화면설정 서비스 허용',$this['record']->lock_screen == 'Y' ? "checked" : "")
-        )),
-        array('추천리워드','name="reward_opt"',$this['record']->reward_opt,'checkBox',array(
-            array('Y','추천리워드 허용',$this['record']->reward_opt == 'Y' ? "checked" : "")
-        )),
-        array('팝업푸쉬','name="push_popup"',$this['record']->push_popup,'checkBox',array(
-            array('Y','팝업푸쉬 허용',$this['record']->push_popup == 'Y' ? "checked" : "")
-        )),
-        array('푸쉬리시브콜백','name="push_call_back"',$this['record']->push_call_back,'checkBox',array(
-            array('Y','푸쉬 리시브 콜백 허용',$this['record']->push_call_back == 'Y' ? "checked" : "")
-        )),
-        array('FCM 적용','name="is_fcm"',$this['record']->is_fcm,'checkBox',array(
-            array('Y','푸쉬 FCM 발송 적용',$this['record']->is_fcm == 'Y' ? "checked" : "")
-        )),
-        array('스크립트설치','name="script_popup"',$this['record']->script_popup,'checkBox',array(
-            array('Y','스크립트 설치업체(앱설치배너,매출통계 등)',$this['record']->script_popup == 'Y' ? "checked" : "")
-        )),
-        array('안드로이드 자체개발계정','name="developer_account"',$this['record']->developer_account,'checkBox',array(
-            array('Y','안드로이드 자체개발자 계정',$this['record']->developer_account == 'Y' ? "checked" : "")
-        )),
+        array('포인트 관련','',array(
+                array('name="login_point"','Y',$this['record']->login_point,'출석체크'),
+                array('name="push_point"','Y',$this['record']->push_point,'푸쉬체크'),
+                array('name="install_point"','Y',$this['record']->install_point,'앱설치'),
+                array('name="point_transfer_btn"','Y',$this['record']->point_transfer_btn,'수동전환'),
+            ),'checkBox2'),
+        array('유료 부가서비스','',array(
+                array('name="app_retarget"','Y',$this['record']->app_retarget,'리타켓팅'),
+                array('name="app_ma"','Y',$this['record']->app_ma,'마케팅 오토메이션'),
+            ),'checkBox2'),
+        array('추가 서비스','',array(
+                array('name="lock_screen"','Y',$this['record']->lock_screen,'잠금화면설정'),
+                array('name="reward_opt"','Y',$this['record']->reward_opt,'리워드'),
+                array('name="app_cart"','Y',$this['record']->app_cart,'장바구니 리마인드'),
+            ),'checkBox2'),
+        array('푸쉬 관련','',array(
+                array('name="push_msg_show"','Y',$this['record']->push_msg_show,'소식란에 보이도록'),
+                array('name="push_popup"','Y',$this['record']->push_popup,'팝업'),
+                array('name="push_call_back"','Y',$this['record']->push_call_back,'리시브 콜백'),
+                array('name="is_fcm"','Y',$this['record']->is_fcm,'FCM'),
+            ),'checkBox2'),
+        array('기타','',array(
+                array('name="script_api"','Y',$this['record']->script_api,'디바이스허용'),
+                array('name="app_members"','Y',$this['record']->app_members,'앱사용자 관리'),
+                array('name="script_popup"','Y',$this['record']->script_popup,'스크립트설치'),
+                array('name="developer_account"','Y',$this['record']->developer_account,'자체개발계정'),
+            ),'checkBox2'),
         array('SDK/커스텀','name="custom_sdk"',$this['record']->custom_sdk,'name="custom_etc"',$this['record']->custom_etc != "" ? $this['record']->custom_etc : "empty",'커스텀::'),
         array('관리업체지정','name="vip_check"',$this['record']->vip_check,'selectBox',array(
                 array('','지정안함'),
@@ -240,7 +218,7 @@ function onStart()
                       <tr>
                           <th>ID</th>
                           <td>
-                              <input type="text" name=""><span>(ex : abc@byapps.co.kr)</span>
+                              <input type="text" name="" class="form-control input_type3">
                               <a href="#"><input type="button" value="회원로그인"></a>
                               <a href="#"><input type="button" value="주문내역"></a>
                               <a href="#"><input type="button" value="결제내역"></a>
@@ -253,51 +231,55 @@ function onStart()
                       <tr>
                           <th>새 비밀번호</th>
                           <td>
-                              <input type="password" name="">
-                              <span>새비밀번호확인</span>
-                              <input type="password" name="">
-                              <a href="#"><input type="button" value="비밀번호 초기화메일발송"></a>
+                              <input type="text" name="" class="form-control input_type3">
+                              <span class="input_type3">새비밀번호확인</span>
+                              <input type="password" name="" class="form-control input_type3">
+                              <a href="#"><input type="button" class="form-control input_type3" value="비밀번호 초기화메일발송"></a>
                           </td>
                       </tr>
                       <tr>
                           <th>업체명</th>
                           <td>
-                              <input type="text" name="">
+                              <input type="text" name="" class="form-control input_type3" style="width: 240px;">
                           </td>
                       </tr>
                       <tr>
                           <th>대표자명</th>
                           <td>
-                              <input type="text" name="">
+                              <input type="text" name="" class="form-control input_type3" style="width: 240px;">
                           </td>
                       </tr>
                       <tr>
                           <th>담당자명</th>
                           <td>
-                              <input type="text" name="">
+                              <input type="text" name="" class="form-control input_type3" style="width: 240px;">
                           </td>
                       </tr>
                       <tr>
                           <th>연락처</th>
                           <td>
-                              <input type="text" name="" maxlength="3" size="10">-
-                              <input type="text" name="" maxlength="4"size="10">-
-                              <input type="text" name="" maxlength="4"size="10">
-                              <input type="button" value="SMS 보내기">
+                              <input type="text" name="" class="form-control input_type3" maxlength="3" size="10">
+                              <span class="input_type3">-</span>
+                              <input type="text" name="" class="form-control input_type3" maxlength="4"size="10">
+                              <span class="input_type3">-</span>
+                              <input type="text" name="" class="form-control input_type3" maxlength="4"size="10">
+                              <input type="button" class="form-control input_type3" style="margin-left:10px;" value="SMS 보내기">
                           </td>
                       </tr>
                       <tr>
                           <th>완료알림 연락처</th>
                           <td>
-                              <input type="text" name="" maxlength="3" size="10">-
-                              <input type="text" name="" maxlength="4" size="10">-
-                              <input type="text" name="" maxlength="4" size="10">
+                              <input type="text" name="" class="form-control input_type3" maxlength="3" size="10">
+                              <span class="input_type3">-</span>
+                              <input type="text" name="" class="form-control input_type3" maxlength="4"size="10">
+                              <span class="input_type3">-</span>
+                              <input type="text" name="" class="form-control input_type3" maxlength="4"size="10">
                           </td>
                       </tr>
                       <tr>
                           <th>이메일</th>
                           <td>
-                              <input type="text" name="">
+                              <input type="text" name="" class="form-control input_type3" style="width: 240px;">
                           </td>
                       </tr>
                       <tr>
@@ -309,8 +291,8 @@ function onStart()
                       <tr>
                           <th>Option</th>
                           <td>
-                              <input type="radio" name="option" checked><span>수정</span>
-                              <input type="radio" name="option"><span>삭제</span>
+                              <label><input type="radio" name="option" checked>수정</label>
+                              <label><input type="radio" name="option">삭제</label>
                           </td>
                       </tr>
                   </table>
@@ -335,7 +317,12 @@ function onStart()
                 {% elseif item.3 == 'checkBox' %}
                         {% for option in item.4 %}
                             <label><input type="checkbox" {{ item.1 }} {{ option.2 }} value="{{ option.0 }}">{{ option.1 }}</label>
-                        {% endfor %}          
+                        {% endfor %}         
+                {% elseif item.3 == 'checkBox2' %}
+                        <hr>
+                        {% for option in item.2 %}
+                            <label style="width: 49%;"><input type="checkbox" {{ option.0 }} {{ option.1 == option.2 ? "checked" : "" }} value="{{ option.1 }}">{{ option.3 }}</label>
+                        {% endfor %}
                 {% elseif item.3 == 'textarea' %}              
                             <textarea {{ itme.1 }} class="form-control" style="height:300px;">{{ item.2 }}</textarea>
                 {% elseif item.0 == 'Develop Info' %}
@@ -343,9 +330,14 @@ function onStart()
                                 <li>텍스트로 보기</li>
                                 <li>HTML코드로 보기</li>
                             </ul>
-                            <div class="develop_info">{{ item.2|raw }}</div>
-                            <textarea {{ item.1 }} class="form-control develop_info" style="height:300px;" id="develop_info">{{ item.2 }}</textarea>
-                            
+                            <div class="develop_info">
+                                {{ item.2|raw }}
+                            </div>
+                            <div class="develop_info">
+                                <textarea {{ item.1 }} class="form-control" style="height:45rem;resize: vertical;">
+                                    {{ item.2 }}
+                                </textarea>
+                            </div>
                 {% elseif item.5 %}
                         <input type="text" {{ item.1 }} class="form-control input_cnt2" value="{{ item.2 }}">
                         <span class="input_cnt2">{{ item.5 }}</span>

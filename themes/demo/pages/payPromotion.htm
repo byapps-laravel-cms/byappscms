@@ -38,6 +38,12 @@ function onStart()
            $dateString = date("Y-m-d h:i:s", $val);
            return $dateString;
         }
+        public function numberFormat($input)
+        {   
+            $input = substr($input,0,-3);
+            $input = number_format($input);    
+            return "월 {$input}원";
+        }
     };
 }
 ?>
@@ -90,8 +96,8 @@ function onStart()
                   {% endif %}
                   </td>
                   <td>{{ record.pm_used }}</td>
-                  <td>{{ record.pm_target }}</td>
-                  <td>{{ record.pm_content }}</td>
+                  <td>{{ record.pm_target == 'ma' ? "마케팅 오토메이션" : "리타겟팅" }}</td>
+                  <td>{{ func.numberFormat(record.pm_content) }}</td>
                   <td>{{ func.dateFormat(record.reg_time) }}</td>
               </tr>
 

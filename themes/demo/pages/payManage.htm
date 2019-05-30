@@ -29,7 +29,7 @@ use Jiwon\Byapps\Models\PaymentData;
 
 function onStart()
 {
-    $this['records'] = PaymentData::get();
+    $this['records'] = PaymentData::orderBy('reg_time')->get();
 
     $this['func'] = new Class {
         public function dateFormat($val)

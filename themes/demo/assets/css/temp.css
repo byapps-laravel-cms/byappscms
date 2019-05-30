@@ -143,11 +143,14 @@
     width:50%;
     height:100%;
     float:left;
+    cursor:pointer;
 }
 .develop_info{
-    width:100%;
-    height:100%;
+    width: 57rem;
+    height: fit-content;
     display:none;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
 }
 /* .calendar>input:nth-last-child(1){
     margin-left: 1%;
@@ -165,6 +168,7 @@
 .select_box_1{
     background-color:#262a30;    
 }
+
 }
 .app_container{
     width:100%;
@@ -293,6 +297,8 @@
     position: fixed;
     left: 92vw;
     top: 93vh;
+    cursor:pointer;
+    display:none;
 }
 .aside_open_btn{
     width: 3vw;
@@ -319,14 +325,28 @@
 }
 .aside_close_btn{
     width: 100%;
-    height: 5%;
-    background-color:#424242;     
-    position:absolute;
+    height: 8%;
+    background-color: #e8e8e8;
     z-index:10;
     text-align:center;
-    line-height: 100vh;
     cursor:pointer;
 }
+.aside_wrap{
+    width:100%;
+    height:100%;
+}
+.aside_header{
+    width:100%;
+    height: 10%;
+    background-color: #5588a3;}
+.aside_section{
+    width:100%;
+    height: 72%;
+    background-color: #145374;}
+.aside_footer{
+    width:100%;
+    height: 10%;
+    background-color: #00334e;}
 .btn_del{
     display: inline-block;
     width: 10px;
