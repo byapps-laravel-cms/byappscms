@@ -8,6 +8,13 @@ $(".show_btn").click(function (){
         $(".show_btn").css({"background-color":"#c6c6c6"});
     }
 });
+//카테고리 변경 확인
+if(Util.getCookie('searchType')){
+    $('.select_comm_1 option').eq(Util.getCookie('searchType')*1).attr('selected','selected');
+}
+$('.select_comm_1').change(function() {
+    document.cookie = `searchType=${$('.select_comm_1 option:selected').index()};path=/`;
+});
 //사이드 배너 슬라이드
 $(".aside_open_btn").click(function (){
     $(".aside").fadeIn(500);
