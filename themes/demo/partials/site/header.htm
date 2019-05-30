@@ -1,4 +1,14 @@
 ==
+<?php
+use Jiwon\Byapps\Models;
+use Jiwon\Byapps\Models\PaymentData;
+
+function onStart()
+{
+  $this['payCount'] = count(PaymentData::get());
+}
+?>
+==
 <!-- Nav -->
 <nav id="layout-nav" class="navbar navbar-inverse navbar-fixed-top navbar-autohide" role="navigation">
     <div class="container">
@@ -26,14 +36,30 @@
                 <li class="nav-item dropdown {% if this.page.id == 'payManage' %}active{% endif %}">
         					<a class="nav-link dropdown-toggle" href="{{ 'payManage'|page }}" id="navbarDropdown_01" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         						결제 관리
+                    {% if payCount != 0 %}
+                    <span class="badge" id="badge01">{{ payCount }}</span>
+                    {% endif %}
         						<i class="fas fa-caret-down"></i>
         					</a>
         					<div class="dropdown-menu" aria-labelledby="navbarDropdown_01">
-        						<a class="dropdown-item" href="{{ 'payManage'|page }}">결제 관리</a>
+        						<a class="dropdown-item" href="{{ 'payManage'|page }}" id="navbarDropdown_sub_01">결제 관리</a>
         						<a class="dropdown-item" href="{{ 'payPromotion'|page }}">프로모션</a>
         					</div>
         				</li>
                 {% endif %}
+
+                <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+                <script type="text/javascript">
+                $(document).ready(function($){
+                   $('#navbarDropdown_01').on('click', function(e){
+                       $("#badge01").html("0");
+                       if ( $("#badge01").html() == "0") {
+                           $("#badge01").hide();
+                       }
+                   })
+                })
+                </script>
 
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_02" data-toggle="dropdown">
