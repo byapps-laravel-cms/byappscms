@@ -94,7 +94,7 @@ function onStart()
                 <td>{{ record.app_process }}</td>
                 <td>{{ record.app_build }}</td>
                 <td>커스텀</td>
-                <td>{{ record.app_os_type }}</td>
+                <td>{{ record.app_os_type == 'both' ? 'and+ios' : record.app_os_type }}</td>
                 <td>서비스기간</td>
    
                 <!-- <td>{{ func.dateFormat(record.reg_time) }}</td> -->

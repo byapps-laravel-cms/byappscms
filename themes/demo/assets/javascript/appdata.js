@@ -38,7 +38,7 @@ $(".app_select li").eq(0).css({"background-color":"#c2d4ef"});
 $(".app_select li").click(function (){
     var index = $(".app_select li").index(this);
     $(".app_box_cover").css({"display":"none"});
-    $(".app_select li").css({"background-color":"#fff"});
+    $(".app_select li").css({"background-color":"#c6c6c6"});
     $(".app_box_cover").eq(index).css({"display":"block"}); 
     $(".app_select li").eq(index).css({"background-color":"#c2d4ef"});
 });
@@ -49,7 +49,7 @@ $(".develop_info").eq(0).css({"display":"block"});
 $(".develop_info_select li").click(function (){
     var index = $(".develop_info_select li").index(this);
     //초기화
-    $(".develop_info_select li").css({"background-color":"#fff"});
+    $(".develop_info_select li").css({"background-color":"#c6c6c6"});
     $(".develop_info").css({"display":"none"});
     //변경
     $(".develop_info_select li").eq(index).css({"background-color":"#c2d4ef"});
