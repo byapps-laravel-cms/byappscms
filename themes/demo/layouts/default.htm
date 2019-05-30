@@ -40,10 +40,11 @@ function onStart()
     
         <!-- Content -->
         <section id="layout-content">
+            <div class="top_btn"></div>
             {% if this.page.title != 'Home' %}
                 <!-- aside -->
-                <div class="top_btn"></div>
-                <div class="aside_open_btn"></div>
+                <div class="aside_open_btn_1 aside_open_btn"></div>
+                <div class="aside_open_btn_2 aside_open_btn"><</div>
                 {% partial 'site/aside' %}
             {% endif %}
             {% page %}

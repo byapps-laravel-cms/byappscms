@@ -139,14 +139,14 @@ function onStart()
             ),'checkBox2'),
         array('추가 서비스','',array(
                 array('name="lock_screen"','Y',$this['record']->lock_screen,'잠금화면설정'),
-                array('name="reward_opt"','Y',$this['record']->reward_opt,'리워드'),
+                array('name="reward_opt"','Y',$this['record']->reward_opt,'추천 리워드'),
                 array('name="app_cart"','Y',$this['record']->app_cart,'장바구니 리마인드'),
             ),'checkBox2'),
         array('푸쉬 관련','',array(
                 array('name="push_msg_show"','Y',$this['record']->push_msg_show,'소식란에 보이도록'),
                 array('name="push_popup"','Y',$this['record']->push_popup,'팝업'),
                 array('name="push_call_back"','Y',$this['record']->push_call_back,'리시브 콜백'),
-                array('name="is_fcm"','Y',$this['record']->is_fcm,'FCM'),
+                array('name="is_fcm"','Y',$this['record']->is_fcm,'FCM 발송적용'),
             ),'checkBox2'),
         array('기타','',array(
                 array('name="script_api"','Y',$this['record']->script_api,'디바이스허용'),
@@ -234,7 +234,7 @@ function onStart()
                               <input type="text" name="" class="form-control input_type3">
                               <span class="input_type3">새비밀번호확인</span>
                               <input type="password" name="" class="form-control input_type3">
-                              <a href="#"><input type="button" class="form-control input_type3" value="비밀번호 초기화메일발송"></a>
+                              <a href="#"><input type="button" class="form-control input_type3" style="margin-left: 10px;" value="비밀번호 초기화메일발송"></a>
                           </td>
                       </tr>
                       <tr>
@@ -298,7 +298,7 @@ function onStart()
                   </table>
               </div>
               <div class="show_btn">
-                  <img src="http://pji.innoi.kr/themes/demo/assets/images/under_array.png" alt="button" id="arrow">
+                  <h3>Click!</h3>
               </div>
             {% for item in itemlist %}
                 <div class="form-group row">
@@ -319,10 +319,10 @@ function onStart()
                             <label><input type="checkbox" {{ item.1 }} {{ option.2 }} value="{{ option.0 }}">{{ option.1 }}</label>
                         {% endfor %}         
                 {% elseif item.3 == 'checkBox2' %}
-                        <hr>
                         {% for option in item.2 %}
                             <label style="width: 49%;"><input type="checkbox" {{ option.0 }} {{ option.1 == option.2 ? "checked" : "" }} value="{{ option.1 }}">{{ option.3 }}</label>
                         {% endfor %}
+                        <hr>
                 {% elseif item.3 == 'textarea' %}              
                             <textarea {{ itme.1 }} class="form-control" style="height:300px;">{{ item.2 }}</textarea>
                 {% elseif item.0 == 'Develop Info' %}

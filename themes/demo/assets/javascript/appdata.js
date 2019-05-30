@@ -2,10 +2,10 @@
 $(".show_btn").click(function (){
     if($(".top_banner").css("display")=="block"){
         $(".top_banner").slideUp(500);
-        $("#arrow").attr("src", "http://pji.innoi.kr/themes/demo/assets/images/under_array.png");
+        $(".show_btn").css({"background-color":"#d9edf7"});
     }else{
         $(".top_banner").slideDown(500);    
-        $("#arrow").attr("src", "http://pji.innoi.kr/themes/demo/assets/images/up_array.png");
+        $(".show_btn").css({"background-color":"#c6c6c6"});
     }
 });
 //사이드 배너 슬라이드
@@ -23,7 +23,7 @@ $(".aside_close_btn").click(function (){
     document.cookie = "aside=off;path=/";
 });
 //쿠키
-if(Util.getCookie('aside') == 'on'){
+if(Util.getCookie('aside') == 'on' && $('.aside').length != 0){
     $(".aside").fadeIn(0);
     $(".container").css({"margin-left": "5vw"});
     $(".top_btn").css({"margin-left": "-27vw"});

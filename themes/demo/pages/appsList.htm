@@ -18,11 +18,25 @@ detailsKeyColumn = "idx"
 detailsUrlParameter = "idx"
 recordsPerPage = 20
 pageNumber = "{{ :page }}"
+sortColumn = "idx"
+sortDirection = "desc"
 
 [session]
 security = "user"
 allowedUserGroups[] = "admin_level_1"
 redirect = "permission"
+==
+<?php
+use Jiwon\Byapps\Models\AppsData;
+
+function onStart()
+{
+    $this['records1'] = AppsData::
+        orderBy('idx','desc')
+        ->limit(20)
+        ->get(); 
+}
+?>
 ==
 <div class="jumbotron title-js">
     <div class="container">
@@ -91,13 +105,6 @@ redirect = "permission"
         {% endfor %}
         </tbody>
     </table>
-
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#example').DataTable();
-} );
-</script>
-
 
 {% set paginationEnabled =
     records.currentPage > 1 or
