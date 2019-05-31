@@ -1,0 +1,44 @@
+<div class="layout responsive-sidebar">
+    <div class="layout-cell">
+
+        <div class="layout">
+            <?php if ($breadcrumbContent = Block::placeholder('breadcrumb')): ?>
+                <!-- Breadcrumb -->
+                <div class="control-breadcrumb breadcrumb-flush">
+                    <?= $breadcrumbContent ?>
+                </div>
+            <?php endif ?>
+
+            <!-- Content -->
+            <div class="layout-row">
+                <div class="padded-container layout">
+                    <?= Block::placeholder('form-contents') ?>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <?php
+        if(strpos($this->bodyClass, 'compact-container') !== false && ($this->showImageMaps || !isset($this->imageMap))):
+            $size = isset($this->sidebarSize) ? $this->sidebarSize : 350;
+            if (in_array($size, [50, 100, 120, 130, 140, 150, 200, 300, 350])) {
+                $class = " w-$size";
+                $size = '';
+            } else {
+                $class = '';
+                $size = " style=\"width: {$size}px\"";
+            }
+        ?>
+        <div class="layout-cell form-sidebar<?= $class; ?> control-scrollpanel"<?= $size; ?>>
+            <div class="layout-relative">
+                <div class="layout-absolute">
+                    <div class="control-scrollbar" data-control="scrollbar">
+                        <div class="padded-container">
+                            <?= Block::placeholder('form-sidebar') ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>
