@@ -1,0 +1,4 @@
+title: AppsDataDetail
+modelClass: Jiwon\Byapps\Models\AppsData
+toolbar:
+    buttons: reorder_toolbar

@@ -1,0 +1,75 @@
+.layout-cell.layout-sidenav-container ~ .layout-cell.sidenav-tree {
+    border-left: 2px solid #2c3e50;
+}
+
+.image-map {
+    position: relative;
+}
+.image-map > img {
+    max-width: 100%;
+}
+.image-map > .image-marker {
+    position: absolute;
+    color: inherit;
+    font-size: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.image-map > .image-marker.image-marker-box {
+    border-radius: 5px;
+}
+
+.image-map:hover > .image-marker {
+    opacity: .5;
+}
+
+.image-map:hover > .image-marker.image-marker-box {
+    opacity: .2;
+}
+
+.image-map > .image-marker:hover {
+    opacity: 1;
+}
+
+.image-map > .image-marker.image-marker-box:hover {
+    opacity: .5;
+}
+
+/**
+ * Уже не помню че это такое
+ * По логике, это правки для мульти-файл-аплоадера,
+ *    который находится в сайдбаре (там-же где и карта полей)
+ */
+.form-sidebar .field-fileupload.style-file-multi .upload-object .info p.size {
+    width: 20%;
+}
+.form-sidebar .field-fileupload.style-file-multi .upload-object:hover .info p.size {
+    display: none;
+}
+.form-sidebar .field-fileupload.style-file-multi .upload-object:hover .info {
+    margin-right: 40px;
+}
+.form-sidebar .field-fileupload.style-file-multi.is-preview .upload-object:hover .info {
+    margin-right: 10px;
+}
+.form-sidebar .field-fileupload.style-file-multi.is-preview .upload-object:hover h4 {
+    padding-right: 0;
+}
+.form-sidebar .field-fileupload.style-file-multi .upload-object:hover .meta a.drag-handle {
+    top: 0;
+}
+
+.field-fileupload.style-file-multi .upload-object:hover .meta a.drag-handle {
+    z-index: 1;
+}
+.field-fileupload.style-file-multi .upload-object .upload-remove-button {
+    z-index: 1;
+    cursor: no-drop;
+}
+/* Если что-то в сайдбаре не так отображается, рекомендую удалить */
+
+.checkboxlist-full-height .field-checkboxlist-scrollable {
+    height: auto;
+}
