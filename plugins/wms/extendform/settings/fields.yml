@@ -1,0 +1,8 @@
+$main:
+  show_image_maps:
+    label: wms.extendform::lang.settings.show_image_maps
+    span: full
+    type: checkbox
+    default: true
+    cast: boolean
+    order: 10
