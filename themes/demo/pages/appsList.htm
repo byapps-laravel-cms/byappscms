@@ -2,6 +2,10 @@ title = "앱 목록"
 url = "/apps/list/:page"
 layout = "default"
 is_hidden = 0
+child_of = "mey_no_parent"
+hide_crumb = 0
+remove_crumb_trail = 0
+crumb_disabled = 0
 
 [builderList]
 modelClass = "Jiwon\Byapps\Models\AppsData"
@@ -14,12 +18,31 @@ detailsKeyColumn = "idx"
 detailsUrlParameter = "idx"
 recordsPerPage = 20
 pageNumber = "{{ :page }}"
+sortColumn = "idx"
+sortDirection = "desc"
+
+[session]
+security = "user"
+allowedUserGroups[] = "admin_level_1"
+redirect = "permission"
+==
+<?php
+use Jiwon\Byapps\Models\AppsData;
+
+function onStart()
+{
+    $this['records1'] = AppsData::
+        orderBy('idx','desc')
+        ->limit(20)
+        ->get(); 
+}
+?>
 ==
 <div class="jumbotron title-js">
     <div class="container">
         <div class="row">
             <div class="col-8">
-                <h3>앱 관리</h3>
+                <h3>앱 목록</h3>
                 <small>앱 등록 등의 관리를 하실 수 있습니다</small>
             </div>
         </div>
@@ -38,7 +61,6 @@ pageNumber = "{{ :page }}"
 <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>앱 아이디</th>
                 <th>앱명</th>
                 <th>버전</th>
@@ -48,14 +70,12 @@ pageNumber = "{{ :page }}"
                 <th>커스텀</th>
                 <th>신청OS</th>
                 <th>서비스기간</th>
-
             </tr>
         </thead>
 
         <tbody>
          {% for record in records %}
             <tr>
-                <td>{{ record.idx }}</td>
                 <td>{{ record.app_id }}</td>
                 <td>
                 {% if detailsPage %}
@@ -74,7 +94,7 @@ pageNumber = "{{ :page }}"
                 <td>{{ record.app_process }}</td>
                 <td>{{ record.app_build }}</td>
                 <td>커스텀</td>
-                <td>{{ record.app_os_type }}</td>
+                <td>{{ record.app_os_type == 'both' ? 'and+ios' : record.app_os_type }}</td>
                 <td>서비스기간</td>
    
                 <!-- <td>{{ func.dateFormat(record.reg_time) }}</td> -->
@@ -85,13 +105,6 @@ pageNumber = "{{ :page }}"
         {% endfor %}
         </tbody>
     </table>
-
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#example').DataTable();
-} );
-</script>
-
 
 {% set paginationEnabled =
     records.currentPage > 1 or

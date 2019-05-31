@@ -472,7 +472,27 @@ body {
   color: inherit;
   background-color: #eeeeee;
 }
-
+.input_cnt2{
+    float: left;
+}
+input.input_cnt2{
+    width: 100px;
+}
+span.input_cnt2{
+    margin: 0 8px;
+    line-height: 39px;
+}
+.input_type3{
+    float: left;
+    height: 30px;
+}
+input.input_type3{
+    width: 120px;
+}
+span.input_type3{
+    margin: 0 5px;
+    line-height: 30px;
+}
 /* #layout-footer {
   position: fixed;
   bottom: 0;

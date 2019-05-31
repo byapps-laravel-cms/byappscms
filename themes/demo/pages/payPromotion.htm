@@ -2,6 +2,10 @@ title = "프로모션"
 url = "/pay/promotion/:page?"
 layout = "default"
 is_hidden = 0
+child_of = "mey_no_parent"
+hide_crumb = 0
+remove_crumb_trail = 0
+crumb_disabled = 0
 
 [builderList]
 modelClass = "Jiwon\Byapps\Models\PromotionData"
@@ -16,6 +20,11 @@ recordsPerPage = 20
 pageNumber = "{{ :page }}"
 sortColumn = "idx"
 sortDirection = "desc"
+
+[session]
+security = "user"
+allowedUserGroups[] = "admin_level_1"
+redirect = "permission"
 ==
 <?php
 use Jiwon\Byapps\Models\PromotionData;
@@ -28,6 +37,12 @@ function onStart()
         {
            $dateString = date("Y-m-d h:i:s", $val);
            return $dateString;
+        }
+        public function numberFormat($input)
+        {   
+            $input = substr($input,0,-3);
+            $input = number_format($input);    
+            return "월 {$input}원";
         }
     };
 }
@@ -56,7 +71,6 @@ function onStart()
   <table id="example" class="table table-striped table-bordered" style="width:100%">
           <thead>
               <tr>
-                  <th>ID</th>
                   <th>프로모션 명</th>
                   <th>회원</th>
                   <th>사용</th>
@@ -69,7 +83,6 @@ function onStart()
           <tbody>
            {% for record in records %}
               <tr>
-                  <td>{{ record.idx }}</td>
                   <td>{{ record.pm_title }}</td>
                   <td>
                   {% if detailsPage %}
@@ -83,8 +96,8 @@ function onStart()
                   {% endif %}
                   </td>
                   <td>{{ record.pm_used }}</td>
-                  <td>{{ record.pm_target }}</td>
-                  <td>{{ record.pm_content }}</td>
+                  <td>{{ record.pm_target == 'ma' ? "마케팅 오토메이션" : "리타겟팅" }}</td>
+                  <td>{{ func.numberFormat(record.pm_content) }}</td>
                   <td>{{ func.dateFormat(record.reg_time) }}</td>
               </tr>
 

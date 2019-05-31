@@ -1,0 +1,31 @@
+title = "권한안내"
+url = "/permission/:message?"
+layout = "default"
+is_hidden = 0
+child_of = "mey_no_parent"
+hide_crumb = 0
+remove_crumb_trail = 0
+crumb_disabled = 0
+==
+<div class="jumbotron title-js">
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <h3>권한안내</h3>
+                <small>
+                    {% if this.param.message == 'Lv1' %}
+                        목록열람
+                    {% elseif this.param.message == 'Lv2' %}
+                        상세보기
+                    {% elseif this.param.message == 'Lv3' %}            
+                        수정
+                    {% endif %}
+                    권한이 없습니다
+                </small>
+                <br><br>
+                <a href="/"><input type="button" value="홈으로"></a>
+                <input type="button" value="이전으로" onclick="history.back()">
+            </div>
+        </div>
+    </div>
+</div>

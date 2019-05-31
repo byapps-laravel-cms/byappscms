@@ -1,7 +1,11 @@
 description = "Default layout"
-
-[session]
-security = "all"
+==
+<?php
+function onStart()
+{
+    
+}
+?>
 ==
 <!DOCTYPE html>
 <html>
@@ -16,38 +20,37 @@ security = "all"
         <link rel="icon" type="image/png" href="{{ 'assets/images/october.png'|theme }}">
         <link href="{{ 'assets/css/vendor.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/theme.css'|theme }}" rel="stylesheet">
+        <link href="{{ 'assets/css/temp.css'|theme }}" rel="stylesheet">
+        <link href="{{ 'assets/css/appdata.css'|theme }}" rel="stylesheet">
        
         <!-- For Datatable -->
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="https://www.amcharts.com/lib/4/core.js"></script>
+        <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+        <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
         <!-- For Datatable 끝 -->
         
         {% styles %}
-        <style>
-        .dropdown-item {
-            display: block;
-            width: 100%;
-            padding: .25rem 1.5rem;
-            clear: both;
-            font-weight: 400;
-            color: #212529;
-            text-align: inherit;
-            white-space: nowrap;
-            background-color: transparent;
-            border: 0;
-        }
-        </style>
     </head>
     <body>
-
         <!-- Header -->
         <header id="layout-header">
             {% partial 'site/header' %}
         </header>
-
+    
         <!-- Content -->
         <section id="layout-content">
+            <div class="top_btn"></div>
+            {% if this.page.title != 'Home' %}
+                <!-- aside -->
+                <div class="aside_open_btn_1 aside_open_btn"></div>
+                <div class="aside_open_btn_2 aside_open_btn"><</div>
+                {% partial 'site/aside' %}
+            {% endif %}
             {% page %}
+            
         </section>
 
         <!-- Footer -->
@@ -58,7 +61,12 @@ security = "all"
         <!-- Scripts -->
         <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/bootstrap.js'|theme }}"></script>
+        <script src="{{ 'assets/vendor/jquery.bpopup.min.js'|theme }}"></script>
+        <script src="{{ 'assets/javascript/util.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/app.js'|theme }}"></script>
+        <script src="{{ 'assets/javascript/chart.js'|theme }}"></script>
+        <script src="{{ 'assets/javascript/appdata.js'|theme }}"></script>
+        <script src="{{ 'assets/javascript/popup.js'|theme }}"></script>
         {% framework extras %}
         {% scripts %}
 
