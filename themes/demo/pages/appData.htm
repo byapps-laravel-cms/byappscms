@@ -214,8 +214,8 @@ function onStart()
         <div class="row margin-0">
           <form>
           <div class="row top_banner">
-                <div class="form-group">
-                    <label class="col-md-2 col-xs-12 control-label">ID</label>
+                <div class="row">
+                    <label class="col-md-2 col-xs-10  control-label">ID</label>
                     <div class="col-md-7 col-xs-8 ">
                         <input type="text" name="" class="form-control">
                     </div>
@@ -288,120 +288,130 @@ function onStart()
                       </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 col-xs-12 ccontrol-label">완료알림 연락처</label>
-                      <div class="col-md-2 col-xs-2">
-                          <input type="text" name="" class="form-control" maxlength="3" size="10">
-                      </div>
-                      <span class="col-md-0 col-xs-0" style="float:left;">-</span>
-                      <div class="col-md-2 col-xs-3">
-                          <input type="text" name="" class="form-control" maxlength="4"size="10">
-                      </div>
-                      <span class="col-md-0 col-xs-0" style="float:left;">-</span>
-                      <div class="col-md-2 col-xs-3">
-                          <input type="text" name="" class="form-control" maxlength="4"size="10">
-                      </div>
-                      <div class="col-md-2 col-xs-3">
-                          <input type="button" class="form-control" value="SMS 보내기">
-                      </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-2 col-xs-12 control-label">이메일</label>
-                    <div class="col-md-10 col-xs-12">
-                        <input type="text" name="" class="form-control">
+                    <label class="col-sm-12 col-md-2 control-label">완료알림 연락처</label>
+                    <div class="col-sm-12 col-md-10">
+                          <div class="col-sm-2 col-md-2">
+                              <input type="text" name="" class="form-control" maxlength="3" size="10">
+                          </div>
+                          <span style="float:left;">-</span>
+                          <div class="col-sm-2 col-md-2">
+                              <input type="text" name="" class="form-control" maxlength="4"size="10">
+                          </div>
+                          <span style="float:left;">-</span>
+                          <div class="col-sm-2 col-md-2">
+                              <input type="text" name="" class="form-control" maxlength="4"size="10">
+                          </div>
+                          <div class="col-sm-2 col-md-2">
+                              <input type="button" class="form-control" value="SMS 보내기">
+                          </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 col-xs-12 control-label">로그정보</label>
-                    <div class="col-md-10 col-xs-12">
-                        <span class="form-control"></span>
+                    <label class="col-sm-2 col-md-2 control-label">이메일</label>
+                    <div class="col-sm-10 col-md-10">
+                        <div class="col-sm-10 col-md-10">
+                            <input type="text" name="" class="form-control">
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 col-xs-12 control-label">담당자명</label>
-                    <div class="col-md-10 col-xs-12">
-                        <input type="text" name="" class="form-control">
+                    <label class="col-sm-2 col-md-2 control-label">로그정보</label>
+                    <div class="col-sm-10 col-md-10">
+                        <div class="col-sm-10 col-md-10">
+                            <span class="form-control"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 col-xs-12 control-label">담당자명</label>
-                    <div class="col-md-10 col-xs-12">
-                          <label class="radio-inline"><input type="radio" name="option" checked>수정</label>
-                          <label class="radio-inline"><input type="radio" name="option">삭제</label>
+                    <label class="col-sm-2 col-md-2 control-label">담당자명</label>
+                    <div class="col-sm-10 col-md-10">
+                        <div class="col-sm-10 col-md-10">
+                            <input type="text" name="" class="form-control">
+                        </div>
                     </div>
                 </div>
-              </div>
-              <div class="show_btn">
-                  <h3>-Click!-</h3>
-              </div>
-            {% for item in itemlist %}
-                <div class="form-group row">
-                  <label class="col-md-2 col-xs-12 control-label">{{ item.0 }}</label>
-                    <div class="col-md-10 col-xs-12">
-                {% if item.3 == 'selectBox' %}
-                        <div class="col-md-10 col-xs-12">
-                            <select {{ item.1 }} class="form-control">
-                                {% for option in item.4 %}
-                                    <option value="{{ option.0 }}" {{ item.2 == option.0 ? "selected" : "" }} >{{ option.1 }}</option>
-                                {% endfor %}
-                            </select>
+                <div class="form-group">
+                    <label class="col-sm-2 col-md-2 control-label">담당자명</label>
+                    <div class="col-sm-10 col-md-10">
+                        <div class="col-sm-2 col-md-2">
+                              <label class="radio-inline"><input type="radio" name="option" checked>수정</label>
+                              <label class="radio-inline"><input type="radio" name="option">삭제</label>
                         </div>
-                {% elseif item.3 == 'radoiButton' %}
-                        <div class="col-md-10 col-xs-12">
-                            {% for option in item.4 %}
-                                <label class="radio-inline col-md-10 col-xs-3" ><input type="radio" {{ item.2 == option.0 ? "checked" : "" }} {{ item.1 }} value="{{ option.0 }}">{{ option.1 }}</label>
-                            {% endfor %}
-                        </div>
-                {% elseif item.3 == 'checkBox' %}
-                        <div class="col-md-10 col-xs-12">
-                            {% for option in item.4 %}
-                                <label class="radio-inline col-md-10 col-xs-2"><input type="checkbox" {{ item.1 }} {{ option.2 }} value="{{ option.0 }}">{{ option.1 }}</label>
-                            {% endfor %} 
-                        </div>        
-                {% elseif item.3 == 'checkBox2' %}
-                        {% for option in item.2 %}
-                            <div class="col-sm-3">
-                                <label class="radio-inline"><input type="checkbox" {{ option.0 }} {{ option.1 == option.2 ? "checked" : "" }} value="{{ option.1 }}">{{ option.3 }}</label>
-                            </div>
-                        {% endfor %}
-                {% elseif item.3 == 'textarea' %}              
-                            <textarea {{ itme.1 }} class="form-control" rows="5">{{ item.2 }}</textarea>
-                {% elseif item.0 == 'Develop Info' %}
-                            <ul class="develop_info_select">
-                                <li>텍스트로 보기</li>
-                                <li>HTML코드로 보기</li>
-                            </ul>
-                            <div class="develop_info" style="min-width: 55rem;">
-                                {{ item.2|raw }}
-                            </div>
-                            <div class="develop_info">
-                                <textarea {{ item.1 }} class="form-control" style="width: 55rem;height:45rem;resize: vertical;">
-                                    {{ item.2 }}
-                                </textarea>
-                            </div>
-                {% elseif item.5 %}
-                        <div class="col-md-3 col-xs-4">
-                            <input type="text" {{ item.1 }} class="form-control" value="{{ item.2 }}">
-                        </div>
-                        <span class="col-md-1 col-xs-1" style="float: left;">{{ item.5 }}</span>
-                        <div class="col-md-3 col-xs-4">
-                            <input type="text" {{ item.3 }} class="form-control" value="{{ item.4 == "empty" ? "" : item.4 }}">
-                        </div>
-                        <div class="col-md-2 col-xs-3">
-                            {{ item.0 == 'Android Version' ? '<input type="button" value="업데이트" class="form-control" onclick="view_user()">' : "" }}
-                        </div>
-                {% else %}
-                        <div class="col-md-8 col-xs-9">
-                            <input type="text" {{ item.1 }} class="form-control {{ item.3 == 'input+button' ? "" : "" }}" value="{{ item.2 }}">
-                        </div>
-                    {% if item.3 == 'input+button' %}
-                        <div class="col-md-2 col-xs-3">
-                            <a href="{{ item.2 }}" target="_sub"><input class="form-control" type="button" value="새탭에서 열기"></a>
-                        </div>
-                    {% endif %}
-                {% endif %}
-                  </div>
+                    </div>
                 </div>
-            {% endfor %}
+            </div>
+            <div class="show_btn">
+                <h3>-Click!-</h3>
+            </div>
+          {% for item in itemlist %}
+            <div class="form-group row">
+                <label class="col-sm-2 control-label">{{ item.0 }}</label>
+                <div class="col-xs-10">
+                  {% if item.3 == 'selectBox' %}
+                    <div class="col-sm-6 col-xs-10">
+                        <select {{ item.1 }} class="form-control">
+                          {% for option in item.4 %}
+                            <option value="{{ option.0 }}" {{ item.2 == option.0 ? "selected" : "" }} >{{ option.1 }}</option>
+                          {% endfor %}
+                        </select>
+                    </div>
+                  {% elseif item.3 == 'radoiButton' %}
+                <div class="col-sm-7 col-xs-10">
+                  {% for option in item.4 %}
+                    <label class="radio-inline"><input type="radio" {{ item.2 == option.0 ? "checked" : "" }} {{ item.1 }} value="{{ option.0 }}">{{ option.1 }}</label>
+                  {% endfor %}
+                </div>
+          {% elseif item.3 == 'checkBox' %}
+                <div class="col-sm-3">
+              {% for option in item.4 %}
+                    <label class="radio-inline"><input type="checkbox" {{ item.1 }} {{ option.2 }} value="{{ option.0 }}">{{ option.1 }}</label>
+              {% endfor %} 
+                </div>        
+          {% elseif item.3 == 'checkBox2' %}
+              {% for option in item.2 %}
+                <div class="col-sm-3">
+                    <label class="radio-inline"><input type="checkbox" {{ option.0 }} {{ option.1 == option.2 ? "checked" : "" }} value="{{ option.1 }}">{{ option.3 }}</label>
+                </div>
+              {% endfor %}
+          {% elseif item.3 == 'textarea' %}              
+                <textarea {{ itme.1 }} class="form-control" rows="5">{{ item.2 }}</textarea>
+            {% elseif item.0 == 'Develop Info' %}
+                <ul class="develop_info_select">
+                    <li>텍스트로 보기</li>
+                    <li>HTML코드로 보기</li>
+                </ul>
+            <div class="develop_info" style="min-width: 55rem;">
+                {{ item.2|raw }}
+            </div>
+            <div class="develop_info">
+                <textarea {{ item.1 }} class="form-control" style="width: 55rem;height:45rem;resize: vertical;">
+                    {{ item.2 }}
+                </textarea>
+            </div>
+              {% elseif item.5 %}
+                <div class="col-xs-2">
+                    <input type="text" {{ item.1 }} class="form-control" value="{{ item.2 }}">
+                </div>
+                <span style="float: left;">{{ item.5 }}</span>
+                <div class="col-xs-2">
+                    <input type="text" {{ item.3 }} class="form-control" value="{{ item.4 == "empty" ? "" : item.4 }}">
+                </div>
+                <div class="col-xs-2">
+                    {{ item.0 == 'Android Version' ? '<input type="button" value="업데이트" class="form-control" onclick="view_user()">' : "" }}
+                </div>
+              {% else %}
+                <div class="col-xs-6">
+                    <input type="text" {{ item.1 }} class="form-control {{ item.3 == 'input+button' ? "" : "" }}" value="{{ item.2 }}">
+                </div>
+                  {% if item.3 == 'input+button' %}
+                    <div class="col-xs-2">
+                        <a href="{{ item.2 }}" target="_sub"><input class="form-control" type="button" value="새탭에서 열기"></a>
+                    </div>
+                  {% endif %}
+              {% endif %}
+                </div>
+            </div>
+{% endfor %}
 
           </form>
 
