@@ -10,8 +10,18 @@ crumb_disabled = 0
 security = "all"
 ==
 <?php
+use Jiwon\Byapps\Models\ApkData;
+
 function onStart()
 {
+    $obj = new ApkData();
+    
+    echo $obj->getTable();
+
+    print_r($obj);
+
+    exit();
+    
     $table = 'attendance';
     $member = array('박정인','박찬웅','조성현');
     $query = "select date from $table order by date desc limit 1";

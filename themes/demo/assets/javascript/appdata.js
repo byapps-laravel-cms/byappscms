@@ -2,10 +2,10 @@
 $(".show_btn").click(function (){
     if($(".top_banner").css("display")=="block"){
         $(".top_banner").slideUp(500);
-        $(".show_btn").css({"background-color":"#d9edf7"});
-    }else{
-        $(".top_banner").slideDown(500);    
         $(".show_btn").css({"background-color":"#c6c6c6"});
+    }else{
+        $(".top_banner").slideDown(500); 
+        $(".show_btn").css({"background-color":"#d9edf7"});   
     }
 });
 //카테고리 변경 확인
