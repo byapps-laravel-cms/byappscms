@@ -1,9 +1,3 @@
 
-### OctoberCMS 연습  
+### BYAPPS CMS 작업 Repository
 
-[OctoberCMS](https://octobercms.com/)  
-
-[YouTube 튜토리얼](https://www.youtube.com/playlist?list=PLUBR53Dw-Ef-X-_A1KLy41r2QArCBy4rM)
-
-
-수정했으
