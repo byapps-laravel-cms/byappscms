@@ -23,6 +23,10 @@ navigation:
                 label: 'APK 관리'
                 url: jiwon/byapps/apkmanages
                 icon: icon-square
+            side-menu-item2:
+                label: '업데이트 관리'
+                url: /
+                icon: icon-square
     main-menu-item3:
         label: 회원관리
         url: jiwon/byapps/usersinfos
