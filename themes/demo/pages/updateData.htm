@@ -13,6 +13,30 @@ identifierValue = "{{ :idx }}"
 modelKeyColumn = "idx"
 displayColumn = "app_id"
 notFoundMessage = "Record not found"
+
+[session]
+security = "user"
+allowedUserGroups[] = "admin_level_2"
+redirect = "permission"
+==
+<?php
+use Jiwon\Byapps\Models\UpdateData;
+
+function onStart()
+{
+    $this['record'] = UpdateData::where('idx', '=', $this->param('idx'))->first();
+
+    $this['util'] = new Class {
+        public function dateFormat($val)
+        {
+           $dateString = date("Y-m-d h:i:s", $val);
+           return $dateString;
+        }
+    };
+
+    $this['itemlist'] = array("접수날짜", "Process", "회원ID", "App. Name", "App. OS", "App. ID","Update Type" , "Update Detail", "App. Intro");
+}
+?>
 ==
 <div class="jumbotron title-js">
     <div class="container">
@@ -46,57 +70,93 @@ notFoundMessage = "Record not found"
 <hr />
 
 <div class="method">
+
     <div class="row margin-0">
+       <div class="col-md-3">
+           <div class="cell">
+{% for i in itemlist %}
+               <div class="propertyname th_style_1">
+                 {{ i }}
+               </div>
+{% endfor %}
+           </div>
+       </div>
 
-      <form>
+       <div class="col-md-5">
+           <div class="cell">
+               <div class="description td_style_1">
+                 {{ util.dateFormat(record.reg_time) }} <a href="#" title="삭제" class="btn_del"></a>
+               </div>
+           </div>
+       </div>
 
-        <div class="form-group row">
-          <label for="regTime" class="col-sm-2 col-form-label">접수날짜</label>
-            <div class="col-sm-4">
-            <input type="text" readonly class="form-control-plaintext" id="regTime" value="">
-          </div>
-        </div>
+       <div class="col-md-5">
+           <div class="cell">
+               <div class="description td_style_1">
+                 {{ record.app_process}}
+               </div>
+           </div>
+       </div>
 
-        <div class="form-group row">
-          <label for="process" class="col-sm-2 col-form-label">Process</label>
-            <div class="col-sm-4">
-            <input type="text" class="form-control" id="process" placeholder="" value="{{ record.app_process }}">
-          </div>
-        </div>
+       <div class="col-md-5">
+           <div class="cell">
+               <div class="descrisption td_style_1">
+                 {{ record.mem_id }}
+                 <input class="nbutton3" type="button" value="회원정보">
+                 <input class="nbutton3" type="button" value="주문내역">
+                 <input class="nbutton3" type="button" value="앱관리">
+               </div>
+           </div>
+       </div>
 
-        <div class="form-group row">
-          <label for="process" class="col-sm-2 col-form-label">회원 ID</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" id="process" placeholder="" value="{{ record.app_process }}">
-            회원정보
-          </div>
-        </div>
+       <div class="col-md-5">
+           <div class="cell">
+               <div class="description td_style_1">
+                 {{ record.app_name }}
+               </div>
 
-        <div class="form-group row">
-          <label for="process" class="col-sm-2 col-form-label">App. Name</label>
-            <div class="col-sm-4">
-            <input type="text" class="form-control" id="process" value="{{ record.app_name }}">
-          </div>
-        </div>
+           </div>
+       </div>
 
-        <div class="form-group row">
-          <label for="process" class="col-sm-2 col-form-label">App. ID</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" id="process" placeholder="" value="{{ record.app_process }}">
-          </div>
-        </div>
+       <div class="col-md-5">
+           <div class="cell">
+               <div class="description td_style_1">
+                 {{ record.apps_type }}
+               </div>
 
-        <div class="form-group row">
-          <label for="process" class="col-sm-2 col-form-label">App. OS</label>
-            <div class="col-sm-4">
-            안드로이드 안드로이드+iOS
-          </div>
-        </div>
+           </div>
+       </div>
 
+       <div class="col-md-5">
+           <div class="cell">
+               <div class="description td_style_1">
+               1원
+               <input class="cbutton3" type="button" value="결제취소">
+               <input class="cbutton3" type="button" value="무료처리">
+               </div>
 
-      </form>
+           </div>
+       </div>
+
+       <div class="col-md-5">
+           <div class="cell">
+               <div class="description td_style_1">
+               <input class="nbutton3" type="button" value="입금확인">
+               </div>
+
+           </div>
+       </div>
+
+       <div class="col-md-5">
+           <div class="cell">
+               <div class="description td_style_1">
+                 <textarea name="receipt" class="form-control" style="height:200px;">{{ record.receipt }}</textarea>
+               </div>
+
+           </div>
+       </div>
 
     </div>
-</div>
 
+  </div>
 </div>
