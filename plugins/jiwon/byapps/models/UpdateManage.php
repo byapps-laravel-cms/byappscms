@@ -15,11 +15,19 @@ class UpdateManage extends Model
      */
     public $timestamps = false;
 
+<<<<<<< HEAD
+=======
+    // 다른 DB불러오기
+>>>>>>> 46b6c03aff7f11902c7fecd9a98e029d8e45fd80
     public $connection = 'byapps';
 
     /**
      * @var string The database table used by the model.
      */
+<<<<<<< HEAD
+=======
+    //public $table = 'jiwon_byapps_apk_data';
+>>>>>>> 46b6c03aff7f11902c7fecd9a98e029d8e45fd80
     public $table = 'BYAPPS_apps_update_data';
 
     /**

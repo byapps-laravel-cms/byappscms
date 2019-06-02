@@ -2,6 +2,10 @@ title = "로그인"
 url = "/login"
 layout = "default"
 is_hidden = 0
+child_of = "mey_no_parent"
+hide_crumb = 0
+remove_crumb_trail = 0
+crumb_disabled = 0
 
 [account]
 redirect = "home"
@@ -18,10 +22,6 @@ forceSecure = 0
             <h3>로그인</h3>
             {% partial account ~ '::signin' %}
         </div>
-
-       <!--  <div class="col-md-6">
-           {% partial account ~ '::register' %}
-       </div> -->
 
     </div>
 

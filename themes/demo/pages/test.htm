@@ -1,0 +1,360 @@
+title = "test"
+url = "/test"
+is_hidden = 0
+child_of = "mey_no_parent"
+hide_crumb = 0
+remove_crumb_trail = 0
+crumb_disabled = 0
+
+[session]
+security = "all"
+==
+<?php
+use Jiwon\Byapps\Models\ApkData;
+
+function onStart()
+{
+    $obj = new ApkData();
+    
+    echo $obj->getTable();
+
+    print_r($obj);
+
+    exit();
+    
+    $table = 'attendance';
+    $member = array('박정인','박찬웅','조성현');
+    $query = "select date from $table order by date desc limit 1";
+    $result = DB::table($table)->select('date')->orderBy('date','desc')->first();
+    $this['now'] = date("ymd",time());
+    if(!isset($result->date) || $this['now']>$result->date){
+        $random1 = mt_rand(0,2);
+        $random2 = mt_rand(0,2);
+        DB::table($table)->insert(
+            ['input' => $random1, 'output' => $random2 , 'date' => $this['now']]
+        );
+    }
+    $this['records'] = DB::table($table)
+        ->select('date')
+        ->selectRaw('IF(input = 0,\'정인\',IF(input = 1,\'찬웅\',\'성현\')) as input')
+        ->selectRaw('IF(output = 0,\'정인\',IF(output = 1,\'찬웅\',\'성현\')) as output')
+        ->orderBy('date','desc')
+        ->get();
+}
+?>
+==
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>디지텍-출석부</title>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&amp;subset=korean" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon|Nanum+Pen+Script&amp;subset=korean" rel="stylesheet">
+    <style>
+        @media ( max-width: 480px ) {
+  *{margin: 0;padding: 0;}
+  html, body{
+    height:100%;
+    overflow:hidden;
+    font-family: 'Nanum Pen Script', cursive;
+  }
+  /* 기본 텍스트 속성 */
+  h1{
+    font-size: 50px;
+    line-height: 100px;
+    font-family: 'Do Hyeon', sans-serif;
+  }
+  h3{
+    color: white;
+    font-size: 30px;
+    margin-top: 70px;
+  }
+  li{list-style: none;}
+  a{
+    text-decoration: none;
+    color: black;
+  }
+  /* 배경 */
+  #background{
+    width: 100%;
+    height: 100%;
+    background-color: #2f3033;
+    position: relative;
+  }
+  /* */
+  #wrap{
+    width: 1000px;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: white;
+    transform:translate(-50%,-50%);
+  }
+  /* 통계보러가기 그래프 */
+  .menu_bar{
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .menu_bar button{
+    width: 21%;
+    height: 30px;
+    background-color: rgba(0,0,0,0);
+    color: white;
+    border: 1px dashed;
+    font-size: 20px;
+  }
+  /* 스크롤 만드는 div */
+  #scroll{
+    width: 100%;
+    height: 1500px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    box-shadow:5px 5px 10px 10px #46484f;
+  }
+  ::-webkit-scrollbar {
+      display: none;
+  }
+  /* 상단 메뉴 테이블 */
+  .menu{
+    width: 100%;
+    height: 80px;
+    position: absolute;
+    font-size: 40px;
+    border: 1px solid #666;
+    background: #202932;
+  }
+  /* table 메뉴 a = 날짜 b = 가져와라 갔다놔라 */
+  .a_box{width: 30%;height: 80px;border: 1px solid #666;}
+  .b_box{width: 35%;height: 80px;border: 1px solid #666;}
+  /* 날짜관리 */
+  .nowDate{
+    width: 100%;
+    margin: 0 auto;
+    border: 1px solid #666;
+    border-collapse: collapse;
+  }
+  .nowDate th{
+    height: 80px;
+    font-size: 30px;
+    border: 1px solid #666;
+    background: #202932;
+  }
+  .nowDate td{
+    text-align: center;
+    height: 80px;
+    border: 1px solid #666;
+    background-color: #2c3844;
+    font-size: 30px;
+  }
+  #pji{
+    z-index: 3;
+  }
+  #pcw{
+    z-index: 2;
+  }
+  #jsh{
+    z-index: 1;
+  }
+}
+@media ( min-width: 480px ) {
+  *{margin: 0;padding: 0;}
+  html, body{
+    height:100%;
+    overflow:hidden;
+    font-family: 'Nanum Pen Script', cursive;
+  }
+  /* 기본 텍스트 속성 */
+  h1{
+    font-size: 50px;
+    line-height: 100px;
+    font-family: 'Do Hyeon', sans-serif;
+  }
+  h3{
+    color: white;
+    font-size: 30px;
+    margin-top: 20px;
+  }
+  li{list-style: none;}
+  a{
+    text-decoration: none;
+    color: black;
+  }
+  /* 배경 */
+  #background{
+    width: 100%;
+    height: 100%;
+    background-color: #2f3033;
+    position: relative;
+  }
+  /* */
+  #wrap{
+    width: 1000px;
+    height: auto;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    color: white;
+    transform:translate(-50%,-50%);
+  }
+  /* 통계보러가기 그래프 */
+  .menu_bar{
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .menu_bar button{
+    width: 21%;
+    height: 30px;
+    background-color: rgba(0,0,0,0);
+    color: white;
+    border: 1px dashed;
+    font-size: 20px;
+    margin-top: 30px;
+  }
+  /* 스크롤 만드는 div */
+  #scroll{
+    width: 100%;
+    height: 570px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    box-shadow:5px 5px 10px 10px #46484f;
+  }
+  ::-webkit-scrollbar {
+      display: none;
+  }
+  /* 상단 메뉴 테이블 */
+  .menu{
+    width: 100%;
+    height: 80px;
+    position: absolute;
+    font-size: 40px;
+    border: 1px solid #666;
+    background: #202932;
+    margin-bottom: 2px;
+  }
+  /* table 메뉴 a = 날짜 b = 가져와라 갔다놔라 */
+  .a_box{width: 30%;height: 80px;border: 1px solid #666;}
+  .b_box{width: 35%;height: 80px;border: 1px solid #666;}
+  /* 날짜관리 */
+  .nowDate{
+    width: 100%;
+    margin: 0 auto;
+    border: 1px solid #666;
+    border-collapse: collapse;
+  }
+  .nowDate th{
+    height: 80px;
+    font-size: 30px;
+    border: 1px solid #666;
+    background: #202932;
+  }
+  .nowDate td{
+    text-align: center;
+    height: 80px;
+    border: 1px solid #666;
+    background-color: #2c3844;
+    font-size: 30px;
+  }
+  #pji{
+    z-index: 3;
+  }
+  #pcw{
+    z-index: 2;
+  }
+  #jsh{
+    z-index: 1;
+  }
+}
+.draw{
+  position: relative;
+  margin: 20px 0 0 20px;
+  float: left;
+  width: 100px;
+  height: 100px;
+}
+.tjfaud{
+  font-size: 16px;
+  float: left;
+  height: 100px;
+  width: auto;
+  margin: 20px 0 0 20px;
+}
+.tjfaud>ul>li{
+  height: 20px;
+  line-height: 20px;
+  margin-bottom: 20px;
+}
+.tjfaud>ul>li>div{
+  width: 20px;
+  height: 20px;
+  float: right;
+}
+.tjfaud>ul>li:nth-child(1)>div{
+  background: #00f;
+}
+.tjfaud>ul>li:nth-child(2)>div{
+  background: #f0f;
+}
+.tjfaud>ul>li:nth-child(3)>div{
+  background: #f00;
+}
+.circle{
+  position: absolute;
+}
+    </style>
+  </head>
+  <body>
+    <div id="background">
+      <div id="wrap">
+        <div class="menu_bar">
+        </div>
+        <center>
+          <h1>출석부 담당</h1>
+        </center>
+        <div id="scroll">
+          <table  class="menu">
+            <thead>
+              <tr>
+                <th class="a_box">날짜</th>
+                <th class="b_box">가져와라</th>
+                <th class="b_box">갔다놔라</th>
+              </tr>
+            </thead>
+          </table>
+          <table class="nowDate">
+            <colgroup>
+              <col width="30%">
+              <col width="35%">
+              <col width="35%">
+            </colgroup>
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for record in records %}
+                <tr>
+                    <td>{{ record.date == now ? "오늘" : record.date }}</td>
+                    <td>{{ record.input }}</td>
+                    <td>{{ record.output }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <center>
+          <h3>Copyright&copy;2018 이쁜 정인이 All Rights Reserved</h3>
+        </center>
+      </div>
+    </div>
+  </body>
+</html>
