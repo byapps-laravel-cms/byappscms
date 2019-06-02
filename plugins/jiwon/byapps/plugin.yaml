@@ -25,7 +25,7 @@ navigation:
                 icon: icon-square
             side-menu-item2:
                 label: '업데이트 관리'
-                url: /
+                url: jiwon/byapps/updatemanages
                 icon: icon-square
     main-menu-item3:
         label: 회원관리
