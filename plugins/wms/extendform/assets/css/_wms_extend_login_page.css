@@ -1,0 +1,14 @@
+.layout.control-tabs.oc-logo-transparent:not(.has-tabs),
+.flex-layout-column.oc-logo-transparent:not(.has-tabs),
+.layout-cell.oc-logo-transparent,
+.oc-logo {
+    background-image: url(../img/wms-logo.png);
+}
+
+body.outer.signin {
+    background-color: #416fb6;
+}
+
+body.outer.signin .layout >.layout-row >.layout-cell .outer-form-container .horizontal-form button {
+    background-color: #28a745;
+}

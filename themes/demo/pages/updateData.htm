@@ -1,0 +1,102 @@
+title = "업데이트 상세"
+url = "/apps/updateData/:idx"
+layout = "default"
+is_hidden = 0
+child_of = "mey_no_parent"
+hide_crumb = 0
+remove_crumb_trail = 0
+crumb_disabled = 0
+
+[builderDetails]
+modelClass = "Jiwon\Byapps\Models\UpdateData"
+identifierValue = "{{ :idx }}"
+modelKeyColumn = "idx"
+displayColumn = "app_id"
+notFoundMessage = "Record not found"
+==
+<div class="jumbotron title-js">
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <h3>업데이트 상세</h3>
+                <small>업데이트 접수를 관리 하실 수 있습니다</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+{% set record = builderDetails.record %}
+{% set displayColumn = builderDetails.displayColumn %}
+{% set notFoundMessage = builderDetails.notFoundMessage %}
+
+<div class="alert alert-info">
+{% if record %}
+   <!--  <h4>Row modifier class included</h4> -->
+    <p>
+       {{ attribute(record, displayColumn) }}
+    </p>
+
+{% else %}
+    {{ notFoundMessage }}
+{% endif %}
+</div>
+
+<hr />
+
+<div class="method">
+    <div class="row margin-0">
+
+      <form>
+
+        <div class="form-group row">
+          <label for="regTime" class="col-sm-2 col-form-label">접수날짜</label>
+            <div class="col-sm-4">
+            <input type="text" readonly class="form-control-plaintext" id="regTime" value="">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="process" class="col-sm-2 col-form-label">Process</label>
+            <div class="col-sm-4">
+            <input type="text" class="form-control" id="process" placeholder="" value="{{ record.app_process }}">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="process" class="col-sm-2 col-form-label">회원 ID</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="process" placeholder="" value="{{ record.app_process }}">
+            회원정보
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="process" class="col-sm-2 col-form-label">App. Name</label>
+            <div class="col-sm-4">
+            <input type="text" class="form-control" id="process" value="{{ record.app_name }}">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="process" class="col-sm-2 col-form-label">App. ID</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="process" placeholder="" value="{{ record.app_process }}">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="process" class="col-sm-2 col-form-label">App. OS</label>
+            <div class="col-sm-4">
+            안드로이드 안드로이드+iOS
+          </div>
+        </div>
+
+
+      </form>
+
+    </div>
+</div>
+
+</div>

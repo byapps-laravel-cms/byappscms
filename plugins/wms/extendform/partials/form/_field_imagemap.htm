@@ -1,0 +1,39 @@
+<!-- Image Map -->
+<?php /* @var $field \Backend\Classes\FormField */ ?>
+<?php if (!$this->previewMode): ?>
+    <?php
+        $color = isset($field->config['color']) && !empty($field->config['color']) ? $field->config['color'] : 'red';
+        $color = "color: {$color};";
+        $size = isset($field->config['size']) ? "font-size: {$field->config['size']}px;" : '';
+        $style = $color || $size ? " style=\"$color$size\"" : '';
+    ?>
+    <div class="image-map"<?= $style; ?>>
+        <img src="<?= $field->config['image']; ?>">
+        <?php foreach($field->config['fields'] as $linkField): ?>
+            <?php
+                $x = floatval(isset($linkField['x']) ? $linkField['x'] : (isset($linkField['left']) ? $linkField['left'] : 0));
+                $x = "left: {$x}px;";
+                $y = floatval(isset($linkField['y']) ? $linkField['y'] : (isset($linkField['top']) ? $linkField['top'] : 0));
+                $y = "top: {$y}px;";
+                $w = floatval(isset($linkField['w']) ? $linkField['w'] : (isset($linkField['width']) ? $linkField['width'] : 0));
+                $w = $w ? "width: {$w}px;" : '';
+                $h = floatval(isset($linkField['h']) ? $linkField['h'] : (isset($linkField['height']) ? $linkField['height'] : 0));
+                $h = $h ? "height: {$h}px;" : '';
+
+                $size = floatval(isset($linkField['size']) ? $linkField['size'] : 0);
+                $size = $size ? "font-size: {$size}px;" : '';
+                $title = e(trans($linkField['label']));
+                $label = '';
+                $color = '';
+                if (empty($w) && empty($h)) {
+                    $label = $title;
+                } else {
+                    $color = isset($field->config['color']) ? $field->config['color'] : 'red';
+                    $color = "background-color: $color;";
+                }
+            ?>
+            <label class="image-marker<?= empty($label) ? ' image-marker-box': ''; ?>" for="<?= $linkField['id'];
+                ?>" title="<?= $title; ?>" style="<?= "$x$y$w$h$size$color"; ?>"><?= $label ?></label>
+        <?php endforeach; ?>
+    </div>
+<?php endif ?>
