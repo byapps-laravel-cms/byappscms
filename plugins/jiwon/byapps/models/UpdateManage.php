@@ -34,3 +34,4 @@ class UpdateManage extends Model
         'key' => 'idx'
       ]
     ];
+}
