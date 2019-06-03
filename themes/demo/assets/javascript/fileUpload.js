@@ -12,24 +12,24 @@ function fileDropDown(){
         e.stopPropagation();
         e.preventDefault();
         // 드롭다운 영역 css
-        dropZone.css('background-color','#E3F2FC');
+        $(this).css('background-color','#E3F2FC');
     });
     dropZone.on('dragleave',function(e){
         e.stopPropagation();
         e.preventDefault();
         // 드롭다운 영역 css
-        dropZone.css('background-color','#fff');
+        $(this).css('background-color','#fff');
     });
     dropZone.on('dragover',function(e){
         e.stopPropagation();
         e.preventDefault();
         // 드롭다운 영역 css
-        dropZone.css('background-color','blue');
+        $(this).css('background-color','blue');
     });
     dropZone.on('drop',function(e){
         e.preventDefault();
         // 드롭다운 영역 css
-        dropZone.css('background-color','#fff');
+        $(this).css('background-color','#fff');
 
         var files = e.originalEvent.dataTransfer.files;
         if(files != null){
@@ -62,7 +62,7 @@ function selectFile(fileObject){
 function addFileList(file){
     console.log(file.name);
     $.ajax({
-        url:"업로드 경로",
+        url:"(업로드 경로)",
         data:file,
         type:'POST',
         enctype:'multipart/form-data',

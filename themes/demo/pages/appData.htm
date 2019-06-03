@@ -81,6 +81,7 @@ function onStart()
         array('GCM Key','name="noti_gcm"',$this['record']->noti_gcm),
         array('GCM Number','name="noti_gcm_num"',$this['record']->noti_gcm_num),
         array('Google App ID','name="noti_fcm_num"',$this['record']->noti_fcm_num),
+        array('APNS Cert','name="Cert"','','fileUpload'),
         array('APNS Pass'),
         array('Process','name="push_server"',$this['record']->push_server,'selectBox',array(
                 array('','default'),

@@ -35,13 +35,12 @@ jQuery(document).ready(function($){
         // Scrolling up
         if (previousTop - currentTop > scrollDelta) {
             $header.removeClass('is-hidden');
-            $("#sidebar").css({"top":"7%"});
+            $("#sidebar, #sidebar-toggle").css({"top":"7%"});
         }
         else if (currentTop - previousTop > scrollDelta && currentTop > scrollOffset) {
             // Scrolling down
             $header.addClass('is-hidden');
-            $("#sidebar").css({"top":"0%"});
-            
+            $("#sidebar, #sidebar-toggle").css({"top":"0%"});
         } else if ( currentTop > 100 ) {
             $( '.top_btn' ).fadeIn();
         } else {
