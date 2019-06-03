@@ -31,6 +31,10 @@ navigation:
                 label: '앱포인트 관리'
                 url: jiwon/byapps/pointmanages
                 icon: icon-square
+            side-menu-item4:
+                label: '소식 관리'
+                url: jiwon/byapps/newsmanages
+                icon: icon-square
     main-menu-item3:
         label: 회원관리
         url: jiwon/byapps/usersinfos
