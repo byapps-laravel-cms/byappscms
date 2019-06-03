@@ -25,7 +25,7 @@ use Jiwon\Byapps\Models\AppsData;
 function onStart()
 {
     $this['record'] = AppsData::where('idx', '=', $this->param('idx'))->first();
-    
+
     $this['util'] = new Class {
         public function dateFormat($val)
         {
@@ -33,7 +33,7 @@ function onStart()
            return $dateString;
         }
     };
-    
+
     $this['itemlist'] = array(
         array('Process','name="mem_id"',$this['record']->process,'selectBox',array(
                 array('','선택해주세요'),
@@ -167,7 +167,7 @@ function onStart()
         array('Develop Info','name="developer_info"',stripslashes($this['record']->developer_info)),
     );
     $this['test'] = stripslashes($this['record']->developer_info);
-    
+
     /*
     $this['itemlist'] = array(
       "Process", "RESELLER ID", "등록일", "주문번호", "회원 ID", "App. ID", "Service Type", "App. OS", "App. Display", "Byapps Ver.", "App. Name", "Android Version",
@@ -256,7 +256,7 @@ function onStart()
                     <div class="col-md-10 col-xs-12 ">
                         <input type="text" name="" class="form-control">
                     </div>
-                    
+
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 col-xs-12control-label">대표자명</label>
@@ -365,15 +365,15 @@ function onStart()
                 <div class="col-sm-3">
               {% for option in item.4 %}
                     <label class="radio-inline"><input type="checkbox" {{ item.1 }} {{ option.2 }} value="{{ option.0 }}">{{ option.1 }}</label>
-              {% endfor %} 
-                </div>        
+              {% endfor %}
+                </div>
           {% elseif item.3 == 'checkBox2' %}
               {% for option in item.2 %}
                 <div class="col-sm-3">
                     <label class="radio-inline"><input type="checkbox" {{ option.0 }} {{ option.1 == option.2 ? "checked" : "" }} value="{{ option.1 }}">{{ option.3 }}</label>
                 </div>
               {% endfor %}
-          {% elseif item.3 == 'textarea' %}              
+          {% elseif item.3 == 'textarea' %}
                 <textarea {{ itme.1 }} class="form-control" rows="5">{{ item.2 }}</textarea>
             {% elseif item.0 == 'Develop Info' %}
                 <ul class="develop_info_select">
@@ -422,7 +422,7 @@ function onStart()
       <h3 class="update_pop_name">관리자 업데이트 접수</h3>
      <span class="b-close btn_del pop_x"></span>
      </div>
-      <div class="content2"> 
+      <div class="content2">
        <div class="td_style_2" style="margin-top:13px;"><div class="th_style_2">App. ID</div><input class="pop_input_1" type="text" name="App_id" value=""></div>
        <div class="td_style_2"><div class="th_style_2">App. Name</div><input style="width: 40%;" class="pop_input_1" type="text" name="App_name" ></div>
        <div class="td_style_2"><div class="th_style_2">Service Type</div>

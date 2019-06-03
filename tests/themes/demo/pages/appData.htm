@@ -1,0 +1,160 @@
+title = "앱 상세"
+url = "/apps/data/:idx"
+layout = "default"
+is_hidden = 0
+
+[builderDetails]
+modelClass = "Jiwon\Byapps\Models\AppsData"
+identifierValue = "{{ :idx }}"
+modelKeyColumn = "idx"
+displayColumn = "app_name"
+notFoundMessage = "Record not found"
+==
+<?php
+use Jiwon\Byapps\Models\AppsData;
+
+function onStart()
+{
+    $this['record'] = AppsData::where('idx', '=', $this->param('idx'))->first();
+
+    $this['itemlist'] = array(
+      "Process", "RESELLER ID", "등록일", "주문번호", "회원 ID", "App. ID", "Service Type", "App. OS", "App. Display", "Byapps Ver.", "App. Name", "Android Version",
+      "iOS Version", "App. Category", "App. Icon", "Group", "GCM Key", "GCM Number", "Google App ID", "APNS Cert.", "APNS Pass.", "PUSH SERVER", "PUSH TOKEN",
+      "Period of Use", "Android URL", "iOS URL", "Mobile URL", "PackageName(Android)", "Bundle ID(iOS)", "Vender", "Hash Key", "iOS Hash", "Cafe24 Mall ID",
+      "Charset", "Hosting Com.", "Language", "고객센터", "카톡연락처", "페이스북", "트위터", "추천메세지", "탭메뉴커스텀", "자동로그인", "출석체크", "푸쉬체크", "앱설치포인트",
+      "앱포인트 수동전환", "장바구니 리마인드", "유료 부가서비스", "푸쉬메세지 설정", "디바이스허용", "앱사용자 관리", "잠금화면", "추천리워드", "팝업푸쉬", "푸쉬리시브콜백",
+      "FCM 적용", "스크립트설치", "안드로이드 자체개발계정", "SDK/커스텀유무", "관리업체지정");
+
+}
+?>
+==
+<div class="jumbotron title-js">
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <h3>앱 관리</h3>
+                  <small>앱 등록 등의 관리를 하실 수 있습니다</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+{% set record = builderDetails.record %}
+{% set displayColumn = builderDetails.displayColumn %}
+{% set notFoundMessage = builderDetails.notFoundMessage %}
+
+    <div class="alert alert-info">
+    {% if record %}
+       <!--  <h4>Row modifier class included</h4> -->
+        <p>
+           {{ attribute(record, displayColumn) }}
+        </p>
+
+    {% else %}
+        {{ notFoundMessage }}
+    {% endif %}
+   </div>
+
+    <hr />
+
+    <div class="method">
+        <div class="row margin-0">
+
+          <form>
+
+            <div class="form-group row">
+              <label for="process" class="col-sm-2 col-form-label">Process</label>
+                <div class="col-sm-4">
+                <input type="text" class="form-control" id="process" placeholder="" value="{{ record.app_process }}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="resellerId" class="col-sm-2 col-form-label">RESELLER ID</label>
+              <div class="col-sm-4">
+                <input type="text" readonly class="form-control-plaintext" id="resellerId" value="{{ record.recom_id }}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="regTime" class="col-sm-2 col-form-label">등록일</label>
+                <div class="col-sm-4">
+                <input type="text" readonly class="form-control-plaintext" id="regTime" value="">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="process" class="col-sm-2 col-form-label">주문번호</label>
+              <div class="col-sm-4">
+                <input type="text" readonly class="form-control-plaintext" id="process" value="{{ record.app_process }}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="process" class="col-sm-2 col-form-label">회원 ID</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="process" placeholder="" value="{{ record.app_process }}">
+                회원정보 ANDROID INFO
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="process" class="col-sm-2 col-form-label">App. ID</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="process" placeholder="" value="{{ record.app_process }}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="process" class="col-sm-2 col-form-label">Service Type</label>
+                <div class="col-sm-4">
+                일반 라이트 테스터
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="process" class="col-sm-2 col-form-label">App. OS</label>
+                <div class="col-sm-4">
+                안드로이드 안드로이드+iOS
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="process" class="col-sm-2 col-form-label">App. Display</label>
+                <div class="col-sm-4">
+                <input type="text" class="form-control" id="process" placeholder="" value="">(숫자가 클수록 최상위순)
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="process" class="col-sm-2 col-form-label">Byapps Ver.</label>
+                <div class="col-sm-4">
+                <input type="text" class="form-control" id="process" placeholder="5.1" value="{{ record.byapps_ver }}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="process" class="col-sm-2 col-form-label">App. Name</label>
+                <div class="col-sm-4">
+                <input type="text" class="form-control" id="process" value="{{ record.app_name }}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="process" class="col-sm-2 col-form-label">Android Version</label>
+                <div class="col-sm-4">
+                <input type="text" class="form-control" id="process" value="{{ record.app_ver }}">
+                Build: <input type="text" class="form-control" id="process" value="{{ record.app_build }}">
+              </div>
+            </div>
+
+
+
+          </form>
+
+        </div>
+    </div>
+
+</div>

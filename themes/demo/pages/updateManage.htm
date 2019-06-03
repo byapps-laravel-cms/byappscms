@@ -1,0 +1,196 @@
+title = "업데이트관리"
+url = "/apps/updateManage/:page?"
+layout = "default"
+is_hidden = 0
+child_of = "mey_no_parent"
+hide_crumb = 0
+remove_crumb_trail = 0
+crumb_disabled = 0
+
+[builderList]
+modelClass = "Jiwon\Byapps\Models\UpdateManage"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "app_id"
+noRecordsMessage = "No records found"
+detailsPage = "updateData"
+detailsKeyColumn = "idx"
+detailsUrlParameter = "idx"
+recordsPerPage = 20
+pageNumber = "{{ :page }}"
+
+[session]
+security = "all"
+==
+<?php
+function onStart()
+{
+    $this['func'] = new Class {
+        public function dateFormat($val)
+        {
+           $dateString = date("Y-m-d", $val);
+           return $dateString;
+        }
+    };
+}
+?>
+==
+<div class="jumbotron title-js">
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <h3>업데이트 관리</h3>
+                <small>업데이트 접수를 관리 하실 수 있습니다</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+{% set records = builderList.records %}
+{% set displayColumn = builderList.displayColumn %}
+{% set noRecordsMessage = builderList.noRecordsMessage %}
+{% set detailsPage = builderList.detailsPage %}
+{% set detailsKeyColumn = builderList.detailsKeyColumn %}
+{% set detailsUrlParameter = builderList.detailsUrlParameter %}
+
+<table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>IDX</th>
+                <th>신청일</th>
+                <th>진행상태</th>
+                <th>앱아이디</th>
+                <th>앱명</th>
+                <th>앱OS</th>
+                <th>앱버전</th>
+                <th>업데이트내역</th>
+            </tr>
+        </thead>
+
+        <tbody>
+         {% for record in records %}
+            <tr>
+                <td>{{ record.idx }}</td>
+                <td>{{ func.dateFormat(record.reg_time) }}</td>
+                <td>{{ record.app_process }}</td>
+                <td>
+                {% if detailsPage %}
+                    <a href="{{ detailsPage|page({ (detailsUrlParameter): attribute(record, detailsKeyColumn) }) }}">
+                {% endif %}
+
+                {{ attribute(record, displayColumn) }}
+
+                {% if detailsPage %}
+                    </a>
+                {% endif %}
+                </td>
+
+                <td>{{ record.app_name }}</td>
+                <td>{{ record.apps_type }}</td>
+                <td>앱버전</td>
+                <td>업데이트내역</td>
+            </tr>
+
+         {% else %}
+        <li class="no-data">{{ noRecordsMessage }}</li>
+        {% endfor %}
+        </tbody>
+    </table>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
+
+
+{% set paginationEnabled =
+    records.currentPage > 1 or
+    records.lastPage > 1 or
+    records.lastPage > records.currentPage
+%}
+
+{% if paginationEnabled %}
+    {# How many pages to display around the current page #}
+    {% set n = 2 %}
+
+    {% set currentPageZeroBased = records.currentPage-1 %}
+
+    {% set pageLinks = [] %}
+    {% set pageSet = [] %}
+
+    {% set startOffset = max(currentPageZeroBased - n, 0) %}
+    {% if (startOffset + 2*n+1) > (records.lastPage-1) %}
+        {% set startOffset = max(records.lastPage - 2*n - 1, 0) %}
+    {% endif %}
+
+    {% for page in 1..records.lastPage %}
+        {% set pageLinks = pageLinks|merge([page]) %}
+    {% endfor %}
+
+    {% set activeBlock = pageLinks|slice(startOffset, 2*n + 1) %}
+
+    {% if startOffset > 0 %}
+        {% set pageSet = pageSet|merge([1]) %}
+
+        {% if startOffset > 1 %}
+            {% set pageSet = pageSet|merge(['...']) %}
+        {% endif %}
+    {% endif %}
+
+    {% set pageSet = pageSet|merge(activeBlock) %}
+
+    {% set diffToEnd = (records.lastPage-1) - (startOffset + 2*n+1) + 1 %}
+
+    {% if diffToEnd > 0 %}
+        {% if diffToEnd > 1 %}
+            {% set pageSet = pageSet|merge(['...']) %}
+        {% endif %}
+
+        {% set pageSet = pageSet|merge([records.lastPage]) %}
+    {% endif %}
+
+    <ul class="pagination">
+        {% if records.currentPage > 1 %}
+            <li>
+                <a href="{{ paginationUrl ~ (records.currentPage - 1) }}">
+                    &larr; Previous
+                </a>
+            </li>
+        {% else %}
+            <li class="disabled">
+                <span>
+                    &larr; Previous
+                </span>
+            </li>
+        {% endif %}
+
+        {% for page in pageSet %}
+            {% if page == '...' %}
+                <li class="interval">
+                    <a>{{ page }}</a>
+                </li>
+            {% else %}
+                <li class="{{ page == records.currentPage ? 'active' }}">
+                    <a href="{{ paginationUrl ~ page }}">{{ page }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if records.lastPage > records.currentPage %}
+            <li>
+                <a href="{{ paginationUrl ~ (records.currentPage + 1) }}">
+                    Next &rarr;
+                </a>
+            </li>
+        {% else %}
+            <li class="disabled">
+                <span>
+                    Next &rarr;
+                </span>
+            </li>
+        {% endif %}
+    </ul>
+{% endif %}

@@ -1,0 +1,27 @@
+columns:
+    idx:
+        label: idx
+        type: number
+    reg_time:
+        label: 신청일
+        type: date
+        format: Y-m-d
+    app_process:
+        label: 진행상태
+        type: text
+        select: 'CASE app_process WHEN 0 THEN "접수" WHEN 1 THEN "신청확인" WHEN 2 THEN "진행중" WHEN 3 THEN "심사중" WHEN 4 THEN "완료" END'
+    app_id:
+        label: 앱아이디
+        type: text
+    app_name:
+        label: 앱명
+        type: text
+    apps_type:
+        label: 앱OS
+        type: text
+    #app_ver:
+    #    label: 앱버전
+    #    type: text
+    #app_update:
+    #    label: 업데이트내역
+    #    type: text

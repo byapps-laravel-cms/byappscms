@@ -2,33 +2,35 @@ columns:
     idx:
         label: idx
         type: number
-    mem_id:
-        label: mem_id
-        type: text
-    pm_code:
-        label: pm_code
-        type: text
-    pm_used:
-        label: pm_used
-        type: text
+    # mem_id:
+    #     label: mem_id
+    #     type: text
+    # pm_code:
+    #     label: pm_code
+    #     type: text
+    # pm_used:
+    #     label: pm_used
+    #     type: text
     pm_title:
-        label: pm_title
+        label: 프로모션명
         type: text
     mem_name:
-        label: mem_name
+        label: 회원명
         type: text
     pm_target:
-        label: pm_target
+        label: 적용대상
         type: text
     pm_content:
-        label: pm_content
+        label: 적용내용
         type: text
-    pm_comment:
-        label: pm_comment
-        type: text
+    # pm_comment:
+    #     label: pm_comment
+    #     type: text
     used_time:
         label: used_time
-        type: number
+        type: date
+        format: Y-m-d
     reg_time:
-        label: reg_time
-        type: number
+        label: 등록일
+        type: date
+        format: Y-m-d
