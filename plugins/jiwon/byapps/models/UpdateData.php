@@ -5,7 +5,7 @@ use Model;
 /**
  * Model
  */
-class UpdateManage extends Model
+class UpdateData extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 
@@ -16,7 +16,6 @@ class UpdateManage extends Model
     public $timestamps = false;
 
     public $connection = 'byapps';
-
     /**
      * @var string The database table used by the model.
      */
@@ -27,10 +26,4 @@ class UpdateManage extends Model
      */
     public $rules = [
     ];
-
-    public $hasMany = [
-      'joins' => [
-        'Jiwon\Byapps\Models\ApkData',
-        'key' => 'idx'
-      ]
-    ];
+}
