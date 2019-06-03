@@ -1,0 +1,114 @@
+title = "APK상세"
+url = "/apps/apkData/:idx"
+layout = "default"
+is_hidden = 0
+child_of = "mey_no_parent"
+hide_crumb = 0
+remove_crumb_trail = 0
+crumb_disabled = 0
+
+[builderDetails]
+modelClass = "Jiwon\Byapps\Models\ApkData"
+identifierValue = "{{ :idx }}"
+modelKeyColumn = "idx"
+displayColumn = "app_id"
+notFoundMessage = "Record not found"
+
+[session]
+security = "all"
+==
+<div class="jumbotron title-js">
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <h3>APK 관리</h3>
+                <small>APK 관리를 하실 수 있습니다</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+{% set record = builderDetails.record %}
+{% set displayColumn = builderDetails.displayColumn %}
+{% set notFoundMessage = builderDetails.notFoundMessage %}
+
+  <div class="alert alert-info">
+  {% if record %}
+     <!--  <h4>Row modifier class included</h4> -->
+      <p>
+         {{ attribute(record, displayColumn) }}
+      </p>
+
+  {% else %}
+      {{ notFoundMessage }}
+  {% endif %}
+  </div>
+
+  <hr />
+
+  <div class="method">
+     <!--  <div class="row margin-0 list-header hidden-sm hidden-xs">
+         <div class="col-md-3"><div class="header">주문번호</div></div>
+     </div> -->
+
+      <div class="row margin-0">
+        <div class="row1">
+           <div class="col-md-2 col-xs-4">
+               <div class="cell">
+                   <div class="propertyname th_style_1">
+                   옵션
+                   </div>
+               </div>
+           </div>
+
+           <div class="col-md-10 col-xs-8">
+               <div class="cell">
+                   <div class="description td_style_1">
+                      수정하기 삭제하기
+                   </div>
+               </div>
+           </div>
+        </div>
+
+        <div class="row1">
+           <div class="col-md-2 col-xs-4">
+               <div class="cell">
+                   <div class="propertyname th_style_1">
+                   App Name
+                   </div>
+               </div>
+           </div>
+           <div class="col-md-10 col-xs-8">
+               <div class="cell">
+                   <div class="description td_style_1">
+                     {{ record.app_name }}
+                   </div>
+
+               </div>
+           </div>
+        </div>
+
+        <div class="row1">
+           <div class="col-md-2 col-xs-4">
+               <div class="cell">
+                   <div class="propertyname th_style_1">
+                   APK 화일
+                   </div>
+               </div>
+           </div>
+           <div class="col-md-10 col-xs-8">
+               <div class="cell">
+                   <div class="description td_style_1">
+                   Download
+                   </div>
+
+               </div>
+           </div>
+        </div>
+
+      </div>
+
+  </div>
+</div>
