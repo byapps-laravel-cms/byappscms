@@ -30,6 +30,7 @@ function onStart()
         <script src="https://www.amcharts.com/lib/4/core.js"></script>
         <script src="https://www.amcharts.com/lib/4/charts.js"></script>
         <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
         <!-- For Datatable 끝 -->
         
         {% styles %}
@@ -45,8 +46,6 @@ function onStart()
             <div class="top_btn"></div>
             {% if this.page.title != 'Home' %}
                 <!-- aside -->
-                <div class="aside_open_btn_1 aside_open_btn"></div>
-                <div class="aside_open_btn_2 aside_open_btn"><</div>
                 {% partial 'site/aside' %}
             {% endif %}
             {% page %}
@@ -67,6 +66,8 @@ function onStart()
         <script src="{{ 'assets/javascript/chart.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/appdata.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/popup.js'|theme }}"></script>
+        <script src="{{ 'assets/javascript/fileUpload.js'|theme }}"></script>
+        <script src="{{ 'assets/javascript/temp.js'|theme }}"></script>
         {% framework extras %}
         {% scripts %}
     </body>

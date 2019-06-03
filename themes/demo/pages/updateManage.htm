@@ -18,13 +18,19 @@ detailsKeyColumn = "idx"
 detailsUrlParameter = "idx"
 recordsPerPage = 20
 pageNumber = "{{ :page }}"
+sortColumn = "idx"
+sortDirection = "desc"
 
 [session]
 security = "all"
 ==
 <?php
+use Jiwon\Byapps\Models\ApkData;
+
 function onStart()
 {
+    $model = new ApkData();
+    
     $this['func'] = new Class {
         public function dateFormat($val)
         {
@@ -32,6 +38,13 @@ function onStart()
            return $dateString;
         }
     };
+//    $query = $model->newQuery();
+//    $temp = $query
+//        ->join('', 'foo', '=', 'idx')
+//        ->select('idx')
+//        ->limit(20)
+//        ->get();
+//    print_r($temp);
 }
 ?>
 ==
@@ -89,7 +102,7 @@ function onStart()
 
                 <td>{{ record.app_name }}</td>
                 <td>{{ record.apps_type }}</td>
-                <td>앱버전</td>
+                <td>{{ record.app_ver }}</td>
                 <td>업데이트내역</td>
             </tr>
 

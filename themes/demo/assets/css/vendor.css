@@ -7356,3 +7356,29 @@ a .icon-flip-vertical:before {
 .col-md-5-width{
       width: 49.66666666666667%;
   }
+.form-control-xs {
+    display: inline-block;
+    width: 26%;
+    height: 24px;
+    padding: 1px 12px;
+    font-size: 12px;
+    line-height: 1.2;
+    color: #555555;
+    background-color: #ffffff;
+    background-image: none;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.th_style_1:nth-child(8){
+    height:75px;
+    line-height:3.75;
+}
+.th_style_1:nth-child(9){
+    height:60px;
+    line-height:3;
+}

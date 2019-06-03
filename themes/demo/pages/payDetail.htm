@@ -73,13 +73,12 @@ function onStart()
        </div> -->
 
         <div class="row margin-0">
+        <div class="row1">
            <div class="col-md-2 col-xs-4">
                <div class="cell">
-                  {% for i in itemlist %}
                    <div class="propertyname th_style_1">
-                     {{ i }}
+                   주문번호
                    </div>
-                  {% endfor %}
                </div>
            </div>
 
@@ -90,11 +89,30 @@ function onStart()
                    </div>
                </div>
            </div>
-
+        </div>
+           
+        <div class="row1">
+           <div class="col-md-2 col-xs-4">
+               <div class="cell">
+                   <div class="propertyname th_style_1">
+                   결제날짜
+                   </div>
+               </div>
+           </div>
            <div class="col-md-10 col-xs-8">
                <div class="cell">
                    <div class="description td_style_1">
                      {{ record.reg_time }}
+                   </div>
+               </div>
+           </div>
+       </div>
+       
+       <div class="row1">
+           <div class="col-md-2 col-xs-4">
+               <div class="cell">
+                   <div class="propertyname th_style_1">
+                   회원ID
                    </div>
                </div>
            </div>
@@ -109,7 +127,16 @@ function onStart()
                    </div>
                </div>
            </div>
-
+        </div>
+        
+        <div class="row1">
+           <div class="col-md-2 col-xs-4">
+               <div class="cell">
+                   <div class="propertyname th_style_1">
+                   App 명
+                   </div>
+               </div>
+           </div>
            <div class="col-md-10 col-xs-8">
                <div class="cell">
                    <div class="description td_style_1">
@@ -118,7 +145,16 @@ function onStart()
                    
                </div>
            </div>
-           
+        </div>
+        
+        <div class="row1">
+           <div class="col-md-2 col-xs-4">
+               <div class="cell">
+                   <div class="propertyname th_style_1">
+                   결제기간
+                   </div>
+               </div>
+           </div>
            <div class="col-md-10 col-xs-8">
                <div class="cell">
                    <div class="description td_style_1">
@@ -127,7 +163,16 @@ function onStart()
                    
                </div>
            </div>
-           
+        </div>
+        
+        <div class="row1">
+           <div class="col-md-2 col-xs-4">
+               <div class="cell">
+                   <div class="propertyname th_style_1">
+                   결제금액
+                   </div>
+               </div>
+           </div>
            <div class="col-md-10 col-xs-8">
                <div class="cell">
                    <div class="description td_style_1">
@@ -138,7 +183,16 @@ function onStart()
                    
                </div>
            </div>
-           
+        </div>
+        
+        <div class="row1">
+           <div class="col-md-2 col-xs-4">
+               <div class="cell">
+                   <div class="propertyname th_style_1">
+                   결제정보
+                   </div>
+               </div>
+           </div>
            <div class="col-md-10 col-xs-8">
                <div class="cell">
                    <div class="description td_style_1">
@@ -147,7 +201,17 @@ function onStart()
                    
                </div>
            </div>
-           
+        </div>
+        
+        <div class="row1">
+           <div class="col-md-2 col-xs-4 height_2">
+               <div class="cell">
+                   <div class="propertyname th_style_1">
+                   영수증정보
+                   </div>
+               </div>
+           </div>
+
            <div class="col-md-10 col-xs-8">
                <div class="cell">
                    <div class="description td_style_1">
@@ -156,7 +220,7 @@ function onStart()
                    
                </div>
            </div>
-
+         </div>
         </div>
 
     </div>

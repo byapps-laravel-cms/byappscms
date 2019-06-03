@@ -18,3 +18,12 @@
 1.0.7:
     - 'Updated table jiwon_byapps_paymanage'
     - builder_table_update_jiwon_byapps_paymanage_4.php
+1.0.8:
+    - 'Created table jiwon_byapps_view'
+    - builder_table_create_jiwon_byapps_view.php
+1.0.9:
+    - 'Updated table jiwon_byapps_view'
+    - builder_table_update_jiwon_byapps_view.php
+1.0.10:
+    - 'Drop table jiwon_byapps_view'
+    - builder_table_delete_jiwon_byapps_view.php
