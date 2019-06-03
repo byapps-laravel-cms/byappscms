@@ -15,20 +15,6 @@ if(Util.getCookie('searchType')){
 $('.select_comm_1').change(function() {
     document.cookie = `searchType=${$('.select_comm_1 option:selected').index()};path=/`;
 });
-//사이드 배너 슬라이드
-// $(".aside_open_btn").click(function (){
-//     $(".aside").fadeIn(500);
-//     $(".container").animate({"margin-left": "5vw"},500);
-//     $(".top_btn").animate({"margin-left": "-27vw"},400);
-//     document.cookie = "aside=on;path=/";
-// })
-//사이드 베너 닫기
-// $(".aside_close_btn").click(function (){
-//     $(".aside").fadeOut(500);
-//     $(".container").css({"margin": "0 auto"});
-//     $(".top_btn").css({"margin-left": "0"});
-//     document.cookie = "aside=off;path=/";
-// });
 //쿠키
 if(Util.getCookie('aside') == 'on' && $('#sidebar').length != 0){
   $("html").toggleClass("open");

@@ -357,7 +357,7 @@ function onStart()
           {% for item in itemlist %}
             <div class="form-group row">
                 <label class="col-sm-2 control-label">{{ item.0 }}</label>
-                <div class="col-xs-10">
+                <div class="col-md-10 col-xs-10">
                   {% if item.3 == 'selectBox' %}
                     <div class="col-sm-6 col-xs-10">
                         <select {{ item.1 }} class="form-control">
@@ -378,7 +378,7 @@ function onStart()
                 </div>
                 <input type="hidden" {{ item.1 }} value="">
           {% elseif item.3 == 'checkBox' %}
-                <div class="col-sm-3">
+                <div class="col-md-10 col-xs-10">
               {% for option in item.4 %}
                     <label class="radio-inline"><input type="checkbox" {{ item.1 }} {{ option.2 }} value="{{ option.0 }}">{{ option.1 }}</label>
               {% endfor %}
@@ -392,24 +392,24 @@ function onStart()
           {% elseif item.3 == 'textarea' %}
                 <textarea {{ itme.1 }} class="col-md-6 col-xs-10" rows="5">{{ item.2 }}</textarea>
             {% elseif item.0 == 'Develop Info' %}
-                <ul class="develop_info_select col-md-6 col-xs-10">
+                <ul class="develop_info_select">
                     <li>텍스트로 보기</li>
                     <li>HTML코드로 보기</li>
                 </ul>
-            <div class="develop_info" style="min-width: 55rem;">
+            <div class="develop_info ">
                 {{ item.2|raw }}
             </div>
-            <div class="develop_info">
-                <textarea {{ item.1 }} class="col-md-6 col-xs-10" style="resize: vertical;">
+            <div class="develop_info col-md-6 col-xs-10" >
+                <div class="">
                     {{ item.2 }}
-                </textarea>
+                </div>
             </div>
               {% elseif item.5 %}
-                <div class="col-xs-2">
+                <div class="col-xs-4">
                     <input type="text" {{ item.1 }} class="form-control" value="{{ item.2 }}">
                 </div>
                 <span style="float: left;">{{ item.5 }}</span>
-                <div class="col-xs-2">
+                <div class="col-xs-4">
                     <input type="text" {{ item.3 }} class="form-control" value="{{ item.4 == "empty" ? "" : item.4 }}">
                 </div>
                 <div class="col-xs-2">
