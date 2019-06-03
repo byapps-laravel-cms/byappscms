@@ -3,21 +3,6 @@ columns:
         label: idx
         type: number
         sortable: true
-    # mem_id:
-    #     label: mem_id
-    #     type: text
-    # order_id:
-    #     label: order_id
-    #     type: text
-    # recom_id:
-    #     label: recom_id
-    #     type: text
-    # process:
-    #     label: process
-    #     type: text
-    # pay_type:
-    #     label: pay_type
-    #     type: text
     apps_type:
         label: 구분
         type: text
@@ -39,15 +24,7 @@ columns:
     amount:
         label: 결제금액
         type: number
-    # payment:
-    #     label: payment
-    #     type: text
-    # receipt:
-    #     label: receipt
-    #     type: text
-    # promotion:
-    #     label: promotion
-    #     type: text
+        select: FORMAT(amount, 0)
     reg_time:
         label: 등록일
         type: date

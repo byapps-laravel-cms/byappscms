@@ -27,7 +27,8 @@ columns:
         type: number
     pay_amount:
         label: 결제금액
-        type: number
+        type: text
+        select: FORMAT(pay_amount, 0)
     created_at:
         label: created_at
         type: datetime
