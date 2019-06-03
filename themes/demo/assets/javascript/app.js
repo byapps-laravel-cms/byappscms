@@ -35,14 +35,13 @@ jQuery(document).ready(function($){
         // Scrolling up
         if (previousTop - currentTop > scrollDelta) {
             $header.removeClass('is-hidden');
-            $(".aside").css({"top":"5.5%"});
-            $(".aside_footer").css({"height":"13%"});
+            $("#sidebar").css({"top":"7%"});
         }
         else if (currentTop - previousTop > scrollDelta && currentTop > scrollOffset) {
             // Scrolling down
             $header.addClass('is-hidden');
-            $(".aside").css({"top":"0%"});
-            $(".aside_footer").css({"height":"18%"});
+            $("#sidebar").css({"top":"0%"});
+            
         } else if ( currentTop > 100 ) {
             $( '.top_btn' ).fadeIn();
         } else {

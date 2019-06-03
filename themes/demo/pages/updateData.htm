@@ -33,8 +33,8 @@ function onStart()
            return $dateString;
         }
     };
+ $this['itemlist'] = array("접수날짜", "Process", "회원ID", "App. Name", "App. OS", "App. ID","Update Type" , "Update Detail", "App. Intro");
 
-    $this['itemlist'] = array("접수날짜", "Process", "회원ID", "App. Name", "App. OS", "App. ID","Update Type" , "Update Detail", "App. Intro");
 }
 ?>
 ==
@@ -94,6 +94,19 @@ function onStart()
            <div class="cell">
                <div class="description td_style_1">
                  {{ record.app_process}}
+                 <select class="form-control-xs">
+                     <option>선택해주세요</option>
+                     <option value="1">개발준비중</option>
+                     <option value="1">심사중</option>
+                     <option value="1">재심사중</option>
+                     <option value="1">등록거부</option>
+                     <option value="1">등록대기</option>
+                     <option value="1">등록완료</option>
+                     <option value="1">서비스중지</option>
+                     <option value="1">서비스유효</option>
+                 </select>
+                 <input class="btn btn-xs nbutton3" type="button" value="상태 변경">
+                 <input class="btn btn-xs nbutton3" type="button" value="APK등록">
                </div>
            </div>
        </div>
@@ -102,9 +115,7 @@ function onStart()
            <div class="cell">
                <div class="descrisption td_style_1">
                  {{ record.mem_id }}
-                 <input class="nbutton3" type="button" value="회원정보">
-                 <input class="nbutton3" type="button" value="주문내역">
-                 <input class="nbutton3" type="button" value="앱관리">
+                 <input class="btn btn-xs nbutton3" type="button" value="회원정보">
                </div>
            </div>
        </div>
@@ -130,9 +141,7 @@ function onStart()
        <div class="col-md-5">
            <div class="cell">
                <div class="description td_style_1">
-               1원
-               <input class="cbutton3" type="button" value="결제취소">
-               <input class="cbutton3" type="button" value="무료처리">
+               bonagirl
                </div>
 
            </div>
@@ -141,7 +150,7 @@ function onStart()
        <div class="col-md-5">
            <div class="cell">
                <div class="description td_style_1">
-               <input class="nbutton3" type="button" value="입금확인">
+               intro
                </div>
 
            </div>
@@ -150,7 +159,7 @@ function onStart()
        <div class="col-md-5">
            <div class="cell">
                <div class="description td_style_1">
-                 <textarea name="receipt" class="form-control" style="height:200px;">{{ record.receipt }}</textarea>
+                 <textarea name="receipt" class="form-control" style="height:75px;">{{ record.receipt }}</textarea>
                </div>
 
            </div>

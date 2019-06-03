@@ -67,3 +67,8 @@ $( '.top_btn' ).click( function() {
       $( 'html, body' ).animate( { scrollTop : 0 }, 400 );
       return false;
 } );
+
+
+$("#sidebar-close,#sidebar-toggle").click(function(){
+  $("html").toggleClass("open");
+});
