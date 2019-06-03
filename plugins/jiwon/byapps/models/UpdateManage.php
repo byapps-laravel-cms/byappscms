@@ -20,7 +20,6 @@ class UpdateManage extends Model
     /**
      * @var string The database table used by the model.
      */
-
     public $table = 'BYAPPS_apps_update_data';
 
     /**
@@ -35,4 +34,3 @@ class UpdateManage extends Model
         'key' => 'idx'
       ]
     ];
-}

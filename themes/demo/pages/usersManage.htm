@@ -28,9 +28,9 @@ security = "all"
 use Jiwon\Byapps\Models\UserInfo;
 
 function onStart()
-{
+{    
     $this['records'] = UserInfo::get();
-
+    
     $this['func'] = new Class {
         public function dateFormat($val)
         {
