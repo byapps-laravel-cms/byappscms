@@ -1,6 +1,3 @@
-$(function (){
-  fileDropDown($(".file_dropzone"));
-});
 /*
  * 긴 이름 자르기
 */
@@ -56,6 +53,9 @@ $(".develop_info_select li").click(function (){
 /*
  *파일 업로드
 */
+$(function (){
+  fileDropDown($(".file_dropzone"));
+});
 
 function fileDropDown (dropZone){
   //Drag기능
@@ -98,16 +98,16 @@ function fileDropDown (dropZone){
       }
   });
 }
-
 function selectFile (fileObject,target){
   var files = null;
-
+  
   if(fileObject != null){
     files = fileObject;
   }else{
     files = $('#multipaartFileList_' + fileIndex)[0].files;
   }
   addFileList(files[0],target);
+  showThumbnail(files[0],target);
 }
 function addFileList (file,target){
   formData = new FormData($('form').eq(0));
@@ -136,6 +136,15 @@ function addFileList (file,target){
     }
   });
 }
+var temp;
+function showThumbnail (file,target) {
+  var reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = function  () {
+    temp = reader.result;
+    target.css('background-image',`url('${reader.result}')`)
+  };
+};
 /*
  * Application
  */
@@ -145,7 +154,7 @@ $(document).tooltip({
 /*
  * Auto hide navbar
  */
-jQuery(document).ready(function($){
+jQuery(document).ready(function ($){
   var $header = $('.navbar-autohide'),
     scrolling = false,
     previousTop = 0,
@@ -153,7 +162,7 @@ jQuery(document).ready(function($){
     scrollDelta = 10,
     scrollOffset = 150
 
-  $(window).on('scroll', function(){
+  $(window).on('scroll', function (){
     if (!scrolling) {
       scrolling = true
       if (!window.requestAnimationFrame) {
