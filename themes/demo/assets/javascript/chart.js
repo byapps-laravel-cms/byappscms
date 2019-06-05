@@ -27,10 +27,8 @@ function showChart (data){
       columns: data.circle1,
       type: "donut",
       onover: function (d, i) {
-      console.log("onover", d, i);
     },
       onout: function (d, i) {
-      console.log("onout", d, i);
     }
   },
     donut: {
@@ -44,10 +42,8 @@ function showChart (data){
       columns: data.circle2,
       type: "donut",
       onover: function (d, i) {
-      console.log("onover", d, i);
     },
       onout: function (d, i) {
-      console.log("onout", d, i);
     }
   },
     donut: {
