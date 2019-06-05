@@ -12,7 +12,7 @@ $(".show_btn").click(function (){
 if(Util.getCookie('searchType')){
     $('.select_comm_1 option').eq(Util.getCookie('searchType')*1).attr('selected','selected');
 }
-$('.select_comm_1').change(function() {
+$('.select_comm_1').change(function () {
     document.cookie = `searchType=${$('.select_comm_1 option:selected').index()};path=/`;
 });
 //쿠키
@@ -44,16 +44,18 @@ $(".develop_info_select li").click(function (){
     $(".develop_info").eq(index).css({"display":"block"});
 });
 //header로 가는 버튼
-$('.top_btn').click( function() {
+$('.top_btn').click( function () {
       $( 'html, body' ).animate( { scrollTop : 0 }, 400 );
       return false;
 } );
 
-$("#sidebar-close,#sidebar-toggle").click(function(){
+$("#sidebar-close,#sidebar-toggle").click(function (){
   $("html").toggleClass("open");
   if($("html").attr('class')=="open"){
+      $(".container").css({"margin":"0"});
      document.cookie = "aside=on;path=/";
     }else{
+        $(".container").css({"margin":""});
         document.cookie = "aside=off;path=/";   
     }
 });

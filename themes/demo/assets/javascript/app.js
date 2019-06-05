@@ -1,5 +1,5 @@
 $(function (){
-    fileDropDown($(".file_dropzone"));
+  fileDropDown($(".file_dropzone"));
 });
 /*
  * 긴 이름 자르기
@@ -7,31 +7,38 @@ $(function (){
 
 var tdCount = $('#example tr:first-child td').length;
 for(var i = 0 ; i < $('#example td').length ; i += tdCount){
-    var item = $('#example td a').eq(i);
-    var temp = item.text().trim();
-    if(temp.length > 30){
-        item.text(`${temp.substr(0,28)}...`);
-    }
+  var item = $('#example td a').eq(i);
+  var temp = item.text().trim();
+  if(temp.length > 30){
+    item.text(`${temp.substr(0,28)}...`);
+  }
+}
+/*
+ *팝업
+*/
+function view_user (){
+  $("#popup_update").bPopup(); 
 }
 /*
  *파일 업로드
 */
 
-function fileDropDown(dropZone){
+function fileDropDown (dropZone)
+{
     //Drag기능
-    dropZone.on('dragleave',function(e){
+    dropZone.on('dragleave',function (e){
         e.stopPropagation();
         e.preventDefault();
         // 드롭다운 영역 css
         $(this).css({'background-color':'#fff','background':'','box-shadow': ''});
     });
-    dropZone.on('dragover',function(e){
+    dropZone.on('dragover',function (e){
         e.stopPropagation();
         e.preventDefault();
         // 드롭다운 영역 css
         $(this).css({"background":"url(https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-cloud-upload-outline-256.png)", 'background-repeat' : 'no-repeat', 'background-position':'center','box-shadow': 'inset 0 0 8px 1px black'});
     });
-    dropZone.on('drop',function(e){
+    dropZone.on('drop',function (e){
         e.preventDefault();
         // 드롭다운 영역 css
         $(this).css({'background':'url(https://cdn1.iconfinder.com/data/icons/hawcons/32/698830-icon-104-folder-checked-256.png)','background-repeat' : 'no-repeat', 'background-position':'center','box-shadow': ''});
@@ -49,7 +56,7 @@ function fileDropDown(dropZone){
     });
 }
 
-function selectFile(fileObject,target){
+function selectFile (fileObject,target){
     var files = null;
 
     if(fileObject != null){
@@ -59,7 +66,7 @@ function selectFile(fileObject,target){
     }
     addFileList(files[0],target);
 }
-function addFileList(file,target){
+function addFileList (file,target){
     formData = new FormData($('form').eq(0));
     formData.append('file',file);
     $.ajaxSetup({
@@ -76,11 +83,11 @@ function addFileList(file,target){
         contentType:false,
         dataType:'json',
         cache:false,
-        success : function(data) {
+        success : function (data) {
             target.css('background-image',`url('${data}')`)
             target.text('');
         },
-        error: function(jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR, textStatus, errorThrown) {
             target.css('background-image',`url('${jqXHR.responseText}')`);
             target.text('');
         }
@@ -116,7 +123,7 @@ jQuery(document).ready(function($){
         }
     })
 
-    function autoHideHeader() {
+    function autoHideHeader () {
         var currentTop = $(window).scrollTop()
         // Scrolling up
         if (previousTop - currentTop > scrollDelta) {

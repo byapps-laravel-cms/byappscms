@@ -1,4 +1,4 @@
-function change(char){
+function change (char){
     return (char < 10?'0':'')+char;
 }
 $(document).ready(function (){

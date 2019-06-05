@@ -32,7 +32,8 @@ function onStart()
         <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <!-- For Datatable 끝 -->
-        
+        <!-- Step 1) Load D3.js -->
+        <script src="https://d3js.org/d3.v5.min.js"></script>
         {% styles %}
     </head>
     <body>
@@ -61,12 +62,11 @@ function onStart()
         <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/bootstrap.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/jquery.bpopup.min.js'|theme }}"></script>
+        <script src="{{ 'assets/vendor/billboard.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/util.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/app.js'|theme }}"></script>
-        <script src="{{ 'assets/javascript/chart.js'|theme }}"></script>
+        {% if this.page.title == 'Home' %}<script src="{{ 'assets/javascript/chart.js'|theme }}"></script>{% endif %}
         <script src="{{ 'assets/javascript/appdata.js'|theme }}"></script>
-        <script src="{{ 'assets/javascript/popup.js'|theme }}"></script>
-        <script src="{{ 'assets/javascript/fileUpload.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/temp.js'|theme }}"></script>
         {% framework extras %}
         {% scripts %}
