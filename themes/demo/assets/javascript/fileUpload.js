@@ -1,35 +1,27 @@
-var dropZone = $(".file_dropzone");
-
 $(function (){
     // 파일 드롭 다운
-    fileDropDown();
+    fileDropDown($(".file_dropzone"));
 });
 
-// 파일 드롭 다운
-function fileDropDown(){
+function fileDropDown(dropZone){
     //Drag기능
-    dropZone.on('dragenter',function(e){
-        e.stopPropagation();
-        e.preventDefault();
-        // 드롭다운 영역 css
-        $(this).css('background-color','#E3F2FC');
-    });
     dropZone.on('dragleave',function(e){
         e.stopPropagation();
         e.preventDefault();
         // 드롭다운 영역 css
-        $(this).css('background-color','#fff');
+        $(this).css({'background-color':'#fff','background':''});
     });
     dropZone.on('dragover',function(e){
         e.stopPropagation();
         e.preventDefault();
         // 드롭다운 영역 css
-        $(this).css('background-color','blue');
+        $(this).css({"background":"url(https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-cloud-upload-outline-256.png)", 'background-repeat' : 'no-repeat', 'background-position':'center'});
+        // $('body').css({'background-color':'#c1c1c1'})
     });
     dropZone.on('drop',function(e){
         e.preventDefault();
         // 드롭다운 영역 css
-        $(this).css('background-color','#fff');
+        $(this).css('background-color','black');
 
         var files = e.originalEvent.dataTransfer.files;
         if(files != null){
@@ -37,40 +29,47 @@ function fileDropDown(){
                 alert("폴더 업로드 불가");
                 return;
             }
-            selectFile(files)
+            selectFile(files,$(this))
         }else{
             alert("ERROR");
         }
     });
 }
 
-// 파일 선택시
-function selectFile(fileObject){
+function selectFile(fileObject,target){
     var files = null;
 
     if(fileObject != null){
-        // 파일 Drag 이용하여 등록시
         files = fileObject;
     }else{
-        // 직접 파일 등록시
         files = $('#multipaartFileList_' + fileIndex)[0].files;
     }
-    addFileList(files[0]);
+    addFileList(files[0],target);
 }
-
-// 업로드 파일 목록 생성
-function addFileList(file){
-    console.log(file.name);
+function addFileList(file,target){
+    formData = new FormData($('form').eq(0));
+    formData.append('file',file);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').attr('value')
+        }
+    });
     $.ajax({
-        url:"(업로드 경로)",
-        data:file,
+        url:'./',
+        data:formData,
         type:'POST',
         enctype:'multipart/form-data',
         processData:false,
         contentType:false,
         dataType:'json',
         cache:false,
-        success : function(data) { console.log(data); },
-        error: function(jqXHR, textStatus, errorThrown) { console.log(jqXHR.responseText); }
+        success : function(data) {
+            target.css('background-image',`url('${data}')`)
+            target.text('');
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            target.css('background-image',`url('${jqXHR.responseText}')`);
+            target.text('');
+        }
     });
 }

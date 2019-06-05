@@ -1,0 +1,2 @@
+.sortable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
+ .sortable>li {height: 100%; float:left; width:100%;}

@@ -31,8 +31,7 @@
     color:#000000;
 }
 #sidebar {
-    min-width: 250px;
-    max-width: 250px;
+    width: 740px;
     background: #7386D5;
     color: #fff;
     position: fixed;
