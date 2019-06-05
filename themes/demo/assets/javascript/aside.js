@@ -9,10 +9,10 @@ function platform_chk (){
   var filter = "win16|win32|win64|mac|macintel"; 
   if ( navigator.platform ) {
     if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) { 
-      $("#slidebar").css({"width":"58%"});
+      $("#sidebar").css({"width":"58%"});
       return "mobile";
     } else { 
-      $("#slidebar").css({"width":"41%"});
+      $("#sidebar").css({"width":"41%"});
       return "pc";
     }
   }    

@@ -1,7 +1,7 @@
+var temp;
 /*
  * 긴 이름 자르기
 */
-
 var tdCount = $('#example tr:first-child td').length;
 for(var i = 0 ; i < $('#example td').length ; i += tdCount){
   var item = $('#example td a').eq(i);
@@ -10,6 +10,15 @@ for(var i = 0 ; i < $('#example td').length ; i += tdCount){
     item.text(`${temp.substr(0,28)}...`);
   }
 }
+/*
+ *검색 카테고리 유지
+*/
+if(Util.getCookie('searchType')){
+  $('.select_comm_1 option').eq(Util.getCookie('searchType')*1).attr('selected','selected')
+}
+$('.select_comm_1').change(function() {
+  document.cookie = `searchType=${$('.select_comm_1 option:selected').index()};path=/`;
+});
 /*
  *팝업
 */
@@ -28,14 +37,14 @@ $(".show_btn").click(function (){
 });
 //home 만료예정업체
 $(".app_box_cover").eq(0).css({"display":"block"}); 
-$(".app_select li").eq(0).css({"background-color":"#c2d4ef"});
+$(".app_select div").eq(0).css({"background-color":"#c2d4ef"});
 //click
-$(".app_select li").click(function (){
-  var index = $(".app_select li").index(this);
+$(".app_select div").click(function (){
+  var index = $(".app_select div").index(this);
   $(".app_box_cover").css({"display":"none"});
-  $(".app_select li").css({"background-color":"#c6c6c6"});
+  $(".app_select div").css({"background-color":"#c6c6c6"});
   $(".app_box_cover").eq(index).css({"display":"block"}); 
-  $(".app_select li").eq(index).css({"background-color":"#c2d4ef"});
+  $(".app_select div").eq(index).css({"background-color":"#c2d4ef"});
 });
 //앱 상세 첫 ㅍ시 화면
 $(".develop_info_select li").eq(0).css({"background-color":"#c2d4ef"});
@@ -53,9 +62,7 @@ $(".develop_info_select li").click(function (){
 /*
  *파일 업로드
 */
-$(function (){
-  fileDropDown($(".file_dropzone"));
-});
+fileDropDown($(".file_dropzone"));
 
 function fileDropDown (dropZone){
   //Drag기능
@@ -63,7 +70,10 @@ function fileDropDown (dropZone){
     e.stopPropagation();
     e.preventDefault();
     // 드롭다운 영역 css
-    $(this).css({'background-color':'#fff','background':'','box-shadow': ''});
+    $(this).css({
+      'background-color':'#fff',
+      'background':'',
+      'box-shadow': ''});
   });
   dropZone.on('dragover',function (e){
     e.stopPropagation();
@@ -106,10 +116,10 @@ function selectFile (fileObject,target){
   }else{
     files = $('#multipaartFileList_' + fileIndex)[0].files;
   }
-  addFileList(files[0],target);
+  sendFile(files[0],target);
   showThumbnail(files[0],target);
 }
-function addFileList (file,target){
+function sendFile (file,target){
   formData = new FormData($('form').eq(0));
   formData.append('file',file);
   $.ajaxSetup({
@@ -128,21 +138,21 @@ function addFileList (file,target){
     cache:false,
     success : function (data) {
       target.css('background-image',`url('${data}')`)
-      target.text('');
     },
     error: function (jqXHR, textStatus, errorThrown) {
       target.css('background-image',`url('${jqXHR.responseText}')`);
-      target.text('');
     }
   });
 }
-var temp;
 function showThumbnail (file,target) {
   var reader = new FileReader();
   reader.readAsDataURL(file);
   reader.onload = function  () {
-    temp = reader.result;
-    target.css('background-image',`url('${reader.result}')`)
+    target.css({
+      'background-image':`url('${reader.result}')`,
+      'background-size':'cover'
+    })
+    target.text('');
   };
 };
 /*
