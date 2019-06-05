@@ -11,4 +11,23 @@ class Util{
   static deleteCookie (name) {
     document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   }
+  static updateHomeLayout(data){
+    $.ajax({
+      url:'./',
+      data:data,
+      type:'GET',
+      processData:false,
+      contentType:false,
+      dataType:'json',
+      cache:false,
+      success : function (data) {
+        target.css('background-image',`url('${data}')`)
+        target.text('');
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        target.css('background-image',`url('${jqXHR.responseText}')`);
+        target.text('');
+      }
+    });
+  }
 }
