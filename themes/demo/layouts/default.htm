@@ -23,10 +23,12 @@ function onStart()
         <link href="{{ 'assets/css/temp.css?v1'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/drag.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/appdata.css'|theme }}" rel="stylesheet">
+        <link href="{{ 'assets/vendor/billboard.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/jquery-ui.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/jquery-ui.min.css'|theme }}" rel="stylesheet">
 
         <!-- For Datatable -->
+        <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -58,18 +60,17 @@ function onStart()
         </footer>
 
         <!-- Scripts -->
-        <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/jquery-ui.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/jquery-ui.min.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/bootstrap.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/jquery.bpopup.min.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/billboard.js'|theme }}"></script>
+        <script src="{{ 'assets/javascript/temp.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/util.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/app.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/drag.js'|theme }}"></script>
         {% if this.page.title == 'Home' %}<script src="{{ 'assets/javascript/chart.js'|theme }}"></script>{% else %}
         <script src="{{ 'assets/javascript/aside.js'|theme }}"></script>{% endif %}
-        <script src="{{ 'assets/javascript/temp.js'|theme }}"></script>
         {% framework extras %}
         {% scripts %}
     </body>

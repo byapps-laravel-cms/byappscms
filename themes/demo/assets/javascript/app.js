@@ -83,6 +83,7 @@ function fileDropDown (dropZone){
       "background":"url(https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-cloud-upload-outline-256.png)",
       'background-repeat':'no-repeat',
       'background-position':'center',
+      'background-size':'cover',
       'box-shadow':'inset 0 0 8px 1px black'
     });
   });
@@ -93,6 +94,7 @@ function fileDropDown (dropZone){
       'background':'url(https://cdn1.iconfinder.com/data/icons/hawcons/32/698830-icon-104-folder-checked-256.png)',
       'background-repeat':'no-repeat',
       'background-position':'center',
+      'background-size':'cover',
       'box-shadow':''
     });
 
@@ -156,49 +158,40 @@ function showThumbnail (file,target) {
   };
 };
 /*
- * Application
- */
-$(document).tooltip({
-  selector: "[data-toggle=tooltip]"
-})
-/*
  * Auto hide navbar
  */
-jQuery(document).ready(function ($){
-  var $header = $('.navbar-autohide'),
-    scrolling = false,
-    previousTop = 0,
-    currentTop = 0,
-    scrollDelta = 10,
-    scrollOffset = 150
+var $header = $('.navbar-autohide'),
+  scrolling = false,
+  previousTop = 0,
+  currentTop = 0,
+  scrollDelta = 10,
+  scrollOffset = 150
 
-  $(window).on('scroll', function (){
-    if (!scrolling) {
-      scrolling = true
-      if (!window.requestAnimationFrame) {
-        setTimeout(autoHideHeader, 250)
-      }else {
-        requestAnimationFrame(autoHideHeader)
-      }
+$(window).on('scroll', function (){
+  if (!scrolling) {
+    scrolling = true
+    if (!window.requestAnimationFrame) {
+      setTimeout(autoHideHeader, 250)
+    }else {
+      requestAnimationFrame(autoHideHeader)
     }
-  })
-
-  function autoHideHeader () {
-    var currentTop = $(window).scrollTop()
-    // Scrolling up
-    if (previousTop - currentTop > scrollDelta) {
-      $header.removeClass('is-hidden');
-      $("#sidebar, #sidebar-toggle").css({"top":$(".navbar-header").height()});
-    }else if (currentTop - previousTop > scrollDelta && currentTop > scrollOffset) {
-      // Scrolling down
-      $header.addClass('is-hidden');
-      $("#sidebar, #sidebar-toggle").css({"top":'0'});
-    }else if ( currentTop > 100 ) {
-      $('.top_btn').fadeIn();
-    } else {
-      $('.top_btn').fadeOut();
-    }
-      previousTop = currentTop
-      scrolling = false
-    }
-});
+  }
+})
+function autoHideHeader () {
+  var currentTop = $(window).scrollTop()
+  // Scrolling up
+  if (previousTop - currentTop > scrollDelta) {
+    $header.removeClass('is-hidden');
+    $("#sidebar, #sidebar-toggle").css({"top":$(".navbar-header").height()});
+  }else if (currentTop - previousTop > scrollDelta && currentTop > scrollOffset) {
+    // Scrolling down
+    $header.addClass('is-hidden');
+    $("#sidebar, #sidebar-toggle").css({"top":'0'});
+  }else if ( currentTop > 100 ) {
+    $('.top_btn').fadeIn();
+  } else {
+    $('.top_btn').fadeOut();
+  }
+    previousTop = currentTop
+    scrolling = false
+  }
