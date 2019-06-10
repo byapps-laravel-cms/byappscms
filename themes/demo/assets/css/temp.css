@@ -1,38 +1,42 @@
 *{margin:0;padding:0;}
+#layout-content{
+    background-color: #f8f8f8;   
+}
 .navright{
   margin: 10px 0;
   float: left;
 }
 .c_box_1{
   width: 20%;
-  height: 80px;
+  height: auto;
   float: left;
+  margin-bottom: 10px;
 }
 .c_box_1_font{
-  text-align: center;
-  margin-top: 10px;
-  font-weight: bold;
-  font-size: 13px;
+    font-weight: bold;
+    font-size: 11px;
+    margin: 0;
+    margin-top: 3px;
 }
 .circle1{
-  width: 55px;
-    height: 55px;
+  width: 130px;
+    height: 130px;
     padding: 13px 10px;
     border-radius: 50%;
-    background-color: #333;
-    color: #fff;
+    background-color: #ededed;
+    color: #262a30;
     font-weight: bold;
     margin: 0 auto;
-    margin-top: 20px;
     font-size: 14px;
     text-align: center;
 }
 .vertical_center{
-      margin: 4px 0;
+    margin: 18px 0 0 0;
+    font-size: 39px;
 }
 .chart_box_l{
   width:50%;
-  height: 32rem;
+  height: 378px;
   margin:0 auto;
   border:5px solid #eee;
   padding:10px;
@@ -44,7 +48,7 @@
  }
  .chart_box_r{
   width:49%;
-  height: 32rem;
+  height: fit-content;
   margin:0 auto;
   border:5px solid #eee;
   padding:10px;
@@ -71,13 +75,13 @@
 }
 #app_stats{
     width:100%;
-    height:100%;
+    height:95%;
     position:absolute;
     z-index:1;
 }
 #ma_stats{
     width:100%;
-    height:100%;
+    height:95%;
     position:absolute;
     z-index:1;
 }
@@ -159,6 +163,29 @@
     border: 1px solid #cccccc;
     border-radius: 4px;
 }
+.theme1{
+    margin: 0;
+    line-height: 1;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.dragbox{
+  margin:0 auto; 
+  border:5px solid #eee; 
+  padding:10px;
+  height:fit-content;
+  margin-top:10px; 
+  float:left;
+  width:100%; 
+  background: #fff;
+}
+.dragbox img{
+    max-width: 100%;
+    height: auto;  
+}
+.dragbox p {
+    text-align: center;    
+}
 /* .calendar>input:nth-last-child(1){
     margin-left: 1%;
 }
@@ -172,10 +199,9 @@
   color: rgba(255,255,255,0.7);
   background-color: transparent;
 }
-.select_box_1{
-    background-color:#262a30;    
 }
-
+/* .select_box_1{
+    background-color:#262a30;    
 }
 .app_container{
     width:100%;
@@ -208,8 +234,8 @@
     width: 36%;
     height: 10rem;
     float: left;
-}
-.app_box h3{
+} */
+/* .app_box h3{
     line-height: 5rem;
     font-size: 28px;
     margin: 0;
@@ -224,7 +250,8 @@
     background: #abcafc;
     color: #000;
     border-radius: 1.5rem;
-}
+} */
+
 .cal_box{
     width:100%;
     height: 5rem;
@@ -508,4 +535,4 @@
   margin: -1px;
   overflow: hidden;
 }
-li:hover > .dragbox_hover{border-color:#cecccc}
+.font-default{font-weight:normal;}

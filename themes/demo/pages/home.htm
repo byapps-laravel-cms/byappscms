@@ -10,123 +10,135 @@ crumb_disabled = 0
 [session]
 security = "all"
 ==
+<?php
+use Jiwon\Byapps\Models\HomeLayout;
+
+function onStart()
+{
+    echo Request::input('test');
+    if($this->param('test')){
+        echo $this->param('test');
+        return false;
+    }
+}
+function onGetChartData()
+{
+    //샘플 데이터
+    $result = array(
+        'circle1' => array(
+            array('무료',156),
+            array('유료',120),
+            array('관리',100),    
+        ),
+        'circle2' => array(
+            array('무료',134),
+            array('유료',152),
+            array('관리',100),    
+        ),
+        'bar' => array(
+            array('신규',223,200),
+            array('연장',524,200),
+            array('기타',85,300),    
+        ),
+    );
+    return $result;
+}
+function onLayoutChange()
+{
+    $userId = BackendAuth::getUser()['id'];
+    $params = Input::all();
+    foreach($params as $key => $value){
+        $temp = HomeLayout::where('user_cd','=','$userId')
+            ->where('layout_name','=',$key)
+            ->selectRaw('count(*) as count')
+            ->first();
+        $data['layout_name'] = $key;
+        if($temp->count == 0){
+            $data['sequence'] = $value;
+        }else{
+            
+        }
+        print_r($data);
+    }
+}
+?>
+==
 {% component 'session' %}
 <div class="container" style="padding:50px 50px;">
 {% if not user %}
 <h2><center>로그인하는페이지</center></h2>
 {% elseif user %}
 <div class="sortable">
-<li class="ui-state-default one ">
-    <div style="margin:0 auto;border:5px solid #eee; padding:30px; height:180px; margin-top: 10px; background: #fff;" class="dragbox_hover">
-        <div class="c_box_1">
-            <div class="circle1" style="background-color:#56d2ff;">
-                <p class="vertical_center">10</p>
+    <li class="ui-state-default one" id="layout1">
+        <div class="dragbox" >
+            <h2 class="theme1"><b>주문요청</b> <span class="font-default">현황</span></h2>
+            <div class="c_box_1">
+                <div class="circle1">
+                    <p class="vertical_center">10</p>
+                    <p class="c_box_1_font">주문접수</p>
+                </div>
             </div>
-            <p class="c_box_1_font">주문접수</p>
-        </div>
-        <div class="c_box_1">
-            <div class="circle1" style="background-color:#63ed96;">
-                <p class="vertical_center">10</p>
+            <div class="c_box_1">
+                <div class="circle1">
+                    <p class="vertical_center">10</p>
+                    <p class="c_box_1_font">부가서비스접수</p>
+                </div>
             </div>
-            <p class="c_box_1_font">부가서비스접수</p>
-        </div>
-        <div class="c_box_1">
-            <div class="circle1" style="background-color:#ffca51;">
-                <p class="vertical_center">10</p>
+            <div class="c_box_1">
+                <div class="circle1">
+                    <p class="vertical_center">10</p>
+                    <p class="c_box_1_font">업데이트 접수</p>
+                </div>
             </div>
-            <p class="c_box_1_font">업데이트접수</p>
-        </div>
-        <div class="c_box_1">
-            <div class="circle1" style="background-color:#ff472b;">
-                <p class="vertical_center">10</p>
+            <div class="c_box_1">
+                <div class="circle1">
+                    <p class="vertical_center">10</p>
+                    <p class="c_box_1_font">고객문의</p>
+                </div>    
             </div>
-            <p class="c_box_1_font">고객문의</p>
-        </div>
-        <div class="c_box_1">
-            <div class="circle1" style="background-color:#212121;">
-                <p class="vertical_center">10</p>
+            <div class="c_box_1">
+                <div class="circle1">
+                    <p class="vertical_center">10</p>
+                    <p class="c_box_1_font">1:1문의</p>
+                </div>
             </div>
-            <p class="c_box_1_font">1:1문의</p>
         </div>
-    </div>
     </li>
-<li class="ui-state-default">
-    <div class="chart_box_l" class="dragbox_hover">
-        <div class="relative_chart">
-            <div id="app_stats"></div>
+    <li class="ui-state-default" id="layout2">
+        <div class="chart_box_l" class="dragbox_hover">
+            <div class="relative_chart">
+                <h2 class="theme1">앱 통계</h2>
+                <div id="app_stats"></div>
+            </div>
+            <div class="relative_chart">
+                <h2 class="theme1">MA 통계</h2>
+                <div id="ma_stats"></div>
+            </div>
         </div>
-        <div class="relative_chart">
-            <div id="ma_stats"></div>
+        <div class="chart_box_r" class="dragbox_hover">
+            <h2 class="theme1">매출통계</h2>
+            <div id="sale_stats"></div>
         </div>
-    </div>
-    <div class="chart_box_r" class="dragbox_hover">
-        <div id="sale_stats"></div>
-    </div>
     </li>
-<li class="ui-state-default one">
-    <div style="margin:0 auto; border:5px solid #eee; padding:10px; height:fit-content; margin-top:10px; float:left; width:100%; background: #fff;" class="dragbox_hover">
-            <div class="cal_box">
-                <h2 style="margin-top:0; font-weight:bold;float:left;">만료예정업체</h2>
-            </div>
-            <div class="app_select">
-                <div>account</div>
-                <div>singfile</div>
-                <div>MA</div>
-            </div>
-            <div class="app_container">
-                <div class="app_box_cover">
-                    <div class="app_box">
-                        <img src="https://cms.byapps.co.kr/space/ic_launcher.png" alt="#">
-                        <h3>제목제목1</h3>
-                        <input type="button" value="click">
-                    </div>
-                    <div class="app_box">
-                        <img src="https://cms.byapps.co.kr/space/ic_launcher.png" alt="#">
-                        <h3>제목제목1</h3>
-                        <input type="button" value="click">
-                    </div>
+    <li class="ui-state-default one" id="layout3">
+        <div class="dragbox">
+            <div class="row"> 
+                <div class="cal_box col-md-12 col-sm-12">
+                    <h2 style="line-height:2"  class="theme1">만료예정업체</h2>
+                </div>        
+            </div>        
+            <div class="row">               
+                <div class="col-md-2 col-sm-4">
+                    <img class="h-25 p-10 d-inline-block"  src="https://cms.byapps.co.kr/space/ic_launcher.png" alt="#">
+                    <p>2019-06-03</p>
                 </div>
-                <div class="app_box_cover">
-                    <div class="app_box">
-                        <img src="https://cms.byapps.co.kr/space/ic_launcher.png" alt="#">
-                        <h3>제목제목2</h3>
-                        <input type="button" value="click">
-                    </div>
-                    <div class="app_box">
-                        <img src="https://cms.byapps.co.kr/space/ic_launcher.png" alt="#">
-                        <h3>제목제목2</h3>
-                        <input type="button" value="click">
-                    </div>
-                    <div class="app_box">
-                        <img src="https://cms.byapps.co.kr/space/ic_launcher.png" alt="#">
-                        <h3>제목제목2</h3>
-                        <input type="button" value="click">
-                    </div>
-                    <div class="app_box">
-                        <img src="https://cms.byapps.co.kr/space/ic_launcher.png" alt="#">
-                        <h3>제목제목2</h3>
-                        <input type="button" value="click">
-                    </div>
+                <div class="col-md-2 col-sm-4">
+                    <img class="h-25 p-10 d-inline-block"  src="https://cms.byapps.co.kr/space/ic_launcher.png" alt="#">
+                    <p>2019-06-03</p>
                 </div>
-                <div class="app_box_cover">
-                    <div class="app_box">
-                        <img src="https://cms.byapps.co.kr/space/ic_launcher.png" alt="#">
-                        <h3>제목제목3</h3>
-                        <input type="button" value="click">
-                    </div>
-                    <div class="app_box">
-                        <img src="https://cms.byapps.co.kr/space/ic_launcher.png" alt="#">
-                        <h3>제목제목3</h3>
-                        <input type="button" value="click">
-                    </div>
-                    <div class="app_box">
-                        <img src="https://cms.byapps.co.kr/space/ic_launcher.png" alt="#">
-                        <h3>제목제목3</h3>
-                        <input type="button" value="click">
-                    </div>
-                </div>
-        </li>
             </div>
+        </div>
+    </li>
 </div>
 
 <!-- Pages -->

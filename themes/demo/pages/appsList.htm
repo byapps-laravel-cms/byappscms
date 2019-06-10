@@ -31,8 +31,7 @@ use Jiwon\Byapps\Models\AppsData;
 
 function onStart()
 {
-    $this['records1'] = AppsData::
-        orderBy('idx','desc')
+    $this['records1'] = AppsData::orderBy('idx','desc')
         ->limit(20)
         ->get(); 
 }
