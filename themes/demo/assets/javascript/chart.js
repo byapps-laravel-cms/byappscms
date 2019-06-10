@@ -1,42 +1,11 @@
-var chart_data;
-
-formData = new FormData();
-formData.append('test','test');
-
-// $.ajax({
-//   url:`./${location.href}`,
-//   data:formData,
-//   type:'GET',
-//   processData:false,
-//   contentType:false,
-//   dataType:'text',
-//   cache:false,
-//   success : function (data) {
-//     console.log(data);
-//     chart_data = data;
-//     //테스트용 데이터
-//     chart_data = new Object();
-//     chart_data.circle1 = [["무료", 156],["유료", 120],["관리", 100]];
-//     chart_data.circle2 = [["무료", 134],["유료", 152],["관리", 100]];
-//     chart_data.bar = [["신규", 223,100],["연장", 524,200],["기타", 85,300]];
-//     showChart(chart_data);
-//   },
-//   error: function (jqXHR, textStatus, errorThrown) {
-//     chart_data = jqXHR.responseText;
-//   }
-// });
-
-function asdf(){
-    temp = $('form').request('onTest', {
-        success: function(data) {
-            console.log(data.result);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR.responseText)
-        }
-    })
-    return null;
-}
+$.request('onGetChartData', {
+  success: function(data) {
+    showChart(data);
+  },
+  error: function (jqXHR, textStatus, errorThrown) {
+    console.log(jqXHR.responseText);
+  }
+})
 
 function showChart (data){
   var chart = bb.generate({
@@ -48,12 +17,7 @@ function showChart (data){
           "유료": "#038db2",
           "관리": "69bbd1"
         },
-      onover: function (d, i) {
-        
     },
-      onout: function (d, i) {
-    }
-  },
     donut: {
       title: "0000"
     },
@@ -69,8 +33,6 @@ function showChart (data){
           "유료": "#e88d00",
           "관리": "#fcca8f"
         },
-      onover: function (d, i) {},
-      onout: function (d, i) {}
     },
     donut: {
       title: "0000"

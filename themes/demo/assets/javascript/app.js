@@ -74,6 +74,7 @@ function fileDropDown (dropZone){
       'background-color':'#fff',
       'background':'',
       'box-shadow': ''});
+       $(this).html("<div style='height:100%;line-height:1100%;text-align:center;'>drop here</div>");
   });
   dropZone.on('dragover',function (e){
     e.stopPropagation();
@@ -86,15 +87,12 @@ function fileDropDown (dropZone){
       'background-size':'cover',
       'box-shadow':'inset 0 0 8px 1px black'
     });
+    $(this).empty();
   });
   dropZone.on('drop',function (e){
     e.preventDefault();
     // 드롭다운 영역 css
     $(this).css({
-      'background':'url(https://cdn1.iconfinder.com/data/icons/hawcons/32/698830-icon-104-folder-checked-256.png)',
-      'background-repeat':'no-repeat',
-      'background-position':'center',
-      'background-size':'cover',
       'box-shadow':''
     });
 
