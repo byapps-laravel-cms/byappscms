@@ -14,15 +14,17 @@
             <a href="{{ 'home'|page }}"><img class="logo" width="100px" height="34.61px" src="/storage/app/media/byapps_logo_b_1.png" alt="logo"></a>
             
             
-            <ul class="nav justify-content-end" style="display:inline-block;float:right;text-align:right;">
-            {% if not user %}
-            <li class="separator hidden-xs"></li>
-                <li class="nav-item nav-link navright"><a href="{{ 'register'|page }}">회원가입</a></li>
+            <ul class="navright nav justify-content-end" style="display:inline-block;float:right;text-align:right;">
                 <li class="separator hidden-xs"></li>
-                <li class="nav-item nav-link navright"><a href="{{ 'login'|page }}">로그인</a></li>
-            {% elseif user %}
-            <li class="separator hidden-xs"></li>
-                <li class="nav-item nav-link navright"><a data-request="onLogout" data-request-data="redirect: '/login'">로그아웃</a></li>
+                <li class="nav-item nav-link"><a href="http://innotiveinc.co.kr/desk/" target="_sub">innoFam</a></li>
+              {% if not user %}
+                <li class="separator hidden-xs"></li>
+                <li class="nav-item nav-link"><a href="{{ 'register'|page }}">회원가입</a></li>
+                <li class="separator hidden-xs"></li>
+                <li class="nav-item nav-link"><a href="{{ 'login'|page }}">로그인</a></li>
+              {% elseif user %}
+                <li class="separator hidden-xs"></li>
+                <li class="nav-item nav-link"><a data-request="onLogout" data-request-data="redirect: '/login'">로그아웃</a></li>
             {% endif %}
             </ul>
         </div>
