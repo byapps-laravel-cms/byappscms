@@ -1,0 +1,13 @@
+columns:
+    idx:
+        label: idx
+        type: number
+    user_cd:
+        label: user_cd
+        type: number
+    sequence:
+        label: sequence
+        type: number
+    layout_name:
+        label: layout_name
+        type: number
