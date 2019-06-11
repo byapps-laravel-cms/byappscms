@@ -20,11 +20,19 @@ use Jiwon\Byapps\Models\HomeLayout;
 function onStart()
 {
     $userId = BackendAuth::getUser()['id'];
-    $this['recoreds'] = HomeLayout::where('user_cd','=',$userId)
+    $recoreds = HomeLayout::where('user_cd','=',$userId)
         ->select('layout_name')
         ->orderBy('sequence')
         ->get();
-    $this['state'] = count($this['recoreds']);
+    if(count($recoreds) == 0){
+        $this['recoreds'] = array('layout1','layout2','layout3');
+    }else{
+        $temp = array();
+        foreach($recoreds as $recored){
+            $temp[] = $recored->layout_name;
+        }
+        $this['recoreds'] = $temp;
+    }
 }
 function onGetChartData()
 {
@@ -77,7 +85,7 @@ function onLayoutChange()
 {% elseif user %}
 <div class="sortable">
   {% for record in recoreds %}
-      {% if record.layout_name == 'layout1' or state == 0 %}
+      {% if record == 'layout1' %}
         <li class="ui-state-default one" id="layout1">
             <div class="dragbox " >
                 <h2 class="theme1"><b>주문요청</b> <span class="font-default">현황</span></h2>
@@ -113,7 +121,7 @@ function onLayoutChange()
                 </div>
             </div>
         </li>
-      {% elseif record.layout_name == 'layout2' or state == 0 %}
+      {% elseif record == 'layout2' %}
         <li class="ui-state-default" id="layout2">
             <div class="dragbox_hover row dragbox">
                 <div class="col-md-3 col-xs-12">
@@ -131,15 +139,27 @@ function onLayoutChange()
             </div>
             
         </li>
-      {% elseif record.layout_name == 'layout3' or state == 0 %}
-    
+      {% elseif record == 'layout3' %}
         <li class="ui-state-default one" id="layout3">
-            <div class="dragbox">
+             <div class="dragbox">
                 <div class="row"> 
                     <div class="cal_box col-md-12 col-sm-12">
                         <h2 class="theme1">만료예정업체</h2>
-                    </div>        
+                    </div>
+                    <div class="cal_box col-md-12 col-sm-12">
+                        <ul class="col-md-5 col-xs-12 app_select">
+                            <li>iso 계정 만료</li>
+                            <li>푸쉬 인증서만료</li>
+                            <li>MA 서비스만료</li>
+                        </ul>
+                    </div>
                 </div>        
+                <div class="row">               
+                    <!-- temp js 에서 추가되는중 -->
+                </div>
+                <div class="row">               
+                    <!-- temp js 에서 추가되는중 -->
+                </div>
                 <div class="row">               
                     <!-- temp js 에서 추가되는중 -->
                 </div>
