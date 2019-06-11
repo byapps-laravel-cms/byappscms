@@ -1,8 +1,9 @@
-$( ".sortable" ).sortable({
-  stop: function(event, ui) {saveLayout()}
-});
-$( ".sortable" ).disableSelection();
-
+if(Util.isMobile() == false){
+  $( ".sortable" ).sortable({
+    stop: function(event, ui) {saveLayout()}
+  });
+  $( ".sortable" ).disableSelection();
+}
 //레이아웃 수정시
 function getLayout (){
   var formData = new Object();
