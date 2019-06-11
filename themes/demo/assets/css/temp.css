@@ -14,9 +14,8 @@
 }
 .c_box_1_font{
     font-weight: bold;
-    font-size: 11px;
+    font-size: 13px;
     margin: 0;
-    margin-top: 3px;
 }
 .circle1{
   width: 130px;
@@ -536,3 +535,62 @@
   overflow: hidden;
 }
 .font-default{font-weight:normal;}
+@media (max-width: 863px) {
+.circle1{
+    width: 90px;
+    height: 90px;
+    padding: 13px 10px;
+    font-size: 14px;
+    text-align: center;
+}
+.vertical_center {
+    margin: 2px 0 0 0;
+    font-size: 30px;
+}
+.c_box_1_font {
+    font-weight: bold;
+    font-size: 10px;
+    margin: 0;
+    margin-top: -3px;
+}
+}
+@media (max-width: 700px) {
+.circle1{
+    width: 70px;
+    height: 70px;
+    padding: 13px 10px;
+    font-size: 14px;
+    text-align: center;
+    overflow:hidden;
+}
+.vertical_center {
+  margin: 2px 0 0 0;
+    font-size: 20px;
+}
+.c_box_1_font {
+    font-weight: bold;
+    font-size: 10px;
+    margin: 0;
+    margin-top: 3px;
+}
+}
+@media (max-width: 570px) {
+.circle1{
+        width: 40px;
+    height: 40px;
+    padding: 8px 6px;
+    font-size: 14px;
+    text-align: center;
+    overflow: hidden;
+}
+.vertical_center {
+  margin: 2px 0 0 0;
+    font-size: 20px;
+}
+.c_box_1_font {
+    font-weight: bold;
+    font-size: 5px;
+    margin: 0;
+    margin-top: 3px;
+}
+}
