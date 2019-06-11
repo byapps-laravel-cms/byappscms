@@ -36,3 +36,6 @@
 1.0.13:
     - 'Updated table jiwon_byapps_home_layout'
     - builder_table_update_jiwon_byapps_home_layout_2.php
+1.0.14:
+    - 'Updated table jiwon_byapps_home_layout'
+    - builder_table_update_jiwon_byapps_home_layout_3.php
