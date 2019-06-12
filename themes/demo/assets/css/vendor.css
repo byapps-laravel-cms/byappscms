@@ -3357,6 +3357,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar-header {
     float: left;
     height: 35px;
+    width:100%;
   }
 }
 .navbar-collapse {
