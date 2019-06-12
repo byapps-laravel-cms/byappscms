@@ -153,6 +153,9 @@
     float:left;
     text-align:center;
 }
+.opacity{
+    opacity:0.4;
+}
 /* .calendar>input:nth-last-child(1){
     margin-left: 1%;
 }

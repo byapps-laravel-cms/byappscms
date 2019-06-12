@@ -20,7 +20,9 @@ recordsPerPage = 20
 pageNumber = "{{ :page }}"
 
 [session]
-security = "all"
+security = "user"
+allowedUserGroups[] = "admin_level_1"
+redirect = "permission"
 ==
 <?php
 function onStart()

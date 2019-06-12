@@ -16,10 +16,12 @@ redirect = "login"
 ==
 <?php
 use Jiwon\Byapps\Models\HomeLayout;
+use Jiwon\Byapps\Models\AppsData;
 
 function onStart()
 {
     $userId = BackendAuth::getUser()['id'];
+    $this['nowDate'] = time();
     $recoreds = HomeLayout::where('user_cd','=',$userId)
         ->select('layout_name')
         ->orderBy('sequence')
@@ -33,6 +35,20 @@ function onStart()
         }
         $this['recoreds'] = $temp;
     }
+    $this['appsData'] = AppsData::inRandomOrder()
+        ->select('app_name')
+        ->addSelect('app_icon')
+        ->addSelect('end_time')
+        ->limit(40)
+        ->get();
+        
+    $this['func'] = new Class {
+        public function dateFormat($val)
+        {
+           $dateString = date("Y-m-d", $val);
+           return $dateString;
+        }
+    };
 }
 function onGetChartData()
 {
@@ -148,20 +164,35 @@ function onLayoutChange()
                     </div>
                     <div class="cal_box col-md-12 col-sm-12">
                         <ul class="col-lg-6 col-xs-12 app_select">
-                            <li>iso 계정 만료</li>
+                            <li>IOS 계정 만료</li>
                             <li>푸쉬 인증서만료</li>
                             <li>MA 서비스만료</li>
                         </ul>
                     </div>
                 </div>        
                 <div class="row">               
-                    <!-- temp js 에서 추가되는중 -->
+                  {% for appData in appsData %}
+                    <div class='col-sm-1 col-xs-3 {{ appData.end_time < nowDate ? "opacity" : "" }}'>
+                        <img class='h-25 p-10 d-inline-block' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'>
+                        <p>{{ func.dateFormat(appData.end_time) }}</p>
+                    </div>
+                  {% endfor %}
                 </div>
                 <div class="row">               
-                    <!-- temp js 에서 추가되는중 -->
+                  {% for appData in appsData %}
+                    <div class='col-sm-1 col-xs-3 {{ appData.end_time < nowDate ? "opacity" : "" }}'>
+                        <img class='h-25 p-10 d-inline-block' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'>
+                        <p>{{ func.dateFormat(appData.end_time) }}</p>
+                    </div>
+                  {% endfor %}
                 </div>
                 <div class="row">               
-                    <!-- temp js 에서 추가되는중 -->
+                  {% for appData in appsData %}
+                    <div class='col-sm-1 col-xs-3 {{ appData.end_time < nowDate ? "opacity" : "" }}'>
+                        <img class='h-25 p-10 d-inline-block' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'>
+                        <p>{{ func.dateFormat(appData.end_time) }}</p>
+                    </div>
+                  {% endfor %}
                 </div>
             </div>
         </li>
