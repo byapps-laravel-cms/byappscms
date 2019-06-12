@@ -15,7 +15,9 @@ displayColumn = "app_id"
 notFoundMessage = "Record not found"
 
 [session]
-security = "all"
+security = "user"
+allowedUserGroups[] = "admin_level_1"
+redirect = "permission"
 ==
 <div class="jumbotron title-js">
     <div class="container">

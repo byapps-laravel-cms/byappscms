@@ -22,7 +22,9 @@ sortColumn = "idx"
 sortDirection = "desc"
 
 [session]
-security = "all"
+security = "user"
+allowedUserGroups[] = "admin_level_1"
+redirect = "permission"
 ==
 <?php
 use Jiwon\Byapps\Models\UserInfo;
