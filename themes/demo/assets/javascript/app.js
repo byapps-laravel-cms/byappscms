@@ -180,7 +180,7 @@ function autoHideHeader () {
   // Scrolling up
   if (previousTop - currentTop > scrollDelta) {
     $header.removeClass('is-hidden');
-    $("#sidebar, #sidebar-toggle").css({"top":$(".navbar-header").height()});
+    $("#sidebar, #sidebar-toggle").css({"top":$("#layout-nav").height()});
   }else if (currentTop - previousTop > scrollDelta && currentTop > scrollOffset) {
     // Scrolling down
     $header.addClass('is-hidden');
