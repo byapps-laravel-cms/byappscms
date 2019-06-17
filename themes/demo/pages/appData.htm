@@ -31,7 +31,7 @@ function onStart()
             break;
         }
     }
-    
+
     $this['record'] = AppsData::where('idx', '=', $this->param('idx'))->first();
 
     $this['util'] = new Class {
@@ -42,7 +42,7 @@ function onStart()
         }
     };
 
-    
+
     $this['itemlist'] = array(
         array('Process','selectBox','name="mem_id"',$this['record']->process,array(
                 array('','선택해주세요'),
@@ -375,7 +375,7 @@ function onStart()
                 </div>
             </div>
             <div class="show_btn">
-                <h3>-Click!-</h3>
+                <p><i class="fas fa-chevron-down"></i></p>
             </div>
                 {% for item in itemlist %}
             <div class="form-group row">
@@ -463,7 +463,7 @@ function onStart()
 
 
           {{ form_close() }}
-          
+
 {{ form_open() }}
         </div>
     </div>
