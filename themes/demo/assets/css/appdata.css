@@ -73,6 +73,30 @@ html.open #sidebar {
 #sidebar-close{
     /* background-color: gray; */
     background-color: white;
+    color: gray;
     border-left: 1px;
     cursor:pointer;
+}
+
+/* 앱 데이터 표시부분 */
+.form-control[disabled] {
+  background-color: #f7f7f7;
+  box-shadow: none;
+  border: 0;
+  border-bottom: 1px solid grey;
+  color: grey;
+}
+
+.form-control {
+  background-color: #f7f7f7;
+  box-shadow: none;
+  border: 0;
+  border-bottom: 1px solid grey;
+  border-radius: 0px;
+}
+
+.alert-info {
+  background-color: #f7f7f7;
+  border-color: grey;
+  color: #000;
 }
