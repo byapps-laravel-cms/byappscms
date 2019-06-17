@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span>
             </button>
             <!-- <a class="navbar-brand" href="{{ 'home'|page }}">October Demo</a> -->
-            <a href="{{ 'home'|page }}"><img class="logo" width="100px" height="34.61px" src="/storage/app/media/byapps_logo_b_1.png" alt="logo"></a>
+
             <ul class="navright nav justify-content-end" style="display:inline-block;float:right;text-align:right;">
                 <li class="separator hidden-xs"></li>
                 <li class="nav-item nav-link"><a href="http://innotiveinc.co.kr/desk/" target="_sub">innoFam</a></li>
@@ -28,8 +28,11 @@
             </ul>
         </div>
         <div class="collapse navbar-collapse navbar-main-collapse">
+          <a href="{{ 'home'|page }}">
+            <img class="logo" width="100px" height="34.61px" src="/storage/app/media/byapps_logo_b_1.png" alt="logo">
+          </a>
             <ul class="nav navbar-nav">
-                
+
               <!--   <li class="{% if this.page.id == 'home' %}active{% endif %}"><a href="{{ 'home'|page }}">Basic concepts</a></li>
               <li class="{% if this.page.id == 'ajax' %}active{% endif %}"><a href="{{ 'ajax'|page }}">AJAX framework</a></li>
               <li class="{% if this.page.id == 'plugins' %}active{% endif %}"><a href="{{ 'plugins'|page }}">Plugin components</a></li> -->

@@ -3149,15 +3149,22 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   z-index: 2;
   margin-left: -1px;
 }
-.logo{margin: 17px 0;}
+.logo{
+  margin: 17px 0;
+  float: left;
+}
 .nav {
   margin-bottom: 0;
   padding-left: 0;
   list-style: none;
 }
+.navbar-header {
+  font-size: 0.7em;
+}
+
 .nav > li {
   position: relative;
-  display: block;
+  display: inline-block;
 }
 .nav > li > a {
   position: relative;
@@ -3187,7 +3194,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .nav .nav-divider {
   height: 1px;
-  margin: 11.5px 0;
+  /* margin: 11.5px 0; */
   overflow: hidden;
   background-color: #e5e5e5;
 }
@@ -3344,7 +3351,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar {
   position: relative;
-  min-height: 70px;
+  min-height: 50px;
   margin-bottom: 0;
   border: 1px solid transparent;
 }
@@ -3433,7 +3440,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   position: fixed;
   right: 0;
   left: 0;
-  z-index: 1030;
+  /* z-index: 1030;*/
 }
 @media (min-width: 1199px) {
   .navbar-fixed-top,

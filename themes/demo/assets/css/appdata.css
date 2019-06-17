@@ -31,16 +31,18 @@
     color:#000000;
 }
 #sidebar {
-    width: 740px;
-    background: #7386D5;
+    /* width: 740px; */
+    width: 30%;
+    height: 100%;
+    background: white;
+    border-left: 1px solid #c6c6c6;
     color: #fff;
     position: fixed;
-    height: 100%;
 }
 
-#sidebar { 
+#sidebar {
     font-size: 2rem;
-    z-index: 100; 
+    z-index: 100;
     display:none;
 }
 
@@ -55,8 +57,8 @@ html.open #sidebar {
     position: fixed;
     right: 0;
     text-align: center;
-    color: #555;
-    background-color: #d9edf7;
+    color: #000;
+    background-color: white;
     border-radius: 20px;
     opacity: 0.9;
     z-index: 1;
@@ -68,6 +70,8 @@ html.open #sidebar {
     box-shadow: 0px 6px 6px 1px #d1cfcf;
 }
 #sidebar-close{
-    background-color: gray;
+    /* background-color: gray; */
+    background-color: white;
+    border-left: 1px;
     cursor:pointer;
 }
