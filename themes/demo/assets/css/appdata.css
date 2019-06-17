@@ -49,7 +49,7 @@
 
 html.open #sidebar {
     font-size: 2rem;
-    z-index: 100;
+    z-index: 1040;
     right: 0;
     display: block;
 }
@@ -62,7 +62,7 @@ html.open #sidebar {
     background-color: white;
     border-radius: 20px;
     opacity: 0.9;
-    z-index: 1;
+    z-index: 1035;
     cursor: pointer;
     margin: 1%;
     width: 50px;

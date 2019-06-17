@@ -3440,7 +3440,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   position: fixed;
   right: 0;
   left: 0;
-  /* z-index: 1030;*/
+  z-index: 1030;
 }
 @media (min-width: 1199px) {
   .navbar-fixed-top,
