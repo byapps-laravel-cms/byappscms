@@ -1,9 +1,9 @@
 title = "APK상세"
-description = "APK 관리를 하실 수 있습니다"
 url = "/apps/apkData/:idx"
 layout = "default"
+description = "APK 관리를 하실 수 있습니다"
 is_hidden = 0
-child_of = "mey_no_parent"
+child_of = "apkManage"
 hide_crumb = 0
 remove_crumb_trail = 0
 crumb_disabled = 0
@@ -19,7 +19,14 @@ notFoundMessage = "Record not found"
 security = "user"
 allowedUserGroups[] = "admin_level_1"
 redirect = "permission"
+
+[breadcrumbs]
+main-ol-class = "breadcrumb"
+active-class = "active"
+disabled-class = "disabled"
 ==
+{% component 'breadcrumbs' %}
+
 <div class="container">
 
 {% set record = builderDetails.record %}
@@ -29,9 +36,9 @@ redirect = "permission"
   <div class="alert alert-info">
   {% if record %}
      <!--  <h4>Row modifier class included</h4> -->
-      <p>
-         {{ attribute(record, displayColumn) }}
-      </p>
+     <h4>
+       <strong>{{ attribute(record, displayColumn) }}</strong>
+     </h4>
 
   {% else %}
       {{ notFoundMessage }}

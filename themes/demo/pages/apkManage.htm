@@ -1,9 +1,9 @@
 title = "APK관리"
-description = "APK 관리를 하실 수 있습니다"
 url = "/apps/apkManage/:page?"
 layout = "default"
+description = "APK 관리를 하실 수 있습니다"
 is_hidden = 0
-child_of = "mey_no_parent"
+child_of = "appsList"
 hide_crumb = 0
 remove_crumb_trail = 0
 crumb_disabled = 0
@@ -24,6 +24,11 @@ pageNumber = "{{ :page }}"
 security = "user"
 allowedUserGroups[] = "admin_level_1"
 redirect = "permission"
+
+[breadcrumbs]
+main-ol-class = "breadcrumb"
+active-class = "active"
+disabled-class = "disabled"
 ==
 <?php
 function onStart()
@@ -38,6 +43,8 @@ function onStart()
 }
 ?>
 ==
+{% component 'breadcrumbs' %}
+
 <div class="container">
 
 {% set records = builderList.records %}
