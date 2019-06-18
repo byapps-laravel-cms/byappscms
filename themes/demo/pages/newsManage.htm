@@ -1,4 +1,5 @@
 title = "소식관리"
+description = "쇼핑몰 소식을 관리 하실 수 있습니다"
 url = "/apps/newsManage/:page?"
 layout = "default"
 is_hidden = 0
@@ -43,17 +44,6 @@ function onStart()
 }
 ?>
 ==
-<div class="jumbotron title-js">
-    <div class="container">
-        <div class="row">
-            <div class="col-8">
-                <h3>소식관리</h3>
-                <small>쇼핑몰 소식을 관리 하실 수 있습니다</small>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="container">
 
 {% set records = builderList.records %}
@@ -105,13 +95,6 @@ function onStart()
         {% endfor %}
         </tbody>
     </table>
-
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#example').DataTable();
-} );
-</script>
-
 
 {% set paginationEnabled =
     records.currentPage > 1 or
