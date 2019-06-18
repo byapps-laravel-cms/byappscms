@@ -31,7 +31,7 @@ function onStart()
             break;
         }
     }
-    
+
     $this['record'] = AppsData::where('idx', '=', $this->param('idx'))->first();
 
     $this['util'] = new Class {
@@ -42,7 +42,7 @@ function onStart()
         }
     };
 
-    
+
     $this['itemlist'] = array(
         array('Process','selectBox','name="mem_id"',$this['record']->process,array(
                 array('','선택해주세요'),
@@ -221,7 +221,7 @@ function onStart()
 {% set record = builderDetails.record %}
 {% set displayColumn = builderDetails.displayColumn %}
 {% set notFoundMessage = builderDetails.notFoundMessage %}
-    <div class="alert alert-info">
+    <div id="appsData" class="alert alert-info">
     {% if record %}
        <!--  <h4>Row modifier class included</h4> -->
         <p>
@@ -374,11 +374,15 @@ function onStart()
                     </div>
                 </div>
             </div>
+
+            <!-- 업체정보 버튼 -->
             <div class="show_btn">
-                <h3>-Click!-</h3>
+                <p><i class="fas fa-chevron-down"></i></p>
             </div>
-                {% for item in itemlist %}
-            <div class="form-group row">
+
+
+        {% for item in itemlist %}
+            <div class="form-group row" id="appsData">
                 <label class="col-sm-2 control-label">{{ item.0 }}</label>
                 <div class="col-md-10 col-xs-10">
           {% if item.1 == 'selectBox' %}
@@ -389,7 +393,7 @@ function onStart()
                           {% endfor %}
                         </select>
                     </div>
-          {% elseif item.1 == 'radoiButton' %}
+          {% elseif item.1 == 'radioButton' %}
                 <div class="col-sm-7 col-xs-10">
                   {% for option in item.4 %}
                     <label class="radio-inline"><input type="radio" {{ item.3 == option.0 ? "checked" : "" }} {{ item.1 }} value="{{ option.0 }}">{{ option.1 }}</label>
@@ -463,7 +467,7 @@ function onStart()
 
 
           {{ form_close() }}
-          
+
 {{ form_open() }}
         </div>
     </div>

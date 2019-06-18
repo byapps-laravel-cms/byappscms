@@ -3,7 +3,7 @@ description = "Default layout"
 <?php
 function onStart()
 {
-    
+
 }
 ?>
 ==
@@ -14,7 +14,7 @@ function onStart()
         <title>CMS :: BYAPPS - {{ this.page.title }}</title>
         <meta name="description" content="{{ this.page.meta_description }}">
         <meta name="title" content="{{ this.page.meta_title }}">
-        <meta name="author" content="OctoberCMS">
+        <meta name="author" content="Byapps">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="generator" content="OctoberCMS">
         <link rel="icon" type="image/png" href="{{ 'assets/images/october.png'|theme }}">
@@ -27,6 +27,9 @@ function onStart()
         <link href="{{ 'assets/vendor/jquery-ui.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/jquery-ui.min.css'|theme }}" rel="stylesheet">
 
+        <!-- Font-awesome  -->
+        <script src="https://kit.fontawesome.com/5e0ee1de75.js"></script>
+
         <!-- For Datatable -->
         <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -38,11 +41,16 @@ function onStart()
         {% styles %}
     </head>
     <body>
+        <!-- Nav -->
+        <header id="layout-navigation">
+            {% partial 'site/navigation' %}
+        </header>
+
         <!-- Header -->
         <header id="layout-header">
             {% partial 'site/header' %}
         </header>
-    
+
         <!-- Content -->
         <section id="layout-content">
             <div class="top_btn"></div>
@@ -51,9 +59,9 @@ function onStart()
                 {% partial 'site/aside' %}
             {% endif %}
             {% page %}
-            
+
         </section>
-        
+
         <!-- Scripts -->
         {% framework extras %}
         {% scripts %}

@@ -35,6 +35,10 @@ navigation:
                 label: '소식 관리'
                 url: jiwon/byapps/newsmanages
                 icon: icon-square
+            side-menu-item5:
+                label: '푸쉬 현황'
+                url: jiwon/byapps/pushmanages
+                icon: icon-square
     main-menu-item3:
         label: 회원관리
         url: jiwon/byapps/usersinfos
