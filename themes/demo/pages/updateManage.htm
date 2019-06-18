@@ -1,4 +1,5 @@
-title = "업데이트관리"
+title = "업데이트 관리"
+description = "업데이트 접수를 관리 하실 수 있습니다"
 url = "/apps/updateManage/:page?"
 layout = "default"
 is_hidden = 0
@@ -32,7 +33,7 @@ use Jiwon\Byapps\Models\ApkData;
 function onStart()
 {
     $model = new ApkData();
-    
+
     $this['func'] = new Class {
         public function dateFormat($val)
         {
@@ -50,17 +51,6 @@ function onStart()
 }
 ?>
 ==
-<div class="jumbotron title-js">
-    <div class="container">
-        <div class="row">
-            <div class="col-8">
-                <h3>업데이트 관리</h3>
-                <small>업데이트 접수를 관리 하실 수 있습니다</small>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="container">
 
 {% set records = builderList.records %}
