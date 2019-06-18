@@ -1,9 +1,9 @@
 title = "소식관리"
-description = "쇼핑몰 소식을 관리 하실 수 있습니다"
 url = "/apps/newsManage/:page?"
 layout = "default"
+description = "쇼핑몰 소식을 관리 하실 수 있습니다"
 is_hidden = 0
-child_of = "mey_no_parent"
+child_of = "appsList"
 hide_crumb = 0
 remove_crumb_trail = 0
 crumb_disabled = 0
@@ -26,6 +26,11 @@ sortDirection = "desc"
 security = "user"
 allowedUserGroups[] = "admin_level_1"
 redirect = "permission"
+
+[breadcrumbs]
+main-ol-class = "breadcrumb"
+active-class = "active"
+disabled-class = "disabled"
 ==
 <?php
 use Jiwon\Byapps\Models\NewsData;
@@ -44,6 +49,8 @@ function onStart()
 }
 ?>
 ==
+{% component 'breadcrumbs' %}
+
 <div class="container">
 
 {% set records = builderList.records %}
