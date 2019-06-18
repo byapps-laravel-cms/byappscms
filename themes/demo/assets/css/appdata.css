@@ -58,7 +58,7 @@ html.open #sidebar {
     position: fixed;
     right: 0;
     text-align: center;
-    color: #000;
+    color: #1E58C0;
     background-color: white;
     border-radius: 20px;
     opacity: 0.9;
@@ -70,6 +70,18 @@ html.open #sidebar {
     font-family: sans-serif;
     box-shadow: 0px 6px 6px 1px #d1cfcf;
 }
+#sidebar-toggle span {
+  font-size: 1.5em;
+  color:#15AABF;
+  padding: 10px 0 0;
+}
+
+#sidebar-toggle p {
+  color:black;
+  font-size:0.5em;
+  line-height: 0;
+}
+
 #sidebar-close{
     /* background-color: gray; */
     background-color: white;
