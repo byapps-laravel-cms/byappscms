@@ -47,9 +47,11 @@ function onStart()
         </header>
 
         <!-- Header -->
+        {% if this.page.title != 'Home' %}
         <header id="layout-header">
             {% partial 'site/header' %}
         </header>
+        {% endif %}
 
         <!-- Content -->
         <section id="layout-content">
