@@ -36,9 +36,9 @@ disabled-class = "disabled"
   <div class="alert alert-info">
   {% if record %}
      <!--  <h4>Row modifier class included</h4> -->
-      <p>
-         {{ attribute(record, displayColumn) }}
-      </p>
+     <h4>
+       <strong>{{ attribute(record, displayColumn) }}</strong>
+     </h4>
 
   {% else %}
       {{ notFoundMessage }}

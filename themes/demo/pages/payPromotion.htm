@@ -49,14 +49,14 @@ function onStart()
 }
 ?>
 ==
+<div class="container">
+
 {% set records = builderList.records %}
 {% set displayColumn = builderList.displayColumn %}
 {% set noRecordsMessage = builderList.noRecordsMessage %}
 {% set detailsPage = builderList.detailsPage %}
 {% set detailsKeyColumn = builderList.detailsKeyColumn %}
 {% set detailsUrlParameter = builderList.detailsUrlParameter %}
-
-<div class="container">
 
   <table id="example" class="table table-striped table-bordered" style="width:100%">
           <thead>
@@ -96,7 +96,6 @@ function onStart()
           {% endfor %}
           </tbody>
       </table>
-  </script>
 
   {% set paginationEnabled =
       records.currentPage > 1 or
