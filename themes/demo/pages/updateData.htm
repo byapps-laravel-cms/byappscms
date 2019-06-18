@@ -39,8 +39,9 @@ function onStart()
            return $dateString;
         }
     };
- $this['itemlist'] = array("접수날짜", "Process", "회원ID", "App. Name", "App. OS", "App. ID","Update Type" , "Update Detail", "App. Intro");
 
+    $this['itemlist'] = array("접수날짜", "Process", "회원ID", "App. Name", "App. OS", "App. ID","Update Type" , "Update Detail", "App. Intro");
+    $this['opt_process'] = array('개발준비중', '심사중', '재심사중', '등록거부', '등록대기', '등록완료', '서비스중지', '서비스유효');
 }
 ?>
 ==
@@ -97,17 +98,20 @@ function onStart()
        <div class="col-md-5">
            <div class="cell">
                <div class="description td_style_1">
-                 {{ record.app_process}}
+                 <!-- {{ record.app_process }} -->
                  <select class="form-control-xs">
                      <option>선택해주세요</option>
-                     <option value="1">개발준비중</option>
+                  {% for key, val in opt_process %}
+                     <option value="{{ key }}" {{ key == record.app_process ? "selected" : "" }}>{{ val }}</option>
+                  {% endfor %}
+                     <!-- <option value="0">개발준비중</option>
                      <option value="1">심사중</option>
-                     <option value="1">재심사중</option>
-                     <option value="1">등록거부</option>
-                     <option value="1">등록대기</option>
-                     <option value="1">등록완료</option>
-                     <option value="1">서비스중지</option>
-                     <option value="1">서비스유효</option>
+                     <option value="2">재심사중</option>
+                     <option value="3">등록거부</option>
+                     <option value="4">등록대기</option>
+                     <option value="5">등록완료</option>
+                     <option value="6">서비스중지</option>
+                     <option value="7">서비스유효</option> -->
                  </select>
                  <input class="btn btn-xs nbutton3" type="button" value="상태 변경">
                  <input class="btn btn-xs nbutton3" type="button" value="APK등록">
