@@ -33,11 +33,13 @@ active-class = "active"
 disabled-class = "disabled"
 ==
 <?php
-use Jiwon\Byapps\Models\PaymentData;
+//use Jiwon\Byapps\Models\PaymentData;
+use Jiwon\Byapps\Models\PayManage;
 
 function onStart()
 {
-    $this['records'] = PaymentData::orderBy('reg_time')->get();
+    //$this['records'] = PayManage::orderBy('reg_time')->get();
+    $this['records'] = PayManage::orderBy('pay_date')->get();
 
     $this['func'] = new Class {
         public function dateFormat($val)
@@ -143,7 +145,7 @@ function onTest()
                 </td>
                 <td>{{ record.pay_type }}</td>
                 <td>{{ func.dateFormat(record.start_time) }} ~ {{  func.dateFormat(record.end_time) }}</td>
-                <td>{{ record.amount | number_format(0, '.') }}</td>
+                <td>{{ record.amount | number_format(0, ',') }}</td>
                 <td>{{ func.dateFormat(record.reg_time) }}</td>
             </tr>
 

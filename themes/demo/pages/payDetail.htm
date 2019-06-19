@@ -27,11 +27,12 @@ active-class = "active"
 disabled-class = "disabled"
 ==
 <?php
-use Jiwon\Byapps\Models\PayManage;
+use Jiwon\Byapps\Models\PaymentData;
 
 function onStart()
 {
-    $this['record'] = PayManage::where('id', '=', $this->param('id'))->first();
+    $this['record'] = PaymentData::where('idx', '=', $this->param('idx'))->first();
+    //$this['records'] = PaymentData::orderBy('reg_time')->get();
 
     $this['itemlist'] = array("주문번호", "결제날짜", "회원ID", "App 명", "결제기간", "결제금액","결제정보" , "영수증정보");
 
@@ -39,6 +40,11 @@ function onStart()
         public function dateFormat($val)
         {
            $dateString = date("Y-m-d h:i:s", $val);
+           return $dateString;
+        }
+        public function dateFormatSimple($val)
+        {
+           $dateString = date("Y-m-d", $val);
            return $dateString;
         }
     };
@@ -159,7 +165,7 @@ function onStart()
            <div class="col-md-10 col-xs-8">
                <div class="cell">
                    <div class="description td_style_1">
-                   11
+                   {{ func.dateFormatSimple(record.start_time) }} ~ {{ func.dateFormatSimple(record.end_time) }}
                    </div>
 
                </div>
@@ -177,7 +183,7 @@ function onStart()
            <div class="col-md-10 col-xs-8">
                <div class="cell">
                    <div class="description td_style_1">
-                   1원
+                   {{ record.amount | number_format(0, ',') }}원
                    <input class="btn btn-danger cbutton3 btn-xs" type="button" value="결제취소">
                    <input class="btn btn-danger cbutton3 btn-xs" type="button" value="무료처리">
                    </div>
