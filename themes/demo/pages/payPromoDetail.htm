@@ -1,9 +1,9 @@
 title = "프로모션 상세"
-description = "프로모션 관리를 하실 수 있습니다"
 url = "/pay/promodetail/:idx"
 layout = "default"
+description = "프로모션 관리를 하실 수 있습니다"
 is_hidden = 0
-child_of = "mey_no_parent"
+child_of = "payManage"
 hide_crumb = 0
 remove_crumb_trail = 0
 crumb_disabled = 0
@@ -19,6 +19,11 @@ notFoundMessage = "Record not found"
 security = "user"
 allowedUserGroups[] = "admin_level_2"
 redirect = "permission"
+
+[breadcrumbs]
+main-ol-class = "breadcrumb"
+active-class = "active"
+disabled-class = "disabled"
 ==
 <?php
 use Jiwon\Byapps\Models\PromotionData;
@@ -29,6 +34,8 @@ function onStart()
 }
 ?>
 ==
+{% component 'breadcrumbs' %}
+
 <div class="container">
 
 {% set record = builderDetails.record %}
@@ -52,76 +59,149 @@ function onStart()
     <div class="method">
         <div class="row margin-0">
 
-          <form>
+          {{ form_open() }}
+          <div class="row1">
+             <div class="col-md-2 col-xs-4">
+                 <div class="cell">
+                     <div class="propertyname th_style_1">
+                     프로모션명
+                     </div>
+                 </div>
+             </div>
 
-            <div class="form-group row">
-              <label for="process" class="col-sm-2 col-form-label">프로모션명</label>
-                <div class="col-sm-4">
-                <input type="text" class="form-control" id="process" placeholder="" value="{{ record.pm_title }}">
-              </div>
-            </div>
+             <div class="col-md-10 col-xs-8">
+                 <div class="cell">
+                     <div class="description td_style_1 col-sm-4">
+                       {{ record.pm_title }}
+                     </div>
+                 </div>
+             </div>
+          </div>
 
-            <div class="form-group row">
-              <label for="process" class="col-sm-2 col-form-label">프로모션코드</label>
-                <div class="col-sm-4">
-                <input type="text" disabled class="form-control" id="process" placeholder="" value="{{ record.pm_code }}">
-              </div>
-            </div>
+          <div class="row1">
+             <div class="col-md-2 col-xs-4">
+                 <div class="cell">
+                     <div class="propertyname th_style_1">
+                     프로모션코드
+                     </div>
+                 </div>
+             </div>
+             <div class="col-md-10 col-xs-8">
+                 <div class="cell">
+                     <div class="description td_style_1 col-sm-4">
+                       {{ record.pm_code }}
+                        <input class="btn nbutton3 btn-xs" type="button" value="사용내역">
+                     </div>
+                 </div>
+             </div>
+         </div>
 
-            <div class="form-group row">
-              <label for="process" class="col-sm-2 col-form-label">발급대상 회원ID</label>
-                <div class="col-sm-4">
-                <input type="text" class="form-control" id="process" placeholder="" value="{{ record.mem_id }}">
-              </div>
-            </div>
+         <div class="row1">
+             <div class="col-md-2 col-xs-4">
+                 <div class="cell">
+                     <div class="propertyname th_style_1">
+                     발급대상 회원ID
+                     </div>
+                 </div>
+             </div>
 
-            <div class="form-group row">
-              <label for="process" class="col-sm-2 col-form-label">회원명</label>
-                <div class="col-sm-4">
-                <input type="text" class="form-control" id="process" placeholder="" value="{{ record.mem_name }}">
-              </div>
-            </div>
+             <div class="col-md-10 col-xs-8">
+                 <div class="cell">
+                     <div class="description td_style_1 col-sm-4">
+                       {{ record.mem_id }}
+                      <input class="btn nbutton3 btn-xs" type="button" value="회원검색">
+                 </div>
+             </div>
+          </div>
 
-            <div class="form-group row">
-              <label for="process" class="col-sm-2 col-form-label">적용대상</label>
-              <div class="col-sm-4">
-                <label><input type="radio" name="pm_target" value="ma" {{ record.pm_target == 'ma' ? "checked" : "" }}>마케팅오토메이션</label>
-                <label><input type="radio" name="pm_target" value="app" {{ record.pm_target == 'app' ? "checked" : "" }}>앱서비스</label>
-              </div>
-            </div>
+          <div class="row1">
+             <div class="col-md-2 col-xs-4">
+                 <div class="cell">
+                     <div class="propertyname th_style_1">
+                     적용대상
+                     </div>
+                 </div>
+             </div>
+             <div class="col-md-10 col-xs-8">
+                 <div class="cell">
+                     <div class="description td_style_1">
+                       <div class="col-sm-4">
+                         <label><input type="radio" name="pm_target" value="ma" {{ record.pm_target == 'ma' ? "checked" : "" }}>마케팅오토메이션</label>
+                         <label><input type="radio" name="pm_target" value="app" {{ record.pm_target == 'app' ? "checked" : "" }}>앱서비스</label>
+                       </div>
+                     </div>
 
-            <div class="form-group row">
-              <label for="process" class="col-sm-2 col-form-label">적용내용</label>
-                <div class="col-sm-4">
-                <select name="pm_content" class="form-control">
-                    <option value="660000:dc" {{ record.pm_content == '660000:dc' ? "selected":"" }}>월 660,000원 지정결제</option>
-                    <option value="550000:dc" {{ record.pm_content == '550000:dc' ? "selected":"" }}>월 550,000원 지정결제</option>
-                    <option value="440000:dc" {{ record.pm_content == '440000:dc' ? "selected":"" }}>월 440,000원 지정결제</option>
-                    <option value="330000:dc" {{ record.pm_content == '330000:dc' ? "selected":"" }}>월 330,000원 지정결제</option>
-                    <option value="220000:dc" {{ record.pm_content == '220000:dc' ? "selected":"" }}>월 220,000원 지정결제</option>
-                    <option value="110000:dc" {{ record.pm_content == '110000:dc' ? "selected":"" }}>월 110,000원 지정결제</option>
-                    <option value="55000:dc" {{ record.pm_content == '55000:dc' ? "selected":"" }}>월 55,000원 지정결제</option>
-                    <option value="0:dc" {{ record.pm_content == '0:dc' ? "selected":"" }}>월 0원 지정결제</option>
-                </select>
-              </div>
-            </div>
+                 </div>
+             </div>
+          </div>
 
-            <div class="form-group row">
-              <label for="process" class="col-sm-2 col-form-label">발급사유</label>
-              <div class="col-sm-4">
-                <textarea type="text" class="form-control" name="pm_comment" style="height:200px;">{{ record.pm_comment }}</textarea>
-              </div>
-            </div>
+          <div class="row1">
+             <div class="col-md-2 col-xs-4">
+                 <div class="cell">
+                     <div class="propertyname th_style_1">
+                     적용내용
+                     </div>
+                 </div>
+             </div>
+             <div class="col-md-10 col-xs-8">
+                 <div class="cell">
+                     <div class="description td_style_1">
+                       <div class="col-sm-4">
+                         <select name="pm_content" class="form-control">
+                             <option value="660000:dc" {{ record.pm_content == '660000:dc' ? "selected":"" }}>월 660,000원 지정결제</option>
+                             <option value="550000:dc" {{ record.pm_content == '550000:dc' ? "selected":"" }}>월 550,000원 지정결제</option>
+                             <option value="440000:dc" {{ record.pm_content == '440000:dc' ? "selected":"" }}>월 440,000원 지정결제</option>
+                             <option value="330000:dc" {{ record.pm_content == '330000:dc' ? "selected":"" }}>월 330,000원 지정결제</option>
+                             <option value="220000:dc" {{ record.pm_content == '220000:dc' ? "selected":"" }}>월 220,000원 지정결제</option>
+                             <option value="110000:dc" {{ record.pm_content == '110000:dc' ? "selected":"" }}>월 110,000원 지정결제</option>
+                             <option value="55000:dc" {{ record.pm_content == '55000:dc' ? "selected":"" }}>월 55,000원 지정결제</option>
+                             <option value="0:dc" {{ record.pm_content == '0:dc' ? "selected":"" }}>월 0원 지정결제</option>
+                         </select>
+                       </div>
+                     </div>
 
-            <div class="form-group row">
-              <label for="process" class="col-sm-2 col-form-label">옵션</label>
-                <div class="col-sm-4">
-                <label><input type="radio" name="ops" value="send" checked>수정하기</label>
-                <label><input type="radio" name="ops" value="delete">삭제하기</label>
-              </div>
-            </div>
-          </form>
+                 </div>
+             </div>
+          </div>
 
+          <div class="row1">
+             <div class="col-md-2 col-xs-4">
+                 <div class="cell">
+                     <div class="propertyname th_style_1">
+                     발급사유
+                     </div>
+                 </div>
+             </div>
+             <div class="col-md-10 col-xs-8">
+                 <div class="cell">
+                     <div class="description td_style_1 col-sm-4">
+                       <textarea type="text" class="form-control" name="pm_comment" style="height:200px;">{{ record.pm_comment }}</textarea>
+                     </div>
+                 </div>
+             </div>
+          </div>
+
+          <div class="row1">
+             <div class="col-md-2 col-xs-4">
+                 <div class="cell">
+                     <div class="propertyname th_style_1">
+                     옵션
+                     </div>
+                 </div>
+             </div>
+             <div class="col-md-10 col-xs-8">
+                 <div class="cell">
+                     <div class="description td_style_1 col-sm-4">
+                         <label><input type="radio" name="ops" value="send" checked>수정하기</label>
+                         <label><input type="radio" name="ops" value="delete">삭제하기</label>
+                     </div>
+
+                 </div>
+             </div>
+          </div>
+
+          {{ form_close() }}
+      
         </div>
     </div>
 

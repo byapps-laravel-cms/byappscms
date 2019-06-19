@@ -1,7 +1,7 @@
 title = "결제관리"
+description = "결제 관리를 하실 수 있습니다"
 url = "/pay/manage/:page?"
 layout = "default"
-description = "결제 관리를 하실 수 있습니다"
 is_hidden = 0
 child_of = "mey_no_parent"
 hide_crumb = 0
@@ -33,19 +33,25 @@ active-class = "active"
 disabled-class = "disabled"
 ==
 <?php
-use Jiwon\Byapps\Models\PaymentData;
+//use Jiwon\Byapps\Models\PaymentData;
+use Jiwon\Byapps\Models\PayManage;
 
 function onStart()
 {
-    $this['records'] = PaymentData::orderBy('reg_time')->get();
+    //$this['records'] = PayManage::orderBy('reg_time')->get();
+    $this['records'] = PayManage::orderBy('pay_date')->get();
 
     $this['func'] = new Class {
         public function dateFormat($val)
         {
-           $dateString = date("Y-m-d h:i:s", $val);
+           $dateString = date("Y-m-d", $val);
            return $dateString;
         }
     };
+
+    $this['arrPaytype'] = array(
+      '신규', '연장', '추가', '기타', '충전'
+    );
 }
 
 function onTest()
@@ -139,7 +145,7 @@ function onTest()
                 </td>
                 <td>{{ record.pay_type }}</td>
                 <td>{{ func.dateFormat(record.start_time) }} ~ {{  func.dateFormat(record.end_time) }}</td>
-                <td>{{ record.amount }}</td>
+                <td>{{ record.amount | number_format(0, ',') }}</td>
                 <td>{{ func.dateFormat(record.reg_time) }}</td>
             </tr>
 

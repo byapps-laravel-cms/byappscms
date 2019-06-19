@@ -26,6 +26,11 @@ sortDirection = "desc"
 security = "user"
 allowedUserGroups[] = "admin_level_1"
 redirect = "permission"
+
+[breadcrumbs]
+main-ol-class = "breadcrumb"
+active-class = "active"
+disabled-class = "disabled"
 ==
 <?php
 use Jiwon\Byapps\Models\PushManage;
@@ -44,6 +49,8 @@ function onStart()
 }
 ?>
 ==
+{% component 'breadcrumbs' %}
+
 <div class="container">
 
 {% set records = builderList.records %}
