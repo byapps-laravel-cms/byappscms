@@ -34,7 +34,14 @@ function onStart()
     $this['record'] = PayManage::where('id', '=', $this->param('id'))->first();
 
     $this['itemlist'] = array("주문번호", "결제날짜", "회원ID", "App 명", "결제기간", "결제금액","결제정보" , "영수증정보");
-    //$this['itemvalue'] = array("{{ record.order_number }}", "{{ record.pay_date }}", "{{ record.user_id }}", "{{ record.app_name }}", "{{ pay_period }}", "{{ pay_amount }}", "{{ recipe }}");
+
+    $this['func'] = new Class {
+        public function dateFormat($val)
+        {
+           $dateString = date("Y-m-d h:i:s", $val);
+           return $dateString;
+        }
+    };
 }
 ?>
 ==
@@ -96,7 +103,7 @@ function onStart()
            <div class="col-md-10 col-xs-8">
                <div class="cell">
                    <div class="description td_style_1">
-                     {{ record.reg_time }}
+                     {{ func.dateFormat(record.reg_time) }}
                    </div>
                </div>
            </div>
