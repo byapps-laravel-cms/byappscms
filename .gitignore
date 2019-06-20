@@ -22,4 +22,4 @@ nbproject
 
 myoctober.sql
 
-*database.php
+config/database.php
