@@ -55,13 +55,17 @@ function onStart()
 
         <!-- Content -->
         <section id="layout-content">
-            <div class="top_btn"></div>
-            {% if this.page.title != 'Home' %}
-                <!-- aside -->
-                {% partial 'site/aside' %}
-            {% endif %}
-            {% page %}
-
+            <div id="content" class="col-md-12">
+                    <!-- <div class="top_btn"></div> -->
+                    {% page %}
+            </div>
+            <div id="sidebar-toggle">
+                <span><i class="far fa-comment-dots"></i></span>
+                <p>OPEN</p>
+            </div> 
+            <div id="sidebar">
+                    {% partial 'site/aside' %}
+            </div>
         </section>
 
         <!-- Scripts -->

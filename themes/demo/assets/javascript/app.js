@@ -180,12 +180,12 @@ function autoHideHeader () {
   // Scrolling up
   if (previousTop - currentTop > scrollDelta) {
     $header.removeClass('is-hidden');
-    $("#sidebar, #sidebar-toggle").css({"top":$("#layout-nav").height()});
+   // $("#sidebar, #sidebar-toggle").css({"top":$("#layout-nav").height()});
   }else if (currentTop - previousTop > scrollDelta && currentTop > scrollOffset) {
     // Scrolling down
     $header.addClass('is-hidden');
-    $("#sidebar, #sidebar-toggle").css({"top":'0'});
-  }else if ( currentTop > 100 ) {
+    //$("#sidebar, #sidebar-toggle").css({"top":'0'});
+  }else if ( currentTop > 100 ) { 
     $('.top_btn').fadeIn();
   } else {
     $('.top_btn').fadeOut();
