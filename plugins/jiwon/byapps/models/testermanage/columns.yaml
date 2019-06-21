@@ -1,0 +1,30 @@
+columns:
+    idx:
+        label: IDX
+        type: number
+        sortable: true
+    app_id:
+        label: 앱아이디
+        type: text
+    app_udid:
+        label: 앱udid
+        type: text
+    app_udid:
+        label: 앱udid
+        type: text
+    app_lang:
+        label: 앱언어
+        type: text
+    app_name:
+        label: 앱명
+        type: text
+    app_ver:
+        label: 앱버전
+        type: text
+    device_id:
+        label: 디바이스id
+        type: text
+    reg_time:
+        label: 신청일
+        type: date
+        format: Y-m-d
