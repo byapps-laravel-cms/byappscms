@@ -24,9 +24,6 @@ columns:
         type: text
         relation: joins
         select: app_ver
-    #app_ver:
-    #    label: 앱버전
-    #    type: text
-    #app_update:
-    #    label: 업데이트내역
-    #    type: text
+    appsplash:
+       label: 업데이트내역
+       type: text
