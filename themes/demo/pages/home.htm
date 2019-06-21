@@ -79,11 +79,10 @@ function onLayoutChange()
     foreach($params as $key => $value){
         unset($data);
         $temp = HomeLayout::where('user_cd','=',$userId)
-            ->selectRaw('count(*) as count')
             ->where('layout_name','=',$key)
-            ->first();
+            ->count();
         $data['sequence'] = $value;
-        if($temp->count == 0){
+        if($temp == 0){
             $data['layout_name'] = $key;
             $data['user_cd'] = $userId;
             HomeLayout::insert($data);

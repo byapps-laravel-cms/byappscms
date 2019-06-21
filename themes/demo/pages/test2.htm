@@ -8,10 +8,12 @@ remove_crumb_trail = 0
 crumb_disabled = 0
 ==
 <?php
-function onStart(){  }
+function onStart(){ 
+    echo '<br><br><br>';
+    echo $_SERVER['HTTP_REFERER'];
+}
 function test() {  }
 function onTest(){
-    return 'asdf';
 }
 ?>
 ==
