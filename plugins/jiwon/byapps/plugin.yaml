@@ -39,6 +39,10 @@ navigation:
                 label: '푸쉬 현황'
                 url: jiwon/byapps/pushmanages
                 icon: icon-square
+            side-menu-item6:
+                label: 테스터
+                url: jiwon/byapps/testermanages
+                icon: icon-square
     main-menu-item3:
         label: 회원관리
         url: jiwon/byapps/usersinfos
