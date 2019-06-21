@@ -19,6 +19,11 @@ columns:
     apps_type:
         label: 앱OS
         type: text
+    app_ver:
+        label: 앱버전
+        type: text
+        relation: joins
+        select: app_ver
     #app_ver:
     #    label: 앱버전
     #    type: text
