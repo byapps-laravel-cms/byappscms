@@ -33,12 +33,11 @@ active-class = "active"
 disabled-class = "disabled"
 ==
 <?php
-use Jiwon\Byapps\Models\ApkData;
+use Jiwon\Byapps\Models\UpdateManage;
+use Jiwon\Byapps\Models\AppsData;
 
 function onStart()
 {
-    $model = new ApkData();
-
     $this['func'] = new Class {
         public function dateFormat($val)
         {
@@ -101,7 +100,7 @@ function onStart()
 
                 <td>{{ record.app_name }}</td>
                 <td>{{ record.apps_type }}</td>
-                <td>앱버전</td>
+                <td>{{ record.joins.app_ver }}</td>
                 <td>업데이트내역</td>
             </tr>
 
