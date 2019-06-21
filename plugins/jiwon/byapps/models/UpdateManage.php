@@ -28,7 +28,7 @@ class UpdateManage extends Model
     public $rules = [
     ];
 
-    public $hasMany = [
+    public $hasOne = [
       'joins' => [
         'Jiwon\Byapps\Models\AppsData',
         'key' => 'app_id',
