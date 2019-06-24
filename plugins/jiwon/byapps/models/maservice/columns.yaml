@@ -36,7 +36,7 @@ columns:
     host_name:
         label: 호스트명
         type: text
-    txtendcode:
+    txtencode:
         label: 인코딩
         type: text
     app_lang:
