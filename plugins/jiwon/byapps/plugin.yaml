@@ -47,3 +47,12 @@ navigation:
         label: 회원관리
         url: jiwon/byapps/usersinfos
         icon: icon-user
+    main-menu-item4:
+        label: 부가서비스
+        url: jiwon/byapps/additionalservices
+        icon: icon-area-chart
+        sideMenu:
+            side-menu-item:
+                label: '부가서비스 접수'
+                url: jiwon/byapps/additionalservices
+                icon: icon-th-large
