@@ -56,3 +56,7 @@ navigation:
                 label: '부가서비스 접수'
                 url: jiwon/byapps/additionalservices
                 icon: icon-th-large
+            side-menu-item2:
+                label: 'MA 이용업체'
+                url: jiwon/byapps/maservices
+                icon: icon-th-large
