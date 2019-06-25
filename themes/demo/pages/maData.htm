@@ -25,19 +25,91 @@ active-class = "active"
 disabled-class = "disabled"
 ==
 <?php
+use Jiwon\Byapps\Models\MAService;
 
 function onStart()
 {
+
+    $this['record'] = MAService::where('idx', '=', $this->param('idx'))->first();
+
     $this['func'] = new Class {
         public function dateFormat($val)
         {
            $dateString = date("Y-m-d h:i:s", $val);
            return $dateString;
         }
+
+        public function dateFormatSimple($val)
+        {
+           $dateString = date("Y-m-d", $val);
+           return $dateString;
+        }
     };
 
-    $this['itemlist'] = array("접수날짜", "Process", "회원ID", "App. Name", "App. OS", "App. ID","Update Type" , "Update Detail", "App. Intro");
+  //  $this['itemlist'] = array("접수날짜", "Process", "회원ID", "App. Name", "App. OS", "App. ID","Update Type" , "Update Detail", "App. Intro");
     $this['ma_process'] = array('SDK설치중', '등록대기', '등록완료', '서비스중지', '기간만료', '서비스유효');
+
+    $this['itemlist'] = array(
+        array('Process','selectBox','name="mem_id"', $this['record']->process, array(
+                array('', '선택해주세요'),
+                array(1, 'SDK설치중'),
+                array(2, '등록대기'),
+                array(3, '등록완료'),
+                array(4, '서비스중지'),
+                array(5, '기간만료'),
+                array(6, '서비스유효'),
+            )),
+        array('등록일','input', 'disabled', $this['func']->dateFormat($this['record']->reg_time)),
+        array('회원ID','input', 'name="mem_id"', $this['record']->mem_id),
+        array('MA ID','input', 'name="ma_id"', $this['record']->ma_id),
+        array('Group','input', 'disabled', $this['record']->server_group." 그룹"),
+        array('Service Type', 'radioButton', 'name ="service_type"',$this['record']->service_type, array(
+                array('retarget', '리타겟팅'),
+                array('ma', '마케팅 오토메이션'),
+                array('both', 'both'),
+            )),
+        array('사용기간','input2', array(
+                array('input', 'name="start_time"', $this['func']->dateFormatSimple($this['record']->start_time)),
+                array('span', '~'),
+                array('input', 'name="end_time"', $this['func']->dateFormatSimple($this['record']->end_time))
+            )),
+        array('Home URL', 'input+button', 'name="home_url"', $this['record']->home_url),
+        array('안드로이드 패키지명', 'input+button', 'name="pn"', $this['record']->pn),
+        array('아이폰 앱아이디','input', 'name="aid"', $this['record']->aid),
+        array('앱스키마','input', 'name="schm"', $this['record']->schm),
+        array('Web Push Center','input', 'name="push_center"', $this['record']->push_center),
+        array('Charset','radoiButton','name="txtencode"',$this['record']->txtencode,array(
+                array('utf-8','utf-8'),
+                array('EUC-KR','EUC-KR'),
+            )),
+        array('Hosting Com','radoiButton','name="host_name"',$this['record']->host_name,array(
+                array('cafe24','카페24'),
+                array('makeshop','메이크샵'),
+                array('godo','고도몰'),
+                array('wisa','위사'),
+                array('etc','기타'),
+            )),
+        array('Language','checkBox','name="app_lang[]"',$this['record']->app_lang,array(
+                array('ko','한국어',strpos($this['record']->app_lang,'ko') || $this['record']->app_lang == 'ko' ? "checked" : ""),
+                array('en','영어',strpos($this['record']->app_lang,'en') || $this['record']->app_lang == 'en' ? "checked" : ""),
+                array('zh','중국어',strpos($this['record']->app_lang,'zh') || $this['record']->app_lang == 'zh' ? "checked" : ""),
+                array('tw','대만어',strpos($this['record']->app_lang,'tw') || $this['record']->app_lang == 'tw' ? "checked" : ""),
+                array('ja','일본어',strpos($this['record']->app_lang,'ja') || $this['record']->app_lang == 'ja' ? "checked" : ""),
+            )),
+        array('직간접매출', 'radioButton', 'name ="opt_sst"',$this['record']->opt_sst, array(
+                array('N', '표시안함'),
+                array('Y', '표시함'),
+            )),
+        array('관리업체지정','selectBox','name="vip_check"',$this['record']->vip_check,array(
+                array('','지정안함'),
+                array('#000|#ffff00','주요관리'),
+                array('#fff|#ff0000','사전고시 출시완료'),
+                array('#fff|#0000ff','신규연장 가능업체'),
+                array('#fff|#00ff00','사전고지등록'),
+                array('#000|#eee','개인화랜딩업체'),
+            )),
+        array('기타정보','textarea','name="info"',$this['record']->info),
+    );
 }
 ?>
 ==
@@ -67,161 +139,96 @@ function onStart()
 <div class="method">
 
     <div class="row margin-0">
-      <div class="row1">
-         <div class="col-md-3">
-             <div class="cell">
-                 <div class="propertyname th_style_1">
-                  접수날짜
-                 </div>
-             </div>
-         </div>
-         <div class="col-md-5">
-             <div class="cell">
-                 <div class="description td_style_1">
-                   {{ func.dateFormat(record.reg_time) }} <a href="#" title="삭제" class="btn_del"></a>
-                 </div>
-             </div>
-         </div>
-      </div>
 
-      <div class="row1">
-        <div class="col-md-3">
-             <div class="cell">
-                 <div class="propertyname th_style_1">
-                  Process
-                 </div>
-             </div>
-         </div>
-         <div class="col-md-5">
-             <div class="cell">
-                 <div class="description td_style_1">
-                   <select class="form-control-xs">
-                       <option>선택해주세요</option>
-                    {% for key, val in ma_process %}
-                       <option value="{{ key }}" {{ key == record.app_process ? "selected" : "" }}>{{ val }}</option>
+        {{ form_open() }}
+
+              {% for item in itemlist %}
+                  <div class="form-group row" id="appsData">
+                      <label class="col-sm-2 control-label propertyname th_style_1">{{ item.0 }}</label>
+                      <div class="col-md-6 col-xs-10">
+                {% if item.1 == 'selectBox' %}
+                          <div class="col-sm-6 col-xs-10 td_style_1">
+                              <select {{ item.2 }} class="form-control">
+                                {% for option in item.4 %}
+                                  <option value="{{ option.0 }}" {{ item.3 == option.0 ? "selected" : "" }} >{{ option.1 }}</option>
+                                {% endfor %}
+                              </select>
+                              {% if item.0 == 'Process' %}
+                              <input class="btn btn-xs nbutton3" type="button" value="SDK 스크립트 만들기">
+                             {% endif %}
+                          </div>
+                {% elseif item.1 == 'radioButton' %}
+                      <div class="col-sm-7 col-xs-10">
+                        {% for option in item.4 %}
+                          <label class="radio-inline"><input type="radio" {{ item.3 == option.0 ? "checked" : "" }} {{ item.1 }} value="{{ option.0 }}">{{ option.1 }}</label>
+                        {% endfor %}
+                      </div>
+                {% elseif item.1 == 'fileUpload' %}
+                    {% if mobile == 1 %}
+                      <div class="filebox col-sm-5">
+                          <label>파일선택
+                              <input type="file" accept="image/*" name="{{ item.2 }}">
+                          </label>
+                      </div>
+                    {% else %}
+                      <div class="col-md-5">
+                          <div class="file_dropzone form-control" style="height:200px;width:200px;">
+                              <div style="height:100%;line-height:1100%;text-align:center;">drop here</div>
+                          </div>
+                      </div>
+                      <input type="hidden" {{ item.2 }} value="">
+                    {% endif %}
+                {% elseif item.1 == 'checkBox' %}
+                      <div class="col-md-10 col-xs-10">
+                        {% for option in item.4 %}
+                          <label class="radio-inline"><input type="checkbox" {{ item.2 }} {{ option.2 }} value="{{ option.0 }}">{{ option.1 }}</label>
+                        {% endfor %}
+                      </div>
+                {% elseif item.1 == 'checkBox2' %}
+                    {% for option in item.2 %}
+                      <div class="col-sm-3">
+                          <label class="radio-inline"><input type="checkbox" {{ option.0 }} {{ option.1 == option.2 ? "checked" : "" }} value="{{ option.1 }}">{{ option.3 }}</label>
+                      </div>
                     {% endfor %}
-                   </select>
-                   <input class="btn btn-xs nbutton3" type="button" value="상태 변경">
-                   <input class="btn btn-xs nbutton3" type="button" value="APK등록">
-                 </div>
-             </div>
-         </div>
-      </div>
+                {% elseif item.1 == 'textarea' %}
+                      <textarea {{ itme.2 }} class="col-md-6 col-xs-10" rows="5">{{ item.3 }}</textarea>
+                  {% elseif item.0 == 'Develop Info' %}
+                      <ul class="develop_info_select">
+                          <li>텍스트로 보기</li>
+                          <li>HTML코드로 보기</li>
+                      </ul>
+                  <div class="develop_info ">
+                      {{ item.3|raw }}
+                  </div>
+                  <div class="develop_info col-md-6 col-xs-10" >
+                      <div class="">
+                          {{ item.3 }}
+                      </div>
+                  </div>
+                    {% elseif item.1 == 'input2' %}
+                        {% for option in item.2 %}
+                            {% if option.0 == 'input' %}
+                                <div class="col-md-3">
+                                    <input type="text" {{ option.1 }} class="form-control" value="{{ option.2 }}">
+                                </div>
+                            {% elseif option.0 == 'span' %}
+                                <span style="float:left;">{{ option.1 }}</span>
+                            {% endif %}
+                        {% endfor %}
+                    {% elseif item.1 == 'input' or item.1 == 'input+button' %}
+                      <div class="col-xs-10">
+                          <input type="text" {{ item.2 }} class="form-control" value="{{ item.3 }}">
+                      </div>
+                        {% if item.1 == 'input+button' %}
+                          <div class="col-xs-2">
+                              <a href="{{ item.2 }}" target="_sub"><input class="form-control" type="button" value="새탭에서 열기"></a>
+                          </div>
+                        {% endif %}
+                    {% endif %}
+                      </div>
+                  </div>
+                {% endfor %}
 
-      <div class="row1">
-         <div class="col-md-3">
-             <div class="cell">
-                 <div class="propertyname th_style_1">
-                  회원ID
-                 </div>
-             </div>
-         </div>
-         <div class="col-md-5">
-             <div class="cell">
-                 <div class="descrisption td_style_1">
-                   {{ record.mem_id }}
-                   <input class="btn btn-xs nbutton3" type="button" value="회원정보">
-                 </div>
-             </div>
-         </div>
-      </div>
-
-      <div class="row1">
-          <div class="col-md-3">
-             <div class="cell">
-                 <div class="propertyname th_style_1">
-                  App. Name
-                 </div>
-             </div>
-         </div>
-         <div class="col-md-5">
-             <div class="cell">
-                <div class="description td_style_1">
-                   {{ record.app_name }}
-                </div>
-             </div>
-         </div>
-      </div>
-
-      <div class="row1">
-         <div class="col-md-3">
-             <div class="cell">
-                 <div class="propertyname th_style_1">
-                    App. OS
-                 </div>
-             </div>
-         </div>
-         <div class="col-md-5">
-             <div class="cell">
-                 <div class="description td_style_1">
-                   {{ record.apps_type }}
-                 </div>
-
-             </div>
-         </div>
-       </div>
-
-       <div class=" row1">
-         <div class="col-md-3">
-             <div class="cell">
-                 <div class="propertyname th_style_1">
-                App. ID
-                 </div>
-             </div>
-         </div>
-         <div class="col-md-5">
-             <div class="cell">
-                 <div class="description td_style_1">
-                 bonagirl
-                 </div>
-
-             </div>
-         </div>
-       </div>
-
-        <div class="row1">
-         <div class="col-md-3">
-             <div class="cell">
-                 <div class="propertyname th_style_1">
-                  Update Type
-                 </div>
-             </div>
-         </div>
-         <div class="col-md-5">
-             <div class="cell">
-                 <div class="description td_style_1">
-                 intro
-                 </div>
-             </div>
-         </div>
-        </div>
-
-        <div class="row1">
-             <div class="col-md-3 ">
-                 <div class="cell">
-                     <div class="propertyname th_style_1 height_1">
-                      Update Detail
-                     </div>
-                 </div>
-             </div>
-             <div class="col-md-5">
-                 <div class="cell">
-                     <div class="description td_style_1">
-                       <textarea name="receipt" class="form-control" style="height:75px;">{{ record.receipt }}</textarea>
-                     </div>
-                 </div>
-             </div>
-          </div>
-
-      <div class="row1">
-         <div class="col-md-3 ">
-             <div class="cell">
-                 <div class="propertyname th_style_1 height_2">
-                  App. Intro
-                 </div>
-             </div>
-         </div>
-      </div>
-
+            {{ form_close() }}
   </div>
 </div>
