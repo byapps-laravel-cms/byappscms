@@ -23,6 +23,11 @@ pageNumber = "{{ :page }}"
 security = "user"
 allowedUserGroups[] = "admin_level_1"
 redirect = "login"
+
+[breadcrumbs]
+main-ol-class = "breadcrumb"
+active-class = "active"
+disabled-class = "disabled"
 ==
 <?php
 use Jiwon\Byapps\Models\PointManage;
@@ -42,6 +47,8 @@ function onStart()
 }
 ?>
 ==
+{% component 'breadcrumbs' %}
+
 <div class="container">
 
 {% set records = builderList.records %}
@@ -110,7 +117,7 @@ function onStart()
         {% set startOffset = max(records.lastPage - 2*n - 1, 0) %}
     {% endif %}
 
-    {% for page in 1..records.lastPage %}
+    {% for page in 1..100 %}
         {% set pageLinks = pageLinks|merge([page]) %}
     {% endfor %}
 
