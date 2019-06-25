@@ -69,3 +69,7 @@ navigation:
                 label: '앱 설치 통계'
                 url: jiwon/byapps/appsdownstats
                 icon: icon-bar-chart
+            side-menu-item2:
+                label: '앱 이용 통계'
+                url: jiwon/byapps/appsusestats
+                icon: icon-bar-chart
