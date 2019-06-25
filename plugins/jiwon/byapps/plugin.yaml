@@ -50,7 +50,7 @@ navigation:
     main-menu-item4:
         label: 부가서비스
         url: jiwon/byapps/additionalservices
-        icon: icon-area-chart
+        icon: icon-delicious
         sideMenu:
             side-menu-item:
                 label: '부가서비스 접수'
@@ -60,3 +60,16 @@ navigation:
                 label: 'MA 이용업체'
                 url: jiwon/byapps/maservices
                 icon: icon-th-large
+    main-menu-item5:
+        label: 통계
+        url: jiwon/byapps/appsdownstats
+        icon: icon-area-chart
+        sideMenu:
+            side-menu-item:
+                label: '앱 설치 통계'
+                url: jiwon/byapps/appsdownstats
+                icon: icon-bar-chart
+            side-menu-item2:
+                label: '앱 이용 통계'
+                url: jiwon/byapps/appsusestats
+                icon: icon-bar-chart
