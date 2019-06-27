@@ -1,0 +1,42 @@
+columns:
+    idx:
+        label: IDX
+        type: number
+        sortable: true
+    app_id:
+        label: 앱아이디
+        type: text
+    app_os:
+        label: 앱OS
+        type: text
+    on_off:
+        label: On/Off
+        type: text
+    total_c:
+        label: 전체
+        type: Number
+    today_c:
+        label: 오늘
+        type: Number
+    yesterday_c:
+        label: 어제
+        type: Number
+    todate:
+        label: todate
+        type: date
+        format: Y-m-d
+    max_c:
+        label: max_c
+        type: Number
+    max_c_date:
+        label: max_c_date
+        type: date
+        format: Y-m-d
+    launch_date:
+        label: 시작일
+        type: date
+        format: Y-m-d
+    reg_date:
+        label: 등록일
+        type: date
+        format: Y-m-d h:i:s
