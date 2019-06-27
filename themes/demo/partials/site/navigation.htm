@@ -14,6 +14,7 @@ description = "navigation"
 
             <ul class="navright nav justify-content-end" style="display:inline-block;float:right;text-align:right;">
                 <li class="separator hidden-xs"></li>
+               
                 <li class="nav-item nav-link"><a href="http://innotiveinc.co.kr/desk/" target="_sub">innoFam</a></li>
               {% if not user %}
                 <li class="separator hidden-xs"></li>
@@ -25,6 +26,7 @@ description = "navigation"
                 <li class="nav-item nav-link"><a href="#">알림 설정</a></li>
                 <li class="separator hidden-xs"></li>
                 <li class="nav-item nav-link"><a data-request="onLogout" data-request-data="redirect: '/login'">로그아웃</a></li>
+                <li class="nav-item nav-link"><a href="/backend" target="_sub">관리자</a></li>
               {% endif %}
             </ul>
         </div>
