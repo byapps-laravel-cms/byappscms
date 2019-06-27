@@ -1,9 +1,9 @@
 title = "인증회원 관리"
-url = "/users/members/:page"
+url = "/apps/members/:page"
 layout = "default"
 description = "인증회원 관리를 하실 수 있습니다"
 is_hidden = 0
-child_of = "usersManage"
+child_of = "appsList"
 hide_crumb = 0
 remove_crumb_trail = 0
 crumb_disabled = 0
@@ -31,7 +31,6 @@ active-class = "active"
 disabled-class = "disabled"
 ==
 <?php
-
 function onStart()
 {
     $this['func'] = new Class {
