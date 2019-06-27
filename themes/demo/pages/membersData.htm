@@ -44,11 +44,11 @@ function onStart()
     $this['itemlist'] = array(
         array("App Info", $this['record']->app_name." (".$this['record']->app_id.")"),
         array("회원ID", $this['record']->mem_id ." / ". $this['record']->app_lang ." / ". $this['record']->app_os ." / Ver ". $this['record']->app_ver ." / ". $this['record']->app_udid),
-        array("Device Info", ),
+        array("Device Info", $this['record']['joins']->device_name ." (". $this['record']['joins']->push_agree .")"),
         array("설치날짜", ""),
-        array("방문 통계", ""),
-        array("구매 통계" , ""),
-        array("앱 포인트", "")
+        array("방문 통계", $this['record']['joins']->visit_cnt ." 회 , " .date("Y-m-d h:i:s", $this['record']['joins']->last_time)),
+        array("구매 통계" , $this['record']['joins']->order_cnt ." 회 , 총 ". number_format($this['record']['joins']->order_amount) ." 원"),
+        array("앱 포인트", number_format($this['record']->total_point))
     );
 }
 ?>

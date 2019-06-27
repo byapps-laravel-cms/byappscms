@@ -5,7 +5,7 @@ use Model;
 /**
  * Model
  */
-class MemberManage extends Model
+class AppsPushData extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 
@@ -20,19 +20,11 @@ class MemberManage extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'BYAPPS2015_apps_point_member_data';
+    public $table = 'BYAPPS2015_push_data';
 
     /**
      * @var array Validation rules
      */
     public $rules = [
-    ];
-
-    public $hasOne = [
-      'joins' => [
-        'Jiwon\Byapps\Models\AppsPushData',
-        'key' => 'app_id',
-        'otherKey' => 'app_id'
-      ]
     ];
 }
