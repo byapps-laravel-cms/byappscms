@@ -92,7 +92,7 @@ function onStart()
                       </a>
                   {% endif %}
                   </td>
-                  <td>{{ record.pm_used }}</td>
+                  <td>{{ record.pm_used == 0 ? "미사용" : "사용" }}</td>
                   <td>{{ record.pm_target == 'ma' ? "마케팅 오토메이션" : "리타겟팅" }}</td>
                   <td>{{ func.numberFormat(record.pm_content) }}</td>
                   <td>{{ func.dateFormat(record.reg_time) }}</td>
