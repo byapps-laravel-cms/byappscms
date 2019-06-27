@@ -16,10 +16,11 @@ allowedUserGroups[] = "admin_level_1"
 modelClass = "Jiwon\Byapps\Models\MemberManage"
 scope = "-"
 scopeValue = "{{ :scope }}"
-displayColumn = "mem_id"
+displayColumn = "app_id"
 noRecordsMessage = "No records found"
-detailsPage = "-"
-detailsUrlParameter = "id"
+detailsPage = "membersData"
+detailsKeyColumn = "idx"
+detailsUrlParameter = "idx"
 recordsPerPage = 20
 pageNumber = "{{ :page }}"
 sortColumn = "idx"
@@ -36,7 +37,7 @@ function onStart()
     $this['func'] = new Class {
         public function dateFormatSimple($val)
         {
-           $dateString = date("Y-m-d h:i:s", $val);
+           $dateString = date("Y-m-d", $val);
            return $dateString;
         }
     };

@@ -1,0 +1,110 @@
+title = "인증회원 상세"
+url = "/apps/membersData/:idx"
+layout = "default"
+description = "3.0인증회원을 관리하실 수 있습니다"
+is_hidden = 0
+child_of = "membersManage"
+hide_crumb = 0
+remove_crumb_trail = 0
+crumb_disabled = 0
+
+[session]
+security = "user"
+allowedUserGroups[] = "admin_level_2"
+allowedUserGroups[] = "admin_level_1"
+redirect = "permission"
+
+[builderDetails]
+modelClass = "Jiwon\Byapps\Models\MemberManage"
+identifierValue = "{{ :idx }}"
+modelKeyColumn = "idx"
+displayColumn = "app_name"
+notFoundMessage = "Record not found"
+
+[breadcrumbs]
+main-ol-class = "breadcrumb"
+active-class = "active"
+disabled-class = "disabled"
+==
+<?php
+use Jiwon\Byapps\Models\MemberManage;
+
+function onStart()
+{
+    $this['record'] = MemberManage::where('idx', '=', $this->param('idx'))->first();
+
+    $this['func'] = new Class {
+        public function dateFormat($val)
+        {
+           $dateString = date("Y-m-d h:i:s", $val);
+           return $dateString;
+        }
+    };
+
+    $this['itemlist'] = array(
+        array("App Info", $this['record']->app_name." (".$this['record']->app_id.")"),
+        array("회원ID", $this['record']->mem_id ." / ". $this['record']->app_lang ." / ". $this['record']->app_os ." / Ver ". $this['record']->app_ver ." / ". $this['record']->app_udid),
+        array("Device Info", ),
+        array("설치날짜", ""),
+        array("방문 통계", ""),
+        array("구매 통계" , ""),
+        array("앱 포인트", "")
+    );
+}
+?>
+==
+{% component 'breadcrumbs' %}
+
+<div class="container">
+
+{% set record = builderDetails.record %}
+{% set displayColumn = builderDetails.displayColumn %}
+{% set notFoundMessage = builderDetails.notFoundMessage %}
+
+<div class="alert alert-info">
+{% if record %}
+   <!--  <h4>Row modifier class included</h4> -->
+   <h4>
+     <strong>{{ attribute(record, displayColumn) }}</strong>
+   </h4>
+
+{% else %}
+    {{ notFoundMessage }}
+{% endif %}
+</div>
+
+<hr />
+
+<div class="method">
+
+    <div class="row margin-0">
+
+    {% for item in itemlist %}
+      <div class="row1">
+         <div class="col-md-3">
+             <div class="cell">
+                 <div class="propertyname th_style_1">
+                  {{ item.0 }}
+                 </div>
+             </div>
+         </div>
+
+
+         <div class="col-md-5">
+             <div class="cell">
+                 <div class="descrisption td_style_1">
+                  {% if item.1 != array %}
+                    {{ item.1 }}
+                  {% endif %}
+                 </div>
+             </div>
+         </div>
+
+
+
+      </div>
+    {% endfor %}
+
+
+  </div>
+</div>
