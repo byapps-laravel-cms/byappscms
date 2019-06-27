@@ -1,4 +1,4 @@
-columns:
+-columns:
     idx:
         label: idx
         type: number
