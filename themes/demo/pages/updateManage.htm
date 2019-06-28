@@ -39,19 +39,16 @@ use Jiwon\Byapps\Models\AppsData;
 function onStart()
 {
     $this['func'] = new Class {
-        public function dateFormat($val)
+        public function dateFormatSimple($val)
         {
            $dateString = date("Y-m-d", $val);
            return $dateString;
         }
     };
-//    $query = $model->newQuery();
-//    $temp = $query
-//        ->join('', 'foo', '=', 'idx')
-//        ->select('idx')
-//        ->limit(20)
-//        ->get();
-//    print_r($temp);
+
+    $this['appProcess'] = array(
+      5 =>'취소', 0 =>'접수', 1 =>'신청확인', 2 =>'진행중', 3 =>'심사중', 4 =>'완료'
+    );
 }
 ?>
 ==
@@ -69,13 +66,12 @@ function onStart()
 <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
-                <th>IDX</th>
                 <th>신청일</th>
                 <th>진행상태</th>
                 <th>앱아이디</th>
                 <th>앱명</th>
                 <th>앱OS</th>
-                <th>앱버전</th>
+                <th>버전</th>
                 <th>업데이트내역</th>
             </tr>
         </thead>
@@ -83,9 +79,11 @@ function onStart()
         <tbody>
          {% for record in records %}
             <tr>
-                <td>{{ record.idx }}</td>
-                <td>{{ func.dateFormat(record.reg_time) }}</td>
-                <td>{{ record.app_process }}</td>
+                <td>{{ func.dateFormatSimple(record.reg_time) }}</td>
+                <td>  {% for key,val in appProcess %}
+                     {{ key == record.app_process ? val : "" }}
+                  {% endfor %}
+                </td>
                 <td>
                 {% if detailsPage %}
                     <a href="{{ detailsPage|page({ (detailsUrlParameter): attribute(record, detailsKeyColumn) }) }}">

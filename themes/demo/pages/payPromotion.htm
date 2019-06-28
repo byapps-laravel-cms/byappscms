@@ -39,9 +39,9 @@ function onStart()
 {
 
     $this['func'] = new Class {
-        public function dateFormat($val)
+        public function dateFormatSimple($val)
         {
-           $dateString = date("Y-m-d h:i:s", $val);
+           $dateString = date("Y-m-d", $val);
            return $dateString;
         }
         public function numberFormat($input)
@@ -68,7 +68,7 @@ function onStart()
   <table id="example" class="table table-striped table-bordered" style="width:100%">
           <thead>
               <tr>
-                  <th>프로모션 명</th>
+                  <th>프로모션명</th>
                   <th>회원</th>
                   <th>사용</th>
                   <th>적용대상</th>
@@ -92,10 +92,10 @@ function onStart()
                       </a>
                   {% endif %}
                   </td>
-                  <td>{{ record.pm_used }}</td>
+                  <td>{{ record.pm_used == 0 ? "미사용" : "사용" }}</td>
                   <td>{{ record.pm_target == 'ma' ? "마케팅 오토메이션" : "리타겟팅" }}</td>
                   <td>{{ func.numberFormat(record.pm_content) }}</td>
-                  <td>{{ func.dateFormat(record.reg_time) }}</td>
+                  <td>{{ func.dateFormatSimple(record.reg_time) }}</td>
               </tr>
 
            {% else %}

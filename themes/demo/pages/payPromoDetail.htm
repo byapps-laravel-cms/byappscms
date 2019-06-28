@@ -30,7 +30,33 @@ use Jiwon\Byapps\Models\PromotionData;
 
 function onStart()
 {
-    //$this['record'] = PromotionData::where('idx', '=', $this->param('idx'))->first();
+    $this['record'] = PromotionData::where('idx', '=', $this->param('idx'))->first();
+
+    $this['itemlist'] = array(
+        array('프로모션명','input', 'name="pm_title"', $this['record']->pm_title),
+        array('프로모션코드','input', 'name="pm_code"',$this['record']->pm_code),
+        array('발급대상 회원ID','input', 'name="mem_id"', $this['record']->mem_id),
+        array('회원명','input', 'name="mem_name"', $this['record']->mem_name),
+        array('적용대상', 'checkBox', 'name ="pm_target"',$this['record']->pm_target, array(
+                array('ma', '마케팅 오토메이션'),
+                array('retarget', '앱 서비스'),
+            )),
+        array('적용내용','selectBox','name="pm_content"',$this['record']->pm_content,array(
+                array('', '프로모션 혜택선택'),
+                array(     '0:dc', '월 0원 지정결제'),
+                array( '55000:dc', '월  55,000원 지정결제'),
+                array('110000:dc', '월 110,000원 지정결제'),
+                array('220000:dc', '월 220,000원 지정결제'),
+                array('330000:dc', '월 330,000원 지정결제'),
+                array('440000:dc', '월 440,000원 지정결제'),
+                array('550000:dc', '월 550,000원 지정결제'),
+            )),
+        array('발급사유','textarea','name="pm_comment"',$this['record']->pm_comment),
+        array('옵션', 'checkBox', 'name ="pm_target"',$this['record']->pm_target, array(
+                array('0', '수정하기'),
+                array('1', '삭제하기'),
+            )),
+    );
 }
 ?>
 ==
@@ -60,148 +86,96 @@ function onStart()
         <div class="row margin-0">
 
           {{ form_open() }}
-          <div class="row1">
-             <div class="col-md-2 col-xs-4">
-                 <div class="cell">
-                     <div class="propertyname th_style_1">
-                     프로모션명
-                     </div>
-                 </div>
-             </div>
 
-             <div class="col-md-10 col-xs-8">
-                 <div class="cell">
-                     <div class="description td_style_1 col-sm-4">
-                       {{ record.pm_title }}
-                     </div>
-                 </div>
-             </div>
-          </div>
+                {% for item in itemlist %}
+                    <div class="form-group row" id="appsData">
+                        <label class="col-sm-2 control-label propertyname th_style_1">{{ item.0 }}</label>
+                        <div class="col-md-6 col-xs-10">
+                  {% if item.1 == 'selectBox' %}
+                            <div class="col-sm-6 col-xs-10 td_style_1">
+                                <select {{ item.2 }} class="form-control">
+                                  {% for option in item.4 %}
+                                    <option value="{{ option.0 }}" {{ item.3 == option.0 ? "selected" : "" }} >{{ option.1 }}</option>
+                                  {% endfor %}
+                                </select>
+                                {% if item.0 == 'Process' %}
+                                <input class="btn btn-xs nbutton3" type="button" value="SDK 스크립트 만들기">
+                               {% endif %}
+                            </div>
+                  {% elseif item.1 == 'radioButton' %}
+                        <div class="col-sm-7 col-xs-10">
+                          {% for option in item.4 %}
+                            <label class="radio-inline"><input type="radio" {{ item.3 == option.0 ? "checked" : "" }} {{ item.1 }} value="{{ option.0 }}">{{ option.1 }}</label>
+                          {% endfor %}
+                        </div>
+                  {% elseif item.1 == 'fileUpload' %}
+                      {% if mobile == 1 %}
+                        <div class="filebox col-sm-5">
+                            <label>파일선택
+                                <input type="file" accept="image/*" name="{{ item.2 }}">
+                            </label>
+                        </div>
+                      {% else %}
+                        <div class="col-md-5">
+                            <div class="file_dropzone form-control" style="height:200px;width:200px;">
+                                <div style="height:100%;line-height:1100%;text-align:center;">drop here</div>
+                            </div>
+                        </div>
+                        <input type="hidden" {{ item.2 }} value="">
+                      {% endif %}
+                  {% elseif item.1 == 'checkBox' %}
+                        <div class="col-md-10 col-xs-10">
+                          {% for option in item.4 %}
+                            <label class="radio-inline"><input type="checkbox" {{ item.2 }} {{ option.2 }} value="{{ option.0 }}">{{ option.1 }}</label>
+                          {% endfor %}
+                        </div>
+                  {% elseif item.1 == 'checkBox2' %}
+                      {% for option in item.2 %}
+                        <div class="col-sm-3">
+                            <label class="radio-inline"><input type="checkbox" {{ option.0 }} {{ option.1 == option.2 ? "checked" : "" }} value="{{ option.1 }}">{{ option.3 }}</label>
+                        </div>
+                      {% endfor %}
+                  {% elseif item.1 == 'textarea' %}
+                        <textarea {{ itme.2 }} class="col-md-6 col-xs-10" rows="5">{{ item.3 }}</textarea>
+                    {% elseif item.0 == 'Develop Info' %}
+                        <ul class="develop_info_select">
+                            <li>텍스트로 보기</li>
+                            <li>HTML코드로 보기</li>
+                        </ul>
+                    <div class="develop_info ">
+                        {{ item.3|raw }}
+                    </div>
+                    <div class="develop_info col-md-6 col-xs-10" >
+                        <div class="">
+                            {{ item.3 }}
+                        </div>
+                    </div>
+                      {% elseif item.1 == 'input2' %}
+                          {% for option in item.2 %}
+                              {% if option.0 == 'input' %}
+                                  <div class="col-md-3">
+                                      <input type="text" {{ option.1 }} class="form-control" value="{{ option.2 }}">
+                                  </div>
+                              {% elseif option.0 == 'span' %}
+                                  <span style="float:left;">{{ option.1 }}</span>
+                              {% endif %}
+                          {% endfor %}
+                      {% elseif item.1 == 'input' or item.1 == 'input+button' %}
+                        <div class="col-xs-10">
+                            <input type="text" {{ item.2 }} class="form-control" value="{{ item.3 }}">
+                        </div>
+                          {% if item.1 == 'input+button' %}
+                            <div class="col-xs-2">
+                                <a href="{{ item.2 }}" target="_sub"><input class="form-control" type="button" value="새탭에서 열기"></a>
+                            </div>
+                          {% endif %}
+                      {% endif %}
+                        </div>
+                    </div>
+                  {% endfor %}
 
-          <div class="row1">
-             <div class="col-md-2 col-xs-4">
-                 <div class="cell">
-                     <div class="propertyname th_style_1">
-                     프로모션코드
-                     </div>
-                 </div>
-             </div>
-             <div class="col-md-10 col-xs-8">
-                 <div class="cell">
-                     <div class="description td_style_1 col-sm-4">
-                       {{ record.pm_code }}
-                        <input class="btn nbutton3 btn-xs" type="button" value="사용내역">
-                     </div>
-                 </div>
-             </div>
-         </div>
+              {{ form_close() }}
 
-         <div class="row1">
-             <div class="col-md-2 col-xs-4">
-                 <div class="cell">
-                     <div class="propertyname th_style_1">
-                     발급대상 회원ID
-                     </div>
-                 </div>
-             </div>
-
-             <div class="col-md-10 col-xs-8">
-                 <div class="cell">
-                     <div class="description td_style_1 col-sm-4">
-                       {{ record.mem_id }}
-                      <input class="btn nbutton3 btn-xs" type="button" value="회원검색">
-                 </div>
-             </div>
-          </div>
-
-          <div class="row1">
-             <div class="col-md-2 col-xs-4">
-                 <div class="cell">
-                     <div class="propertyname th_style_1">
-                     적용대상
-                     </div>
-                 </div>
-             </div>
-             <div class="col-md-10 col-xs-8">
-                 <div class="cell">
-                     <div class="description td_style_1">
-                       <div class="col-sm-4">
-                         <label><input type="radio" name="pm_target" value="ma" {{ record.pm_target == 'ma' ? "checked" : "" }}>마케팅오토메이션</label>
-                         <label><input type="radio" name="pm_target" value="app" {{ record.pm_target == 'app' ? "checked" : "" }}>앱서비스</label>
-                       </div>
-                     </div>
-
-                 </div>
-             </div>
-          </div>
-
-          <div class="row1">
-             <div class="col-md-2 col-xs-4">
-                 <div class="cell">
-                     <div class="propertyname th_style_1">
-                     적용내용
-                     </div>
-                 </div>
-             </div>
-             <div class="col-md-10 col-xs-8">
-                 <div class="cell">
-                     <div class="description td_style_1">
-                       <div class="col-sm-4">
-                         <select name="pm_content" class="form-control">
-                             <option value="660000:dc" {{ record.pm_content == '660000:dc' ? "selected":"" }}>월 660,000원 지정결제</option>
-                             <option value="550000:dc" {{ record.pm_content == '550000:dc' ? "selected":"" }}>월 550,000원 지정결제</option>
-                             <option value="440000:dc" {{ record.pm_content == '440000:dc' ? "selected":"" }}>월 440,000원 지정결제</option>
-                             <option value="330000:dc" {{ record.pm_content == '330000:dc' ? "selected":"" }}>월 330,000원 지정결제</option>
-                             <option value="220000:dc" {{ record.pm_content == '220000:dc' ? "selected":"" }}>월 220,000원 지정결제</option>
-                             <option value="110000:dc" {{ record.pm_content == '110000:dc' ? "selected":"" }}>월 110,000원 지정결제</option>
-                             <option value="55000:dc" {{ record.pm_content == '55000:dc' ? "selected":"" }}>월 55,000원 지정결제</option>
-                             <option value="0:dc" {{ record.pm_content == '0:dc' ? "selected":"" }}>월 0원 지정결제</option>
-                         </select>
-                       </div>
-                     </div>
-
-                 </div>
-             </div>
-          </div>
-
-          <div class="row1">
-             <div class="col-md-2 col-xs-4">
-                 <div class="cell">
-                     <div class="propertyname th_style_1">
-                     발급사유
-                     </div>
-                 </div>
-             </div>
-             <div class="col-md-10 col-xs-8">
-                 <div class="cell">
-                     <div class="description td_style_1 col-sm-4">
-                       <textarea type="text" class="form-control" name="pm_comment" style="height:200px;">{{ record.pm_comment }}</textarea>
-                     </div>
-                 </div>
-             </div>
-          </div>
-
-          <div class="row1">
-             <div class="col-md-2 col-xs-4">
-                 <div class="cell">
-                     <div class="propertyname th_style_1">
-                     옵션
-                     </div>
-                 </div>
-             </div>
-             <div class="col-md-10 col-xs-8">
-                 <div class="cell">
-                     <div class="description td_style_1 col-sm-4">
-                         <label><input type="radio" name="ops" value="send" checked>수정하기</label>
-                         <label><input type="radio" name="ops" value="delete">삭제하기</label>
-                     </div>
-
-                 </div>
-             </div>
-          </div>
-
-          {{ form_close() }}
-      
         </div>
     </div>
 
