@@ -162,7 +162,17 @@
 {{ form_close() }}
 
 <script type="text/javascript">
-$("#receipt").keyup(function() {
+$("#receipt").hover(function() {
+  setTimeout(function() {
     $('form').submit();
+    $.alert("업데이트 성공", {
+      autoClose: true,
+      closeTime: 3000,
+      type: 'success',
+      title: false,
+      position: ['center',[-0.42, 0]],
+      minTop: 300,
+    });
+  }, 5000);
 });
 </script>

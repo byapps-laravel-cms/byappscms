@@ -61,16 +61,14 @@ class PaymentForm extends ComponentBase
 
       $paymentData->save();
 
-
-      Flash::success(post('flash', '업데이트 성공'));
-
+      //Flash::success(post('업데이트 성공'));
 
       /*
        * Redirect
        */
-      // if ($redirect = $this->makeRedirection(true)) {
-      //     return $redirect;
-      // }
+      if ($redirect = $this->makeRedirection(true)) {
+          return $redirect;
+      }
       //
       // $this->prepareVars();
   }
@@ -83,9 +81,7 @@ class PaymentForm extends ComponentBase
   protected function makeRedirection($intended = false)
   {
       $method = $intended ? 'intended' : 'to';
-
       $property = $this->property('redirect');
-
       if (!strlen($property)) {
           return;
       }
@@ -93,7 +89,7 @@ class PaymentForm extends ComponentBase
       $redirectUrl = $this->pageUrl($property) ?: $property;
 
       if ($redirectUrl = post('redirect', $redirectUrl)) {
-          return Redirect::$method($redirectUrl);
+         return Redirect::$method($redirectUrl);
       }
   }
 

@@ -6,17 +6,28 @@ child_of = "mey_no_parent"
 hide_crumb = 0
 remove_crumb_trail = 0
 crumb_disabled = 0
+
+[paymentForm]
+
+[builderDetails]
+modelClass = "Jiwon\Byapps\Models\PaymentData"
+identifierValue = "{{ :idx }}"
+modelKeyColumn = "idx"
+displayColumn = "app_id"
+notFoundMessage = "Record not found"
 ==
 <?php
-function onStart(){ 
+function onStart(){
     echo '<br><br><br>';
-    echo $_SERVER['HTTP_REFERER'];
+    //echo $_SERVER['HTTP_REFERER'];
 }
 function test() {  }
 function onTest(){
 }
 ?>
 ==
+{% component 'builderDetails' %}
+
 <!-- The form -->
 <form data-request="onTest" data-request-update="calcresult: '#result'">
     <input type="text" value="15" name="value1">
@@ -29,7 +40,7 @@ function onTest(){
     <input type="text" value="5" name="value2">
     <button type="submit">Calculate</button>
 </form>
-<!-- The result -->
+The result
 <div id="result">
     {% partial "calcresult" %}
 </div>
