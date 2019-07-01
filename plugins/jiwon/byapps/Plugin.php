@@ -8,6 +8,10 @@ class Plugin extends PluginBase
 {
     public function registerComponents()
     {
+        return [
+            'Jiwon\Byapps\Components\PaymentForm'       => 'paymentForm',
+            //'RainLab\Builder\Components\RecordDetails'    => 'builderDetails'
+        ];
     }
 
     public function registerSettings()

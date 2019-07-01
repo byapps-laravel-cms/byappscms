@@ -25,6 +25,9 @@ main-ol-class = "breadcrumb"
 main-li-class = "breadcrumb-item"
 active-class = "active"
 disabled-class = "disabled"
+
+[paymentForm]
+redirect = "/pay/detail/:idx"
 ==
 <?php
 use Jiwon\Byapps\Models\PaymentData;
@@ -83,8 +86,10 @@ function onStart()
        </div> -->
 
         <div class="row margin-0">
-        {{ form_open() }}
-        <div class="row1">
+
+     {% component 'paymentForm' %}
+        <!-- {{ form_ajax('onUpdate', { confirm: '진짜로?' }) }} -->
+        <!-- <div class="row1">
            <div class="col-md-2 col-xs-4">
                <div class="cell">
                    <div class="propertyname th_style_1">
@@ -232,13 +237,18 @@ function onStart()
            <div class="col-md-10 col-xs-8">
                <div class="cell">
                    <div class="description td_style_1">
-                     <textarea name="receipt" class="form-control" style="height:200px;">{{ record.receipt != '' ? record.receipt : "미발행" }}</textarea>
+                     <textarea id="receipt" name="receipt" class="form-control" style="height:200px;">{{ record.receipt != '' ? record.receipt : "미발행" }}</textarea>
                    </div>
 
                </div>
            </div>
          </div>
-        </div>
-        {{ form_close() }}
+        </div> -->
+
+        <!-- {{ form_close() }} -->
     </div>
+
+    <!-- Result container -->
+    <div id="myDiv"></div>
+
 </div>
