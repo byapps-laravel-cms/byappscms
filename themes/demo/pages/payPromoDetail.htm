@@ -3,7 +3,7 @@ url = "/pay/promodetail/:idx"
 layout = "default"
 description = "프로모션 관리를 하실 수 있습니다"
 is_hidden = 0
-child_of = "payPromotion"
+child_of = "payManage"
 hide_crumb = 0
 remove_crumb_trail = 0
 crumb_disabled = 0
@@ -39,20 +39,20 @@ function onStart()
         array('프로모션코드','input', 'name=pm_code', $this['record']->pm_code),
         array('발급대상 회원ID','input', 'name=mem_id', $this['record']->mem_id),
         array('회원명','input', 'name=mem_name', $this['record']->mem_name),
-        array('적용대상', 'radioButton', 'name=pm_target', $this['record']->pm_target, array(
-                array('ma', '마케팅 오토메이션'),
-                array('retarget', '앱 서비스'),
-            )),
-        array('적용내용','selectBox','name=pm_content', $this['record']->pm_content, array(
-                array('', '프로모션 혜택선택'),
-                array(     '0:dc', '월 0원 지정결제'),
-                array( '55000:dc', '월  55,000원 지정결제'),
-                array('110000:dc', '월 110,000원 지정결제'),
-                array('220000:dc', '월 220,000원 지정결제'),
-                array('330000:dc', '월 330,000원 지정결제'),
-                array('440000:dc', '월 440,000원 지정결제'),
-                array('550000:dc', '월 550,000원 지정결제'),
-            )),
+        array('적용대상', 'radioButton', 'name=pm_target', $this['record']->pm_target,
+                array('ma'=> '마케팅 오토메이션', 'retarget' => '앱 서비스')
+              ),
+        array('적용내용','selectBox','name=pm_content', $this['record']->pm_content,
+                array(         '' => '프로모션 혜택선택' ,
+                           '0:dc' => '월       0원 지정결제',
+                       '55000:dc' => '월  55,000원 지정결제',
+                      '110000:dc' => '월 110,000원 지정결제',
+                      '220000:dc' => '월 220,000원 지정결제',
+                      '330000:dc' => '월 330,000원 지정결제',
+                      '440000:dc' => '월 440,000원 지정결제',
+                      '550000:dc' => '월 550,000원 지정결제',
+                      ),
+              ),
         array('발급사유','textarea','name=pm_comment', $this['record']->pm_comment),
         array('옵션', 'checkBox', 'name =pm_used', $this['record']->pm_used, array(
                 array('0', '수정하기'),
