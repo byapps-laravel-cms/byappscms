@@ -9,8 +9,8 @@
         {% if item.1 == 'selectBox' %}
                   <div class="col-sm-8 col-xs-10 td_style_1">
                       <select {{ item.2 }} class="form-control">
-                        {% for option in item.4 %}
-                          <option value="{{ option.0 }}" {{ item.3 == option.0 ? "selected" : "" }} >{{ option.1 }}</option>
+                        {% for key, val in item.4 %}
+                          <option value="{{ key }}" {{ item.3 == key ? "selected" : "" }} >{{ val }}</option>
                         {% endfor %}
                       </select>
                       {% if item.0 == 'Process' %}
@@ -20,9 +20,9 @@
               </div>
         {% elseif item.1 == 'radioButton' %}
               <div class="col-md-8 col-xs-10">
-                {% for option in item.4 %}
+                {% for key, val in item.4 %}
                   <label class="radio-inline">
-                    <input type="radio" {{ item.3 == option.0 ? "checked" : "123" }} value="{{ option.0 }}">{{ option.1 }}
+                    <input type="radio" {{ item.2 }} {{ item.3 == key ? "checked=checked" : "" }} value="{{ key }}">{{ val }}
                   </label>
                 {% endfor %}
               </div>

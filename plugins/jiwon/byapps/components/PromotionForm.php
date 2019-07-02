@@ -63,8 +63,9 @@ class PromotionForm extends ComponentBase
       $promotionData->mem_name = Input::get('mem_name');
       $promotionData->pm_target = Input::get('pm_target');
       $promotionData->pm_comment = Input::get('pm_comment');
+      $promotionData->pm_content = Input::get('pm_content');
 
-      print_r($promotionData->pm_target);
+      print_r($promotionData->pm_content);
 
       $promotionData->save();
 
