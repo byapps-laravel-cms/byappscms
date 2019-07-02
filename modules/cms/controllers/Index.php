@@ -441,11 +441,11 @@ class Index extends Controller
     /**
      * Get the response to return in an AJAX request that updates a template
      *
-     * @param CmsObject $template The template that has been affected
+     * @param object $template The template that has been affected
      * @param string $type The type of template being affected
      * @return array $result;
      */
-    protected function getUpdateResponse(CmsObject $template, string $type)
+    protected function getUpdateResponse($template, string $type)
     {
         $result = [
             'templatePath'  => $template->fileName,
@@ -480,10 +480,10 @@ class Index extends Controller
      * Check to see if the provided template can be committed
      * Only available in debug mode, the DB layer must be enabled, and the template must exist in the database
      *
-     * @param CmsObject $template
+     * @param object $template
      * @return boolean
      */
-    protected function canCommitTemplate(CmsObject $template)
+    protected function canCommitTemplate($template)
     {
         $result = false;
 
@@ -501,10 +501,10 @@ class Index extends Controller
      * Check to see if the provided template can be reset
      * Only available when the DB layer is enabled and the template exists in both the DB & Filesystem
      *
-     * @param CmsObject $template
+     * @param object $template
      * @return boolean
      */
-    protected function canResetTemplate(CmsObject $template)
+    protected function canResetTemplate($template)
     {
         $result = false;
 

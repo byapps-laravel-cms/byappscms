@@ -26,4 +26,8 @@ class PointManage extends Model
      */
     public $rules = [
     ];
+
+    public $hasOne = [
+      //'appPoint' => $table2
+    ];
 }
