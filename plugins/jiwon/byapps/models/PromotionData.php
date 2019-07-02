@@ -13,6 +13,7 @@ class PromotionData extends Model
      * Disable timestamps by default.
      * Remove this line if timestamps are defined in the database table.
      */
+    public $primaryKey = 'idx';
     public $timestamps = false;
 
     public $connection = 'byapps';
@@ -25,5 +26,9 @@ class PromotionData extends Model
      * @var array Validation rules
      */
     public $rules = [
+    ];
+
+    public $fillable = [
+      'pm_title', 'pm_target', 'pm_comment'
     ];
 }

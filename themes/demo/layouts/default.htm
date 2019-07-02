@@ -34,14 +34,12 @@ function onStart()
         <link href="{{ 'assets/vendor/jquery-ui.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/jquery-ui.min.css'|theme }}" rel="stylesheet">
 
-        
-        
-
         <!-- Font-awesome  -->
         <script src="https://kit.fontawesome.com/5e0ee1de75.js"></script>
 
         <!-- For Datatable -->
         <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
+        <script src="{{ 'assets/vendor/flash-alert.js'|theme }}"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -72,7 +70,7 @@ function onStart()
             <div id="sidebar-toggle">
                 <span><i class="far fa-comment-dots"></i></span>
                 <p>OPEN</p>
-            </div> 
+            </div>
             <div id="sidebar">
                     {% partial 'site/aside' %}
             </div>
