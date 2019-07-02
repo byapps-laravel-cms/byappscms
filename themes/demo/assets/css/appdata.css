@@ -69,7 +69,7 @@ html.open #sidebar {
     height: 50px;
     font-family: sans-serif;
     border: 1px solid #d1cfcf;
-    top: 30%; 
+    top: 30%;
 }
 #sidebar-toggle span {
   font-size: 1.5em;
@@ -112,4 +112,9 @@ html.open #sidebar {
   background-color: #f7f7f7;
   border-color: grey;
   color: #000;
+}
+
+
+.breadcrumb {
+  margin-top:110px !important;
 }
