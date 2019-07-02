@@ -19,9 +19,11 @@ columns:
     apps_type:
         label: 앱OS
         type: text
-    #app_ver:
-    #    label: 앱버전
-    #    type: text
-    #app_update:
-    #    label: 업데이트내역
-    #    type: text
+    app_ver:
+        label: 앱버전
+        type: text
+        relation: joins
+        select: app_ver
+    appsplash:
+       label: 업데이트내역
+       type: text

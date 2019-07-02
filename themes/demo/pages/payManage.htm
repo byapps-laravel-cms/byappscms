@@ -1,7 +1,7 @@
 title = "결제관리"
-description = "결제 관리를 하실 수 있습니다"
-url = "/pay/manage/:page?"
+url = "/pay/manage/:page"
 layout = "default"
+description = "결제 관리를 하실 수 있습니다"
 is_hidden = 0
 child_of = "mey_no_parent"
 hide_crumb = 0
@@ -38,8 +38,7 @@ use Jiwon\Byapps\Models\PayManage;
 
 function onStart()
 {
-    //$this['records'] = PayManage::orderBy('reg_time')->get();
-    $this['records'] = PayManage::orderBy('pay_date')->get();
+    $this['records'] = PayManage::orderBy('reg_time')->get();
 
     $this['func'] = new Class {
         public function dateFormat($val)
@@ -50,30 +49,8 @@ function onStart()
     };
 
     $this['arrPaytype'] = array(
-        '신규', '연장', '추가', '기타', '충전'
+      0 => '신규', 1 => '연장', 2 => '충전', 3 => '추가', 4=> '기타'
     );
-}
-
-function onTest()
-{
-    $value1 = input('value1');
-    $value2 = input('value2');
-    $operation = input('operation');
-
-    switch ($operation) {
-        case '+' :
-            $this['result'] = $value1 + $value2;
-            break;
-        case '-' :
-            $this['result'] = $value1 - $value2;
-            break;
-        case '*' :
-            $this['result'] = $value1 * $value2;
-            break;
-        default :
-            $this['result'] = $value1 / $value2;
-            break;
-    }
 }
 ?>
 ==
@@ -119,7 +96,6 @@ function onTest()
         <col width="15%">
         <thead>
             <tr>
-                <!-- <th>ID</th> -->
                 <th>앱명</th>
                 <th>구분</th>
                 <th>기간</th>
@@ -131,7 +107,6 @@ function onTest()
         <tbody>
         {% for record in records %}
             <tr>
-                <!-- <td>{{ record.idx }}</td> -->
                 <td >
                 {% if detailsPage %}
                     <a href="{{ detailsPage|page({ (detailsUrlParameter): attribute(record, detailsKeyColumn) }) }}">
@@ -143,8 +118,14 @@ function onTest()
                     </a>
                 {% endif %}
                 </td>
-                <td>{{ record.pay_type }}</td>
-                <td>{{ func.dateFormat(record.start_time) }} ~ {{  func.dateFormat(record.end_time) }}</td>
+
+                <td>
+                {% for key,val in arrPaytype %}
+                  {{ key == record.pay_type ? val : "" }}
+                {% endfor %}
+                </td>
+
+                <td>{{ record.term }}일 ({{ func.dateFormat(record.start_time) }} ~ {{ func.dateFormat(record.end_time) }})</td>
                 <td>{{ record.amount | number_format(0, ',') }}</td>
                 <td>{{ func.dateFormat(record.reg_time) }}</td>
             </tr>

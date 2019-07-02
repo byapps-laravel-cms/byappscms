@@ -4,3 +4,15 @@ columns:
         type: number
         sortable: true
         # select: 'limit 100'
+    app_id:
+       label: 앱아이디
+       type: TEXT
+    mem_id:
+       label: 회원아이디
+       type: TEXT
+    point:
+      label: 포인트
+      type: number
+    point_title:
+      label: 포인트내용
+      type: text

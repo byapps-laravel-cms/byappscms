@@ -48,6 +48,10 @@ function onStart()
            return $dateString;
         }
     };
+
+    $this['arrPaytype'] = array(
+      0 => '신규', 1 => '연장', 2 => '충전', 3 => '추가', 4=> '기타'
+    );
 }
 ?>
 ==
@@ -147,7 +151,7 @@ function onStart()
            <div class="col-md-10 col-xs-8">
                <div class="cell">
                    <div class="description td_style_1">
-                     {{ record.app_name }}
+                     {{ record.app_name }} ({{ record.apps_type }})
                    </div>
 
                </div>
@@ -165,7 +169,10 @@ function onStart()
            <div class="col-md-10 col-xs-8">
                <div class="cell">
                    <div class="description td_style_1">
-                   {{ func.dateFormatSimple(record.start_time) }} ~ {{ func.dateFormatSimple(record.end_time) }}
+                    {% for key,val in arrPaytype %}
+                       {{ key == record.pay_type ? val : "" }}
+                    {% endfor %}
+                   , {{ record.term }}일,  {{ func.dateFormatSimple(record.start_time) }} ~ {{ func.dateFormatSimple(record.end_time) }}
                    </div>
 
                </div>
@@ -203,6 +210,9 @@ function onStart()
            <div class="col-md-10 col-xs-8">
                <div class="cell">
                    <div class="description td_style_1">
+                     {{ record.payment | split('{:}', 5)[1] }} ({{ record.payment | split('{:}', 5)[0] }}) <br />
+                     승인번호:  {{ record.payment | split('{:}', 5)[3] }}<br />
+                     승인시간:
                    <input class="btn nbutton3 btn-xs" type="button" value="입금확인">
                    </div>
 
@@ -222,7 +232,7 @@ function onStart()
            <div class="col-md-10 col-xs-8">
                <div class="cell">
                    <div class="description td_style_1">
-                     <textarea name="receipt" class="form-control" style="height:200px;">{{ record.receipt }}</textarea>
+                     <textarea name="receipt" class="form-control" style="height:200px;">{{ record.receipt != '' ? record.receipt : "미발행" }}</textarea>
                    </div>
 
                </div>

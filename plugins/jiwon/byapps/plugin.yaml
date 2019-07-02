@@ -39,7 +39,50 @@ navigation:
                 label: '푸쉬 현황'
                 url: jiwon/byapps/pushmanages
                 icon: icon-square
+            side-menu-item6:
+                label: 테스터
+                url: jiwon/byapps/testermanages
+                icon: icon-square
     main-menu-item3:
         label: 회원관리
         url: jiwon/byapps/usersinfos
         icon: icon-user
+        sideMenu:
+            side-menu-item:
+                label: '인증회원 관리'
+                url: jiwon/byapps/membersmanages
+                icon: icon-user
+    main-menu-item4:
+        label: 부가서비스
+        url: jiwon/byapps/additionalservices
+        icon: icon-delicious
+        sideMenu:
+            side-menu-item:
+                label: '부가서비스 접수'
+                url: jiwon/byapps/additionalservices
+                icon: icon-th-large
+            side-menu-item2:
+                label: 'MA 이용업체'
+                url: jiwon/byapps/maservices
+                icon: icon-th-large
+    main-menu-item5:
+        label: 통계
+        url: jiwon/byapps/appsdownstats
+        icon: icon-area-chart
+        sideMenu:
+            side-menu-item:
+                label: '앱 설치 통계'
+                url: jiwon/byapps/appsdownstats
+                icon: icon-bar-chart
+            side-menu-item2:
+                label: '앱 이용 통계'
+                url: jiwon/byapps/appsusestats
+                icon: icon-bar-chart
+            side-menu-item3:
+                label: '앱 매출 통계'
+                url: /
+                icon: icon-bar-chart
+            side-menu-item4:
+                label: '푸쉬 허용 통계'
+                url: jiwon/byapps/pushonoffstats
+                icon: icon-bar-chart

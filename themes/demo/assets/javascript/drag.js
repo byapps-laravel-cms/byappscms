@@ -15,6 +15,8 @@ function getLayout (){
 }
 function saveLayout (){
   $.request('onLayoutChange', {
-    data:getLayout()
-  })
+    data:getLayout(),
+    success: function(data) {
+    console.log(data);
+  }});
 }
