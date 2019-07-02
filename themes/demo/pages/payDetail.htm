@@ -86,7 +86,7 @@ function onStart()
 
         <div class="row margin-0">
 
-     {% component 'paymentForm' %}
+       {% component paymentForm ~ '::update' %}
         <!-- {{ form_ajax('onUpdate', { confirm: '진짜로?' }) }} -->
         <!-- <div class="row1">
            <div class="col-md-2 col-xs-4">

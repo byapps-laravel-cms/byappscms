@@ -14,15 +14,15 @@ use ApplicationException;
 use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
 use Exception;
-use Jiwon\Byapps\Models\PaymentData;
+use Jiwon\Byapps\Models\PromotionData;
 
-class PaymentForm extends ComponentBase
+class PromotionForm extends ComponentBase
 {
   public function componentDetails()
   {
       return [
-          'name'        => 'PaymentForm',
-          'description' => 'PaymentForm component'
+          'name'        => 'PromotionForm',
+          'description' => 'PromotionForm component'
       ];
   }
 
@@ -55,18 +55,25 @@ class PaymentForm extends ComponentBase
 
   public function onUpdate()
   {
-      $paymentData = PaymentData::where('idx', Input::get('idx'))->first();
+      $promotionData = PromotionData::where('idx', Input::get('idx'))->first();
 
-      $paymentData->receipt = Input::get('receipt');
+      $promotionData->pm_title = Input::get('pm_title');
+      $promotionData->pm_code = Input::get('pm_code');
+      $promotionData->mem_id = Input::get('mem_id');
+      $promotionData->mem_name = Input::get('mem_name');
+      $promotionData->pm_target = Input::get('pm_target');
+      $promotionData->pm_comment = Input::get('pm_comment');
 
-      $paymentData->save();
+      print_r($promotionData->pm_target);
+
+      $promotionData->save();
 
       //Flash::success(post('업데이트 성공'));
 
       /*
        * Redirect
        */
-      if ($redirect = $this->makeRedirection(true)) {
+      if ($redirect = $this->makeRedirection()) {
           return $redirect;
       }
       //
@@ -87,7 +94,6 @@ class PaymentForm extends ComponentBase
       }
 
       $redirectUrl = $this->pageUrl($property) ?: $property;
-      //echo $redirectUrl;
 
       if ($redirectUrl = post('redirect', $redirectUrl)) {
          return Redirect::$method($redirectUrl);
