@@ -20,4 +20,4 @@ $("#sidebar-close,#sidebar-toggle").click(function (){
    
     document.cookie = "aside=off;path=/";   
   }
-});
+}); 
