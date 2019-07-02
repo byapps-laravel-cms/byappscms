@@ -72,11 +72,9 @@ function onStart()
 
     <div class="alert alert-info">
     {% if record %}
-       <!--  <h4>Row modifier class included</h4> -->
        <h4>
          <strong>{{ attribute(record, displayColumn) }}</strong>
        </h4>
-
     {% else %}
         {{ notFoundMessage }}
     {% endif %}
@@ -87,98 +85,7 @@ function onStart()
     <div class="method">
         <div class="col-md-12 margin-0">
 
-{% component promotionForm ~ '::update' %}
-
-          <!-- {{ form_open() }}
-
-                {% for item in itemlist %}
-                    <div class="form-group row" id="appsData">
-                        <label class="col-sm-2 control-label propertyname th_style_1">{{ item.0 }}</label>
-                        <div class="col-md-6 col-xs-10">
-                  {% if item.1 == 'selectBox' %}
-                            <div class="col-sm-6 col-xs-10 td_style_1">
-                                <select {{ item.2 }} class="form-control">
-                                  {% for option in item.4 %}
-                                    <option value="{{ option.0 }}" {{ item.3 == option.0 ? "selected" : "" }} >{{ option.1 }}</option>
-                                  {% endfor %}
-                                </select>
-                                {% if item.0 == 'Process' %}
-                                <input class="btn btn-xs nbutton3" type="button" value="SDK 스크립트 만들기">
-                               {% endif %}
-                            </div>
-                  {% elseif item.1 == 'radioButton' %}
-                        <div class="col-sm-7 col-xs-10">
-                          {% for option in item.4 %}
-                            <label class="radio-inline"><input type="radio" {{ item.3 == option.0 ? "checked" : "" }} {{ item.1 }} value="{{ option.0 }}">{{ option.1 }}</label>
-                          {% endfor %}
-                        </div>
-                  {% elseif item.1 == 'fileUpload' %}
-                      {% if mobile == 1 %}
-                        <div class="filebox col-sm-5">
-                            <label>파일선택
-                                <input type="file" accept="image/*" name="{{ item.2 }}">
-                            </label>
-                        </div>
-                      {% else %}
-                        <div class="col-md-5">
-                            <div class="file_dropzone form-control" style="height:200px;width:200px;">
-                                <div style="height:100%;line-height:1100%;text-align:center;">drop here</div>
-                            </div>
-                        </div>
-                        <input type="hidden" {{ item.2 }} value="">
-                      {% endif %}
-                  {% elseif item.1 == 'checkBox' %}
-                        <div class="col-md-10 col-xs-10">
-                          {% for option in item.4 %}
-                            <label class="radio-inline"><input type="checkbox" {{ item.2 }} {{ option.2 }} value="{{ option.0 }}">{{ option.1 }}</label>
-                          {% endfor %}
-                        </div>
-                  {% elseif item.1 == 'checkBox2' %}
-                      {% for option in item.2 %}
-                        <div class="col-sm-3">
-                            <label class="radio-inline"><input type="checkbox" {{ option.0 }} {{ option.1 == option.2 ? "checked" : "" }} value="{{ option.1 }}">{{ option.3 }}</label>
-                        </div>
-                      {% endfor %}
-                  {% elseif item.1 == 'textarea' %}
-                        <textarea {{ itme.2 }} class="col-md-6 col-xs-10" rows="5">{{ item.3 }}</textarea>
-                    {% elseif item.0 == 'Develop Info' %}
-                        <ul class="develop_info_select">
-                            <li>텍스트로 보기</li>
-                            <li>HTML코드로 보기</li>
-                        </ul>
-                    <div class="develop_info ">
-                        {{ item.3|raw }}
-                    </div>
-                    <div class="develop_info col-md-6 col-xs-10" >
-                        <div class="">
-                            {{ item.3 }}
-                        </div>
-                    </div>
-                      {% elseif item.1 == 'input2' %}
-                          {% for option in item.2 %}
-                              {% if option.0 == 'input' %}
-                                  <div class="col-md-3">
-                                      <input type="text" {{ option.1 }} class="form-control" value="{{ option.2 }}">
-                                  </div>
-                              {% elseif option.0 == 'span' %}
-                                  <span style="float:left;">{{ option.1 }}</span>
-                              {% endif %}
-                          {% endfor %}
-                      {% elseif item.1 == 'input' or item.1 == 'input+button' %}
-                        <div class="col-xs-10">
-                            <input type="text" {{ item.2 }} class="form-control" value="{{ item.3 }}">
-                        </div>
-                          {% if item.1 == 'input+button' %}
-                            <div class="col-xs-2">
-                                <a href="{{ item.2 }}" target="_sub"><input class="form-control" type="button" value="새탭에서 열기"></a>
-                            </div>
-                          {% endif %}
-                      {% endif %}
-                        </div>
-                    </div>
-                  {% endfor %}
-
-              {{ form_close() }} -->
+          {% component promotionForm ~ '::update' %}
 
         </div>
     </div>
