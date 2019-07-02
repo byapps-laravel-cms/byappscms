@@ -24,6 +24,8 @@ redirect = "permission"
 main-ol-class = "breadcrumb"
 active-class = "active"
 disabled-class = "disabled"
+
+[promotionForm]
 ==
 <?php
 use Jiwon\Byapps\Models\PromotionData;
@@ -33,15 +35,15 @@ function onStart()
     $this['record'] = PromotionData::where('idx', '=', $this->param('idx'))->first();
 
     $this['itemlist'] = array(
-        array('프로모션명','input', 'name="pm_title"', $this['record']->pm_title),
-        array('프로모션코드','input', 'name="pm_code"',$this['record']->pm_code),
-        array('발급대상 회원ID','input', 'name="mem_id"', $this['record']->mem_id),
-        array('회원명','input', 'name="mem_name"', $this['record']->mem_name),
-        array('적용대상', 'checkBox', 'name ="pm_target"',$this['record']->pm_target, array(
+        array('프로모션명','input', 'name=pm_title', $this['record']->pm_title),
+        array('프로모션코드','input', 'name=pm_code', $this['record']->pm_code),
+        array('발급대상 회원ID','input', 'name=mem_id', $this['record']->mem_id),
+        array('회원명','input', 'name=mem_name', $this['record']->mem_name),
+        array('적용대상', 'radioButton', 'name=pm_target', $this['record']->pm_target, array(
                 array('ma', '마케팅 오토메이션'),
                 array('retarget', '앱 서비스'),
             )),
-        array('적용내용','selectBox','name="pm_content"',$this['record']->pm_content,array(
+        array('적용내용','selectBox','name=pm_content', $this['record']->pm_content, array(
                 array('', '프로모션 혜택선택'),
                 array(     '0:dc', '월 0원 지정결제'),
                 array( '55000:dc', '월  55,000원 지정결제'),
@@ -51,8 +53,8 @@ function onStart()
                 array('440000:dc', '월 440,000원 지정결제'),
                 array('550000:dc', '월 550,000원 지정결제'),
             )),
-        array('발급사유','textarea','name="pm_comment"',$this['record']->pm_comment),
-        array('옵션', 'checkBox', 'name ="pm_target"',$this['record']->pm_target, array(
+        array('발급사유','textarea','name=pm_comment', $this['record']->pm_comment),
+        array('옵션', 'checkBox', 'name =pm_used', $this['record']->pm_used, array(
                 array('0', '수정하기'),
                 array('1', '삭제하기'),
             )),
@@ -85,7 +87,9 @@ function onStart()
     <div class="method">
         <div class="row margin-0">
 
-          {{ form_open() }}
+{% component promotionForm ~ '::update' %}
+
+          <!-- {{ form_open() }}
 
                 {% for item in itemlist %}
                     <div class="form-group row" id="appsData">
@@ -174,7 +178,7 @@ function onStart()
                     </div>
                   {% endfor %}
 
-              {{ form_close() }}
+              {{ form_close() }} -->
 
         </div>
     </div>

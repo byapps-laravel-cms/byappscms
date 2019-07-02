@@ -13,6 +13,7 @@ class PaymentData extends Model
      * Disable timestamps by default.
      * Remove this line if timestamps are defined in the database table.
      */
+    public $primaryKey = 'idx';
     public $timestamps = false;
 
     public $connection = 'byapps';
@@ -26,5 +27,9 @@ class PaymentData extends Model
      * @var array Validation rules
      */
     public $rules = [
+    ];
+
+    public $fillable = [
+      'receipt'
     ];
 }
