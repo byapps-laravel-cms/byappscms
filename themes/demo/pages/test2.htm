@@ -1,5 +1,5 @@
 title = "test2"
-url = "/test2"
+url = "/test2/:idx"
 layout = "default"
 is_hidden = 0
 child_of = "mey_no_parent"
@@ -13,7 +13,7 @@ crumb_disabled = 0
 modelClass = "Jiwon\Byapps\Models\PaymentData"
 identifierValue = "{{ :idx }}"
 modelKeyColumn = "idx"
-displayColumn = "app_id"
+displayColumn = "mem_id"
 notFoundMessage = "Record not found"
 ==
 <?php
@@ -21,6 +21,7 @@ use Jiwon\Byapps\Models\PaymentData;
 
 function onStart()
 {
+     $this['records'] = PaymentData::where('idx', '=', $this->param('idx'))->first();
      $this['abc'] = "ABC";
     //echo '<br><br><br>';
     //echo $_SERVER['HTTP_REFERER'];
@@ -30,7 +31,7 @@ function onTest(){
 }
 ?>
 ==
-<!-- {% component 'builderDetails' %} -->
+{% component 'builderDetails' %}
 
 <!-- The form -->
 <!-- <form data-request="onTest" data-request-update="calcresult: '#result'">
@@ -51,7 +52,11 @@ The result
 
 <div class="container">
   <br /><br /><br />
-  <span id="test">{{ abc }}</span>
+  <!-- <span id="test">{{ abc }}</span> -->
+
+  <br />
+  <h3>{{ record.mem_id }}</h3>
+  <br />
 
   <div class="method">
       <div class="col-md-12 margin-5">
@@ -61,12 +66,18 @@ The result
 </div>
 
 <script>
-var data1 = $('#test').text();
-var arrId = [ 1, 2, 3, 4, 5 ];
-console.log(data1);
+// var data1 = $('#test').text();
+// var arrId = [ 1, 2, 3, 4, 5 ];
+// console.log(data1);
+var data1 = {{ record.idx|json_encode()|raw }};
+var data2 = {{ record.mem_id|json_encode()|raw }};
+//console.log(data1);
 
+var tabledata = [
+  {id: data1, name: data2 },
+];
 // var tabledata = [
-// {id:1, name: data1, age:"12", col:"red", dob:""},
+// {id:1, name: "AAA", age:"12", col:"red", dob:""},
 // {id:2, name:"Mary May", age:"1", col:"blue", dob:"14/05/1982"},
 // {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
 // {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
@@ -78,6 +89,7 @@ var table = new Tabulator("#example-table", {
  	data:tabledata, //assign data to table
  	layout:"fitColumns", //fit columns to width of table (optional)
  	columns:[ //Define Table Columns
+    {title:"#", field:"id"},
 	 	{title:"Name", field:"name", width:150},
 	 	{title:"Age", field:"age", align:"left", formatter:"progress"},
 	 	{title:"Favourite Color", field:"col"},
