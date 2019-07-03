@@ -66,17 +66,11 @@ The result
 </div> -->
 
 <div class="container">
-  <br /><br /><br />
-  <!-- <span id="test">{{ abc }}</span> -->
-
-  <br />
-  <!-- {% for record in records %}
-  <h3>  {{ attribute(record, displayColumn) }} </h3>
-  {% endfor %} -->
-  <br />
+  <div class="mb-5"><Br /></div>
 
   <div class="method">
       <div class="col-md-12 margin-5">
+        <button id="download-xlsx" class="btn btn-info float-right mb-1">Download</button>
         <div id="example-table"></div>
         <br />
       </div>
@@ -214,6 +208,7 @@ var table = new Tabulator("#example-table", {
  	data:myVar['data'], //assign data to table
  	layout:"fitColumns", //fit columns to width of table (optional)
   responsiveLayout:true, // enable responsive layouts
+  movableRows:true,
   // pagination: "remote", //enable remote pagination
   // ajaxURL:"http://ljw1.innoi.kr/test2", //set url for ajax request
   // paginationDataSent:{
@@ -224,7 +219,6 @@ var table = new Tabulator("#example-table", {
   },
   paginationSize: 20, //optional parameter to request a certain number of rows per page
  	columns:[ //Define Table Columns
-
     {title:"번호", field:"idx", width:60},
 	 	{title:"앱아이디", field:"mem_id", width:150},
 	 	{title:"주문번호", field:"order_id"},
@@ -235,5 +229,10 @@ var table = new Tabulator("#example-table", {
  	rowClick:function(e, row){ //trigger an alert message when the row is clicked
  		alert("Row " + row.getData().id + " Clicked!!!!");
  	},
+});
+
+//trigger download of data.xlsx file
+$("#download-xlsx").click(function(){
+    table.download("xlsx", "data.xlsx", {sheetName:"My Data"});
 });
 </script>
