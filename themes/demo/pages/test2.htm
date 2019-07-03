@@ -17,8 +17,12 @@ displayColumn = "app_id"
 notFoundMessage = "Record not found"
 ==
 <?php
-function onStart(){
-    echo '<br><br><br>';
+use Jiwon\Byapps\Models\PaymentData;
+
+function onStart()
+{
+     $this['abc'] = "ABC";
+    //echo '<br><br><br>';
     //echo $_SERVER['HTTP_REFERER'];
 }
 function test() {  }
@@ -26,10 +30,10 @@ function onTest(){
 }
 ?>
 ==
-{% component 'builderDetails' %}
+<!-- {% component 'builderDetails' %} -->
 
 <!-- The form -->
-<form data-request="onTest" data-request-update="calcresult: '#result'">
+<!-- <form data-request="onTest" data-request-update="calcresult: '#result'">
     <input type="text" value="15" name="value1">
     <select name="operation">
         <option>+</option>
@@ -43,4 +47,44 @@ function onTest(){
 The result
 <div id="result">
     {% partial "calcresult" %}
+</div> -->
+
+<div class="container">
+  <br /><br /><br />
+  <span id="test">{{ abc }}</span>
+
+  <div class="method">
+      <div class="col-md-12 margin-5">
+        <div id="example-table"></div>
+      </div>
+  </div>
 </div>
+
+<script>
+var data1 = $('#test').text();
+var arrId = [ 1, 2, 3, 4, 5 ];
+console.log(data1);
+
+// var tabledata = [
+// {id:1, name: data1, age:"12", col:"red", dob:""},
+// {id:2, name:"Mary May", age:"1", col:"blue", dob:"14/05/1982"},
+// {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+// {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+// {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+// ];
+
+var table = new Tabulator("#example-table", {
+ 	height:405, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+ 	data:tabledata, //assign data to table
+ 	layout:"fitColumns", //fit columns to width of table (optional)
+ 	columns:[ //Define Table Columns
+	 	{title:"Name", field:"name", width:150},
+	 	{title:"Age", field:"age", align:"left", formatter:"progress"},
+	 	{title:"Favourite Color", field:"col"},
+	 	{title:"Date Of Birth", field:"dob", sorter:"date", align:"center"},
+ 	],
+ 	rowClick:function(e, row){ //trigger an alert message when the row is clicked
+ 		alert("Row " + row.getData().id + " Clicked!!!!");
+ 	},
+});
+</script>
