@@ -240,14 +240,30 @@ var table = new Tabulator("#paymentTable", {
   paginationSize: 20, //optional parameter to request a certain number of rows per page
  	columns:[ //Define Table Columns
 	 	{ title:"앱명", field:"app_name" },
-	 	{ title:"구분", field:"pay_type" },
-	 	{ title:"기간", field:"start_time", sorter:"date", align:"center", formatter:dateFormatter },
-	 	{ title:"결제금액", field:"amount", align:"right", formatter:"money", formatterParams:{
+	 	{ title:"구분", field:"pay_type",
+      formatter:function(cell, formatterParams, onRendered){
+        var arrPaytype = ['신규', '연장', '충전', '추가', '기타'];
+        for (var key in arrPaytype) {
+          if (cell.getValue() == key) {
+            return arrPaytype[key];
+          }
+        }
+      }
+    },
+	 	{ title:"기간", field:"term",  align:"center",
+      formatter:function(cell, formatterParams, onRendered){
+        return cell.getValue() + " 일"; //return the contents of the cell;
+      }
+    },
+	 	{ title:"결제금액", field:"amount", align:"right", formatter:"money",
+      formatterParams:{
         decimal:",",
         thousand:",",
-        symbolAfter:"원",
         precision:false,
-    }},
+        symbol: " 원",
+        symbolAfter: true
+      },
+    },
     { title:"등록일", field:"reg_time", sorter:"date", align:"center", formatter:dateFormatter }
  	],
  	rowClick:function(e, row){ //trigger an alert message when the row is clicked
