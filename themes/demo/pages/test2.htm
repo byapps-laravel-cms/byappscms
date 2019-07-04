@@ -1,5 +1,5 @@
 title = "test2"
-url = "/test2/:idx"
+url = "/test2/:page"
 layout = "default"
 is_hidden = 0
 child_of = "mey_no_parent"
@@ -171,6 +171,12 @@ The result
 // var data2 = {{ record.mem_id|json_encode()|raw }};
 //console.log(data1);
 var myVar = {{ records|json_encode()|raw }};
+var URL = {{ detailsPage|page|json_encode()|raw }};
+URL = URL.substring(0, URL.lastIndexOf('/')+1);
+//var aa = {{ detailsUrlParameter|json_encode()|raw }};
+//console.log(URL.substring(0, URL.lastIndexOf('/')+1));
+console.log(URL);
+//console.log(aa);
 console.log(myVar['data']);
 
 // var tabledata = [
@@ -227,7 +233,8 @@ var table = new Tabulator("#example-table", {
     {title:"등록일", field:"reg_time", sorter:"date", align:"center", formatter:dateFormatter}
  	],
  	rowClick:function(e, row){ //trigger an alert message when the row is clicked
- 		alert("Row " + row.getData().id + " Clicked!!!!");
+ 		//alert("Row " + row.getData().id + " Clicked!!!!");
+    location.href = URL + row.getData().idx;
  	},
 });
 
