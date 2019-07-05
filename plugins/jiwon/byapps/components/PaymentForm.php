@@ -61,7 +61,7 @@ class PaymentForm extends ComponentBase
 
       $paymentData->save();
 
-      //Flash::success(post('업데이트 성공'));
+      Flash::success('업데이트 성공');
 
       /*
        * Redirect

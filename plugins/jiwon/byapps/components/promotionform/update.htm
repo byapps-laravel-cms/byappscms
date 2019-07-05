@@ -1,4 +1,4 @@
-{{ form_ajax('onUpdate') }}
+{{ form_open({ request: 'onUpdate'}) }}
 <input type="hidden" name="idx" value="{{record.idx}}"/>
 
       {% for item in itemlist %}
@@ -96,6 +96,6 @@
           </div>
         {% endfor %}
 </div>
-<button type="submit" class="btn btn-default">업데이트</button>
+<button type="submit" class="btn btn-info float-right">업데이트</button>
 
 {{ form_close() }}
