@@ -66,7 +66,19 @@ function onStart()
 {% set detailsKeyColumn = builderList.detailsKeyColumn %}
 {% set detailsUrlParameter = builderList.detailsUrlParameter %}
 
-  <table id="example" class="table table-striped table-bordered" style="width:100%">
+<!-- <div class="method">
+    <div class="col-md-12 margin-5">
+      <div id="promotionTable"></div>
+      <br />
+    </div>
+</div> -->
+
+<style>
+table.dataTable {
+  border-collapse:
+}
+</style>
+<table id="promotionTable" class="table table-striped table-bordered mb-3" style="width:100%">
           <thead>
               <tr>
                   <th>프로모션명</th>
@@ -103,93 +115,106 @@ function onStart()
           <li class="no-data">{{ noRecordsMessage }}</li>
           {% endfor %}
           </tbody>
-      </table>
+</table>
 
-  {% set paginationEnabled =
-      records.currentPage > 1 or
-      records.lastPage > 1 or
-      records.lastPage > records.currentPage
-  %}
+{% set paginationEnabled =
+    records.currentPage > 1 or
+    records.lastPage > 1 or
+    records.lastPage > records.currentPage
+%}
 
-  {% if paginationEnabled %}
-      {# How many pages to display around the current page #}
-      {% set n = 2 %}
+{% if paginationEnabled %}
+    {# How many pages to display around the current page #}
+    {% set n = 2 %}
 
-      {% set currentPageZeroBased = records.currentPage-1 %}
+    {% set currentPageZeroBased = records.currentPage-1 %}
 
-      {% set pageLinks = [] %}
-      {% set pageSet = [] %}
+    {% set pageLinks = [] %}
+    {% set pageSet = [] %}
 
-      {% set startOffset = max(currentPageZeroBased - n, 0) %}
-      {% if (startOffset + 2*n+1) > (records.lastPage-1) %}
-          {% set startOffset = max(records.lastPage - 2*n - 1, 0) %}
-      {% endif %}
+    {% set startOffset = max(currentPageZeroBased - n, 0) %}
+    {% if (startOffset + 2*n+1) > (records.lastPage-1) %}
+        {% set startOffset = max(records.lastPage - 2*n - 1, 0) %}
+    {% endif %}
 
-      {% for page in 1..records.lastPage %}
-          {% set pageLinks = pageLinks|merge([page]) %}
-      {% endfor %}
+    {% for page in 1..records.lastPage %}
+        {% set pageLinks = pageLinks|merge([page]) %}
+    {% endfor %}
 
-      {% set activeBlock = pageLinks|slice(startOffset, 2*n + 1) %}
+    {% set activeBlock = pageLinks|slice(startOffset, 2*n + 1) %}
 
-      {% if startOffset > 0 %}
-          {% set pageSet = pageSet|merge([1]) %}
+    {% if startOffset > 0 %}
+        {% set pageSet = pageSet|merge([1]) %}
 
-          {% if startOffset > 1 %}
-              {% set pageSet = pageSet|merge(['...']) %}
-          {% endif %}
-      {% endif %}
+        {% if startOffset > 1 %}
+            {% set pageSet = pageSet|merge(['...']) %}
+        {% endif %}
+    {% endif %}
 
-      {% set pageSet = pageSet|merge(activeBlock) %}
+    {% set pageSet = pageSet|merge(activeBlock) %}
 
-      {% set diffToEnd = (records.lastPage-1) - (startOffset + 2*n+1) + 1 %}
+    {% set diffToEnd = (records.lastPage-1) - (startOffset + 2*n+1) + 1 %}
 
-      {% if diffToEnd > 0 %}
-          {% if diffToEnd > 1 %}
-              {% set pageSet = pageSet|merge(['...']) %}
-          {% endif %}
+    {% if diffToEnd > 0 %}
+        {% if diffToEnd > 1 %}
+            {% set pageSet = pageSet|merge(['...']) %}
+        {% endif %}
 
-          {% set pageSet = pageSet|merge([records.lastPage]) %}
-      {% endif %}
+        {% set pageSet = pageSet|merge([records.lastPage]) %}
+    {% endif %}
 
-      <ul class="pagination">
-          {% if records.currentPage > 1 %}
-              <li>
-                  <a href="{{ paginationUrl ~ (records.currentPage - 1) }}">
-                      &larr; Previous
-                  </a>
-              </li>
-          {% else %}
-              <li class="disabled">
-                  <span>
-                      &larr; Previous
-                  </span>
-              </li>
-          {% endif %}
+    <ul class="pagination pagination-sm justify-content-center">
+        {% if records.currentPage > 1 %}
+            <li class="page-item">
+                <a class="page-link" href="{{ paginationUrl ~ (records.currentPage - 1) }}">
+                    &larr; Previous
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+        {% endif %}
 
-          {% for page in pageSet %}
-              {% if page == '...' %}
-                  <li class="interval">
-                      <a>{{ page }}</a>
-                  </li>
-              {% else %}
-                  <li class="{{ page == records.currentPage ? 'active' }}">
-                      <a href="{{ paginationUrl ~ page }}">{{ page }}</a>
-                  </li>
-              {% endif %}
-          {% endfor %}
+        {% for page in pageSet %}
+            {% if page == '...' %}
+                <li class="page-item">
+                    <a class="page-link">{{ page }}</a>
+                </li>
+            {% else %}
+                <li class="page-item {{ page == records.currentPage ? 'active' }}">
+                    <a class="page-link" href="{{ paginationUrl ~ page }}">{{ page }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
 
-          {% if records.lastPage > records.currentPage %}
-              <li>
-                  <a href="{{ paginationUrl ~ (records.currentPage + 1) }}">
-                      Next &rarr;
-                  </a>
-              </li>
-          {% else %}
-              <li class="disabled">
-                  <span>
-                      Next &rarr;
-                  </span>
-              </li>
-          {% endif %}
-      </ul>
-  {% endif %}
+        {% if records.lastPage > records.currentPage %}
+            <li>
+                <a class="page-link" href="{{ paginationUrl ~ (records.currentPage + 1) }}">
+                    Next
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="+1">Next</a>
+            </li>
+        {% endif %}
+    </ul>
+{% endif %}
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('#promotionTable').DataTable({
+        "paging": false,
+        "info": false,
+        "autoWidth": true,
+        "fixedHeader": true,
+        "responsive": true,
+        "scrollX": true,
+        dom: 'Bfrtip',
+        buttons: [
+            'excel', 'copy'
+        ]
+      });
+  });
+</script>

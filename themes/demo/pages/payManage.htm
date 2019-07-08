@@ -240,7 +240,7 @@ var table = new Tabulator("#paymentTable", {
   paginationSize: 20, //optional parameter to request a certain number of rows per page
  	columns:[ //Define Table Columns
 	 	{ title:"앱명", field:"app_name" },
-	 	{ title:"구분", field:"pay_type",
+	 	{ title:"구분", field:"pay_type", headerFilter:true, headerFilterParams:{ values:{"0":"신규", "1":"연장", "2":""}},
       formatter:function(cell, formatterParams, onRendered){
         var arrPaytype = ['신규', '연장', '충전', '추가', '기타'];
         for (var key in arrPaytype) {

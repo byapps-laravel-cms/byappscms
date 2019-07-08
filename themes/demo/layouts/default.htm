@@ -19,11 +19,9 @@ function onStart()
         <meta name="generator" content="OctoberCMS">
         <link rel="icon" type="image/png" href="{{ 'assets/images/october.png'|theme }}">
 
-
         <link href="{{ 'assets/vendor/bootstrap4.3.1/css/bootstrap.min.css?v1'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/bootstrap4.3.1/css/bootstrap-reboot.min.css?v1'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/bootstrap4.3.1/css/bootstrap-grid.min.css?v1'|theme }}" rel="stylesheet">
-
 
         <!-- <link href="{{ 'assets/css/vendor.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/theme.css'|theme }}" rel="stylesheet"> -->
@@ -33,6 +31,12 @@ function onStart()
         <link href="{{ 'assets/vendor/billboard.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/jquery-ui.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/jquery-ui.min.css'|theme }}" rel="stylesheet">
+
+        <!-- Datatable style -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.material.min.css"> -->
 
         <!-- Tabluator -->
         <!-- <link href="https://unpkg.com/tabulator-tables@4.2.7/dist/css/tabulator.min.css" rel="stylesheet"> -->
@@ -44,12 +48,11 @@ function onStart()
         <!-- Font-awesome  -->
         <script src="https://kit.fontawesome.com/5e0ee1de75.js"></script>
 
-        <!-- For Datatable -->
+        <!-- JQuery -->
         <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
-        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <!-- For Datatable 끝 -->
+
         <!-- Step 1) Load D3.js -->
         <script src="https://d3js.org/d3.v5.min.js"></script>
         {% styles %}
@@ -87,13 +90,10 @@ function onStart()
         {% scripts %}
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
-
         {% put scripts %}
             <script src="{{ 'assets/vendor/bootstrap4.3.1/js/bootstrap.min.js'|theme }}"></script>
             <script src="{{ 'assets/vendor/bootstrap4.3.1/js/bootstrap.bundle.min.js'|theme }}"></script>
         {% endput %}
-
-
 
         <script src="{{ 'assets/vendor/jquery-ui.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/jquery-ui.min.js'|theme }}"></script>
@@ -106,5 +106,21 @@ function onStart()
         {% if this.page.title == 'Home' %}<script src="{{ 'assets/javascript/chart.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/drag.js'|theme }}"></script>{% else %}
         <script src="{{ 'assets/javascript/aside.js'|theme }}"></script>{% endif %}
+
+        <!-- For Datatable -->
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <!-- <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script> -->
+        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.material.min.js"></script>
+
+          <!-- For Datatable Export Button -->
+          <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+          <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+          <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+          <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+
+        <!-- For Datatable 끝 -->
+
     </body>
 </html>
