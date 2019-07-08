@@ -27,6 +27,23 @@ active-class = "active"
 disabled-class = "disabled"
 
 [promotionForm]
+
+[Toastr]
+messageHeader = "System message"
+positionClass = "toast-top-center"
+closeButton = 1
+newestOnTop = 1
+progressBar = 1
+showDuration = 300
+hideDuration = 300
+showEasing = "swing"
+hideEasing = "linear"
+timeOut = 1000
+extendedTimeOut = 5000
+showMethod = "fadeIn"
+hideMethod = "fadeOut"
+handleAjaxErrors = 1
+handleAjaxFlashMessages = 1
 ==
 <?php
 use Jiwon\Byapps\Models\PromotionData;
@@ -79,16 +96,24 @@ function onStart()
     {% else %}
         {{ notFoundMessage }}
     {% endif %}
-  </div>
+    </div>
 
     <hr />
 
     <div class="method">
+
+      <!-- {% flash success %}
+          <div class="alert alert-success">{{ message }}</div>
+      {% endflash %} -->
+
         <div class="col-md-12 margin-0">
 
           {% component promotionForm ~ '::update' %}
 
+
         </div>
+
+        <!-- {% component 'Toastr' %} -->
     </div>
 
 </div>

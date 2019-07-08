@@ -41,6 +41,23 @@ recordsPerPage = 20
 pageNumber = "{{ :page }}"
 sortColumn = "idx"
 sortDirection = "desc"
+
+[Toastr]
+messageHeader = "System message"
+positionClass = "toast-top-center"
+closeButton = 1
+newestOnTop = 1
+progressBar = 1
+showDuration = 300
+hideDuration = 300
+showEasing = "swing"
+hideEasing = "linear"
+timeOut = 1000
+extendedTimeOut = 5000
+showMethod = "fadeIn"
+hideMethod = "fadeOut"
+handleAjaxErrors = 1
+handleAjaxFlashMessages = 1
 ==
 <?php
 use Jiwon\Byapps\Models\PaymentData;
@@ -91,6 +108,8 @@ function onStart()
   </div>
 
     <hr />
+
+{% component 'Toastr' %}
 
     <div class="method">
         <div class="row margin-0">
