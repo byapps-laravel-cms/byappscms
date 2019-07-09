@@ -74,11 +74,10 @@ function onStart()
 </div> -->
 
 <style>
-table.dataTable {
-  border-collapse:
-}
+
 </style>
-<table id="promotionTable" class="table table-striped table-bordered mb-3" style="width:100%">
+
+<table id="promotionTable" class="table table-striped table-bordered mb-3" style="width:100%;">
           <thead>
               <tr>
                   <th>프로모션명</th>
@@ -167,12 +166,12 @@ table.dataTable {
         {% if records.currentPage > 1 %}
             <li class="page-item">
                 <a class="page-link" href="{{ paginationUrl ~ (records.currentPage - 1) }}">
-                    &larr; Previous
+                    이전
                 </a>
             </li>
         {% else %}
             <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1">Previous</a>
+              <a class="page-link" href="#" tabindex="-1">이전</a>
             </li>
         {% endif %}
 
@@ -191,30 +190,63 @@ table.dataTable {
         {% if records.lastPage > records.currentPage %}
             <li>
                 <a class="page-link" href="{{ paginationUrl ~ (records.currentPage + 1) }}">
-                    Next
+                    다음
                 </a>
             </li>
         {% else %}
             <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="+1">Next</a>
+                <a class="page-link" href="#" tabindex="+1">다음</a>
             </li>
         {% endif %}
     </ul>
 {% endif %}
 
 <script type="text/javascript">
+
   $(document).ready(function() {
-      $('#promotionTable').DataTable({
+   //  $('#promotionTable thead tr').clone(true).appendTo( '#promotionTable thead' );
+   //  $('#promotionTable thead tr:eq(1) th').each( function (i) {
+   //     var title = $(this).text();
+   //     $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+   //    // console.log(this.value);
+   //     $( 'input', this ).on( 'keyup change', function () {
+   //         if ( table.column(i).search() !== this.value ) {
+   //           console.log(this.value);
+   //             table
+   //                 .column(i)
+   //                 .search( this.value )
+   //                 .draw();
+   //         }
+   //     } );
+   // } );
+   $('#promotionTable_filter').prepend('<select id="select"></select>');
+     $('#promotionTablee > thead > tr').children().each(function (indexInArray, valueOfElement) {
+         $('#select').append('<option>'+valueOfElement.innerHTML+'</option>');
+     });
+     $('.dataTables_filter input').unbind().bind('keyup', function () {
+           var colIndex = document.querySelector('#select').selectedIndex;
+           table.column(colIndex).search(this.value).draw();
+       });
+
+  var table = $('#promotionTable').DataTable({
+        "language": {
+            "emptyTable": "데이터가 없습니다.",
+            "search": "검색: ",
+            "thousands" : ",",
+            "zeroRecords": "일치하는 데이터가 없습니다.",
+            "loadingRecords": "로딩중...",
+            "processing":     "잠시만 기다려 주세요...",
+        },
         "paging": false,
         "info": false,
         "autoWidth": true,
-        "fixedHeader": true,
+        fixedHeader: true,
         "responsive": true,
         "scrollX": true,
         dom: 'Bfrtip',
         buttons: [
             'excel', 'copy'
-        ]
+        ],
       });
   });
 </script>
