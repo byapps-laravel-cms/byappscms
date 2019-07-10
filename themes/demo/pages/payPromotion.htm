@@ -17,7 +17,6 @@ noRecordsMessage = "No records found"
 detailsPage = "payPromoDetail"
 detailsKeyColumn = "idx"
 detailsUrlParameter = "idx"
-recordsPerPage = 20
 pageNumber = "{{ :page }}"
 sortColumn = "idx"
 sortDirection = "desc"
@@ -239,7 +238,8 @@ function onStart()
             "loadingRecords": "로딩중...",
             "processing":     "잠시만 기다려 주세요...",
         },
-        "paging": false,
+        "paging": true,
+        "pageLength": 20,
         "info": false,
         "autoWidth": true,
         "fixedHeader": false,
