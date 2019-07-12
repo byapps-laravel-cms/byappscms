@@ -33,6 +33,7 @@ active-class = "active"
 disabled-class = "disabled"
 ==
 <?php
+use Jiwon\Byapps\Models\PaymentData;
 use Jiwon\Byapps\Models\PayManage;
 
 function onStart()
@@ -42,8 +43,8 @@ function onStart()
     $this['func'] = new Class {
         public function dateFormat($val)
         {
-           $dateString = date("Y-m-d", $val);
-           return $dateString;
+            $dateString = date("Y-m-d", $val);
+            return $dateString;
         }
     };
 
@@ -78,7 +79,7 @@ function onStart()
         </thead>
 
         <tbody>
-         {% for record in records %}
+        {% for record in records %}
             <tr>
                 <td >
                 {% if detailsPage %}
@@ -103,7 +104,7 @@ function onStart()
                 <td>{{ func.dateFormat(record.reg_time) }}</td>
             </tr>
 
-         {% else %}
+        {% else %}
         <li class="no-data">{{ noRecordsMessage }}</li>
         {% endfor %}
         </tbody>

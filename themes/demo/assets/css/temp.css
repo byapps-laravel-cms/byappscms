@@ -1,8 +1,8 @@
 *{margin:0;padding:0;}
 #layout-content{
     background-color: #f8f8f8;
-    /* margin-top:1em; */
-    padding-top: 1em;
+    overflow-x: hidden;   
+    margin-top:39px;
 }
 #content {
     background-color: #f8f8f8;
@@ -133,7 +133,6 @@
 .theme1{
     margin: 0;
     line-height: 1;
-    font-size: 3rem;
     margin-bottom: 1%;
 }
 .dragbox{

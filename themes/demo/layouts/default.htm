@@ -19,9 +19,11 @@ function onStart()
         <meta name="generator" content="OctoberCMS">
         <link rel="icon" type="image/png" href="{{ 'assets/images/october.png'|theme }}">
 
+
         <link href="{{ 'assets/vendor/bootstrap4.3.1/css/bootstrap.min.css?v1'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/bootstrap4.3.1/css/bootstrap-reboot.min.css?v1'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/bootstrap4.3.1/css/bootstrap-grid.min.css?v1'|theme }}" rel="stylesheet">
+
 
         <!-- <link href="{{ 'assets/css/vendor.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/theme.css'|theme }}" rel="stylesheet"> -->
@@ -31,6 +33,7 @@ function onStart()
         <link href="{{ 'assets/vendor/billboard.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/jquery-ui.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/jquery-ui.min.css'|theme }}" rel="stylesheet">
+
 
         <!-- Datatable style -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
@@ -46,6 +49,7 @@ function onStart()
         <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.2.7/dist/js/tabulator.min.js"></script>
         <script src="{{ 'assets/javascript/moment.js'|theme }}"></script>
         <script type="text/javascript" src="http://oss.sheetjs.com/js-xlsx/xlsx.full.min.js"></script>
+
 
         <!-- Font-awesome  -->
         <script src="https://kit.fontawesome.com/5e0ee1de75.js"></script>
@@ -83,20 +87,23 @@ function onStart()
                 <p>OPEN</p>
             </div>
             <div id="sidebar">
-                    {% partial 'site/aside' %}
+                {% partial 'site/aside' %}
             </div>
         </section>
 
         <!-- Scripts -->
         {% framework extras %}
         {% scripts %}
+
         <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 
         {% put scripts %}
             <script src="{{ 'assets/vendor/bootstrap4.3.1/js/bootstrap.min.js'|theme }}"></script>
             <script src="{{ 'assets/vendor/bootstrap4.3.1/js/bootstrap.bundle.min.js'|theme }}"></script>
         {% endput %}
+
 
         <script src="{{ 'assets/vendor/jquery-ui.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/jquery-ui.min.js'|theme }}"></script>

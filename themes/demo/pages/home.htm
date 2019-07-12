@@ -94,16 +94,21 @@ function onLayoutChange()
 ?>
 ==
 {% component 'session' %}
-<div class="container" style="padding: 58px 50px;">
+<div class="col" style="padding: 58px 50px;">
 {% if not user %}
 <h2><center>로그인하는페이지</center></h2>
 {% elseif user %}
 <div class="sortable">
   {% for record in recoreds %}
       {% if record == 'layout1' %}
-        <li class="ui-state-default one" id="layout1">
-            <div class="dragbox " >
-                <h2 class="theme1"><b>주문요청</b> <span class="font-default">현황</span></h2>
+        <li class="ui-state-default one card" id="layout1">
+            <div class="cal_box col-md-12 col-sm-12">
+                <div class="card-title mt-2">
+                    주문요청현황
+                    <button class="btn float-right" type="button" data-toggle="collapse" data-target="#salesList" aria-expanded="true" aria-controls="salesList"><i class="fas fa-angle-down"></i></button>
+                </div>               
+            </div>
+            <div class="dragbox" id="salesList">
                 <div class="c_box_1">
                     <div class="circle1">
                         <p class="vertical_center">10</p>
@@ -137,9 +142,24 @@ function onLayoutChange()
             </div>
         </li>
       {% elseif record == 'layout2' %}
-        <li class="ui-state-default" id="layout2">
-            <div class="dragbox_hover row dragbox">
+        <li class="ui-state-default card" id="layout2">
+            <div class="cal_box col-md-12 col-sm-12">
+                <div class="card-title mt-2">
+                    통계
+                    <button class="btn float-right" type="button" data-toggle="collapse" data-target="#allLank" aria-expanded="true" aria-controls="allLank"><i class="fas fa-angle-down"></i></button>
+                </div>               
+            </div>
+            <div class="dragbox_hover row" id="allLank">
                 <div class="col-md-3 col-xs-12">
+                    <h6 class="theme1 p-1">앱 통계</h6>
+                    <div id="app_stats"></div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <h6 class="theme1 p-1">MA 통계</h6>
+                    <div id="ma_stats"></div>
+                </div>
+                <div class="col-md-6 col-xs-12" class="dragbox_hover">
+                    <h6 class="theme1 p-1">매출통계</h6>
                     <h2>앱 통계</h2>
                     <div id="app_stats"></div>
                 </div>
@@ -155,43 +175,49 @@ function onLayoutChange()
 
         </li>
       {% elseif record == 'layout3' %}
-        <li class="ui-state-default one" id="layout3">
-             <div class="dragbox">
-                <div class="row">
-                    <div class="cal_box col-md-12 col-sm-12">
-                        <h2>만료예정업체</h2>
+
+        <li class="ui-state-default one card" id="layout3">
+            <div class="cal_box col-md-12 col-sm-12">
+                <div class="card-title mt-2">
+                    만료예정업체
+                    <button class="btn float-right" type="button" data-toggle="collapse" data-target="#endList" aria-expanded="true" aria-controls="endList"><i class="fas fa-angle-down"></i></button>
+                </div>               
+            </div>
+           
+            <div class="dragbox" id="endList">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-ios-tab" data-toggle="tab" href="#nav-ios" role="tab" aria-controls="nav-ios" aria-selected="true">IOS 계정 만료</a>
+                        <a class="nav-item nav-link" id="nav-push-tab" data-toggle="tab" href="#nav-push" role="tab" aria-controls="nav-push" aria-selected="false">푸쉬 인증서만료</a>
+                        <a class="nav-item nav-link" id="nav-ma-tab" data-toggle="tab" href="#nav-ma" role="tab" aria-controls="nav-ma" aria-selected="false">MA 서비스만료</a>
                     </div>
-                    <div class="cal_box col-md-12 col-sm-12">
-                        <ul class="col-lg-6 col-xs-12 app_select">
-                            <li>IOS 계정 만료</li>
-                            <li>푸쉬 인증서만료</li>
-                            <li>MA 서비스만료</li>
-                        </ul>
+                </nav>     
+            
+                <div class="tab-content p-2" id="nav-tabContent">  
+                    <div class="tab-pane fade show row active" id="nav-ios" role="tabpanel" aria-labelledby="nav-ios-tab">              
+                    {% for appData in appsData %}     
+                        <div class='col-2 col-sm-2 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
+                            <img class='p-2' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'>
+                            <p>{{ func.dateFormat(appData.end_time) }}</p>
+                        </div>                                
+                    {% endfor %}    
+                    </div>       
+                    <div class="tab-pane fade row" id="nav-push" role="tabpanel" aria-labelledby="nav-push-tab">
+                    {% for appData in appsData %}       
+                        <div class='col-2 col-sm-2 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
+                            <img class='p-2' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'>
+                            <p>{{ func.dateFormat(appData.end_time) }}</p>
+                        </div>                       
+                    {% endfor %} 
+                    </div>           
+                    <div class="tab-pane fade row" id="nav-ma" role="tabpanel" aria-labelledby="nav-ma-tab">  
+                    {% for appData in appsData %}
+                        <div class='col-2 col-sm-2 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
+                            <img class='p-2' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'>
+                            <p>{{ func.dateFormat(appData.end_time) }}</p>
+                        </div>
+                    {% endfor %}
                     </div>
-                </div>
-                <div class="row">
-                  {% for appData in appsData %}
-                    <div class='col-sm-3 {{ appData.end_time < nowDate ? "opacity" : "" }}'>
-                        <img class='h-25 p-10 d-inline-block' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'>
-                        <p>{{ func.dateFormat(appData.end_time) }}</p>
-                    </div>
-                  {% endfor %}
-                </div>
-                <div class="row">
-                  {% for appData in appsData %}
-                    <div class='col-sm-3 {{ appData.end_time < nowDate ? "opacity" : "" }}'>
-                        <img class='h-25 p-10 d-inline-block' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'>
-                        <p>{{ func.dateFormat(appData.end_time) }}</p>
-                    </div>
-                  {% endfor %}
-                </div>
-                <div class="row">
-                  {% for appData in appsData %}
-                    <div class='col-sm-3 {{ appData.end_time < nowDate ? "opacity" : "" }}'>
-                        <img class='h-25 p-10 d-inline-block' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'>
-                        <p>{{ func.dateFormat(appData.end_time) }}</p>
-                    </div>
-                  {% endfor %}
                 </div>
             </div>
         </li>
