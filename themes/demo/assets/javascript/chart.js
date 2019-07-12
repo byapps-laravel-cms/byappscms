@@ -19,25 +19,24 @@ function showChart (data){
     donut: {
       title: "0000"
     },
-      bindto: "#app_stats"
+      bindto: "#ma_stats"
     });
     
   var chart = bb.generate({
     data: {
-      columns: data.circle2,
-      type: "donut",
-      colors: {
+    columns: data.circle2,
+    type: "donut",
+    colors: {
         "무료": "#f6b300",
         "유료": "#e88d00",
         "관리": "#fcca8f"
-      },
+        },
     },
     donut: {
-      title: "0000"
+    title: "0000"
     },
-      bindto: "#ma_stats"
-    }
-  );
+    bindto: "#app_stats"
+    });
     
   var chart = bb.generate({
     data: {

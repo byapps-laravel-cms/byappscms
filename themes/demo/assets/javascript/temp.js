@@ -21,13 +21,13 @@ function asdf(){
 //     $("#layout3 > .dragbox > .row:nth-child(4)").append(li3);
 // }
 
-$("#layout3 > .dragbox > .row:not(:first-child").css({'display':'none'});
-$("#layout3 > .dragbox > .row:nth-child(2)").css({'display':'block'});
+// $("#layout3 > .dragbox > .row:not(:first-child").css({'display':'none'});
+// $("#layout3 > .dragbox > .row:nth-child(2)").css({'display':'block'});
 $(".app_select li").eq(0).css({'border-bottom':'1px solid gray'});
 $(".app_select li").click(function (){
     var index = $(".app_select li").index(this);
     $(".app_select li").css({'border':'0'});
     $(this).css({'border-bottom':'1px solid gray'});
     $("#layout3 > .dragbox > .row:not(:first-child").css({'display':'none'});
-    $("#layout3 > .dragbox > .row").eq(index+1).css({'display':'block'});
+    // $("#layout3 > .dragbox > .row").eq(index+1).css({'display':'block'});
 })

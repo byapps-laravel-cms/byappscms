@@ -101,6 +101,12 @@ function onStart()
         {% endfor %}
         </tbody>
     </table>
+    {% scripts %}
+    <script>
+        document.body.innerHTML+= record.app_build 
+    </script>
+        
+    {% scripts %}
 
 {% set paginationEnabled =
     records.currentPage > 1 or
