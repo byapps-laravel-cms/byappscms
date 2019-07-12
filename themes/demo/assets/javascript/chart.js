@@ -3,9 +3,9 @@ $.request('onGetChartData', {
   success: function(data) {
     showChart(data);
   }
-})
+});
 
-function showChart (data){
+function showChart (data) {
   var chart = bb.generate({
     data: {
       columns: data.circle1,
@@ -54,6 +54,5 @@ function showChart (data){
       }
     },
       bindto: "#sale_stats"
-    }
-  );
+    });
 }
