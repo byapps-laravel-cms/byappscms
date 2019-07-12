@@ -27,6 +27,37 @@ active-class = "active"
 disabled-class = "disabled"
 
 [paymentForm]
+
+[builderList]
+modelClass = "Jiwon\Byapps\Models\PayManage"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "app_name"
+noRecordsMessage = "No records found"
+detailsPage = "payDetail"
+detailsKeyColumn = "idx"
+detailsUrlParameter = "idx"
+recordsPerPage = 20
+pageNumber = "{{ :page }}"
+sortColumn = "idx"
+sortDirection = "desc"
+
+[Toastr]
+messageHeader = "System message"
+positionClass = "toast-top-center"
+closeButton = 1
+newestOnTop = 1
+progressBar = 1
+showDuration = 300
+hideDuration = 300
+showEasing = "swing"
+hideEasing = "linear"
+timeOut = 1000
+extendedTimeOut = 5000
+showMethod = "fadeIn"
+hideMethod = "fadeOut"
+handleAjaxErrors = 1
+handleAjaxFlashMessages = 1
 ==
 <?php
 use Jiwon\Byapps\Models\PaymentData;
@@ -67,7 +98,6 @@ function onStart()
 
     <div class="alert alert-info">
     {% if record %}
-       <!--  <h4>Row modifier class included</h4> -->
         <h4>
           <strong>{{ attribute(record, displayColumn) }}</strong>
         </h4>
@@ -79,175 +109,160 @@ function onStart()
 
     <hr />
 
-    <div class="method">
-       <!--  <div class="row margin-0 list-header hidden-sm hidden-xs">
-           <div class="col-md-3"><div class="header">주문번호</div></div>
-       </div> -->
+{% component 'Toastr' %}
 
+    <div class="method">
         <div class="row margin-0">
 
        {% component paymentForm ~ '::update' %}
-        <!-- {{ form_ajax('onUpdate', { confirm: '진짜로?' }) }} -->
-        <!-- <div class="row1">
-           <div class="col-md-2 col-xs-4">
-               <div class="cell">
-                   <div class="propertyname th_style_1">
-                   주문번호
-                   </div>
-               </div>
-           </div>
 
-           <div class="col-md-10 col-xs-8">
-               <div class="cell">
-                   <div class="description td_style_1">
-                     {{ record.order_id }} <a href="#" title="삭제" class="btn_del"></a>
-                   </div>
-               </div>
-           </div>
-        </div>
-
-        <div class="row1">
-           <div class="col-md-2 col-xs-4">
-               <div class="cell">
-                   <div class="propertyname th_style_1">
-                   결제날짜
-                   </div>
-               </div>
-           </div>
-           <div class="col-md-10 col-xs-8">
-               <div class="cell">
-                   <div class="description td_style_1">
-                     {{ func.dateFormat(record.reg_time) }}
-                   </div>
-               </div>
-           </div>
-       </div>
-
-       <div class="row1">
-           <div class="col-md-2 col-xs-4">
-               <div class="cell">
-                   <div class="propertyname th_style_1">
-                   회원ID
-                   </div>
-               </div>
-           </div>
-
-           <div class="col-md-10 col-xs-8">
-               <div class="cell">
-                   <div class="description td_style_1">
-                     {{ record.mem_id }}
-                     <input class="btn nbutton3 btn-xs" type="button" value="회원정보">
-                     <input class="btn nbutton3 btn-xs" type="button" value="주문내역">
-                     <input class="btn nbutton3 btn-xs" type="button" value="앱관리">
-                   </div>
-               </div>
-           </div>
-        </div>
-
-        <div class="row1">
-           <div class="col-md-2 col-xs-4">
-               <div class="cell">
-                   <div class="propertyname th_style_1">
-                   App 명
-                   </div>
-               </div>
-           </div>
-           <div class="col-md-10 col-xs-8">
-               <div class="cell">
-                   <div class="description td_style_1">
-                     {{ record.app_name }} ({{ record.apps_type }})
-                   </div>
-
-               </div>
-           </div>
-        </div>
-
-        <div class="row1">
-           <div class="col-md-2 col-xs-4">
-               <div class="cell">
-                   <div class="propertyname th_style_1">
-                   결제기간
-                   </div>
-               </div>
-           </div>
-           <div class="col-md-10 col-xs-8">
-               <div class="cell">
-                   <div class="description td_style_1">
-                    {% for key,val in arrPaytype %}
-                       {{ key == record.pay_type ? val : "" }}
-                    {% endfor %}
-                   , {{ record.term }}일,  {{ func.dateFormatSimple(record.start_time) }} ~ {{ func.dateFormatSimple(record.end_time) }}
-                   </div>
-
-               </div>
-           </div>
-        </div>
-
-        <div class="row1">
-           <div class="col-md-2 col-xs-4">
-               <div class="cell">
-                   <div class="propertyname th_style_1">
-                   결제금액
-                   </div>
-               </div>
-           </div>
-           <div class="col-md-10 col-xs-8">
-               <div class="cell">
-                   <div class="description td_style_1">
-                   {{ record.amount | number_format(0, ',') }}원
-                   <input class="btn btn-danger cbutton3 btn-xs" type="button" value="결제취소">
-                   <input class="btn btn-danger cbutton3 btn-xs" type="button" value="무료처리">
-                   </div>
-
-               </div>
-           </div>
-        </div>
-
-        <div class="row1">
-           <div class="col-md-2 col-xs-4">
-               <div class="cell">
-                   <div class="propertyname th_style_1">
-                   결제정보
-                   </div>
-               </div>
-           </div>
-           <div class="col-md-10 col-xs-8">
-               <div class="cell">
-                   <div class="description td_style_1">
-                     {{ record.payment | split('{:}', 5)[1] }} ({{ record.payment | split('{:}', 5)[0] }}) <br />
-                     승인번호:  {{ record.payment | split('{:}', 5)[3] }}<br />
-                     승인시간:
-                   <input class="btn nbutton3 btn-xs" type="button" value="입금확인">
-                   </div>
-
-               </div>
-           </div>
-        </div>
-
-        <div class="row1">
-           <div class="col-md-2 col-xs-4 height_2">
-               <div class="cell">
-                   <div class="propertyname th_style_1">
-                   영수증정보
-                   </div>
-               </div>
-           </div>
-
-           <div class="col-md-10 col-xs-8">
-               <div class="cell">
-                   <div class="description td_style_1">
-                     <textarea id="receipt" name="receipt" class="form-control" style="height:200px;">{{ record.receipt != '' ? record.receipt : "미발행" }}</textarea>
-                   </div>
-
-               </div>
-           </div>
-         </div>
-        </div> -->
-
-        <!-- {{ form_close() }} -->
     </div>
 
-    <!-- Result container -->
-    <div id="myDiv"></div>
+    <br />
+    <hr />
+    <br />
 
+    {% set records = builderList.records %}
+    {% set displayColumn = builderList.displayColumn %}
+    {% set noRecordsMessage = builderList.noRecordsMessage %}
+    {% set detailsPage = builderList.detailsPage %}
+    {% set detailsKeyColumn = builderList.detailsKeyColumn %}
+    {% set detailsUrlParameter = builderList.detailsUrlParameter %}
+
+    <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <col width="40%">
+            <col width="5%">
+            <col width="30%">
+            <col width="10%">
+            <col width="15%">
+            <thead>
+                <tr>
+                    <th>앱명</th>
+                    <th>구분</th>
+                    <th>기간</th>
+                    <th>결제금액</th>
+                    <th>결제일</th>
+                </tr>
+            </thead>
+
+            <tbody>
+             {% for record in records %}
+                <tr>
+                    <td >
+                    {% if detailsPage %}
+                        <a href="{{ detailsPage|page({ (detailsUrlParameter): attribute(record, detailsKeyColumn) }) }}">
+                    {% endif %}
+
+                    {{ attribute(record, displayColumn) }}
+
+                    {% if detailsPage %}
+                        </a>
+                    {% endif %}
+                    </td>
+
+                    <td>
+                    {% for key,val in arrPaytype %}
+                      {{ key == record.pay_type ? val : "" }}
+                    {% endfor %}
+                    </td>
+
+                    <td>{{ record.term }}일 ({{ func.dateFormat(record.start_time) }} ~ {{ func.dateFormat(record.end_time) }})</td>
+                    <td>{{ record.amount | number_format(0, ',') }}</td>
+                    <td>{{ func.dateFormat(record.reg_time) }}</td>
+                </tr>
+
+             {% else %}
+            <li class="no-data">{{ noRecordsMessage }}</li>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {% set paginationEnabled =
+            records.currentPage > 1 or
+            records.lastPage > 1 or
+            records.lastPage > records.currentPage
+        %}
+
+        {% if paginationEnabled %}
+            {# How many pages to display around the current page #}
+            {% set n = 2 %}
+
+            {% set currentPageZeroBased = records.currentPage-1 %}
+
+            {% set pageLinks = [] %}
+            {% set pageSet = [] %}
+
+            {% set startOffset = max(currentPageZeroBased - n, 0) %}
+            {% if (startOffset + 2*n+1) > (records.lastPage-1) %}
+                {% set startOffset = max(records.lastPage - 2*n - 1, 0) %}
+            {% endif %}
+
+            {% for page in 1..records.lastPage %}
+                {% set pageLinks = pageLinks|merge([page]) %}
+            {% endfor %}
+
+            {% set activeBlock = pageLinks|slice(startOffset, 2*n + 1) %}
+
+            {% if startOffset > 0 %}
+                {% set pageSet = pageSet|merge([1]) %}
+
+                {% if startOffset > 1 %}
+                    {% set pageSet = pageSet|merge(['...']) %}
+                {% endif %}
+            {% endif %}
+
+            {% set pageSet = pageSet|merge(activeBlock) %}
+
+            {% set diffToEnd = (records.lastPage-1) - (startOffset + 2*n+1) + 1 %}
+
+            {% if diffToEnd > 0 %}
+                {% if diffToEnd > 1 %}
+                    {% set pageSet = pageSet|merge(['...']) %}
+                {% endif %}
+
+                {% set pageSet = pageSet|merge([records.lastPage]) %}
+            {% endif %}
+
+            <ul class="pagination">
+                {% if records.currentPage > 1 %}
+                    <li>
+                        <a href="{{ paginationUrl ~ (records.currentPage - 1) }}">
+                            &larr; Previous
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="disabled">
+                        <span>
+                            &larr; Previous
+                        </span>
+                    </li>
+                {% endif %}
+
+                {% for page in pageSet %}
+                    {% if page == '...' %}
+                        <li class="interval">
+                            <a>{{ page }}</a>
+                        </li>
+                    {% else %}
+                        <li class="{{ page == records.currentPage ? 'active' }}">
+                            <a href="{{ paginationUrl ~ page }}">{{ page }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if records.lastPage > records.currentPage %}
+                    <li>
+                        <a href="{{ paginationUrl ~ (records.currentPage + 1) }}">
+                            Next &rarr;
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="disabled">
+                        <span>
+                            Next &rarr;
+                        </span>
+                    </li>
+                {% endif %}
+            </ul>
+        {% endif %}
 </div>

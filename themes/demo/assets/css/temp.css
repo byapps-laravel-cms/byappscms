@@ -5,7 +5,7 @@
     margin-top:39px;
 }
 #content {
-    background-color: #f8f8f8; 
+    background-color: #f8f8f8;
 }
 .navright>li{
     float: left;
@@ -56,7 +56,7 @@
     height:100%;
 }
 .select_box_1{
-    margin:19px 0;     
+    margin:19px 0;
     background-color:#ffffff;
     height: 35px;
 }
@@ -136,24 +136,24 @@
     margin-bottom: 1%;
 }
 .dragbox{
-  margin:0 auto; 
+  margin:0 auto;
   padding:20px;
   height:fit-content;
-  margin-top:19px; 
+  margin-top:19px;
   float:left;
-  width:100%; 
+  width:100%;
   background: #fff;
 }
 .dragbox img{
     max-width: 100%;
-    height: auto;  
+    height: auto;
 }
 .dragbox p {
-    text-align: center;    
+    text-align: center;
 }
 .app_select li{
     width: 33.333%;
-    list-style:none;    
+    list-style:none;
     float:left;
     text-align:center;
 }
@@ -175,7 +175,7 @@
 }
 }
 /* .select_box_1{
-    background-color:#262a30;    
+    background-color:#262a30;
 }
 .app_container{
     width:100%;
@@ -298,7 +298,7 @@
     text-align: center;
     height: 24px;
     padding: 0 15px;
-    
+
 }
 .top_btn{
     cursor: pointer;
@@ -323,7 +323,7 @@
 .aside_open_btn_1{
     width: 0.7vw;
     height: 100vh;
-    top: 0%; 
+    top: 0%;
 }
 .aside_open_btn_2{
     width: 3vw;
@@ -460,7 +460,7 @@
 }
 .check_box_1{
     float: left;
-    width: 108px; 
+    width: 108px;
 }
 .pop_foot{
     margin-top:15px;

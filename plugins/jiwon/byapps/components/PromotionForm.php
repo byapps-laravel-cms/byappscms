@@ -6,6 +6,7 @@ use Auth;
 use Event;
 use Flash;
 use Input;
+use Session;
 use Request;
 use Redirect;
 use Validator;
@@ -63,19 +64,21 @@ class PromotionForm extends ComponentBase
       $promotionData->mem_name = Input::get('mem_name');
       $promotionData->pm_target = Input::get('pm_target');
       $promotionData->pm_comment = Input::get('pm_comment');
+      $promotionData->pm_content = Input::get('pm_content');
 
-      print_r($promotionData->pm_target);
+      //print_r($promotionData->pm_content);
 
       $promotionData->save();
 
-      //Flash::success(post('업데이트 성공'));
-
+      Flash::success('업데이트 성공');
       /*
        * Redirect
        */
       if ($redirect = $this->makeRedirection()) {
+
           return $redirect;
       }
+
       //
       // $this->prepareVars();
   }

@@ -1,0 +1,32 @@
+    jQuery(document).ready(function ($) {
+        toastr.options = {
+            "closeButton": {{ toastr.closeButton ? 'true' : 'false' }},
+            "debug": {{ toastr.debug ? 'true' : 'false' }},
+            "newestOnTop": {{ toastr.newestOnTop ? 'true' : 'false' }},
+            "progressBar": {{ toastr.progressBar ? 'true' : 'false' }},
+            "positionClass": "{{ toastr.positionClass }}",
+            "preventDuplicates": {{ toastr.preventDuplicates ? 'true' : 'false' }},
+            {% if toastr.onclick %}
+            "onclick": {{ toastr.onclick|raw }},
+            {% endif %}
+            "showDuration": "{{ toastr.showDuration }}",
+            "hideDuration": "{{ toastr.hideDuration }}",
+            "timeOut": "{{ toastr.timeOut }}",
+            "extendedTimeOut": "{{ toastr.extendedTimeOut }}",
+            "showEasing": "{{ toastr.showEasing }}",
+            "hideEasing": "{{ toastr.hideEasing }}",
+            "showMethod": "{{ toastr.showMethod }}",
+            "hideMethod": "{{ toastr.hideMethod }}"
+        };
+        {% if toastr.handleAjaxErrors %}
+        $(window).on('ajaxErrorMessage', function (event, message) {
+            toastr.error(message, '{{ toastr.messageHeader }}');
+            event.preventDefault();
+        });
+        {% endif %}
+        {% if toastr.handleAjaxFlashMessages %}
+        {% flash %}
+        toastr.{{ type }}('{{ message }}', '{{ toastr.messageHeader }}');
+        {% endflash %}
+        {% endif %}
+    });

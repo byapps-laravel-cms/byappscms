@@ -17,7 +17,6 @@ noRecordsMessage = "No records found"
 detailsPage = "payPromoDetail"
 detailsKeyColumn = "idx"
 detailsUrlParameter = "idx"
-recordsPerPage = 20
 pageNumber = "{{ :page }}"
 sortColumn = "idx"
 sortDirection = "desc"
@@ -29,6 +28,7 @@ redirect = "permission"
 
 [breadcrumbs]
 main-ol-class = "breadcrumb"
+main-li-class = "breadcrumb-item"
 active-class = "active"
 disabled-class = "disabled"
 ==
@@ -55,8 +55,15 @@ function onStart()
 ?>
 ==
 {% component 'breadcrumbs' %}
+<style>
 
-<div class="container">
+.dataTables_wrapper .dataTables_scroll {
+  width:100%;
+}
+</style>
+
+
+<div class="container col-12 col-md-12">
 
 {% set records = builderList.records %}
 {% set displayColumn = builderList.displayColumn %}
@@ -65,130 +72,200 @@ function onStart()
 {% set detailsKeyColumn = builderList.detailsKeyColumn %}
 {% set detailsUrlParameter = builderList.detailsUrlParameter %}
 
-  <table id="example" class="table table-striped table-bordered" style="width:100%">
-          <thead>
-              <tr>
-                  <th>프로모션명</th>
-                  <th>회원</th>
-                  <th>사용</th>
-                  <th>적용대상</th>
-                  <th>적용내용</th>
-                  <th>등록일</th>
-              </tr>
-          </thead>
+<!-- <div class="method">
+    <div class="col-md-12 margin-5">
+      <div id="promotionTable"></div>
+      <br />
+    </div>
+</div> -->
 
-          <tbody>
-           {% for record in records %}
-              <tr>
-                  <td>{{ record.pm_title }}</td>
-                  <td>
-                  {% if detailsPage %}
-                      <a href="{{ detailsPage|page({ (detailsUrlParameter): attribute(record, detailsKeyColumn) }) }}">
-                  {% endif %}
 
-                  {{ attribute(record, displayColumn) }} ({{ record.mem_id}})
+ <div class="method">
+   <div class="col-md-12 margin-5">
 
-                  {% if detailsPage %}
-                      </a>
-                  {% endif %}
-                  </td>
-                  <td>{{ record.pm_used == 0 ? "미사용" : "사용" }}</td>
-                  <td>{{ record.pm_target == 'ma' ? "마케팅 오토메이션" : "리타겟팅" }}</td>
-                  <td>{{ func.numberFormat(record.pm_content) }}</td>
-                  <td>{{ func.dateFormatSimple(record.reg_time) }}</td>
-              </tr>
+      <table id="promotionTable" class="table table-striped table-bordered mb-3" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>프로모션명</th>
+                        <th>회원</th>
+                        <th>사용</th>
+                        <th>적용대상</th>
+                        <th>적용내용</th>
+                        <th>등록일</th>
+                    </tr>
+                </thead>
 
-           {% else %}
-          <li class="no-data">{{ noRecordsMessage }}</li>
-          {% endfor %}
-          </tbody>
+                <tbody>
+                 {% for record in records %}
+                    <tr>
+                        <td>{{ record.pm_title }}</td>
+                        <td>
+                        {% if detailsPage %}
+                            <a href="{{ detailsPage|page({ (detailsUrlParameter): attribute(record, detailsKeyColumn) }) }}">
+                        {% endif %}
+
+                        {{ attribute(record, displayColumn) }} ({{ record.mem_id}})
+
+                        {% if detailsPage %}
+                            </a>
+                        {% endif %}
+                        </td>
+                        <td>{{ record.pm_used == 0 ? "미사용" : "사용" }}</td>
+                        <td>{{ record.pm_target == 'ma' ? "마케팅 오토메이션" : "리타겟팅" }}</td>
+                        <td>{{ func.numberFormat(record.pm_content) }}</td>
+                        <td>{{ func.dateFormatSimple(record.reg_time) }}</td>
+                    </tr>
+
+                 {% else %}
+                <li class="no-data">{{ noRecordsMessage }}</li>
+                {% endfor %}
+                </tbody>
       </table>
 
-  {% set paginationEnabled =
-      records.currentPage > 1 or
-      records.lastPage > 1 or
-      records.lastPage > records.currentPage
-  %}
+  </div>
+</div>
+{% set paginationEnabled =
+    records.currentPage > 1 or
+    records.lastPage > 1 or
+    records.lastPage > records.currentPage
+%}
 
-  {% if paginationEnabled %}
-      {# How many pages to display around the current page #}
-      {% set n = 2 %}
+{% if paginationEnabled %}
+    {# How many pages to display around the current page #}
+    {% set n = 2 %}
 
-      {% set currentPageZeroBased = records.currentPage-1 %}
+    {% set currentPageZeroBased = records.currentPage-1 %}
 
-      {% set pageLinks = [] %}
-      {% set pageSet = [] %}
+    {% set pageLinks = [] %}
+    {% set pageSet = [] %}
 
-      {% set startOffset = max(currentPageZeroBased - n, 0) %}
-      {% if (startOffset + 2*n+1) > (records.lastPage-1) %}
-          {% set startOffset = max(records.lastPage - 2*n - 1, 0) %}
-      {% endif %}
+    {% set startOffset = max(currentPageZeroBased - n, 0) %}
+    {% if (startOffset + 2*n+1) > (records.lastPage-1) %}
+        {% set startOffset = max(records.lastPage - 2*n - 1, 0) %}
+    {% endif %}
 
-      {% for page in 1..records.lastPage %}
-          {% set pageLinks = pageLinks|merge([page]) %}
-      {% endfor %}
+    {% for page in 1..records.lastPage %}
+        {% set pageLinks = pageLinks|merge([page]) %}
+    {% endfor %}
 
-      {% set activeBlock = pageLinks|slice(startOffset, 2*n + 1) %}
+    {% set activeBlock = pageLinks|slice(startOffset, 2*n + 1) %}
 
-      {% if startOffset > 0 %}
-          {% set pageSet = pageSet|merge([1]) %}
+    {% if startOffset > 0 %}
+        {% set pageSet = pageSet|merge([1]) %}
 
-          {% if startOffset > 1 %}
-              {% set pageSet = pageSet|merge(['...']) %}
-          {% endif %}
-      {% endif %}
+        {% if startOffset > 1 %}
+            {% set pageSet = pageSet|merge(['...']) %}
+        {% endif %}
+    {% endif %}
 
-      {% set pageSet = pageSet|merge(activeBlock) %}
+    {% set pageSet = pageSet|merge(activeBlock) %}
 
-      {% set diffToEnd = (records.lastPage-1) - (startOffset + 2*n+1) + 1 %}
+    {% set diffToEnd = (records.lastPage-1) - (startOffset + 2*n+1) + 1 %}
 
-      {% if diffToEnd > 0 %}
-          {% if diffToEnd > 1 %}
-              {% set pageSet = pageSet|merge(['...']) %}
-          {% endif %}
+    {% if diffToEnd > 0 %}
+        {% if diffToEnd > 1 %}
+            {% set pageSet = pageSet|merge(['...']) %}
+        {% endif %}
 
-          {% set pageSet = pageSet|merge([records.lastPage]) %}
-      {% endif %}
+        {% set pageSet = pageSet|merge([records.lastPage]) %}
+    {% endif %}
 
-      <ul class="pagination">
-          {% if records.currentPage > 1 %}
-              <li>
-                  <a href="{{ paginationUrl ~ (records.currentPage - 1) }}">
-                      &larr; Previous
-                  </a>
-              </li>
-          {% else %}
-              <li class="disabled">
-                  <span>
-                      &larr; Previous
-                  </span>
-              </li>
-          {% endif %}
+    <ul class="pagination pagination-sm justify-content-center">
+        {% if records.currentPage > 1 %}
+            <li class="page-item">
+                <a class="page-link" href="{{ paginationUrl ~ (records.currentPage - 1) }}">
+                    이전
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1">이전</a>
+            </li>
+        {% endif %}
 
-          {% for page in pageSet %}
-              {% if page == '...' %}
-                  <li class="interval">
-                      <a>{{ page }}</a>
-                  </li>
-              {% else %}
-                  <li class="{{ page == records.currentPage ? 'active' }}">
-                      <a href="{{ paginationUrl ~ page }}">{{ page }}</a>
-                  </li>
-              {% endif %}
-          {% endfor %}
+        {% for page in pageSet %}
+            {% if page == '...' %}
+                <li class="page-item">
+                    <a class="page-link">{{ page }}</a>
+                </li>
+            {% else %}
+                <li class="page-item {{ page == records.currentPage ? 'active' }}">
+                    <a class="page-link" href="{{ paginationUrl ~ page }}">{{ page }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
 
-          {% if records.lastPage > records.currentPage %}
-              <li>
-                  <a href="{{ paginationUrl ~ (records.currentPage + 1) }}">
-                      Next &rarr;
-                  </a>
-              </li>
-          {% else %}
-              <li class="disabled">
-                  <span>
-                      Next &rarr;
-                  </span>
-              </li>
-          {% endif %}
-      </ul>
-  {% endif %}
+        {% if records.lastPage > records.currentPage %}
+            <li>
+                <a class="page-link" href="{{ paginationUrl ~ (records.currentPage + 1) }}">
+                    다음
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="+1">다음</a>
+            </li>
+        {% endif %}
+    </ul>
+{% endif %}
+
+<script type="text/javascript">
+
+  $(document).ready(function() {
+   //  $('#promotionTable thead tr').clone(true).appendTo( '#promotionTable thead' );
+   //  $('#promotionTable thead tr:eq(1) th').each( function (i) {
+   //     var title = $(this).text();
+   //     $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+   //    // console.log(this.value);
+   //     $( 'input', this ).on( 'keyup change', function () {
+   //         if ( table.column(i).search() !== this.value ) {
+   //           console.log(this.value);
+   //             table
+   //                 .column(i)
+   //                 .search( this.value )
+   //                 .draw();
+   //         }
+   //     } );
+   // } );
+
+
+  var table = $('#promotionTable').DataTable({
+        "language": {
+            "emptyTable": "데이터가 없습니다.",
+            "search": "검색: ",
+            "thousands" : ",",
+            "zeroRecords": "일치하는 데이터가 없습니다.",
+            "loadingRecords": "로딩중...",
+            "processing":     "잠시만 기다려 주세요...",
+        },
+        "paging": true,
+        "pageLength": 20,
+        "info": false,
+        "autoWidth": true,
+        "fixedHeader": false,
+        "responsive": true,
+        // "scrollX": true,
+        "dom": 'Bfrtip',
+        "buttons": [
+            'excel', 'copy'
+        ],
+      });
+
+      setTimeout(function(){
+        $('#promotionTable_filter').prepend('<select id="promotionTable_select"></select>');
+        $('#promotionTable > thead > tr').children().each(function (indexInArray, valueOfElement) {
+            $('#promotionTable_select').append('<option>'+valueOfElement.innerHTML+'</option>');
+        });
+        $('.dataTables_filter input').unbind().bind('keyup', function () {
+              var colIndex = document.querySelector('#promotionTable_select').selectedIndex;
+              table.column(colIndex).search(this.value).draw();
+          });
+      }, 500);
+
+        $('#promotionTable_filter').after('<p style="width:100%; height:10px;"></p>');
+
+  });
+
+
+
+</script>
