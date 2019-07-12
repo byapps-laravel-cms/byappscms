@@ -1,4 +1,4 @@
-if(Util.getCookie('aside') == 'on' && $('#sidebar').length != 0){
+if(Util.getCookie('aside') == 'on' && $('#sidebar').length != 0) {
   $("html").toggleClass("open");
 }
 // $('.top_btn').click( function () {
@@ -13,15 +13,15 @@ $("#sidebar-close,#sidebar-toggle").click(function (){
    
     $('#content').attr("class","col-md-8");
     $("#sidebar").attr("class","col-md-4");
-    var sideWidth = $("#sidebar").css("width")
-    $("#sidebar-toggle").css("right",sideWidth)
+    // var sideWidth = $("#sidebar").css("width")
+    // $("#sidebar-toggle").css("right",sideWidth)
     
     document.cookie = "aside=on;path=/";
   }else{
     $('#content').attr("class","col-md-12");
     $("#sidebar").attr("class","col-md-0");
 
-    $("#sidebar-toggle").css("right","-2px")
+    // $("#sidebar-toggle").css("right","-2px")
 
     document.cookie = "aside=off;path=/";   
   }

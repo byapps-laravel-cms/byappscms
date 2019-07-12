@@ -1,17 +1,17 @@
 formData = new FormData();
 formData.append('test','test');
 var temp;
-function asdf(){
-    temp = $('form').request('onTest', {
-        success: function(data) {
-            console.log(data.result);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR.responseText)
-        }
-    })
-    return null;
-}
+// function asdf(){
+//     temp = $('form').request('onTest', {
+//         success: function(data) {
+//             console.log(data.result);
+//         },
+//         error: function (jqXHR, textStatus, errorThrown) {
+//             console.log(jqXHR.responseText)
+//         }
+//     })
+//     return null;
+// }
 // var li1 = "<div class='col-sm-1 col-xs-3'><img class='h-25 p-10 d-inline-block'  src='https://cms.byapps.co.kr/space/ic_launcher.png' alt='#'><p>2019-06-03</p></div>"
 // var li2 = "<div class='col-sm-1 col-xs-3'><img class='h-25 p-10 d-inline-block'  src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd20d5uTTvOJ6kT7ANcGPb3iNnOcMfTDAtEVUrvTlOrRrzyTuE5w' alt='#'><p>2019-06-03</p></div>"
 // var li3 = "<div class='col-sm-1 col-xs-3'><img class='h-25 p-10 d-inline-block'  src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStI_5Isvkt5A8ERpkETaf63WbicSbtpeAEmbhp4SuM9WkX6Fa7' alt='#'><p>2019-06-03</p></div>"
