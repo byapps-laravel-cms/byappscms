@@ -12,6 +12,7 @@ class Plugin extends PluginBase
             'Jiwon\Byapps\Components\PaymentForm'         => 'paymentForm',
             'Jiwon\Byapps\Components\PromotionForm'       => 'promotionForm',
             'Jiwon\Byapps\Components\Badge'               => 'badge',
+            'Jiwon\Byapps\Components\Comments'            => 'comments',
             //'RainLab\Builder\Components\RecordDetails'    => 'builderDetails'
         ];
     }
