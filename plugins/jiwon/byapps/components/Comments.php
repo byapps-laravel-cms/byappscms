@@ -43,8 +43,8 @@ class Comments extends ComponentBase
   }
 
   protected function loadComments() {
-    
-     return Comment::all()->take(10);
+
+     return Comment::all()->take(10)->sortBy('idx');
   }
 }
 ?>

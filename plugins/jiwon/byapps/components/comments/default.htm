@@ -4,11 +4,9 @@
 {% set URL_BASE = 'http://ljw1.innoi.kr/' %}
 
 {% for comment in comments %}
-   <!-- {% set loopIndex = loop.index %} -->
 <div class="card border-info mb-3" style="max-width: 18rem;">
   <div class="card-header">{{ comment.reg_time | date('Y-m-d') }} {{ comment.mem_name }} ({{ comment.mem_id }})</div>
   <div class="card-body text-info">
-    <!-- <h5 class="card-title">Info card title</h5> -->
   {% if (comment.mmid == "order") or (comment.mmid == "payment") %}
         <a href="{{ URL_BASE }}{{ arrURL[6] }}{{ comment.pidx }}"><p class="card-text">{{ comment.comment }}</p></a>
   {% else %}
