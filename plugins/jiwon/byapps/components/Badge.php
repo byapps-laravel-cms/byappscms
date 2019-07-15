@@ -9,8 +9,7 @@ use Redirect;
 use Exception;
 use Cms\Classes\ComponentBase;
 use Cms\Classes\Theme;
-use Symfony\Component\Yaml\Yaml;
-
+use Jiwon\Byapps\Models;
 
 class Badge extends ComponentBase
 {
@@ -25,40 +24,31 @@ class Badge extends ComponentBase
     public function defineProperties()
     {
         return [
-           'badge-class' => [
+           'badgeClass' => [
              'title'       => 'Badge Class',
-             'description' => 'The class attribute for the Badge.',
-             'type'        => 'number',
+             'description' => 'Badge 표시 class',
+             'type'        => 'dropdown',
              'default'     => 'badge-light'
-           ],
-           'badge-active-class' => [
-                'title'       => 'Badge Active class',
-                'description' => 'The class attribute for the active Badge.',
-                'type'        => 'number',
-                'default'     => 'badge-danger'
            ],
         ];
     }
 
-    public function getOptions() {
-        return $this->getProperties();
+    public function getBadgeClassOptions() {
+        //return $this->getProperties();
+        return [
+            // 'Badge Light' => 'badge-light',
+            // 'Badge Active' => 'badge-danger'
+            'badge-light' => 'Badge Light',
+            'badge-danger' => 'Badge Active'
+        ];
     }
 
     public function onRun() {
-        // if (!($theme = Theme::getEditTheme())) {
-        //     throw new ApplicationException(Lang::get('cms::lang.theme.edit.not_found'));
-        // }
-        //
-        // $currentPage = $this->page->baseFileName;
-        // $pages = Page::listInTheme($theme, true);
-        //
-        // $this->pagesList = $this->buildPagesList($pages);
-        // $breadcrumbList = $this->buildCrumbTrail($currentPage);
-        //
-        $currentBadge = 60;
-        $badgeClass = 'badge-danger';
-        // $this->page['badge'] = $badgeList;
-        $this->page['currentBadge'] = $currentBadge;
+
+        $badgeClass = $this->property('badgeClass');
+
+        //print_r($badgeClass);
+
         $this->page['badgeClass'] = $badgeClass;
         return;
     }
