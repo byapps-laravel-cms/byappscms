@@ -1,0 +1,23 @@
+{% set comments = __SELF__.comments %}
+
+<!-- <ul>
+    <li>{{ comment.mmid }}</li>
+    <li>{{ comment.pidx }}</li>
+    <li>{{ comment.pmid }}</li>
+    <li>{{ comment.mem_id }}</li>
+    <li>{{ comment.mem_name }}</li>
+    <li>{{ comment.comment }}</li>
+    <li>{{ comment.reg_time | date('Y-m-d') }}</li>
+</ul> -->
+
+
+
+{% for comment in comments %}
+<div class="card border-info mb-3" style="max-width: 18rem;">
+  <div class="card-header">{{ comment.reg_time | date('Y-m-d') }} {{ comment.mem_name }} ({{ comment.mem_id }})</div>
+  <div class="card-body text-info">
+    <!-- <h5 class="card-title">Info card title</h5> -->
+    <p class="card-text">{{ comment.comment }}</p>
+  </div>
+</div>
+{% endfor %}

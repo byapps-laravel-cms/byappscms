@@ -85,3 +85,7 @@ navigation:
                 label: '푸쉬 허용 통계'
                 url: jiwon/byapps/pushonoffstats
                 icon: icon-bar-chart
+    main-menu-item6:
+        label: 댓글
+        url: jiwon/byapps/comments
+        icon: icon-comment
