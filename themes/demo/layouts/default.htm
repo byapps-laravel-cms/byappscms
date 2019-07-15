@@ -33,6 +33,7 @@ function onStart()
         <link href="{{ 'assets/vendor/billboard.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/jquery-ui.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/jquery-ui.min.css'|theme }}" rel="stylesheet">
+        <link href="{{ 'assets/css/classCustom.css'|theme }}" rel="stylesheet">
 
 
         <!-- Datatable style -->
@@ -82,10 +83,12 @@ function onStart()
                     <!-- <div class="top_btn"></div> -->
                     {% page %}
             </div>
+            {% if this.page.title != 'Home' %}
             <div id="sidebar-toggle">
                 <span><i class="far fa-comment-dots"></i></span>
                 <p>OPEN</p>
             </div>
+            {% endif %}
             <div id="sidebar">
                 {% partial 'site/aside' %}
             </div>
@@ -120,7 +123,7 @@ function onStart()
         <!-- For Datatable -->
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <!-- <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script> -->
-        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.material.min.js"></script>
+        <!-- <script src="https://cdn.datatables.net/1.10.19/js/dataTables.material.min.js"></script> -->
 
           <!-- For Datatable Export Button -->
           <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
