@@ -39,17 +39,12 @@ class Comments extends ComponentBase
 
   public function onRun()
   {
-     // $comment = Comment::where('idx', 106982)->first();
-     //  // var_dump($comment["comment"]);
-     // $this->page['comments'] = $comment['comment'];
-     //  //return $this->page['comments'] = $comment;
-
      $this->comments = $this->loadComments();
-
   }
 
   protected function loadComments() {
-     return Comment::all();
+    
+     return Comment::all()->take(10);
   }
 }
 ?>
