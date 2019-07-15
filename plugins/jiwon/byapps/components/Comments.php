@@ -28,11 +28,12 @@ class Comments extends ComponentBase
   public function defineProperties()
   {
       return [
-          'redirect' => [
-              'title'       => /*Redirect to*/'redirect_to',
-              'description' => /*Page name to redirect to after update, sign in or registration.*/'redirect_to_desc',
-              'type'        => 'dropdown',
-              'default'     => ''
+          'display' => [
+              'title'       => '표시할 코멘트 수',
+              'description' => '몇 개까지 코멘트를 표시할까요',
+              'default'     => 10,
+              'validationPattern' => '^[0-9]+$',
+              'validationMessage' => '숫자만 적어주세요'
           ],
       ];
   }
@@ -44,7 +45,14 @@ class Comments extends ComponentBase
 
   protected function loadComments() {
 
-     return Comment::all()->take(10)->sortBy('idx');
+     $query = Comment::all();
+
+     if ($this->property('display') > 0) {
+       $query = $query->take($this->property('display'));
+     }
+
+     //return Comment::all()->take(10)->sortBy('idx');
+     return $query;
   }
 }
 ?>
