@@ -32,3 +32,7 @@
     background-color: transparent;
     border: 0;
 }
+
+#aside #comment > div {
+    font-size: .6em;
+}

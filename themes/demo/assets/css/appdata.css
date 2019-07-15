@@ -31,18 +31,14 @@
     color:#000000;
 }
 
-#sidebar {
-    /* width: 740px; */
-    width: 40%;
+html #sidebar {
+    top:0;
+    right:-40%;
     height: 100%;
     background: white;
     border-left: 1px solid #c6c6c6;
     color: #fff;
     position: fixed;
-    margin-right:-40%;
-}
-
-#sidebar {
     font-size: 2rem;
     z-index: 100;
     display:none;
@@ -51,7 +47,8 @@
 html.open #sidebar {
     font-size: 2rem;
     z-index: 1040;
-    right: 0;
+    top:0;
+    right:0;
     display: block;
 }
 
