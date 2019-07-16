@@ -10,16 +10,16 @@ crumb_disabled = 0
 [viewBag]
 activeMenu = "about"
 
-[comments]
-display = 5
-target = "new_update"
-
 [badge]
 badgeClass = "badge-danger"
+
+[comments]
+display = 5
+target = "ma"
 ==
 <!-- <h1>This is our About page.</h1>
 <h2>Hello!</h2> -->
 
-{% component 'comments' %}
 
+{% component 'comments' %}
 {% component 'badge' %}
