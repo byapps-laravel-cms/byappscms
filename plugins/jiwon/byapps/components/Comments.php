@@ -82,14 +82,9 @@ class Comments extends ComponentBase
      $query = Comment::all();
 
      if ($this->property('display') > 0) {
-       $query = $query->take($this->property('display'));
-
-       // if ($this->property('target') != '') {
-       //   $query = $query->where('mmid', $this->property('mmid'))->take($this->property('display'));
-       // }
+     //   $query = $query->take($this->property('display'));
+         $query = $query->where('mmid', '=', $this->property('target'))->take($this->property('display'));
      }
-
-
 
      //return Comment::all()->take(10)->sortBy('idx');
      return $query;
