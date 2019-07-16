@@ -11,8 +11,15 @@ crumb_disabled = 0
 activeMenu = "about"
 
 [comments]
+display = 5
+target = "new_update"
+
+[badge]
+badgeClass = "badge-danger"
 ==
 <!-- <h1>This is our About page.</h1>
 <h2>Hello!</h2> -->
 
 {% component 'comments' %}
+
+{% component 'badge' %}
