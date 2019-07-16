@@ -6,7 +6,10 @@
   "directories": {
     "test": "tests"
   },
-  "dependencies": {},
+  "dependencies": {
+    "laravel-echo": "^1.5.4",
+    "pusher-js": "^4.4.0"
+  },
   "devDependencies": {
     "browser-sync": "^2.26.3",
     "browser-sync-webpack-plugin": "^2.0.1",
