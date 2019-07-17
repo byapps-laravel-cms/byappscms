@@ -43,12 +43,12 @@ class Comments extends ComponentBase
               'validationMessage' => '숫자만 적어주세요'
           ],
 
-          'target' => [
-              'title'       => '대상 테이블',
-              'description' => '코멘트 대상 테이블',
-              'type'        => 'dropdown',
-              'default'     => 'apps'
-          ]
+          // 'target' => [
+          //     'title'       => '대상 테이블',
+          //     'description' => '코멘트 대상 테이블',
+          //     'type'        => 'dropdown',
+          //     'default'     => 'apps'
+          // ]
       ];
   }
 
@@ -56,8 +56,8 @@ class Comments extends ComponentBase
       return [
         'apps' => '앱 접수',
         'csqna'=> '고객 문의',
-        'design_order' => '',
-        'free_order' => '',
+        // 'design_order' => '',
+        // 'free_order' => '',
         'ma' => '부가서비스 접수',
         'member' => '회원 문의',
         'myqna' => '고객 상담',
@@ -65,9 +65,9 @@ class Comments extends ComponentBase
         'order' => '기타 서비스',
         'payment' => '결제 관리',
         'promotion' => '프로모션',
-        'retaku' => '',
+        // 'retaku' => '',
         'reseller' => '리셀러 정보',
-        'work' => ''
+        // 'work' => ''
       ];
   }
 
@@ -79,14 +79,15 @@ class Comments extends ComponentBase
 
   protected function loadComments() {
 
-     $query = Comment::all();
+     $query = Comment::query();
 
-     if ($this->property('display') > 0) {
-       //$query = $query->take($this->property('display'));
-         $query = $query->where('mmid', '=', $this->property('target'))->take($this->property('display'));
+     if (!empty($this->property('display'))) {
+       $query = $query->limit($this->property('display'));
+         //$query = $query->where('mmid', '=', $this->property('target'))->take($this->property('display'));
      }
 
      //return Comment::all()->take(10)->sortBy('idx');
+     $query = $query->get();
      return $query;
   }
 }
