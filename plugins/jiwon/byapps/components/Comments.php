@@ -43,12 +43,12 @@ class Comments extends ComponentBase
               'validationMessage' => '숫자만 적어주세요'
           ],
 
-          // 'target' => [
-          //     'title'       => '대상 테이블',
-          //     'description' => '코멘트 대상 테이블',
-          //     'type'        => 'dropdown',
-          //     'default'     => 'apps'
-          // ]
+          'target' => [
+              'title'       => '대상 테이블',
+              'description' => '코멘트 대상 테이블',
+              'type'        => 'dropdown',
+              'default'     => 'apps'
+          ]
       ];
   }
 
@@ -82,12 +82,12 @@ class Comments extends ComponentBase
      $query = Comment::query();
 
      if (!empty($this->property('display'))) {
-       $query = $query->limit($this->property('display'));
-         //$query = $query->where('mmid', '=', $this->property('target'))->take($this->property('display'));
+       //$query = $query->limit($this->property('display'));
+       $query = $query->where('mmid', '=', $this->property('target'))->limit($this->property('display'));
      }
 
      //return Comment::all()->take(10)->sortBy('idx');
-     $query = $query->get();
+     $query = $query->get()->sortByDesc('idx');
      return $query;
   }
 }
