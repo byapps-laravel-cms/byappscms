@@ -55,4 +55,6 @@ function showChart (data) {
     },
       bindto: "#sale_stats"
     });
+
+    
 }
