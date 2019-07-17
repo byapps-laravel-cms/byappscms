@@ -69,6 +69,7 @@ function onGetChartData()
             array('연장',524,200),
             array('기타',85,300),
         ),
+        
     );
     return $result;
 }
@@ -151,19 +152,44 @@ function onLayoutChange()
             </div>
             <div class="dragbox_hover row collapse show" id="allLank">
                 <div class="col-xs-12 col-md-3">
-                    <h6 class="theme1 p-1">앱 통계</h6>
+                    <h6 class="theme1 p-1 text-center">앱 통계</h6>
                     <div id="app_stats"></div>
                 </div>
                 <div class="col-xs-12 col-md-3">
-                    <h6 class="theme1 p-1">MA 통계</h6>
+                    <h6 class="theme1 p-1 text-center">MA 통계</h6>
                     <div id="ma_stats"></div>
                 </div>
                 <div class="col-xs-12 col-md-6">
-                    <h6 class="theme1 p-1">매출통계</h6>
-                    <div id="sale_stats"></div>
+                    <h6 class="theme1 p-1 text-center">매출통계</h6>
+                    <div id="sale_stats" data-toggle="modal" data-target="#lankDetail"></div>
                 </div>
             </div>
+            <!-- Modal -->
+            <div class="modal fade" id="lankDetail" tabindex="-1" role="dialog" aria-labelledby="lankDetail" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">기간별 상세 통계</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <input type="date" >~
+                            <input type="date" >
+                            <button type="button" class="btn btn-secondary mx-auto">조회</button>
+                        </form>
+                        <div id="chartDetail">
 
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary mx-auto" data-dismiss="modal">확인</button>
+                    </div>
+                </div>
+                </div>
+            </div>
         </li>
       {% elseif record == 'layout3' %}
 
