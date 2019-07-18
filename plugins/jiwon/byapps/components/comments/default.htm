@@ -3,6 +3,7 @@
 {% set arrURL = [ 'pay/detail/', 'pay/promodetail/', 'apps/updateData/', 'apps/apkData/', 'apps/data/', 'apps/pushList/', 'apps/newsData/', 'apps/membersData/' ] %}
 {% set URL_BASE = 'http://ljw1.innoi.kr/' %}
 
+<div class="col-12">
 {% for comment in comments %}
 <div class="card border-info mb-3" style="max-width: 18rem;">
   <div class="card-header">{{ comment.reg_time | date('Y-m-d') }} {{ comment.mem_name }} ({{ comment.mem_id }})</div>
@@ -15,3 +16,4 @@
   </div>
 </div>
 {% endfor %}
+</div>

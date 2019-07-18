@@ -13,6 +13,7 @@ class Plugin extends PluginBase
             'Jiwon\Byapps\Components\PromotionForm'       => 'promotionForm',
             'Jiwon\Byapps\Components\Badge'               => 'badge',
             'Jiwon\Byapps\Components\Comments'            => 'comments',
+            'Jiwon\Byapps\Components\Datatable'            => 'datatable',
             //'RainLab\Builder\Components\RecordDetails'    => 'builderDetails'
         ];
     }

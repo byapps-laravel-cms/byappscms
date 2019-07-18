@@ -30,6 +30,9 @@ redirect = "permission"
 main-ol-class = "breadcrumb"
 active-class = "active"
 disabled-class = "disabled"
+
+[datatable]
+tableName = "paymanageTable"
 ==
 <?php
 use Jiwon\Byapps\Models\PaymentData;
@@ -70,7 +73,11 @@ function onStart()
 {% set detailsKeyColumn = builderList.detailsKeyColumn %}
 {% set detailsUrlParameter = builderList.detailsUrlParameter %}
 
-<table id="paymanageTable" class="table table-striped table-bordered" style="width:100%">
+
+ <div class="method">
+   <div class="col-md-12 margin-5">
+
+    <table id="paymanageTable" class="table table-striped mb-3" style="width:100%;">
         <col width="40%">
         <col width="5%">
         <col width="30%">
@@ -116,8 +123,10 @@ function onStart()
         <li class="no-data">{{ noRecordsMessage }}</li>
         {% endfor %}
         </tbody>
-</table>
+    </table>
 
+  </div>
+</div>
 <!-- {% set paginationEnabled =
     records.currentPage > 1 or
     records.lastPage > 1 or
@@ -203,6 +212,7 @@ function onStart()
     </ul>
 {% endif %} -->
 
+<!--
 <script type="text/javascript">
 $(document).ready(function() {
  //  $('#promotionTable thead tr').clone(true).appendTo( '#promotionTable thead' );
@@ -237,6 +247,7 @@ var table = $('#paymanageTable').DataTable({
       "autoWidth": true,
       "fixedHeader": false,
       "responsive": true,
+      "orderClasses": false,
       // "scrollX": true,
       "dom": 'Bfrtip',
       "buttons": [
@@ -258,4 +269,6 @@ var table = $('#paymanageTable').DataTable({
       $('#paymanageTable_filter').after('<p style="width:100%; height:10px;"></p>');
 
 });
-</script>
+</script> -->
+
+{% component 'datatable' %}
