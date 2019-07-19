@@ -1,5 +1,10 @@
 [comments]
-display = 10
+display = 3
+target = "payment"
+
+[comments comments2]
+display = 3
+target = "reseller"
 ==
 <div id="sidebar-close" class="my-2"><i class="fas fa-times"></i></div>
 <div class="col-md-12">
@@ -20,12 +25,16 @@ display = 10
             </div>
     </form>
     <div class="col-md-12 py-3" id="comment">
-        <div class="row alert alert-secondary">
+      <div>
+        <div class="row alert alert-secondary" id="comment1">
             결제완료
         </div>
-        <div class="row alert alert-secondary">
+        <div id="payment" style="display:none;">{% component 'comments' %}</div>
+      </div>
+        <div class="row alert alert-secondary" id="comment2">
             고도몰 이관
         </div>
+         <div id="godomall" style="display:none;"> {% component 'comments2' %}</div>
         <div class="row alert alert-secondary">
             세금계산서 미발행
         </div>
@@ -53,4 +62,13 @@ display = 10
 
 </div>
 
-{% component 'comments' %}
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#comment1').on("click", function() {
+    $('#payment').toggle();
+  });
+  $('#comment2').on("click", function() {
+    $('#godomall').toggle();
+  });
+});
+</script>

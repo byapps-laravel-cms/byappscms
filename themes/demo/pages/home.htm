@@ -17,23 +17,26 @@ redirect = "login"
 <?php
 use Jiwon\Byapps\Models\HomeLayout;
 use Jiwon\Byapps\Models\AppsData;
+use Jiwon\Byapps\Models\MAService;
+use Jiwon\Byapps\Models\UpdateManage;
+use Jiwon\Byapps\Models\QnaNonmember;
 
 function onStart()
 {
     $userId = BackendAuth::getUser()['id'];
     $this['nowDate'] = time();
-    $recoreds = HomeLayout::where('user_cd','=',$userId)
+    $records = HomeLayout::where('user_cd','=',$userId)
         ->select('layout_name')
         ->orderBy('sequence')
         ->get();
-    if(count($recoreds) == 0){
-        $this['recoreds'] = array('layout1','layout2','layout3');
+    if(count($records) == 0){
+        $this['records'] = array('layout1','layout2','layout3');
     }else{
         $temp = array();
-        foreach($recoreds as $recored){
-            $temp[] = $recored->layout_name;
+        foreach($records as $record){
+            $temp[] = $record->layout_name;
         }
-        $this['recoreds'] = $temp;
+        $this['records'] = $temp;
     }
     $this['appsData'] = AppsData::inRandomOrder()
         ->select('app_name')
@@ -49,7 +52,14 @@ function onStart()
            return $dateString;
         }
     };
-}
+
+    // 주문요청현황
+    $this['maCount'] = MAService::where('app_process', 1)->count();
+    $this['updateCount'] = UpdateManage::where('app_process', 1)->count();
+    $this['nonmemberCount'] = QnaNonmember::where('process', 1)->count();
+    
+
+ }
 function onGetChartData()
 {
     //샘플 데이터
@@ -69,7 +79,7 @@ function onGetChartData()
             array('연장',524,200),
             array('기타',85,300),
         ),
-        
+
     );
     return $result;
 }
@@ -100,44 +110,44 @@ function onLayoutChange()
 <h2><center>로그인하는페이지</center></h2>
 {% elseif user %}
 <div class="sortable">
-  {% for record in recoreds %}
+  {% for record in records %}
       {% if record == 'layout1' %}
         <li class="ui-state-default one card" id="layout1">
             <div class="cal_box col-md-12 col-sm-12">
                 <div class="card-title mt-2">
-                    주문요청현황
+                    <i class="fas fa-bars"></i> 주문요청현황
                     <button class="btn float-right" type="button" data-toggle="collapse" data-target="#salesList" aria-expanded="true" aria-controls="salesList"><i class="fas fa-angle-down"></i></button>
-                </div>               
+                </div>
             </div>
             <div class="dragbox collapse show" id="salesList">
                 <div class="c_box_1">
                     <div class="circle1">
                         <p class="vertical_center">10</p>
-                        <p class="c_box_1_font">주문접수</p>
+                        <p class="c_box_1_font">주문 접수</p>
                     </div>
                 </div>
                 <div class="c_box_1">
                     <div class="circle1">
-                        <p class="vertical_center">10</p>
-                        <p class="c_box_1_font">부가서비스접수</p>
+                        <p class="vertical_center">{{ maCount }}</p>
+                        <p class="c_box_1_font">부가서비스 접수</p>
                     </div>
                 </div>
                 <div class="c_box_1">
                     <div class="circle1">
-                        <p class="vertical_center">10</p>
+                        <p class="vertical_center">{{ updateCount }}</p>
                         <p class="c_box_1_font">업데이트 접수</p>
                     </div>
                 </div>
                 <div class="c_box_1">
                     <div class="circle1">
-                        <p class="vertical_center">10</p>
-                        <p class="c_box_1_font">고객문의</p>
+                        <p class="vertical_center">{{ nonmemberCount }}</p>
+                        <p class="c_box_1_font">비회원 문의</p>
                     </div>
                 </div>
                 <div class="c_box_1">
                     <div class="circle1">
                         <p class="vertical_center">10</p>
-                        <p class="c_box_1_font">1:1문의</p>
+                        <p class="c_box_1_font">회원 문의</p>
                     </div>
                 </div>
             </div>
@@ -146,9 +156,9 @@ function onLayoutChange()
         <li class="ui-state-default card" id="layout2">
             <div class="cal_box col-md-12 col-sm-12">
                 <div class="card-title mt-2">
-                    통계
+                    <i class="fas fa-bars"></i> 통계
                     <button class="btn float-right" type="button" data-toggle="collapse" data-target="#allLank" aria-expanded="true" aria-controls="allLank"><i class="fas fa-angle-down"></i></button>
-                </div>               
+                </div>
             </div>
             <div class="dragbox_hover row collapse show" id="allLank">
                 <div class="col-xs-12 col-md-3">
@@ -196,11 +206,11 @@ function onLayoutChange()
         <li class="ui-state-default one card" id="layout3">
             <div class="cal_box col-md-12 col-sm-12">
                 <div class="card-title mt-2">
-                    만료예정업체
+                    <i class="fas fa-bars"></i> 만료예정업체
                     <button class="btn float-right" type="button" data-toggle="collapse" data-target="#endList" aria-expanded="true" aria-controls="endList"><i class="fas fa-angle-down"></i></button>
-                </div>               
+                </div>
             </div>
-           
+
             <div class="dragbox collapse show" id="endList">
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -208,26 +218,26 @@ function onLayoutChange()
                         <a class="nav-item nav-link" id="nav-push-tab" data-toggle="tab" href="#nav-push" role="tab" aria-controls="nav-push" aria-selected="false">푸쉬 인증서만료</a>
                         <a class="nav-item nav-link" id="nav-ma-tab" data-toggle="tab" href="#nav-ma" role="tab" aria-controls="nav-ma" aria-selected="false">MA 서비스만료</a>
                     </div>
-                </nav>     
-            
-                <div class="tab-content p-2" id="nav-tabContent">  
-                    <div class="tab-pane row active" id="nav-ios" role="tabpanel" aria-labelledby="nav-ios-tab">              
-                    {% for appData in appsData %}     
+                </nav>
+
+                <div class="tab-content p-2" id="nav-tabContent">
+                    <div class="tab-pane row active" id="nav-ios" role="tabpanel" aria-labelledby="nav-ios-tab">
+                    {% for appData in appsData %}
                         <div class='col-xs-12 col-md-3 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
                             <img class='p-2' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'>
                             <p>{{ func.dateFormat(appData.end_time) }}</p>
-                        </div>                                
-                    {% endfor %}    
-                    </div>       
+                        </div>
+                    {% endfor %}
+                    </div>
                     <div class="tab-pane fade row" id="nav-push" role="tabpanel" aria-labelledby="nav-push-tab">
-                    {% for appData in appsData %}       
+                    {% for appData in appsData %}
                         <div class='col-xs-12 col-md-3 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
                             <img class='p-2' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'>
                             <p>{{ func.dateFormat(appData.end_time) }}</p>
-                        </div>                       
-                    {% endfor %} 
-                    </div>           
-                    <div class="tab-pane fade row" id="nav-ma" role="tabpanel" aria-labelledby="nav-ma-tab">  
+                        </div>
+                    {% endfor %}
+                    </div>
+                    <div class="tab-pane fade row" id="nav-ma" role="tabpanel" aria-labelledby="nav-ma-tab">
                     {% for appData in appsData %}
                         <div class='col-xs-12 col-md-3 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
                             <img class='p-2' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'>
