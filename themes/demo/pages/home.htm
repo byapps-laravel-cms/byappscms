@@ -18,6 +18,8 @@ redirect = "login"
 use Jiwon\Byapps\Models\HomeLayout;
 use Jiwon\Byapps\Models\AppsData;
 use Jiwon\Byapps\Models\MAService;
+use Jiwon\Byapps\Models\UpdateManage;
+use Jiwon\Byapps\Models\QnaNonmember;
 
 function onStart()
 {
@@ -50,7 +52,14 @@ function onStart()
            return $dateString;
         }
     };
-}
+
+    // 주문요청현황
+    $this['maCount'] = MAService::where('app_process', 1)->count();
+    $this['updateCount'] = UpdateManage::where('app_process', 1)->count();
+    $this['nonmemberCount'] = QnaNonmember::where('process', 1)->count();
+    
+
+ }
 function onGetChartData()
 {
     //샘플 데이터
@@ -106,7 +115,7 @@ function onLayoutChange()
         <li class="ui-state-default one card" id="layout1">
             <div class="cal_box col-md-12 col-sm-12">
                 <div class="card-title mt-2">
-                    주문요청현황
+                    <i class="fas fa-bars"></i> 주문요청현황
                     <button class="btn float-right" type="button" data-toggle="collapse" data-target="#salesList" aria-expanded="true" aria-controls="salesList"><i class="fas fa-angle-down"></i></button>
                 </div>
             </div>
@@ -114,31 +123,31 @@ function onLayoutChange()
                 <div class="c_box_1">
                     <div class="circle1">
                         <p class="vertical_center">10</p>
-                        <p class="c_box_1_font">주문접수</p>
+                        <p class="c_box_1_font">주문 접수</p>
                     </div>
                 </div>
                 <div class="c_box_1">
                     <div class="circle1">
-                        <p class="vertical_center">10</p>
-                        <p class="c_box_1_font">부가서비스접수</p>
+                        <p class="vertical_center">{{ maCount }}</p>
+                        <p class="c_box_1_font">부가서비스 접수</p>
                     </div>
                 </div>
                 <div class="c_box_1">
                     <div class="circle1">
-                        <p class="vertical_center">10</p>
+                        <p class="vertical_center">{{ updateCount }}</p>
                         <p class="c_box_1_font">업데이트 접수</p>
                     </div>
                 </div>
                 <div class="c_box_1">
                     <div class="circle1">
-                        <p class="vertical_center">10</p>
-                        <p class="c_box_1_font">고객문의</p>
+                        <p class="vertical_center">{{ nonmemberCount }}</p>
+                        <p class="c_box_1_font">비회원 문의</p>
                     </div>
                 </div>
                 <div class="c_box_1">
                     <div class="circle1">
                         <p class="vertical_center">10</p>
-                        <p class="c_box_1_font">1:1문의</p>
+                        <p class="c_box_1_font">회원 문의</p>
                     </div>
                 </div>
             </div>
@@ -147,7 +156,7 @@ function onLayoutChange()
         <li class="ui-state-default card" id="layout2">
             <div class="cal_box col-md-12 col-sm-12">
                 <div class="card-title mt-2">
-                    통계
+                    <i class="fas fa-bars"></i> 통계
                     <button class="btn float-right" type="button" data-toggle="collapse" data-target="#allLank" aria-expanded="true" aria-controls="allLank"><i class="fas fa-angle-down"></i></button>
                 </div>
             </div>
@@ -197,7 +206,7 @@ function onLayoutChange()
         <li class="ui-state-default one card" id="layout3">
             <div class="cal_box col-md-12 col-sm-12">
                 <div class="card-title mt-2">
-                    만료예정업체
+                    <i class="fas fa-bars"></i> 만료예정업체
                     <button class="btn float-right" type="button" data-toggle="collapse" data-target="#endList" aria-expanded="true" aria-controls="endList"><i class="fas fa-angle-down"></i></button>
                 </div>
             </div>
