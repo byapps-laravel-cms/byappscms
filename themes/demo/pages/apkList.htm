@@ -1,26 +1,24 @@
-title = "부가서비스"
-url = "/service/addService/:page"
+title = "APK관리"
+url = "/apps/apklist/:page"
 layout = "default"
-description = "부가서비스 주문관리를 하실 수 있습니다"
+description = "APK 관리를 하실 수 있습니다"
 is_hidden = 0
-child_of = "mey_no_parent"
+child_of = "appsList"
 hide_crumb = 0
 remove_crumb_trail = 0
 crumb_disabled = 0
 
 [builderList]
-modelClass = "Jiwon\Byapps\Models\AdditionalService"
+modelClass = "Jiwon\Byapps\Models\ApkManage"
 scope = "-"
 scopeValue = "{{ :scope }}"
-displayColumn = "app_name"
+displayColumn = "app_id"
 noRecordsMessage = "No records found"
-detailsPage = "addServiceData"
+detailsPage = "apkData"
 detailsKeyColumn = "idx"
 detailsUrlParameter = "idx"
 recordsPerPage = 20
 pageNumber = "{{ :page }}"
-sortColumn = "idx"
-sortDirection = "desc"
 
 [session]
 security = "user"
@@ -29,6 +27,7 @@ redirect = "permission"
 
 [breadcrumbs]
 main-ol-class = "breadcrumb"
+main-li-class = "breadcrumb-item"
 active-class = "active"
 disabled-class = "disabled"
 ==
@@ -43,7 +42,9 @@ function onStart()
         }
     };
 
-    $this['arrProcess'] = array('0' => '주문취소', '1' => '주문확인', '2' => 'SDK설치진행', '3' => 'SDK설치중', '4' => '설치완료');
+    $this['url_prefix'] = 'http://byapps.co.kr/Admin/php/apk_index.php?op=down';
+
+    $this['arrProcess'] = array( 1=> '대기', 2 => '완료');
 }
 ?>
 ==
@@ -61,31 +62,19 @@ function onStart()
   <table id="example" class="table table-striped table-bordered" style="width:100%">
           <thead>
               <tr>
-                  <th>주문일</th>
+                  <!-- <th>IDX</th> -->
+                  <th>앱아이디</th>
+                  <th>앱명</th>
                   <th>상태</th>
-                  <th>주문내역</th>
-                  <th>결제</th>
-                  <th>영수증</th>
-                  <th>주문자명</th>
-                  <th>업체명</th>
-                  <th>연락처</th>
+                  <th>등록일</th>
+                  <th>다운로드</th>
               </tr>
           </thead>
 
           <tbody>
            {% for record in records %}
               <tr>
-                  <td>{{ func.dateFormat(record.reg_time) }}</td>
-                {% for key,val in arrProcess %}
-                  {% if key == record.app_process %}
-                    <td>{{ val }}</td>
-                  {% endif %}
-                {% endfor %}
-                  <td>{{ record.service_type }}</td>
-                  <td>{{ record.pay_way }}</td>
-                  <!-- <td>{{ record.receipt | slice(0, 30) }}</td> -->
-                  <td>{{ record.receipt != '' ? "발행" : "미발행" }}</td>
-                  <td>{{ record.order_name }}</td>
+                  <!-- <td>{{ record.idx }}</td> -->
                   <td>
                   {% if detailsPage %}
                       <a href="{{ detailsPage|page({ (detailsUrlParameter): attribute(record, detailsKeyColumn) }) }}">
@@ -97,7 +86,10 @@ function onStart()
                       </a>
                   {% endif %}
                   </td>
-                  <td>{{ record.cellno }}</td>
+                  <td>{{ record.app_name }}</td>
+                  <td>{{ record.app_process == 1 ? "대기" : "완료" }}</td>
+                  <td>{{ func.dateFormat(record.reg_time) }}</td>
+                  <td><a href="{{ url_prefix }}&app_id={{ record.app_id}}&fn={{ record.apk_file }}" download target="_self">Download</a></td>
               </tr>
 
            {% else %}

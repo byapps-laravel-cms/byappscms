@@ -1,7 +1,7 @@
-title = "업데이트 관리"
-url = "/apps/updateManage/:page?"
+title = "앱 포인트 관리"
+url = "/apps/pointlist/:page"
 layout = "default"
-description = "업데이트 접수를 관리 하실 수 있습니다"
+description = "앱 포인트를 관리하실 수 있습니다"
 is_hidden = 0
 child_of = "appsList"
 hide_crumb = 0
@@ -9,59 +9,47 @@ remove_crumb_trail = 0
 crumb_disabled = 0
 
 [builderList]
-modelClass = "Jiwon\Byapps\Models\UpdateManage"
+modelClass = "Jiwon\Byapps\Models\PointManage"
 scope = "-"
 scopeValue = "{{ :scope }}"
-displayColumn = "app_id"
+displayColumn = "app_name"
 noRecordsMessage = "No records found"
-detailsPage = "updateData"
-detailsKeyColumn = "idx"
-detailsUrlParameter = "idx"
-
+detailsPage = "-"
+detailsUrlParameter = "id"
+recordsPerPage = 20
 pageNumber = "{{ :page }}"
-sortColumn = "idx"
-sortDirection = "desc"
 
 [session]
 security = "user"
 allowedUserGroups[] = "admin_level_1"
-redirect = "permission"
+redirect = "login"
 
 [breadcrumbs]
 main-ol-class = "breadcrumb"
-main-li-class = "breadcrumb-item"
 active-class = "active"
 disabled-class = "disabled"
 ==
 <?php
-use Jiwon\Byapps\Models\UpdateManage;
-use Jiwon\Byapps\Models\AppsData;
+use Jiwon\Byapps\Models\PointManage;
 
 function onStart()
 {
-    $this['func'] = new Class {
-        public function dateFormatSimple($val)
-        {
-           $dateString = date("Y-m-d", $val);
-           return $dateString;
-        }
-    };
+  $this['func'] = new Class {
+    public function dateFormat($val)
+    {
+       $dateString = date("Y-m-d", $val);
+       return $dateString;
+    }
+  };
 
-    $this['appProcess'] = array(
-      5 =>'취소', 0 =>'접수', 1 =>'신청확인', 2 =>'진행중', 3 =>'심사중', 4 =>'완료'
-    );
+  //$data = new PointManage()->count();
+  //echo $data;
 }
 ?>
 ==
 {% component 'breadcrumbs' %}
 
-
-<!-- <div class="jumbotron">
-        <h1 class="display-5">{{ this.page.title }}</h1>
-        <p class="lead">{{ this.page.description }}</p>
-</div> -->
-
-<div class="col-xs-12 col-12">
+<div class="container">
 
 {% set records = builderList.records %}
 {% set displayColumn = builderList.displayColumn %}
@@ -70,27 +58,22 @@ function onStart()
 {% set detailsKeyColumn = builderList.detailsKeyColumn %}
 {% set detailsUrlParameter = builderList.detailsUrlParameter %}
 
-<table id="example" class="table table-striped" style="width:100%"> 
+<table id="example" class="table table-bordered" style="width:100%;background-color:#fff;">
         <thead>
             <tr>
-                <th>신청일</th>
-                <th>진행상태</th>
-                <th>앱아이디</th>
-                <th>앱명</th>   
-                <th>앱OS</th>
-                <th>버전</th>
-                <th>업데이트내역</th>
+                <th>앱 아이디</th>
+                <th>앱명</th>
+                <th>회원아이디</th>
+                <th>포인트</th>
+                <th>포인트 내용</th>
+                <th>등록일</th>
             </tr>
         </thead>
 
         <tbody>
          {% for record in records %}
             <tr>
-                <td>{{ func.dateFormatSimple(record.reg_time) }}</td>
-                <td>  {% for key,val in appProcess %}
-                     {{ key == record.app_process ? val : "" }}
-                  {% endfor %}
-                </td>
+                <td>{{ record.app_id }}</td>
                 <td>
                 {% if detailsPage %}
                     <a href="{{ detailsPage|page({ (detailsUrlParameter): attribute(record, detailsKeyColumn) }) }}">
@@ -102,11 +85,10 @@ function onStart()
                     </a>
                 {% endif %}
                 </td>
-
-                <td>{{ record.app_name }}</td>
-                <td>{{ record.apps_type }}</td>
-                <td>{{ record.joins.app_ver }}</td>
-                <td>업데이트내역</td>
+                <td>{{ record.mem_id }}</td>
+                <td>{{ record.point }}</td>
+                <td>{{ record.point_title }}</td>
+                <td>{{ func.dateFormat(record.reg_time) }}</td>
             </tr>
 
          {% else %}
@@ -135,7 +117,7 @@ function onStart()
         {% set startOffset = max(records.lastPage - 2*n - 1, 0) %}
     {% endif %}
 
-    {% for page in 1..records.lastPage %}
+    {% for page in 1..100 %}
         {% set pageLinks = pageLinks|merge([page]) %}
     {% endfor %}
 
@@ -159,7 +141,7 @@ function onStart()
         {% endif %}
 
         {% set pageSet = pageSet|merge([records.lastPage]) %}
-    {% endif %} 
+    {% endif %}
 
     <ul class="pagination">
         {% if records.currentPage > 1 %}
@@ -203,43 +185,3 @@ function onStart()
         {% endif %}
     </ul>
 {% endif %}
-<script>
-    $(document).ready(function() {
-        $('#example').DataTable( {
-            responsive: true,
-            "language": {
-                "emptyTable": "데이터가 없어요.",
-                "lengthMenu": "페이지당 _MENU_ 개씩 보기",
-                "info": "현재 _START_ - _END_ / _TOTAL_건",
-                "infoEmpty": "데이터 없음",
-                "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
-                "search": "에서 검색: ",
-                "zeroRecords": "일치하는 데이터가 없어요.",
-                "loadingRecords": "로딩중...",
-                "processing":     "잠시만 기다려 주세요...",
-                "paginate": {
-                    "next": "다음",
-                    "previous": "이전"
-                },
-                "buttons": {
-                    "excel": "엑셀",
-                    "copy": "복사"
-                }
-            },
-            "dom": 'Bfrtip',
-            "buttons": [
-                'excel', 'copy'
-            ],
-            "pageLength": 100
-            
-        } );
-
-            /* Column별 검색기능 추가 */
-        $('#example_filter').prepend('<select id="select"></select>');
-        $('#example > thead > tr').children().each(function (indexInArray, valueOfElement) { 
-            $('#select').append('<option>'+valueOfElement.innerHTML+'</option>');
-        });
-
-    });
-
-</script>
