@@ -25,17 +25,60 @@ target = "reseller"
             </div>
     </form>
     <div class="col-md-12 py-3" id="comment">
-      <div>
-        <div class="row alert alert-secondary" id="comment1">
+
+    <!-- chatbox test -->
+        <link href="{{ 'assets/css/chatbox.css'|theme }}" rel="stylesheet">
+
+          <div class="box-body">
+            <!-- Conversations are loaded here -->
+            <div class="direct-chat-messages">
+              <!-- Message. Default to the left -->
+              <div class="direct-chat-msg">
+                <div class="direct-chat-info clearfix">
+                  <span class="direct-chat-name pull-left">Alexander Pierce</span>
+                  <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
+                </div>
+                <!-- /.direct-chat-info -->
+                <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_1.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
+                <div class="direct-chat-text">
+                  Is this template really for free? That's unbelievable!
+                </div>
+                <!-- /.direct-chat-text -->
+              </div>
+              <!-- /.direct-chat-msg -->
+
+              <!-- Message to the right -->
+              <div class="direct-chat-msg right">
+                <div class="direct-chat-info clearfix">
+                  <span class="direct-chat-name pull-right">Sarah Bullock</span>
+                  <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
+                </div>
+                <!-- /.direct-chat-info -->
+                <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_2.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
+                <div class="direct-chat-text">
+                  You better believe it!You better believe it!<br />
+                  You better believe it!You better believe it!You better believe it!
+                </div>
+                <!-- /.direct-chat-text -->
+              </div>
+              <!-- /.direct-chat-msg -->
+            </div>
+            <!--/.direct-chat-messages-->
+
+          </div>
+          <!-- /.box-body -->
+  <!-- chatbox test 끝 -->
+
+        <!-- <div class="row alert alert-secondary" id="comment1">
             결제완료
-        </div>
-        <div id="payment" style="display:none;">{% component 'comments' %}</div>
-      </div>
-        <div class="row alert alert-secondary" id="comment2">
+        </div> -->
+        <div id="payment"> {% component 'comments' %} </div>
+
+        <!-- <div class="row alert alert-secondary" id="comment2">
             고도몰 이관
-        </div>
-         <div id="godomall" style="display:none;"> {% component 'comments2' %}</div>
-        <div class="row alert alert-secondary">
+        </div> -->
+         <div id="godomall"> {% component 'comments2' %}</div>
+        <!-- <div class="row alert alert-secondary">
             세금계산서 미발행
         </div>
         <div class="row alert alert-secondary">
@@ -49,7 +92,7 @@ target = "reseller"
         </div>
         <div class="row alert alert-secondary">
             지인소개 업체 추가 3개월 무료
-        </div>
+        </div> -->
     </div>
     <div class="col-md-12 fixed">
         <form class="">
@@ -62,7 +105,7 @@ target = "reseller"
 
 </div>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(document).ready(function() {
   $('#comment1').on("click", function() {
     $('#payment').toggle();
@@ -71,4 +114,4 @@ $(document).ready(function() {
     $('#godomall').toggle();
   });
 });
-</script>
+</script> -->

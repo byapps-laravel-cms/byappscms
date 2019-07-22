@@ -1,6 +1,6 @@
 title = "앱 목록"
-url = "/apps/list/:page"
-layout = "default"
+url = "/apps/appslist/:page"
+layout = "table"
 description = "앱 등록 등의 관리를 하실 수 있습니다"
 is_hidden = 0
 child_of = "mey_no_parent"
@@ -17,6 +17,7 @@ noRecordsMessage = "No records found"
 detailsPage = "appData"
 detailsKeyColumn = "idx"
 detailsUrlParameter = "idx"
+pageNumber = "{{ :page }}"
 sortColumn = "idx"
 sortDirection = "desc"
 
@@ -29,9 +30,6 @@ redirect = "permission"
 main-ol-class = "breadcrumb"
 active-class = "active"
 disabled-class = "disabled"
-
-[datatable]
-tableName = "appsListTable"
 ==
 <?php
 use Jiwon\Byapps\Models\AppsData;
@@ -65,7 +63,7 @@ function onStart()
  <div class="method">
    <div class="col-md-12 margin-5">
 
-    <table id="appsListTable" class="table table-striped mb-3" style="width:100%;">
+    <table id="datalist" class="table table-striped mb-3" style="width:100%;">
         <thead>
             <tr>
                 <th>앱 아이디</th>
@@ -112,7 +110,7 @@ function onStart()
         {% endfor %}
         </tbody>
     </table>
-    
+
   </div>
 </div>
 
@@ -205,5 +203,3 @@ function onStart()
         {% endif %}
     </ul>
 {% endif %} -->
-
-{% component 'datatable' %}
