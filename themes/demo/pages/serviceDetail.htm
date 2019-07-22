@@ -1,0 +1,257 @@
+title = "부가서비스 상세"
+url = "/service/servicedetail/:idx"
+layout = "default"
+description = "부가서비스 접수 관리를 하실 수 있습니다"
+is_hidden = 0
+child_of = "mey_no_parent"
+hide_crumb = 0
+remove_crumb_trail = 0
+crumb_disabled = 0
+
+[builderDetails]
+modelClass = "Jiwon\Byapps\Models\AdditionalService"
+identifierValue = "{{ :idx }}"
+modelKeyColumn = "idx"
+displayColumn = "app_name"
+notFoundMessage = "Record not found"
+
+[session]
+security = "user"
+allowedUserGroups[] = "admin_level_2"
+redirect = "permission"
+
+[breadcrumbs]
+main-ol-class = "breadcrumb"
+main-li-class = "breadcrumb-item"
+active-class = "active"
+disabled-class = "disabled"
+==
+<?php
+function onStart()
+{
+    $this['func'] = new Class {
+        public function dateFormat($val)
+        {
+           $dateString = date("Y-m-d", $val);
+           return $dateString;
+        }
+    };
+
+    $this['arrProcess'] = array('0' => '주문취소', '1' => '주문확인', '2' => 'SDK설치진행', '3' => 'SDK설치중', '4' => '설치완료');
+}
+?>
+==
+{% component 'breadcrumbs' %}
+
+<div class="container">
+
+{% set record = builderDetails.record %}
+{% set displayColumn = builderDetails.displayColumn %}
+{% set notFoundMessage = builderDetails.notFoundMessage %}
+
+    <div class="alert alert-info">
+    {% if record %}
+       <!--  <h4>Row modifier class included</h4> -->
+        <h4>
+          <strong>{{ attribute(record, displayColumn) }}</strong>
+        </h4>
+
+    {% else %}
+        {{ notFoundMessage }}
+    {% endif %}
+  </div>
+
+    <hr />
+
+    <div class="method">
+       <!--  <div class="row margin-0 list-header hidden-sm hidden-xs">
+           <div class="col-md-3"><div class="header">주문번호</div></div>
+       </div> -->
+
+        <div class="row margin-0">
+        {{ form_open() }}
+        <div class="row1">
+           <div class="col-md-2 col-xs-4">
+               <div class="cell">
+                   <div class="propertyname th_style_1">
+                   주문번호
+                   </div>
+               </div>
+           </div>
+
+           <div class="col-md-10 col-xs-8">
+               <div class="cell">
+                   <div class="description td_style_1">
+                     {{ record.order_id }} <a href="#" title="삭제" class="btn_del"></a>
+                   </div>
+               </div>
+           </div>
+        </div>
+
+        <div class="row1">
+           <div class="col-md-2 col-xs-4">
+               <div class="cell">
+                   <div class="propertyname th_style_1">
+                   주문일
+                   </div>
+               </div>
+           </div>
+           <div class="col-md-10 col-xs-8">
+               <div class="cell">
+                   <div class="description td_style_1">
+                     {{ func.dateFormat(record.reg_time) }}
+                   </div>
+               </div>
+           </div>
+       </div>
+
+       <div class="row1">
+          <div class="col-md-2 col-xs-4">
+              <div class="cell">
+                  <div class="propertyname th_style_1">
+                  Process
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-10 col-xs-8">
+              <div class="cell">
+                  <div class="description td_style_1">
+                    {% for key,val in arrProcess %}
+                      {% if key == record.app_process %}
+                        {{ val }}
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+              </div>
+          </div>
+       </div>
+
+       <div class="row1">
+           <div class="col-md-2 col-xs-4">
+               <div class="cell">
+                   <div class="propertyname th_style_1">
+                   회원ID
+                   </div>
+               </div>
+           </div>
+
+           <div class="col-md-10 col-xs-8">
+               <div class="cell">
+                   <div class="description td_style_1">
+                     {{ record.mem_id }}
+                     <input class="btn nbutton3 btn-xs" type="button" value="회원정보">
+                     <!-- <input class="btn nbutton3 btn-xs" type="button" value="주문내역">
+                     <input class="btn nbutton3 btn-xs" type="button" value="앱관리"> -->
+                   </div>
+               </div>
+           </div>
+        </div>
+
+        <div class="row1">
+           <div class="col-md-2 col-xs-4">
+               <div class="cell">
+                   <div class="propertyname th_style_1">
+                   업체명
+                   </div>
+               </div>
+           </div>
+           <div class="col-md-10 col-xs-8">
+               <div class="cell">
+                   <div class="description td_style_1">
+                     {{ record.app_company }}
+                   </div>
+               </div>
+           </div>
+        </div>
+
+        <div class="row1">
+           <div class="col-md-2 col-xs-4">
+               <div class="cell">
+                   <div class="propertyname th_style_1">
+                   신청자명
+                   </div>
+               </div>
+           </div>
+           <div class="col-md-10 col-xs-8">
+               <div class="cell">
+                   <div class="description td_style_1">
+                   {{ record.order_name }}
+                   </div>
+               </div>
+           </div>
+        </div>
+
+        <div class="row1">
+           <div class="col-md-2 col-xs-4">
+               <div class="cell">
+                   <div class="propertyname th_style_1">
+                   연락처
+                   </div>
+               </div>
+           </div>
+           <div class="col-md-10 col-xs-8">
+               <div class="cell">
+                   <div class="description td_style_1">
+                   {{ record.cellno }}
+                   <input class="btn nbutton3 btn-xs" type="button" value="SMS보내기">
+                   </div>
+               </div>
+           </div>
+        </div>
+
+        <div class="row1">
+           <div class="col-md-2 col-xs-4">
+               <div class="cell">
+                   <div class="propertyname th_style_1">
+                   이메일
+                   </div>
+               </div>
+           </div>
+           <div class="col-md-10 col-xs-8">
+               <div class="cell">
+                   <div class="description td_style_1">
+                   {{ record.email }}
+                   </div>
+               </div>
+           </div>
+        </div>
+
+
+        <div class="row1">
+           <div class="col-md-2 col-xs-4">
+               <div class="cell">
+                   <div class="propertyname th_style_1">
+                   결제정보
+                   </div>
+               </div>
+           </div>
+           <div class="col-md-10 col-xs-8">
+               <div class="cell">
+                   <div class="description td_style_1">
+                   {{ record.pay_way }}({{ record.payment }})
+                   </div>
+               </div>
+           </div>
+        </div>
+
+        <div class="row1">
+           <div class="col-md-2 col-xs-4 height_2">
+               <div class="cell">
+                   <div class="propertyname th_style_1">
+                   영수증정보
+                   </div>
+               </div>
+           </div>
+
+           <div class="col-md-10 col-xs-8">
+               <div class="cell">
+                   <div class="description td_style_1">
+                     <textarea name="receipt" class="form-control" style="height:200px;">{{ record.receipt }}</textarea>
+                   </div>
+               </div>
+           </div>
+         </div>
+        </div>
+        {{ form_close() }}
+    </div>
+</div>

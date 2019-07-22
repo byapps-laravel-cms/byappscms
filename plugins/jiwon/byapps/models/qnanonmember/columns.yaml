@@ -1,0 +1,50 @@
+columns:
+    idx:
+        label: IDX
+        type: number
+        sortable: true
+    mem_id:
+        label: mem_id
+        type: text
+        sortable: true
+    process:
+        label: process
+        type: number
+        sortable: true
+    pid:
+        label: pid
+        type: number
+        sortable: true
+    mem_name:
+        label: mem_name
+        type: text
+        sortable: true
+    email:
+        label: email
+        type: text
+        sortable: true
+    email_reply:
+        label: email_reply
+        type: text
+        sortable: true
+    phone:
+        label: phone
+        type: text
+        sortable: true
+    subject:
+        label: subject
+        type: text
+        sortable: true
+    content:
+        label: content
+        type: text
+        sortable: true
+    attach_file:
+        label: attach_file
+        type: text
+        sortable: true
+    reg_time:
+        label: reg_time
+        type: date
+        sortable: true
+        format: Y-m-d

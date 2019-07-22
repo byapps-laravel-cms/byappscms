@@ -1,0 +1,244 @@
+title = "업데이트 상세"
+url = "/apps/updatedetail/:idx"
+layout = "default"
+description = "업데이트 접수를 관리 하실 수 있습니다"
+is_hidden = 0
+child_of = "updateManage"
+hide_crumb = 0
+remove_crumb_trail = 0
+crumb_disabled = 0
+
+[builderDetails]
+modelClass = "Jiwon\Byapps\Models\UpdateData"
+identifierValue = "{{ :idx }}"
+modelKeyColumn = "idx"
+displayColumn = "app_id"
+notFoundMessage = "Record not found"
+
+[session]
+security = "user"
+allowedUserGroups[] = "admin_level_2"
+redirect = "permission"
+
+[breadcrumbs]
+main-ol-class = "breadcrumb"
+main-li-class = "breadcrumb-item"
+active-class = "active"
+disabled-class = "disabled"
+==
+<?php
+use Jiwon\Byapps\Models\UpdateData;
+
+function onStart()
+{
+    $this['record'] = UpdateData::where('idx', '=', $this->param('idx'))->first();
+
+    $this['util'] = new Class {
+        public function dateFormat($val)
+        {
+           $dateString = date("Y-m-d h:i:s", $val);
+           return $dateString;
+        }
+    };
+
+    $this['itemlist'] = array("접수날짜", "Process", "회원ID", "App. Name", "App. OS", "App. ID","Update Type" , "Update Detail", "App. Intro");
+    $this['opt_process'] = array('개발준비중', '심사중', '재심사중', '등록거부', '등록대기', '등록완료', '서비스중지', '서비스유효');
+}
+?>
+==
+{% component 'breadcrumbs' %}
+
+<div class="container">
+
+{% set record = builderDetails.record %}
+{% set displayColumn = builderDetails.displayColumn %}
+{% set notFoundMessage = builderDetails.notFoundMessage %}
+
+<div class="alert alert-info">
+{% if record %}
+   <!--  <h4>Row modifier class included</h4> -->
+   <h4>
+     <strong>{{ attribute(record, displayColumn) }}</strong>
+   </h4>
+
+{% else %}
+    {{ notFoundMessage }}
+{% endif %}
+</div>
+
+<hr />
+
+<div class="method">
+
+    <div class="row margin-0">
+    <div class="row1">
+       <div class="col-md-3">
+           <div class="cell">
+               <div class="propertyname th_style_1">
+                접수날짜
+               </div>
+           </div>
+       </div>
+       <div class="col-md-5">
+           <div class="cell">
+               <div class="description td_style_1">
+                 {{ util.dateFormat(record.reg_time) }} <a href="#" title="삭제" class="btn_del"></a>
+               </div>
+           </div>
+       </div>
+    </div>
+
+        <div class="row1">
+       <div class="col-md-3">
+           <div class="cell">
+               <div class="propertyname th_style_1">
+                Process
+               </div>
+           </div>
+       </div>
+       <div class="col-md-5">
+           <div class="cell">
+               <div class="description td_style_1">
+                 <!-- {{ record.app_process }} -->
+                 <select class="form-control-xs">
+                     <option>선택해주세요</option>
+                  {% for key, val in opt_process %}
+                     <option value="{{ key }}" {{ key == record.app_process ? "selected" : "" }}>{{ val }}</option>
+                  {% endfor %}
+                     <!-- <option value="0">개발준비중</option>
+                     <option value="1">심사중</option>
+                     <option value="2">재심사중</option>
+                     <option value="3">등록거부</option>
+                     <option value="4">등록대기</option>
+                     <option value="5">등록완료</option>
+                     <option value="6">서비스중지</option>
+                     <option value="7">서비스유효</option> -->
+                 </select>
+                 <input class="btn btn-xs nbutton3" type="button" value="상태 변경">
+                 <input class="btn btn-xs nbutton3" type="button" value="APK등록">
+               </div>
+           </div>
+       </div>
+    </div>
+
+    <div class="row1">
+       <div class="col-md-3">
+           <div class="cell">
+               <div class="propertyname th_style_1">
+                회원ID
+               </div>
+           </div>
+       </div>
+       <div class="col-md-5">
+           <div class="cell">
+               <div class="descrisption td_style_1">
+                 {{ record.mem_id }}
+                 <input class="btn btn-xs nbutton3" type="button" value="회원정보">
+               </div>
+           </div>
+       </div>
+    </div>
+
+
+<div class="row1">
+       <div class="col-md-3">
+           <div class="cell">
+               <div class="propertyname th_style_1">
+                App. Name
+               </div>
+           </div>
+       </div>
+       <div class="col-md-5">
+           <div class="cell">
+               <div class="description td_style_1">
+                 {{ record.app_name }}
+               </div>
+
+           </div>
+       </div>
+</div>
+
+
+<div class="row1">
+       <div class="col-md-3">
+           <div class="cell">
+               <div class="propertyname th_style_1">
+                  App. OS
+               </div>
+           </div>
+       </div>
+       <div class="col-md-5">
+           <div class="cell">
+               <div class="description td_style_1">
+                 {{ record.apps_type }}
+               </div>
+
+           </div>
+       </div>
+       </div>
+
+       <div class=" row1">
+       <div class="col-md-3">
+           <div class="cell">
+               <div class="propertyname th_style_1">
+              App. ID
+               </div>
+           </div>
+       </div>
+       <div class="col-md-5">
+           <div class="cell">
+               <div class="description td_style_1">
+               bonagirl
+               </div>
+
+           </div>
+       </div>
+       </div>
+
+<div class="row1">
+       <div class="col-md-3">
+           <div class="cell">
+               <div class="propertyname th_style_1">
+                Update Type
+               </div>
+           </div>
+       </div>
+       <div class="col-md-5">
+           <div class="cell">
+               <div class="description td_style_1">
+               intro
+               </div>
+
+           </div>
+       </div>
+</div>
+<div class="row1">
+       <div class="col-md-3 ">
+           <div class="cell">
+               <div class="propertyname th_style_1 height_1">
+                Update Detail
+               </div>
+           </div>
+       </div>
+       <div class="col-md-5">
+           <div class="cell">
+               <div class="description td_style_1">
+                 <textarea name="receipt" class="form-control" style="height:75px;">{{ record.receipt }}</textarea>
+               </div>
+
+           </div>
+       </div>
+</div>
+<div class="row1">
+       <div class="col-md-3 ">
+           <div class="cell">
+               <div class="propertyname th_style_1 height_2">
+                App. Intro
+               </div>
+           </div>
+       </div>
+
+</div>
+
+  </div>
+</div>

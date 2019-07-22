@@ -1,0 +1,495 @@
+title = "앱 상세정보"
+url = "/apps/appsdetail/:idx"
+layout = "default"
+description = "앱 등록 등의 관리를 하실 수 있습니다"
+is_hidden = 0
+child_of = "appsList"
+hide_crumb = 0
+remove_crumb_trail = 0
+crumb_disabled = 0
+
+[builderDetails]
+modelClass = "Jiwon\Byapps\Models\AppsData"
+identifierValue = "{{ :idx }}"
+modelKeyColumn = "idx"
+displayColumn = "app_name"
+notFoundMessage = "Record not found"
+
+[session]
+security = "user"
+allowedUserGroups[] = "admin_level_2"
+redirect = "permission"
+
+[breadcrumbs]
+main-ol-class = "breadcrumb"
+main-li-class = "breadcrumb-item"
+active-class = "active"
+disabled-class = "disabled"
+==
+<?php
+use Jiwon\Byapps\Models\AppsData;
+
+function onStart()
+{
+    $mAgent = array("iPhone","iPod","Android","Blackberry","Opera Mini", "Windows ce", "Nokia", "sony" );
+    for($i=0; $i<sizeof($mAgent); $i++){
+        if(stripos( $_SERVER['HTTP_USER_AGENT'], $mAgent[$i] )){
+            $this['mobile'] = 1;
+            break;
+        }
+    }
+
+    $this['record'] = AppsData::where('idx', '=', $this->param('idx'))->first();
+
+    $this['util'] = new Class {
+        public function dateFormat($val)
+        {
+           $dateString = date("Y-m-d h:i:s", $val);
+           return $dateString;
+        }
+    };
+
+
+    $this['itemlist'] = array(
+        array('Process','selectBox','name="mem_id"',$this['record']->process,array(
+                array('','선택해주세요'),
+                array(1,'개발준비중'),
+                array(2,'개발진행중'),
+                array(3,'심사중'),
+                array(4,'등록거부'),
+                array(5,'재심사중'),
+                array(6,'등록대기'),
+                array(7,'등록완료'),
+                array(8,'서비스중지'),
+                array(10,'서비스유효'),
+            )),
+        array('RESELLER ID','input','disabled',$this['record']->recom_id),
+        array('등록일','input','disabled',$this['util']->dateFormat($this['record']->start_time)),
+        array('주문번호','input','disabled',$this['record']->order_id),
+        array('회원ID','input','name="mem_id"',$this['record']->mem_id),
+        array('App ID','input','disabled',$this['record']->app_id),
+        array('Service Type','radoiButton','name ="service_type"',$this['record']->service_type,array(
+                array('biz','일반'),
+                array('lite','라이트'),
+                array('tester','테스터'),
+            )),
+        array('app OS','radoiButton','name ="apps_type"',$this['record']->apps_type,array(
+                array('안드로이드','안드로이드'),
+                array('안드로이드+iOS','안드로이드+iOS'),
+            )),
+        array('App Display','input','name="o_idx"',$this['record']->o_idx),
+        array('App Name','input','name="app_name"',$this['record']->app_name),
+        array('Byapps Ver','input','name="byapps_ver"',$this['record']->byapps_ver),
+        array('Android Version','input2',array(
+                array('span','version:'),
+                array('input','name="app_ver"',$this['record']->app_ver),
+                array('span','build:'),
+                array('input','name="app_build"',$this['record']->app_build)
+            )),
+        array('Ios Version','input2',array(
+                array('span','version:'),
+                array('input','name="app_ver_ios"',$this['record']->app_ver_ios),
+                array('span','build:'),
+                array('input','name="app_build_ios"',$this['record']->app_build_ios)
+            )),
+        array('App Category','selectBox','name="app_cate"',$this['record']->app_cate,array(
+                array('','선택해주세요'),
+                array('01','패션/의류'),
+                array('06','화장품/뷰티'),
+                array('07','아동/유아'),
+                array('02','스포츠/레져'),
+                array('03','건강/농수산물'),
+                array('04','가전/가구'),
+                array('05','기타'),
+            )),
+        array('App Icon','fileUpload','name="Icon"'),
+        array('Server Group','input','disabled',$this['record']->server_group." 그룹"),
+        array('GCM Key','input','name="noti_gcm"',$this['record']->noti_gcm),
+        array('GCM Number','input','name="noti_gcm_num"',$this['record']->noti_gcm_num),
+        array('Google App ID','input','name="noti_fcm_num"',$this['record']->noti_fcm_num),
+        array('APNS Cert','fileUpload','name="Cert'),
+        array('APNS Pass'),
+        array('Process','selectBox','name="push_server"',$this['record']->push_server,array(
+                array('','default'),
+                array('http://byapps.cafe24app.com/','http://byapps.cafe24app.com/'),
+                array('http://push1.cafe24app.com/','http://push1.cafe24app.com/'),
+                array('http://byappspush2.cafe24app.com/','http://byappspush2.cafe24app.com/'),
+                array('http://byappspush3.cafe24app.com/','http://byappspush3.cafe24app.com/'),
+                array('http://byappspush4.cafe24app.com/','http://byappspush4.cafe24app.com/'),
+            )),
+        array('PUSH TOKEN','input','name="push_token"',$this['record']->push_token),
+        array('Period of Use','input2',array(
+                array('input','name="start_date"'),
+                array('span','~'),
+                array('input','name="end_date"')
+            )),
+        array('Android URL','input+button','name="app_android_url"',$this['record']->app_android_url),
+        array('iOS URL','input+button','name="app_ios_url"',$this['record']->app_ios_url),
+        array('Mobile URL','input+button','name="surl"',$this['record']->surl),
+        array('PackageName(Android)','input','name="packagename" placeholder= 안드로이드_패키지명이_변경되었을때 ',$this['record']->packagename),
+        array('Bundle ID(iOS)','input','name="bundleid" placeholder= 안드로이드_패키지명과_다를때_입력(아이폰_앱빌드옹) ',$this['record']->bundleid),
+        array('Vender','input','name="vender" placeholder= 안드로이드_무결성_검증(ex:com.android.vending) ',$this['record']->vender),
+        array('Hash Key','input','name="hashkey placeholder= 안드로이드_무결성_검증',$this['record']->hashkey),
+        array('iOS Hash	','input','name="ioshack" placeholder= IOS_무결성_검증',$this['record']->ioshack),
+        array('Cafe24 Mall ID','input','name="host_id"',$this['record']->host_id),
+        array('Charset','radoiButton','name="txtencode"',$this['record']->txtencode,array(
+                array('utf-8','utf-8'),
+                array('EUC-KR','EUC-KR'),
+            )),
+        array('Hosting Com','radoiButton','name="host_name"',$this['record']->host_name,array(
+                array('cafe24','카페24'),
+                array('makeshop','메이크샵'),
+                array('godo','고도몰'),
+                array('wisa','위사'),
+                array('etc','기타'),
+            )),
+        array('Language','checkBox','name="app_lang[]"',$this['record']->app_lang,array(
+          array('en','영어',strpos($this['record']->app_lang,'en') || $this['record']->app_lang == 'en' ? "checked" : ""),
+                array('ko','한국어',strpos($this['record']->app_lang,'ko') || $this['record']->app_lang == 'ko' ? "checked" : ""),
+                array('zh','중국어',strpos($this['record']->app_lang,'zh') || $this['record']->app_lang == 'zh' ? "checked" : ""),
+                array('tw','대만어',strpos($this['record']->app_lang,'tw') || $this['record']->app_lang == 'tw' ? "checked" : ""),
+                array('ja','일본어',strpos($this['record']->app_lang,'ja') || $this['record']->app_lang == 'ja' ? "checked" : ""),
+            )),
+        array('고객센터','input','name="cscall"',$this['record']->cscall),
+        array('추천메시지','textarea','name="smsg"',$this['record']->smsg),
+        array('팀메뉴커스텀','input','name="tabcustom"',$this['record']->tabcustom),
+        array('자동로그인','checkBox','name="auto_login"',$this['record']->auto_login,array(
+                array('Y','자동로그인 허용',$this['record']->auto_login == 'Y' ? "checked" : "")
+            )),
+        array('포인트 관련','checkBox2',array(
+                array('name="login_point"','Y',$this['record']->login_point,'출석체크'),
+                array('name="push_point"','Y',$this['record']->push_point,'푸쉬체크'),
+                array('name="install_point"','Y',$this['record']->install_point,'앱설치'),
+                array('name="point_transfer_btn"','Y',$this['record']->point_transfer_btn,'수동전환'),
+            )),
+        array('유료 부가서비스','checkBox2',array(
+                array('name="app_retarget"','Y',$this['record']->app_retarget,'리타켓팅'),
+                array('name="app_ma"','Y',$this['record']->app_ma,'마케팅 오토메이션'),
+            )),
+        array('추가 서비스','checkBox2',array(
+                array('name="lock_screen"','Y',$this['record']->lock_screen,'잠금화면설정'),
+                array('name="reward_opt"','Y',$this['record']->reward_opt,'추천 리워드'),
+                array('name="app_cart"','Y',$this['record']->app_cart,'장바구니 리마인드'),
+            )),
+        array('푸쉬 관련','checkBox2',array(
+                array('name="push_msg_show"','Y',$this['record']->push_msg_show,'소식란에 보이도록'),
+                array('name="push_popup"','Y',$this['record']->push_popup,'팝업'),
+                array('name="push_call_back"','Y',$this['record']->push_call_back,'리시브 콜백'),
+                array('name="is_fcm"','Y',$this['record']->is_fcm,'FCM 발송적용'),
+            )),
+        array('기타','checkBox2',array(
+                array('name="script_api"','Y',$this['record']->script_api,'디바이스허용'),
+                array('name="app_members"','Y',$this['record']->app_members,'앱사용자 관리'),
+                array('name="script_popup"','Y',$this['record']->script_popup,'스크립트설치'),
+                array('name="developer_account"','Y',$this['record']->developer_account,'자체개발계정'),
+            )),
+        array('SDK/커스텀','input2',array(
+                array('span','SDK:'),
+                array('input','name="custom_sdk"',$this['record']->custom_sdk),
+                array('span','커스텀:'),
+                array('input','name="custom_etc"',$this['record']->custom_sdk),
+            )),
+        array('관리업체지정','selectBox','name="vip_check"',$this['record']->vip_check,array(
+                array('','지정안함'),
+                array('#000|#ffff00','주요관리'),
+                array('#fff|#ff0000','사전고시 출시완료'),
+                array('#fff|#0000ff','신규연장 가능업체'),
+                array('#fff|#00ff00','사전고지등록'),
+                array('#000|#eee','개인화랜딩업체'),
+            )),
+        array('앱소개','textarea','name="app_intro"',$this['record']->app_intro),
+        array('Develop Info','name="developer_info"',stripslashes($this['record']->developer_info)),
+    );
+    /*
+    $this['itemlist'] = array(
+      "Process", "RESELLER ID", "등록일", "주문번호", "회원 ID", "App. ID", "Service Type", "App. OS", "App. Display", "Byapps Ver.", "App. Name", "Android Version",
+      "iOS Version", "App. Category", "App. Icon", "Group", "GCM Key", "GCM Number", "Google App ID", "APNS Cert.", "APNS Pass.", "PUSH SERVER", "PUSH TOKEN",
+      "Period of Use", "Android URL", "iOS URL", "Mobile URL", "PackageName(Android)", "Bundle ID(iOS)", "Vender", "Hash Key", "iOS Hash", "Cafe24 Mall ID",
+      "Charset", "Hosting Com.", "Language", "고객센터", "카톡연락처", "페이스북", "트위터", "추천메세지", "탭메뉴커스텀", "자동로그인", "출석체크", "푸쉬체크", "앱설치포인트",
+      "앱포인트 수동전환", "장바구니 리마인드", "유료 부가서비스", "푸쉬메세지 설정", "디바이스허용", "앱사용자 관리", "잠금화면", "추천리워드", "팝업푸쉬", "푸쉬리시브콜백",
+      "FCM 적용", "스크립트설치", "안드로이드 자체개발계정", "SDK/커스텀유무", "관리업체지정");
+    */
+}
+?>
+==
+{% component 'breadcrumbs' %}
+
+<div class="container bg-white">
+    <div class="col-md-12">
+    {% set record = builderDetails.record %}
+    {% set displayColumn = builderDetails.displayColumn %}
+    {% set notFoundMessage = builderDetails.notFoundMessage %}
+        <div id="appsData" class="bg-white col-md-12">
+        {% if record %}
+        <!--  <h4>Row modifier class included</h4> -->
+            <h4>
+                <strong>{{ attribute(record, displayColumn) }}</strong>
+            </h4>
+
+        
+
+        {% else %}
+            {{ notFoundMessage }}
+        {% endif %}
+    </div>
+
+        <hr />
+        <div class="curtain"></div>
+        <div class="method">
+            <div class="row margin-0">
+            {{ form_open() }}
+            <div class="row top_banner">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-xs-10  control-label">ID</label>
+                        <div class="col-md-10 col-xs-12">
+                            <div class="col-md-6 col-xs-8">
+                                <input type="text" name="" class="form-control">
+                            </div>
+                            <div class="col-md-2 col-xs-4">
+                                <a href="#"><input type="button" class="form-control" value="회원로그인"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group  row">
+                        <label class="col-md-2 col-xs-12"></label>
+                        <div class="col-md-10 col-xs-12">
+                            <div class="col-md-2 col-xs-4">
+                                <a href="#"><input type="button" class="form-control" value="주문내역"></a>
+                            </div>
+                            <div class="col-md-2 col-xs-4">
+                                <a href="#"><input type="button" class="form-control" value="결제내역"></a>
+                            </div>
+                            <div class="col-md-2 col-xs-4">
+                                <a href="#"><input type="button" class="form-control" value="앱관리"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 col-xs-12"></label>
+                        <div class="col-md-10 col-xs-12">
+                            <div class="col-md-2 col-xs-4">
+                                <a href="#"><input type="button" class="form-control" value="프로모션발급"></a>
+                            </div>
+                            <div class="col-md-2 col-xs-4">
+                                <a href="#"><input type="button" class="form-control" value="ID변경"></a>
+                            </div>
+                            <div class="col-md-2 col-xs-4">
+                                <a href="#"><input type="button" class="form-control" value="리샐러지정"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 col-xs-12 control-label">업체명</label>
+                        <div class="col-md-10 col-xs-12">
+                            <div class="col-md-6 col-xs-10 ">
+                                <input type="text" name="" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 col-xs-12 control-label">대표자명</label>
+                        <div class="col-md-10 col-xs-12">
+                            <div class="col-md-6 col-xs-10">
+                                <input type="text" name="" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 col-xs-12 control-label">담당자명</label>
+                        <div class="col-md-10 col-xs-12">
+                            <div class="col-md-6 col-xs-10">
+                                <input type="text" name="" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 col-xs-12 control-label">연락처</label>
+                        <div class="col-md-10 col-xs-12">
+                        <div class="col-md-2 col-xs-3">
+                            <input type="text" name="" class="form-control" maxlength="3" size="10">
+                        </div>
+                        <span  class="col-md-0 col-xs-0" style="float:left;">-</span>
+                        <div class="col-md-2 col-xs-4">
+                            <input type="text" name="" class="form-control" maxlength="4"size="10">
+                        </div>
+                        <span  class="col-md-0 col-xs-0" style="float:left;">-</span>
+                        <div class="col-md-2 col-xs-4">
+                            <input type="text" name="" class="form-control" maxlength="4"size="10">
+                        </div>
+                        <div class="col-md-2 col-xs-12">
+                            <input type="button" class="form-control" value="SMS 보내기">
+                        </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 control-label">완료알림 연락처</label>
+                        <div class="col-md-10 col-xs-12">
+                            <div class="col-md-2 col-xs-3">
+                                <input type="text" name="" class="form-control" maxlength="3" size="10">
+                            </div>
+                            <span style="float:left;">-</span>
+                            <div class="col-md-2 col-xs-4">
+                                <input type="text" name="" class="form-control" maxlength="4"size="10">
+                            </div>
+                            <span style="float:left;">-</span>
+                            <div class="col-md-2 col-xs-4">
+                                <input type="text" name="" class="form-control" maxlength="4"size="10">
+                            </div>
+                            <div class="col-md-2 col-xs-12">
+                                <input type="button" class="form-control" value="SMS 보내기">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-md-2 control-label">이메일</label>
+                        <div class="col-md-10 col-xs-12">
+                            <div class="col-md-6 col-xs-10">
+                                <input type="text" name="" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-md-2 control-label">로그정보</label>
+                        <div class="col-md-10 col-xs-12">
+                            <div class="col-md-6 col-xs-10">
+                                <span class="form-control"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 col-xs-12 control-label">담당자명</label>
+                        <div class="col-md-10 col-xs-12">
+                            <div class="col-md-6 col-xs-10">
+                                <input type="text" name="" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 col-xs-12 control-label">담당자명</label>
+                        <div class="col-md-10 col-xs-12">
+                            <div class="col-md-6 col-xs-10">
+                                <label class="radio-inline"><input type="radio" name="option" checked>수정</label>
+                                <label class="radio-inline"><input type="radio" name="option">삭제</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 업체정보 버튼 -->
+                <div class="show_btn">
+                    <p><i class="fas fa-chevron-down"></i></p>
+                </div>
+
+
+            {% for item in itemlist %}
+                <div class="form-group row" id="appsData">
+                    <label class="col-sm-2 control-label">{{ item.0 }}</label>
+                    <div class="col-md-10 col-xs-10">
+            {% if item.1 == 'selectBox' %}
+                        <div class="col-sm-6 col-xs-10">
+                            <select {{ item.2 }} class="form-control">
+                            {% for option in item.4 %}
+                                <option value="{{ option.0 }}" {{ item.3 == option.0 ? "selected" : "" }} >{{ option.1 }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+            {% elseif item.1 == 'radioButton' %}
+                    <div class="col-sm-7 col-xs-10">
+                    {% for option in item.4 %}
+                        <label class="radio-inline"><input type="radio" {{ item.3 == option.0 ? "checked" : "" }} {{ item.1 }} value="{{ option.0 }}">{{ option.1 }}</label>
+                    {% endfor %}
+                    </div>
+            {% elseif item.1 == 'fileUpload' %}
+                {% if mobile == 1 %}
+                    <div class="filebox col-sm-5">
+                        <label>파일선택
+                            <input type="file" accept="image/*" name="{{ item.2 }}">
+                        </label>
+                    </div>
+                {% else %}
+                    <div class="col-md-5">
+                        <div class="file_dropzone form-control" style="height:200px;width:200px;">
+                            <div style="height:100%;line-height:1100%;text-align:center;">drop here</div>
+                        </div>
+                    </div>
+                    <input type="hidden" {{ item.2 }} value="">
+                {% endif %}
+            {% elseif item.1 == 'checkBox' %}
+                    <div class="col-md-10 col-xs-10">
+                    {% for option in item.4 %}
+                        <label class="radio-inline"><input type="checkbox" {{ item.2 }} {{ option.2 }} value="{{ option.0 }}">{{ option.1 }}</label>
+                    {% endfor %}
+                    </div>
+            {% elseif item.1 == 'checkBox2' %}
+                {% for option in item.2 %}
+                    <div class="col-sm-3">
+                        <label class="radio-inline"><input type="checkbox" {{ option.0 }} {{ option.1 == option.2 ? "checked" : "" }} value="{{ option.1 }}">{{ option.3 }}</label>
+                    </div>
+                {% endfor %}
+            {% elseif item.1 == 'textarea' %}
+                    <textarea {{ itme.2 }} class="col-md-6 col-xs-10" rows="5">{{ item.3 }}</textarea>
+                {% elseif item.0 == 'Develop Info' %}
+                    <ul class="develop_info_select">
+                        <li>텍스트로 보기</li>
+                        <li>HTML코드로 보기</li>
+                    </ul>
+                <div class="develop_info ">
+                    {{ item.3|raw }}
+                </div>
+                <div class="develop_info col-md-6 col-xs-10" >
+                    <div class="">
+                        {{ item.3 }}
+                    </div>
+                </div>
+                {% elseif item.1 == 'input2' %}
+                    {% for option in item.2 %}
+                        {% if option.0 == 'input' %}
+                            <div class="col-md-3">
+                                <input type="text" {{ option.1 }} class="form-control" value="{{ option.2 }}">
+                            </div>
+                        {% elseif option.0 == 'span' %}
+                            <span style="float:left;">{{ option.1 }}</span>
+                        {% endif %}
+                    {% endfor %}
+                {% elseif item.1 == 'input' or item.1 == 'input+button' %}
+                    <div class="col-xs-10">
+                        <input type="text" {{ item.2 }} class="form-control" value="{{ item.3 }}">
+                    </div>
+                    {% if item.1 == 'input+button' %}
+                        <div class="col-xs-2">
+                            <a href="{{ item.2 }}" target="_sub"><input class="form-control" type="button" value="새탭에서 열기"></a>
+                        </div>
+                    {% endif %}
+                {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+
+
+            {{ form_close() }}
+
+    {{ form_open() }}
+            </div>
+        </div>
+    <div id="popup_update" class="Pstyle">
+    <div class="pop_head th_style_1 pop_border">
+        <h3 class="update_pop_name">관리자 업데이트 접수</h3>
+        <span class="b-close btn_del pop_x"></span>
+        </div>
+        <div class="content2">
+        <div class="td_style_2" style="margin-top:13px;"><div class="th_style_2">App. ID</div><input class="pop_input_1" type="text" name="App_id" value=""></div>
+        <div class="td_style_2"><div class="th_style_2">App. Name</div><input style="width: 40%;" class="pop_input_1" type="text" name="App_name" ></div>
+        <div class="td_style_2"><div class="th_style_2">Service Type</div>
+        <div class="check_box_1"><input tyle="margin-left: 32px;" type="checkbox" name="Andriod" >안드로이드</div>
+        <div class="check_box_1"><input type="checkbox" name="IOS">아이폰</div>
+        </div>
+        <div class="td_style_2"><div class="th_style_2">업데이트 내용</div><input style="width: 70%;" class="pop_input_1" type="text" name="update_log"></div>
+        </div>
+        <div class="pop_foot">
+            <input class="btn btn-default nbutton pop_f_btn" type ="submit" value="업데이트">
+            <input class="btn btn-default button pop_f_btn b-close nbutton"type="button" value="취소">
+        </div>
+    </div>
+    {{ form_close() }}
+    </div>
+</div>

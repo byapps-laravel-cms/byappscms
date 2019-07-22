@@ -1,4 +1,7 @@
 description = "navigation"
+
+[badge]
+badgeClass = "badge-danger"
 ==
 <!-- Nav -->
     <nav class="navbar navbar-expand-lg back-dark">
@@ -20,7 +23,7 @@ description = "navigation"
             </li> -->
             <li class="nav-item dropdown {% if this.page.id == 'payManage' %}active{% endif %}">
                 <a class="nav-link dropdown-toggle" href="{{ 'payManage'|page }}" id="navbarDropdown_01"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    결제 관리
+                   결제 관리{% component 'badge' %}
                     <!-- <i class="fas fa-caret-down"></i> -->
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown_01">

@@ -7,11 +7,25 @@ hide_crumb = 0
 remove_crumb_trail = 0
 crumb_disabled = 0
 
+[viewBag]
+activeMenu = "about"
+
 [badge]
-badge-class = "badge-light"
-badge-active-class = "badge-danger"
+badgeClass = "badge-light"
 ==
-<h1>This is our About page.</h1>
-<h2>Hello!</h2>
+<?php
+function onStart() {
+    $this->visit();
+}
+
+function visit() {
+    //echo "visit";   
+}
+?>
+==
+<!-- <h1>This is our About page.</h1>
+<h2>Hello!</h2> -->
+
+
 
 {% component 'badge' %}

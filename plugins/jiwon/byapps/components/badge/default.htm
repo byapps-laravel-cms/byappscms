@@ -1,14 +1,2 @@
-{% set badgeOptions = __SELF__.options %}
-<!-- {% if currentBadge.show_badge %}
-<span class="{{badgeOptions['badge-class']}}">60</span>
-{% elseif currentBadge.active_badge %}
-<span class="{{badgeOptions['badge-active-class']}}">60</span>
-{% endif %} -->
 
-{% for b in badgeOptions %}
-{% if b == 'active_badge' %}
-{{ b }}
-{% endif %}
-{% endfor %}
-
-<!-- {{ badgeClass }} -->
+<span class="badge {{ badgeClass }}">60</span>

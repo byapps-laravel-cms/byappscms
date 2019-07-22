@@ -1,0 +1,28 @@
+columns:
+    idx:
+        label: IDX
+        type: number
+        searchable: false
+        sortable: true
+    mmid:
+        label: mmid
+        type: text
+    pidx:
+        label: pidx
+        type: number
+    pmid:
+        label: pmid
+        type: text
+    mem_id:
+        label: 회원ID
+        type: text
+    mem_name:
+        label: 회원명
+        type: text
+    comment:
+        label: 코멘트
+        type: text
+    reg_time:
+        label: 등록일
+        type: datetime
+        format: Y-m-d
