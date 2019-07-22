@@ -99,6 +99,14 @@ function onLayoutChange()
 {% if not user %}
 <h2><center>로그인하는페이지</center></h2>
 {% elseif user %}
+
+<script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
+
 <div class="sortable">
   {% for record in recoreds %}
       {% if record == 'layout1' %}
@@ -111,21 +119,35 @@ function onLayoutChange()
             </div>
             <div class="dragbox collapse show" id="salesList">
                 <div class="c_box_1">
-                    <div class="circle1">
-                        <p class="vertical_center">10</p>
-                        <p class="c_box_1_font">주문접수</p>
+                    <div class="col-6 mx-auto border">
+                        <span class="badge badge-danger">&nbsp;&nbsp;</span>
+                        <strong>주문접수 현재</strong>
+                        <div class="mx-auto my-2 text-center">
+                            <span>10</span> 건
+                        </div>
+                    </div>
+                    <div class="col-6 mx-auto border">
+                        <span class="badge badge-success">&nbsp;&nbsp;</span>
+                        <strong>주문접수 어제</strong>
+                        <div class="mx-auto my-2 text-center">
+                            <span>11</span> 건
+                        </div>
                     </div>
                 </div>
                 <div class="c_box_1">
-                    <div class="circle1">
-                        <p class="vertical_center">10</p>
-                        <p class="c_box_1_font">부가서비스접수</p>
-                    </div>
+                        <div class="card col-6 mx-auto" data-toggle="tooltip" data-placement="right" title="어제보다 2개 많음">
+                            <div class="card-body px-0">
+                                <h5 class="card-title text-center">10</h5>
+                                <p class="c_box_1_font text-center">부가서비스 접수</p>
+                            </div>
+                        </div>
                 </div>
                 <div class="c_box_1">
-                    <div class="circle1">
-                        <p class="vertical_center">10</p>
-                        <p class="c_box_1_font">업데이트 접수</p>
+                    <div class="card col-6 mx-auto" data-toggle="tooltip" data-placement="right" title="어제보다 2개 적음">
+                        <div class="card-body px-0">
+                            <h5 class="card-title text-center">10</h5>
+                            <p class="c_box_1_font text-center">업데이트 접수</p>
+                        </div>
                     </div>
                 </div>
                 <div class="c_box_1">
@@ -211,27 +233,41 @@ function onLayoutChange()
                 </nav>     
             
                 <div class="tab-content p-2" id="nav-tabContent">  
-                    <div class="tab-pane row active" id="nav-ios" role="tabpanel" aria-labelledby="nav-ios-tab">              
+                    <div class="tab-pane mx-0 row active" id="nav-ios" role="tabpanel" aria-labelledby="nav-ios-tab">              
                     {% for appData in appsData %}     
-                        <div class='col-xs-12 col-md-3 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
-                            <img class='p-2' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'>
-                            <p>{{ func.dateFormat(appData.end_time) }}</p>
+                        <div class='card col-xs-12 col-md-5 col-lg-3 p-0 m-2 d-inline-block'>
+                            {{ appData.end_time < nowDate ? "" : '<div style="position:absolute;top:0;right:0;width:0px;height:0px;border-top:25px solid #FF4646;border-left:25px solid transparent;border-right:25px solid #FF4646;border-bottom:25px solid transparent;"></div>' }}
+                            
+                            <img class='p-2 d-inline-block float-left' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'>
+                            <div class="mx-0 p-2 text-truncate" style="width:8rem;vertical-align:middle;">
+                                {{ appData.app_name }}
+                                <br>
+                                {{ func.dateFormat(appData.end_time) }}
+                            </div> 
                         </div>                                
                     {% endfor %}    
                     </div>       
                     <div class="tab-pane fade row" id="nav-push" role="tabpanel" aria-labelledby="nav-push-tab">
                     {% for appData in appsData %}       
-                        <div class='col-xs-12 col-md-3 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
-                            <img class='p-2' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'>
-                            <p>{{ func.dateFormat(appData.end_time) }}</p>
+                        <div class='col-xs-12 col-md-2 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
+                            <img class='p-2 d-inline-block' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'>
+                            <div class="col-md-8 mx-0 float-right pt-4">
+                                {{ appData.app_name }}
+                                <br>
+                                {{ func.dateFormat(appData.end_time) }}
+                            </div> 
                         </div>                       
                     {% endfor %} 
                     </div>           
                     <div class="tab-pane fade row" id="nav-ma" role="tabpanel" aria-labelledby="nav-ma-tab">  
                     {% for appData in appsData %}
-                        <div class='col-xs-12 col-md-3 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
-                            <img class='p-2' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'>
-                            <p>{{ func.dateFormat(appData.end_time) }}</p>
+                        <div class='col-xs-12 col-md-2 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
+                            <img class='p-2 d-inline-block' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'>
+                            <div class="col-md-8 mx-0 float-right pt-4">
+                                {{ appData.app_name }}
+                                <br>
+                                {{ func.dateFormat(appData.end_time) }}
+                            </div> 
                         </div>
                     {% endfor %}
                     </div>
