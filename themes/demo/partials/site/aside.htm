@@ -25,83 +25,78 @@ target = "reseller"
             </div>
     </form>
     <div class="col-md-12 py-3" id="comment">
+            <div class="box box-warning direct-chat direct-chat-warning">
+                <div class="box-body">
+                    <div class="direct-chat-messages">
 
-    <!-- chatbox test -->
-        <link href="{{ 'assets/css/chatbox.css'|theme }}" rel="stylesheet">
+                        <div class="direct-chat-msg">
+                            <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_1.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
+                            <div class="direct-chat-text">
+                                접수중 → 심사대기
+                            </div>
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-name float-left">23 Jan 2:00 pm, 이지원 </span>
+                            </div>
+                        </div>
 
-          <div class="box-body">
-            <!-- Conversations are loaded here -->
-            <div class="direct-chat-messages">
-              <!-- Message. Default to the left -->
-              <div class="direct-chat-msg">
-                <div class="direct-chat-info clearfix">
-                  <span class="direct-chat-name pull-left">Alexander Pierce</span>
-                  <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
-                </div>
-                <!-- /.direct-chat-info -->
-                <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_1.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
-                <div class="direct-chat-text">
-                  Is this template really for free? That's unbelievable!
-                </div>
-                <!-- /.direct-chat-text -->
-              </div>
-              <!-- /.direct-chat-msg -->
+                        <div class="direct-chat-msg">
+                            <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_2.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
+                            <div class="direct-chat-text">
+                                이관예정 업체
+                            </div>
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-name float-left">23 Jan 2:00 pm, 김여진 </span>
+                            </div>
+                        </div>
 
-              <!-- Message to the right -->
-              <div class="direct-chat-msg right">
-                <div class="direct-chat-info clearfix">
-                  <span class="direct-chat-name pull-right">Sarah Bullock</span>
-                  <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
+                            <div class="direct-chat-msg">
+                                <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_2.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
+                                <div class="direct-chat-text">
+                                    디자인 재접수 예정 업체
+                                </div>
+                                <div class="direct-chat-info clearfix">
+                                    <span class="direct-chat-name float-left">23 Jan 2:00 pm, 임성미 </span>
+                                </div>
+                            </div>
+
+                        <div class="direct-chat-msg right">
+                            <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_2.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
+                            <div class="direct-chat-text">
+                                고도몰 ⇢ 카페24 솔루션 이동 업데이트
+                            </div>
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-name float-right">23 Jan 2:00 pm, 정민희 </span>
+                            </div>
+                        </div>
+
+                        <div class="direct-chat-msg">
+                                <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_1.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
+                                <div class="direct-chat-text">
+                                    부운영자 계정 불일치 / 보류중<br/>
+                                    업체에서 계정을 안알려주고있음, 계정확인 전화 했으나 부재중<br/>
+                                    연락 오는대로 지원주임님께 전달 예정
+                                </div>
+                                <div class="direct-chat-info clearfix">
+                                    <span class="direct-chat-name float-left">23 Jan 2:00 pm, 박철환 </span>
+                                </div>
+                            </div>
+
+                    </div>    
                 </div>
-                <!-- /.direct-chat-info -->
-                <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_2.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
-                <div class="direct-chat-text">
-                  You better believe it!You better believe it!<br />
-                  You better believe it!You better believe it!You better believe it!
+
+                <div class="box-footer">
+                    <form action="#" method="post">
+                    <div class="input-group">
+                        <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-warning btn-flat">Send</button>
+                            </span>
+                    </div>
+                    </form>
                 </div>
-                <!-- /.direct-chat-text -->
-              </div>
-              <!-- /.direct-chat-msg -->
             </div>
-            <!--/.direct-chat-messages-->
-
-          </div>
-          <!-- /.box-body -->
-  <!-- chatbox test 끝 -->
-
-        <!-- <div class="row alert alert-secondary" id="comment1">
-            결제완료
-        </div> -->
-        <div id="payment"> {% component 'comments' %} </div>
-
-        <!-- <div class="row alert alert-secondary" id="comment2">
-            고도몰 이관
-        </div> -->
-         <div id="godomall"> {% component 'comments2' %}</div>
-        <!-- <div class="row alert alert-secondary">
-            세금계산서 미발행
-        </div>
-        <div class="row alert alert-secondary">
-            3개월무료
-        </div>
-        <div class="row alert alert-secondary">
-            연장결제
-        </div>
-        <div class="row alert alert-secondary">
-            스플래쉬 업데이트 요청
-        </div>
-        <div class="row alert alert-secondary">
-            지인소개 업체 추가 3개월 무료
-        </div> -->
     </div>
-    <div class="col-md-12 fixed">
-        <form class="">
-            <div class="form-group">
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">등록</button>
-            </div>
-        </form>
-    </div>
+
 
 </div>
 

@@ -204,7 +204,7 @@ function onStart()
 {% endif %}
 <script>
     $(document).ready(function() {
-        $('#example').DataTable( {
+        var table =  $('#example').DataTable( {
             responsive: true,
             "language": {
                 "emptyTable": "데이터가 없어요.",
@@ -229,7 +229,8 @@ function onStart()
             "buttons": [
                 'excel', 'copy'
             ],
-            "pageLength": 100
+            "pageLength": 100,
+
             
         } );
 
@@ -238,6 +239,24 @@ function onStart()
         $('#example > thead > tr').children().each(function (indexInArray, valueOfElement) { 
             $('#select').append('<option>'+valueOfElement.innerHTML+'</option>');
         });
+
+        
+        $('#example thead tr').clone(true).appendTo( '#example thead' );
+        $('#example thead tr:eq(1) th').each( function (i) {
+            var title = $(this).text();
+            $(this).attr("class","");
+            
+            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    
+                $( 'input', this ).on( 'keyup change', function () {
+                    if ( table.column(i).search() !== this.value ) {
+                        table
+                            .column(i)
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+        } );
 
     });
 
