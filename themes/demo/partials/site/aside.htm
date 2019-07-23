@@ -1,10 +1,6 @@
 [comments]
-display = 3
+display = 5
 target = "payment"
-
-[comments comments2]
-display = 3
-target = "reseller"
 ==
 <div id="sidebar-close" class="my-2"><i class="fas fa-times"></i></div>
 <div class="col-md-12">
@@ -24,78 +20,80 @@ target = "reseller"
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
             </div>
     </form>
+    <!-- 댓글 시작 -->
     <div class="col-md-12 py-3" id="comment">
-            <div class="box box-warning direct-chat direct-chat-warning">
-                <div class="box-body">
-                    <div class="direct-chat-messages">
+        {% component 'comments' %}
+          <!-- <div class="box box-warning direct-chat direct-chat-warning">
+              <div class="box-body">
+                  <div class="direct-chat-messages">
 
-                        <div class="direct-chat-msg">
-                            <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_1.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
-                            <div class="direct-chat-text">
-                                접수중 → 심사대기
-                            </div>
-                            <div class="direct-chat-info clearfix">
-                                <span class="direct-chat-name float-left">23 Jan 2:00 pm, 이지원 </span>
-                            </div>
-                        </div>
+                      <div class="direct-chat-msg">
+                          <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_1.jpg" alt="Message User Image">
+                          <div class="direct-chat-text">
+                              접수중 → 심사대기
+                          </div>
+                          <div class="direct-chat-info clearfix">
+                              <span class="direct-chat-name float-left">23 Jan 2:00 pm, 이지원 </span>
+                          </div>
+                      </div>
 
-                        <div class="direct-chat-msg">
-                            <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_2.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
-                            <div class="direct-chat-text">
-                                이관예정 업체
-                            </div>
-                            <div class="direct-chat-info clearfix">
-                                <span class="direct-chat-name float-left">23 Jan 2:00 pm, 김여진 </span>
-                            </div>
-                        </div>
+                      <div class="direct-chat-msg">
+                          <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_2.jpg" alt="Message User Image">
+                          <div class="direct-chat-text">
+                              이관예정 업체
+                          </div>
+                          <div class="direct-chat-info clearfix">
+                              <span class="direct-chat-name float-left">23 Jan 2:00 pm, 김여진 </span>
+                          </div>
+                      </div>
 
-                            <div class="direct-chat-msg">
-                                <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_2.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
-                                <div class="direct-chat-text">
-                                    디자인 재접수 예정 업체
-                                </div>
-                                <div class="direct-chat-info clearfix">
-                                    <span class="direct-chat-name float-left">23 Jan 2:00 pm, 임성미 </span>
-                                </div>
-                            </div>
+                      <div class="direct-chat-msg">
+                          <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_2.jpg" alt="Message User Image">
+                          <div class="direct-chat-text">
+                              디자인 재접수 예정 업체
+                          </div>
+                          <div class="direct-chat-info clearfix">
+                              <span class="direct-chat-name float-left">23 Jan 2:00 pm, 임성미 </span>
+                          </div>
+                      </div>
 
-                        <div class="direct-chat-msg right">
-                            <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_2.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
-                            <div class="direct-chat-text">
-                                고도몰 ⇢ 카페24 솔루션 이동 업데이트
-                            </div>
-                            <div class="direct-chat-info clearfix">
-                                <span class="direct-chat-name float-right">23 Jan 2:00 pm, 정민희 </span>
-                            </div>
-                        </div>
+                      <div class="direct-chat-msg right">
+                          <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_2.jpg" alt="Message User Image">
+                          <div class="direct-chat-text">
+                              고도몰 ⇢ 카페24 솔루션 이동 업데이트
+                          </div>
+                          <div class="direct-chat-info clearfix">
+                              <span class="direct-chat-name float-right">23 Jan 2:00 pm, 정민희 </span>
+                          </div>
+                      </div>
 
-                        <div class="direct-chat-msg">
-                                <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_1.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
-                                <div class="direct-chat-text">
-                                    부운영자 계정 불일치 / 보류중<br/>
-                                    업체에서 계정을 안알려주고있음, 계정확인 전화 했으나 부재중<br/>
-                                    연락 오는대로 지원주임님께 전달 예정
-                                </div>
-                                <div class="direct-chat-info clearfix">
-                                    <span class="direct-chat-name float-left">23 Jan 2:00 pm, 박철환 </span>
-                                </div>
-                            </div>
+                      <div class="direct-chat-msg">
+                          <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_1.jpg" alt="Message User Image">
+                          <div class="direct-chat-text">
+                              부운영자 계정 불일치 / 보류중<br/>
+                              업체에서 계정을 안알려주고있음, 계정확인 전화 했으나 부재중<br/>
+                              연락 오는대로 지원주임님께 전달 예정
+                          </div>
+                          <div class="direct-chat-info clearfix">
+                              <span class="direct-chat-name float-left">23 Jan 2:00 pm, 박철환 </span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
 
-                    </div>    
-                </div>
-
-                <div class="box-footer">
-                    <form action="#" method="post">
-                    <div class="input-group">
-                        <input type="text" name="message" placeholder="Type Message ..." class="form-control">
-                            <span class="input-group-btn">
-                                <button type="submit" class="btn btn-warning btn-flat">Send</button>
-                            </span>
-                    </div>
-                    </form>
-                </div>
-            </div>
+              <div class="box-footer">
+                  <form action="#" method="post">
+                  <div class="input-group">
+                      <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                          <span class="input-group-btn">
+                              <button type="submit" class="btn btn-warning btn-flat">Send</button>
+                          </span>
+                  </div>
+                  </form>
+              </div>
+          </div> -->
     </div>
+    <!-- 댓글 끝 -->
 
 
 </div>
