@@ -17,7 +17,7 @@ function onStart()
         <meta name="author" content="Byapps">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="generator" content="OctoberCMS">
-        <link rel="icon" type="image/png" href="{{ 'assets/images/byapps_logo_b_3.png'|theme }}">
+        <link rel="icon" type="image/png" href="/storage/app/media/byapps_logo_b_4.png">
 
 
         <link href="{{ 'assets/vendor/bootstrap4.3.1/css/bootstrap.min.css?v1'|theme }}" rel="stylesheet">
@@ -91,7 +91,57 @@ function onStart()
         <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
         <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 
+        <script>
+            function byapps_getCookie (cname) {
+                var name = cname + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') c = c.substring(1);
+                    if (c.indexOf(name) == 0) return decodeURIComponent(c.substring(name.length, c.length));
+                }
+                return "";
+            }
+            function byapps_setCookie (name, value, ex) {
+                if (!ex) ex = 365;
+                var todayDate = new Date();
+                todayDate.setDate(todayDate.getDate() + ex);
+                document.cookie = name + "=" + encodeURIComponent(value) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+            }
 
+
+
+
+            var now_page = location.href
+            var cookie_history = byapps_getCookie("link_history")
+            if(!cookie_history||cookie_history=="") byapps_setCookie("link_history", location.href, 14)
+            else {
+                byapps_setCookie("link_history", cookie_history+"|"+location.href, 14)
+                
+                var ch = cookie_history.split("|");
+                var newcookie = "";
+
+                console.log("link_history", ch)
+                
+                for(i=0; i < ch.length; i++){                  
+                    if(ch[i-1]==ch[i]) newcookie+="";
+                    else newcookie += ch[i]+"|"; 
+                    console.log( "ch[i]",ch[i])
+                }
+                if(ch.length >= 20){
+                    cookie_history = cookie_history.split(ch[0]+"|")[1]
+                    console.log("cookie", cookie_history)
+                    byapps_setCookie("link_history", cookie_history+"|"+location.href, 14)
+                }
+
+
+            }
+
+
+            if( now_page.indexOf("list") != -1 ) {
+                document.querySelector('#comment').style.display="none"
+            }
+        </script>
         {% put scripts %}
             <script src="{{ 'assets/vendor/bootstrap4.3.1/js/bootstrap.min.js'|theme }}"></script>
             <script src="{{ 'assets/vendor/bootstrap4.3.1/js/bootstrap.bundle.min.js'|theme }}"></script>

@@ -22,28 +22,27 @@ badgeClass = "badge-danger"
                 </a>
             </li> -->
             <li class="nav-item dropdown {% if this.page.id == 'payManage' %}active{% endif %}">
-                <a class="nav-link dropdown-toggle" href="{{ 'payManage'|page }}" id="navbarDropdown_01"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                   결제 관리{% component 'badge' %}
-                    <!-- <i class="fas fa-caret-down"></i> -->
+                <a class="nav-link" href="{{ 'payManage'|page }}" id="navbarDropdown_01"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-receipt"></i>&nbsp;결제 관리{% component 'badge' %}
+                   <!-- <i class="fas fa-angle-down"></i> -->
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown_01">
                     <a class="dropdown-item" href="{{ 'payManage'|page }}">결제 관리</a>
-                    <a class="dropdown-item" href="{{ 'payPromotion'|page }}">프로모션</a>
+                    <a class="dropdown-item" href="{{ 'payPromotion'|page }}"></i>프로모션</a>
                 </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_02" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        앱 관리
-                        <!-- <i class="fas fa-caret-down"></i> -->
+                    <a class="nav-link" href="#" id="navbarDropdown_02" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-mobile-alt"></i> 앱 관리
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_02">
                         <a class="dropdown-item" href="#sub">앱 접수</a>
-                        <a class="dropdown-item" href="{{ 'updateManage'|page }}">업데이트 관리</a>
-                        <a class="dropdown-item" href="{{ 'apkManage'|page }}">apk 관리</a>
+                        <a class="dropdown-item" href="{{ 'updateList'|page }}">업데이트 관리</a>
+                        <a class="dropdown-item" href="{{ 'apkList'|page }}">apk 관리</a>
                         <a class="dropdown-item" href="{{ 'appsList'|page }}">앱 목록</a>
                         <a class="dropdown-item" href="{{ 'pushList'|page }}">푸쉬 현황</a>
-                        <a class="dropdown-item" href="{{ 'newsManage'|page }}">소식 관리</a>
-                        <a class="dropdown-item" href="{{ 'membersManage'|page }}">인증회원 관리</a>
+                        <a class="dropdown-item" href="{{ 'newsList'|page }}">소식 관리</a>
+                        <a class="dropdown-item" href="{{ 'membersList'|page }}">인증회원 관리</a>
                         <a class="dropdown-item" href="#">앱포인트 관리</a>
                         <a class="dropdown-item" href="#">테스터</a>
                         <div class="dropdown-divider"></div>
@@ -51,8 +50,8 @@ badgeClass = "badge-danger"
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_03" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        부가서비스
+                    <a class="nav-link" href="#" id="navbarDropdown_03" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-plus"></i> 부가서비스
                         <!-- <i class="fas fa-caret-down"></i> -->
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_03">
@@ -66,8 +65,8 @@ badgeClass = "badge-danger"
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_04" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        통계
+                    <a class="nav-link" href="#" id="navbarDropdown_04" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-chart-line"></i> 통계
                         <!-- <i class="fas fa-caret-down"></i> -->
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_04">
@@ -82,19 +81,19 @@ badgeClass = "badge-danger"
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="{{ 'usersManage'|page }}" id="navbarDropdown_05" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        회원 관리
+                    <a class="nav-link" href="{{ 'usersManage'|page }}" id="navbarDropdown_05" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user-friends"></i> 회원 관리
                         <!-- <i class="fas fa-caret-down"></i> -->
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_05">
-                        <a class="dropdown-item" href="{{ 'usersManage'|page }}">회원 정보</a>
+                        <a class="dropdown-item" href="{{ 'usersList'|page }}">회원 정보</a>
                         <a class="dropdown-item" href="#">회원 문의</a>
                         <a class="dropdown-item" href="#">고객 상담</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_06" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        리셀러 관리
+                    <a class="nav-link" href="#" id="navbarDropdown_06" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-address-card"></i> 리셀러 관리
                         <!-- <i class="fas fa-caret-down"></i> -->
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_06">
@@ -104,8 +103,8 @@ badgeClass = "badge-danger"
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_06" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        관리자
+                    <a class="nav-link" href="#" id="navbarDropdown_06" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user-tie"></i> 관리자
                         <!-- <i class="fas fa-caret-down"></i> -->
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_06">
