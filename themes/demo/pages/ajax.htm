@@ -21,13 +21,26 @@ function onStart()
       for ($i = 0; $i < count($fields); $i++) {
 
        //echo "<script>console.log('".gettype($fields[$i])."')</script>";
-       if (strpos($fields[$i], 'time')) {
-         $sub_array[] = gmdate("Y-m-d", $row->{$fields[$i]});
-       } else {
-          $sub_array[] = $row->{$fields[$i]};
-       }
+         if (strpos($fields[$i], 'time')) {
+           $sub_array[] = gmdate("Y-m-d", $row->{$fields[$i]});
+         }
 
+         else if ($fields[$i] == 'app_process') {
+           $arrProcess = [
+             1 => '개발준비중', 2 => '개발진행중', 3 => '심사중', 4 => '등록거부',
+             5 => '재심사중', 6 => '등록대기', 7 => '등록완료', 8 => '서비스중지',
+             9 => '기간만료', 10 => '서비스유효'
+          ];
 
+           foreach ($arrProcess as $key=>$val) {
+             //echo "<script>console.log('".$key."')</script>";
+             if($row->{$fields[$i]} == $key) {
+                $sub_array[] = $arrProcess[$key];
+             }
+           }
+         } else {
+            $sub_array[] = $row->{$fields[$i]};
+         }
       }
       $data[] = $sub_array;
    }

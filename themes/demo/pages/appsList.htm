@@ -36,7 +36,6 @@ use Jiwon\Byapps\Models\AppsData;
 
 function onStart()
 {
-    //$this['records'] = AppsData::orderBy('idx','desc')->limit(20)->get();
     $this['tableName'] = 'BYAPPS_apps_data';
     $this['fields'] = "app_id|app_name|app_ver|byapps_ver|app_process|apps_type|start_time|end_time";
 }
@@ -53,7 +52,7 @@ function onStart()
 
 <div class="container col-12 col-md-12">
 
-{% set records = builderList.records %}
+<!-- {% set records = builderList.records %} -->
 {% set displayColumn = builderList.displayColumn %}
 {% set noRecordsMessage = builderList.noRecordsMessage %}
 {% set detailsPage = builderList.detailsPage %}
@@ -116,10 +115,7 @@ function onStart()
 
 $(document).ready(function() {
   var tableId = "datalist";
-  console.log(tableId);
-  var tableFilter = tableId + "_filter";
-  var tableSelect = tableId + "_select";
-  var table = $('#' + tableId).DataTable( {
+  var table = $('#' + tableId).DataTable({
       processing: true,
       serverSide: true,
       ajax: {
@@ -164,13 +160,10 @@ $(document).ready(function() {
   });
 
   $('.dataTables_filter input').bind('keyup', function () {
+      console.log('here');
         table.search(this.value).draw();
     });
-
-
 });
-
-
 
 </script>
 
