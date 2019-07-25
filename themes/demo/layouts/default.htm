@@ -19,11 +19,9 @@ function onStart()
         <meta name="generator" content="OctoberCMS">
         <link rel="icon" type="image/png" href="/storage/app/media/byapps_logo_b_4.png">
 
-
         <link href="{{ 'assets/vendor/bootstrap4.3.1/css/bootstrap.min.css?v1'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/bootstrap4.3.1/css/bootstrap-reboot.min.css?v1'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/bootstrap4.3.1/css/bootstrap-grid.min.css?v1'|theme }}" rel="stylesheet">
-
 
         <!-- <link href="{{ 'assets/css/vendor.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/theme.css'|theme }}" rel="stylesheet"> -->
@@ -31,10 +29,8 @@ function onStart()
         <link href="{{ 'assets/css/drag.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/appdata.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/billboard.css'|theme }}" rel="stylesheet">
-        <link href="{{ 'assets/vendor/jquery-ui.css'|theme }}" rel="stylesheet">
-        <link href="{{ 'assets/vendor/jquery-ui.min.css'|theme }}" rel="stylesheet">
+        <link href="{{ 'assets/vendor/jquery-ui-1.12.1/jquery-ui.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/classCustom.css?v1'|theme }}" rel="stylesheet">
-
 
         <!-- Datatable style -->
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/jquery.dataTables.css'|theme }}">
@@ -42,11 +38,12 @@ function onStart()
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/fixedHeader.dataTables.min.css'|theme }}">
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/responsive.dataTables.min.css'|theme }}">
 
+        <!-- JQuery -->
+        <script type="text/javascript" src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
+        <script type="text/javascript" src="{{ 'assets/vendor/jquery-ui-1.12.1/jquery-ui.js'|theme }}"></script>
+
         <!-- Font-awesome  -->
         <script src="https://kit.fontawesome.com/5e0ee1de75.js"></script>
-
-        <!-- JQuery -->
-        <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
 
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
@@ -109,9 +106,6 @@ function onStart()
                 document.cookie = name + "=" + encodeURIComponent(value) + "; path=/; expires=" + todayDate.toGMTString() + ";"
             }
 
-
-
-
             var now_page = location.href
             var cookie_history = byapps_getCookie("link_history")
             if(!cookie_history||cookie_history=="") byapps_setCookie("link_history", location.href, 14)
@@ -134,22 +128,19 @@ function onStart()
                     byapps_setCookie("link_history", cookie_history+"|"+location.href, 14)
                 }
 
-
             }
-
 
             if( now_page.indexOf("list") != -1 ) {
                 document.querySelector('#comment').style.display="none"
             }
         </script>
+
         {% put scripts %}
             <script src="{{ 'assets/vendor/bootstrap4.3.1/js/bootstrap.min.js'|theme }}"></script>
             <script src="{{ 'assets/vendor/bootstrap4.3.1/js/bootstrap.bundle.min.js'|theme }}"></script>
         {% endput %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
-        <script src="{{ 'assets/vendor/jquery-ui.js'|theme }}"></script>
-        <script src="{{ 'assets/vendor/jquery-ui.min.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/bootstrap.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/jquery.bpopup.min.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/billboard.js'|theme }}"></script>
