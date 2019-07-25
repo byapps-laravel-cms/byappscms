@@ -20,8 +20,13 @@ function onStart()
 
       for ($i = 0; $i < count($fields); $i++) {
 
-      // echo "<script>console.log('".$fields[$i]."')</script>";
-        $sub_array[] = $row->{$fields[$i]};
+       //echo "<script>console.log('".gettype($fields[$i])."')</script>";
+       if (strpos($fields[$i], 'time')) {
+         $sub_array[] = gmdate("Y-m-d", $row->{$fields[$i]});
+       } else {
+          $sub_array[] = $row->{$fields[$i]};
+       }
+
 
       }
       $data[] = $sub_array;
