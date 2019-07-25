@@ -10,26 +10,20 @@ function onStart()
    $table = $_GET['tb'];
    $length = $_GET['length'];
    $start = $_GET['start'];
-   $r_data = DB::table($table)->limit($length, $start)->get();
+   $fields = explode("|", $_GET['fd']);
 
+   $result = DB::table($table)->skip($start)->limit($length)->get();
    $data = array();
 
-  // var_dump($r_data);
-
-   foreach($r_data as $row) {
+   foreach($result as $row) {
       $sub_array = array();
 
-      $sub_array[] = $row->app_id;
-      $sub_array[] = $row->app_name;
-      $sub_array[] = $row->app_ver;
-      $sub_array[] = $row->byapps_ver;
-      $sub_array[] = $row->app_process;
+      for ($i = 0; $i < count($fields); $i++) {
 
-    /*
-      foreach ($row as $val) {
-        $sub_array[] = $val;
+      // echo "<script>console.log('".$fields[$i]."')</script>";
+        $sub_array[] = $row->{$fields[$i]};
+
       }
-   */
       $data[] = $sub_array;
    }
 
@@ -42,5 +36,6 @@ function onStart()
 
    echo json_encode($output);
 }
+
 ?>
 ==

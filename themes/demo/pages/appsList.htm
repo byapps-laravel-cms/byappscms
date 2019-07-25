@@ -38,6 +38,7 @@ function onStart()
 {
     //$this['records'] = AppsData::orderBy('idx','desc')->limit(20)->get();
     $this['tableName'] = 'BYAPPS_apps_data';
+    $this['fields'] = "app_id|app_name|app_ver|byapps_ver|app_process|apps_type|start_time|end_time";
 }
 ?>
 ==
@@ -69,11 +70,12 @@ function onStart()
                 <th>앱명</th>
                 <th>버전</th>
                 <th>BV</th>
-                <!-- <th>등록상태</th>
-                <th>SCRIPT</th>
-                <th>커스텀</th>
+                <th>등록상태</th>
+                <!-- <th>SCRIPT</th> -->
+                <!-- <th>커스텀</th> -->
                 <th>신청OS</th>
-                <th>서비스기간</th> -->
+                <th>서비스기간(시작일)</th>
+                <th>서비스기간(종료일)</th>
             </tr>
         </thead>
 
@@ -117,18 +119,19 @@ $(document).ready(function() {
   console.log(tableId);
   var tableFilter = tableId + "_filter";
   var tableSelect = tableId + "_select";
-
-    var table = $('#datalist').DataTable( {
+  var table = $('#' + tableId).DataTable( {
       processing: true,
       serverSide: true,
       ajax: {
-          url: '/ajax?tb={{ tableName|raw() }}',
+          url: '/ajax?tb={{ tableName|raw() }}&fd={{ fields|raw() }}',
           type: 'GET',
           //tb: 'BYAPPS_apps_data',
           error: function(e) {
             console.log(e);
           }
       },
+      paging: true,
+      pageLength: 50,
       "language": {
         "emptyTable": "데이터가 없어요.",
           "lengthMenu": "페이지당 _MENU_ 개씩 보기",
@@ -148,8 +151,6 @@ $(document).ready(function() {
               "copy": "복사"
           }
       },
-      paging: true,
-      pageLength: 50,
       "info": false,
       "autoWidth": true,
       "fixedHeader": false,
