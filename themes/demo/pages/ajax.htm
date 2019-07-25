@@ -1,0 +1,46 @@
+title = "Ajax"
+url = "/ajax"
+is_hidden = 0
+==
+<?
+use Illuminate\Support\Facades\DB;
+
+function onStart()
+{
+   $table = $_GET['tb'];
+   $length = $_GET['length'];
+   $start = $_GET['start'];
+   $r_data = DB::table($table)->limit($length, $start)->get();
+
+   $data = array();
+
+  // var_dump($r_data);
+
+   foreach($r_data as $row) {
+      $sub_array = array();
+
+      $sub_array[] = $row->app_id;
+      $sub_array[] = $row->app_name;
+      $sub_array[] = $row->app_ver;
+      $sub_array[] = $row->byapps_ver;
+      $sub_array[] = $row->app_process;
+
+    /*
+      foreach ($row as $val) {
+        $sub_array[] = $val;
+      }
+   */
+      $data[] = $sub_array;
+   }
+
+   $output = array(
+     "draw" => intval($_GET['draw']),
+     "recordsTotal" => DB::table($table)->count(),
+     "recordsFiltered" => DB::table($table)->count(),
+     "data" => $data,
+   );
+
+   echo json_encode($output);
+}
+?>
+==

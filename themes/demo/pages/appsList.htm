@@ -1,6 +1,6 @@
 title = "앱 목록"
 url = "/apps/appslist/:page"
-layout = "table"
+layout = "default"
 description = "앱 등록 등의 관리를 하실 수 있습니다"
 is_hidden = 0
 child_of = "mey_no_parent"
@@ -36,9 +36,8 @@ use Jiwon\Byapps\Models\AppsData;
 
 function onStart()
 {
-    $this['records1'] = AppsData::orderBy('idx','desc')
-        ->limit(20)
-        ->get();
+    //$this['records'] = AppsData::orderBy('idx','desc')->limit(20)->get();
+    $this['tableName'] = 'BYAPPS_apps_data';
 }
 ?>
 ==
@@ -70,15 +69,15 @@ function onStart()
                 <th>앱명</th>
                 <th>버전</th>
                 <th>BV</th>
-                <th>등록상태</th>
+                <!-- <th>등록상태</th>
                 <th>SCRIPT</th>
                 <th>커스텀</th>
                 <th>신청OS</th>
-                <th>서비스기간</th>
+                <th>서비스기간</th> -->
             </tr>
         </thead>
 
-        <tbody>
+        <!-- <tbody>
          {% for record in records %}
             <tr>
                 <td>{{ record.app_id }}</td>
@@ -95,25 +94,84 @@ function onStart()
                 </td>
                 <td>{{ record.app_ver }}</td>
                 <td>{{ record.byapps_ver }}</td>
-              <!--   <td>{{ record.server_group }}</td> -->
                 <td>{{ record.app_process }}</td>
                 <td>{{ record.app_build }}</td>
                 <td>커스텀</td>
                 <td>{{ record.app_os_type == 'both' ? 'and+ios' : record.app_os_type }}</td>
-                <td>서비스기간</td>
-
-                <!-- <td>{{ func.dateFormat(record.reg_time) }}</td> -->
+                <td>{{ func.dateFormat(record.reg_time) }}</td>
             </tr>
 
          {% else %}
         <li class="no-data">{{ noRecordsMessage }}</li>
         {% endfor %}
-        </tbody>
+        </tbody> -->
     </table>
 
   </div>
 </div>
 
+<script>
+
+$(document).ready(function() {
+  var tableId = "datalist";
+  console.log(tableId);
+  var tableFilter = tableId + "_filter";
+  var tableSelect = tableId + "_select";
+
+    var table = $('#datalist').DataTable( {
+      processing: true,
+      serverSide: true,
+      ajax: {
+          url: '/ajax?tb={{ tableName|raw() }}',
+          type: 'GET',
+          //tb: 'BYAPPS_apps_data',
+          error: function(e) {
+            console.log(e);
+          }
+      },
+      "language": {
+        "emptyTable": "데이터가 없어요.",
+          "lengthMenu": "페이지당 _MENU_ 개씩 보기",
+          "info": "현재 _START_ - _END_ / _TOTAL_건",
+          "infoEmpty": "데이터 없음",
+          "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
+          "search": "검색: ",
+          "zeroRecords": "일치하는 데이터가 없어요.",
+          "loadingRecords": "로딩중...",
+          "processing":     "잠시만 기다려 주세요...",
+          "paginate": {
+              "next": "다음",
+              "previous": "이전"
+          },
+          "buttons": {
+              "excel": "엑셀",
+              "copy": "복사"
+          }
+      },
+      paging: true,
+      pageLength: 50,
+      "info": false,
+      "autoWidth": true,
+      "fixedHeader": false,
+      "responsive": true,
+      "orderClasses": false,
+      "stateSave": true,
+      "dom": 'Bfrtip',
+      "buttons": [
+          'excel', 'copy'
+      ],
+  });
+
+  $('.dataTables_filter input').bind('keyup', function () {
+        table.search(this.value).draw();
+    });
+
+
+});
+
+
+
+</script>
 
 <!-- {% set paginationEnabled =
     records.currentPage > 1 or
