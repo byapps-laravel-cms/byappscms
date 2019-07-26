@@ -167,6 +167,15 @@ $(document).ready(function() {
 
 </script>
 
+<script>
+$(document).ready(function() {
+  setTimeout(function() {
+    $('.table-striped tbody tr td:contains("서비스중지")').css('color', 'red');
+  }, 1000);
+
+});
+</script>
+
 <!-- {% set paginationEnabled =
     records.currentPage > 1 or
     records.lastPage > 1 or
