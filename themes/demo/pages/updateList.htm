@@ -1,6 +1,6 @@
 title = "업데이트 관리"
 url = "/apps/updatelist/:page?"
-layout = "default"
+layout = "list"
 description = "업데이트 접수를 관리 하실 수 있습니다"
 is_hidden = 0
 child_of = "appsList"
@@ -14,7 +14,7 @@ scope = "-"
 scopeValue = "{{ :scope }}"
 displayColumn = "app_id"
 noRecordsMessage = "No records found"
-detailsPage = "updateData"
+detailsPage = "-"
 detailsKeyColumn = "idx"
 detailsUrlParameter = "idx"
 pageNumber = "{{ :page }}"
@@ -54,12 +54,6 @@ function onStart()
 ==
 {% component 'breadcrumbs' %}
 
-
-<!-- <div class="jumbotron">
-        <h1 class="display-5">{{ this.page.title }}</h1>
-        <p class="lead">{{ this.page.description }}</p>
-</div> -->
-
 <div class="col-xs-12 col-12">
 
 {% set records = builderList.records %}
@@ -69,13 +63,13 @@ function onStart()
 {% set detailsKeyColumn = builderList.detailsKeyColumn %}
 {% set detailsUrlParameter = builderList.detailsUrlParameter %}
 
-<table id="example" class="table table-striped" style="width:100%"> 
+<table id="datalist" class="table table-striped" style="width:100%">
         <thead>
             <tr>
                 <th>신청일</th>
                 <th>진행상태</th>
                 <th>앱아이디</th>
-                <th>앱명</th>   
+                <th>앱명</th>
                 <th>앱OS</th>
                 <th>버전</th>
                 <th>업데이트내역</th>
@@ -85,7 +79,7 @@ function onStart()
         <tbody>
          {% for record in records %}
             <tr>
-                <td>{{ func.dateFormatSimple(record.reg_time) }}</td>
+                <td class="regdate">{{ func.dateFormatSimple(record.reg_time) }}</td>
                 <td>  {% for key,val in appProcess %}
                      {{ key == record.app_process ? val : "" }}
                   {% endfor %}
@@ -101,7 +95,6 @@ function onStart()
                     </a>
                 {% endif %}
                 </td>
-
                 <td>{{ record.app_name }}</td>
                 <td>{{ record.apps_type }}</td>
                 <td>{{ record.joins.app_ver }}</td>
@@ -158,7 +151,7 @@ function onStart()
         {% endif %}
 
         {% set pageSet = pageSet|merge([records.lastPage]) %}
-    {% endif %} 
+    {% endif %}
 
     <ul class="pagination">
         {% if records.currentPage > 1 %}
@@ -202,7 +195,8 @@ function onStart()
         {% endif %}
     </ul>
 {% endif %}
-<script>
+
+<!-- <script>
     $(document).ready(function() {
         var table =  $('#example').DataTable( {
             responsive: true,
@@ -230,24 +224,21 @@ function onStart()
                 'excel', 'copy'
             ],
             "pageLength": 100,
-
-            
         } );
 
             /* Column별 검색기능 추가 */
         $('#example_filter').prepend('<select id="select"></select>');
-        $('#example > thead > tr').children().each(function (indexInArray, valueOfElement) { 
+        $('#example > thead > tr').children().each(function (indexInArray, valueOfElement) {
             $('#select').append('<option>'+valueOfElement.innerHTML+'</option>');
         });
 
-        
         $('#example thead tr').clone(true).appendTo( '#example thead' );
         $('#example thead tr:eq(1) th').each( function (i) {
             var title = $(this).text();
             $(this).attr("class","");
-            
+
             $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-    
+
                 $( 'input', this ).on( 'keyup change', function () {
                     if ( table.column(i).search() !== this.value ) {
                         table
@@ -257,7 +248,5 @@ function onStart()
                     }
                 } );
         } );
-
     });
-
-</script>
+</script> -->

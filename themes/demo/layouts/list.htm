@@ -45,7 +45,7 @@ function onStart()
 
         <!-- Font-awesome  -->
         <script src="https://kit.fontawesome.com/5e0ee1de75.js"></script>
-        
+
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
         <!-- Step 1) Load D3.js -->
@@ -178,13 +178,27 @@ function onStart()
 
                 $('#' + tableFilter).after('<p style="width:100%; height:10px;"></p>');
 
-                $('#' + tableFilter).prepend('<input type="text" id="toDate" placeholder="yyyy-MM-dd"> ');
-                $('#' + tableFilter).prepend('<input type="text" id="fromDate" placeholder="yyyy-MM-dd">~');
+                $('#' + tableFilter).prepend('<input type="text" id="toDate" placeholder="종료일"> ');
+                $('#' + tableFilter).prepend('<input type="text" id="fromDate" placeholder="시작일"> ~');
 
-                $("#toDate").datepicker({ dateFormat: "yy-mm-dd" });
                 $("#fromDate").datepicker({ dateFormat: "yy-mm-dd" });
+                $("#toDate").datepicker({ dateFormat: "yy-mm-dd" });
 
+                $.fn.dataTable.ext.search.push(
+                    function(settings, data, dataIndex){
+                        var min = Date.parse($('#fromDate').val());
+                        var max = Date.parse($('#toDate').val());
+                        var targetDate = Date.parse(data[0]);
 
+                        if( (isNaN(min) && isNaN(max) ) ||
+                            (isNaN(min) && targetDate <= max )||
+                            ( min <= targetDate && isNaN(max) ) ||
+                            ( targetDate >= min && targetDate <= max) ){
+                                return true;
+                        }
+                        return false;
+                    }
+                );
           });
 
         </script>
