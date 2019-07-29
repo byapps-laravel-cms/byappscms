@@ -11,8 +11,14 @@ function onStart()
    $length = $_GET['length'];
    $start = $_GET['start'];
    $fields = explode("|", $_GET['fd']);
+   $searchVar = $_GET['search']['value'];
 
-   $result = DB::table($table)->skip($start)->limit($length)->get();
+   if ($searchVar != '') {
+     $result = DB::table($table)->where('app_name', 'like', '%'.$searchVar.'%')->orWhere('app_id', 'like', '%'.$searchVar.'%')->orderBy('idx', 'desc')->get();
+   } else {
+     $result = DB::table($table)->skip($start)->limit($length)->orderBy('idx', 'desc')->get();
+   }
+
    $data = array();
 
    foreach($result as $row) {
@@ -20,24 +26,35 @@ function onStart()
 
       for ($i = 0; $i < count($fields); $i++) {
 
-       //echo "<script>console.log('".gettype($fields[$i])."')</script>";
+      // echo "<script>console.log('".$fields[$i]."')</script>";
          if (strpos($fields[$i], 'time')) {
            $sub_array[] = gmdate("Y-m-d", $row->{$fields[$i]});
          }
 
          else if ($fields[$i] == 'app_process') {
            $arrProcess = [
-             1 => '개발준비중', 2 => '개발진행중', 3 => '심사중', 4 => '등록거부',
-             5 => '재심사중', 6 => '등록대기', 7 => '등록완료', 8 => '서비스중지',
-             9 => '기간만료', 10 => '서비스유효'
-          ];
+               1 => '개발준비중', 2 => '개발진행중', 3 => '심사중', 4 => '등록거부',
+               5 => '재심사중', 6 => '등록대기', 7 => '등록완료', 8 => '서비스중지',
+               9 => '기간만료', 10 => '서비스유효'
+            ];
 
            foreach ($arrProcess as $key=>$val) {
-             //echo "<script>console.log('".$key."')</script>";
              if($row->{$fields[$i]} == $key) {
                 $sub_array[] = $arrProcess[$key];
              }
            }
+         } else if ($fields[$i] == 'script_popup') {
+             if ($row->{$fields[$i]} == 'Y') {
+               $sub_array[] = '설치됨';
+             } else {
+               $sub_array[] = '-';
+             }
+         } else if ($fields[$i] == 'custom_etc') {
+            if ($row->{$fields[$i]} != '') {
+              $sub_array[] .= $row->{$fields[$i]}." 커스텀";
+            } else {
+              $sub_array[] = '-';
+            }
          } else {
             $sub_array[] = $row->{$fields[$i]};
          }
