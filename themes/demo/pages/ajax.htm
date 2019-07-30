@@ -24,14 +24,19 @@ function onStart()
                ->orWhere('app_id', 'like', '%'.$searchVar.'%')
                ->orderBy('idx', 'desc')
                ->get();
-   } else {
+   } else /* if ($columnSortOrder != 0) */{
      $result = DB::table($table)
                ->skip($start)
                ->limit($length)
-               //->orderBy('idx', 'desc')
                ->orderBy($fields[$columnSortOrder], $sortBy)
                ->get();
-   }
+   } /*else {
+     $result = DB::table($table)
+               ->skip($start)
+               ->limit($length)
+               ->orderBy('idx', 'desc')
+               ->get();
+   }*/
 
    $data = array();
 

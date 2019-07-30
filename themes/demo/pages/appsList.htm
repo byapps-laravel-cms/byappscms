@@ -140,6 +140,12 @@ $(document).ready(function() {
             'checkboxes': {
                'selectRow': true
             }
+         },
+         {
+           'targets': 1,
+           'render': function ( data, type, row, meta ) {
+              return '<a href="/apps/appsdetail/'+row[0]+'">'+data+'</a>';
+           }
          }
       ],
       'select': {
@@ -158,6 +164,9 @@ $(document).ready(function() {
         } else if (aData[5] == '개발준비중') {
           $('td:eq(5)', nRow).wrap('<span class="badge badge-pill badge-warning"></span>');
         }
+
+        $(nRow).attr("rowidx", aData[0]);
+        return nRow;
       },
       paging: true,
       pageLength: 50,
@@ -190,6 +199,22 @@ $(document).ready(function() {
               "copy": "복사"
           }
       },
+  });
+
+  $('#datalist tbody').on('click', 'tr', function () {
+      var idx = $(this).attr('rowidx');
+      //console.log(id);
+      var index = $.inArray(idx, selected);
+
+      if ( index === -1 ) {
+          selected.push(idx);
+      } else {
+          selected.splice( index, 1 );
+      }
+      //console.log(selected);
+      $(this).toggleClass('selected');
+      //console.log($(this).children(":first"));
+
   });
 
   $('#form-datalist').on('submit', function(e){
