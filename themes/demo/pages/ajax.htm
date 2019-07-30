@@ -13,6 +13,11 @@ function onStart()
    $fields = explode("|", $_GET['fd']);
    $searchVar = $_GET['search']['value'];
 
+   $columnSortOrder = $_GET['order'][0]['column'];
+   $sortBy = $_GET['order'][0]['dir'];
+
+   //echo "<script>console.log('".$fields[$columnSortOrder]."')</script>";
+
    if ($searchVar != '') {
      $result = DB::table($table)
                ->where('app_name', 'like', '%'.$searchVar.'%')
@@ -23,7 +28,8 @@ function onStart()
      $result = DB::table($table)
                ->skip($start)
                ->limit($length)
-               ->orderBy('idx', 'desc')
+               //->orderBy('idx', 'desc')
+               ->orderBy($fields[$columnSortOrder], $sortBy)
                ->get();
    }
 

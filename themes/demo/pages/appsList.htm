@@ -145,6 +145,9 @@ $(document).ready(function() {
       'select': {
          'style': 'multi'
       },
+      'order': [
+        [ 0, 'desc']
+      ],
       "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
         if (aData[4] == '서비스중지'){
           $('td:eq(4)', nRow).wrap('<span class="badge badge-pill badge-danger"></span>');
