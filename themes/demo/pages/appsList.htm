@@ -149,16 +149,15 @@ $(document).ready(function() {
         [ 0, 'desc']
       ],
       "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-        if (aData[4] == '서비스중지'){
-          $('td:eq(4)', nRow).wrap('<span class="badge badge-pill badge-danger"></span>');
-        } else if (aData[4] == '등록완료') {
-          $('td:eq(4)', nRow).wrap('<span class="badge badge-pill badge-primary"></span>');
-        } else if (aData[4] == '등록대기') {
-          $('td:eq(4)', nRow).wrap('<span class="badge badge-pill badge-info"></span>');
-        } else if (aData[4] == '개발준비중') {
-          $('td:eq(4)', nRow).wrap('<span class="badge badge-pill badge-warning"></span>');
+        if (aData[5] == '서비스중지'){
+          $('td:eq(5)', nRow).wrap('<span class="badge badge-pill badge-danger"></span>');
+        } else if (aData[5] == '등록완료') {
+          $('td:eq(5)', nRow).wrap('<span class="badge badge-pill badge-primary"></span>');
+        } else if (aData[5] == '등록대기') {
+          $('td:eq(5)', nRow).wrap('<span class="badge badge-pill badge-info"></span>');
+        } else if (aData[5] == '개발준비중') {
+          $('td:eq(5)', nRow).wrap('<span class="badge badge-pill badge-warning"></span>');
         }
-
       },
       paging: true,
       pageLength: 50,
