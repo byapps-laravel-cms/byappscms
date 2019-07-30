@@ -14,9 +14,17 @@ function onStart()
    $searchVar = $_GET['search']['value'];
 
    if ($searchVar != '') {
-     $result = DB::table($table)->where('app_name', 'like', '%'.$searchVar.'%')->orWhere('app_id', 'like', '%'.$searchVar.'%')->orderBy('idx', 'desc')->get();
+     $result = DB::table($table)
+               ->where('app_name', 'like', '%'.$searchVar.'%')
+               ->orWhere('app_id', 'like', '%'.$searchVar.'%')
+               ->orderBy('idx', 'desc')
+               ->get();
    } else {
-     $result = DB::table($table)->skip($start)->limit($length)->orderBy('idx', 'desc')->get();
+     $result = DB::table($table)
+               ->skip($start)
+               ->limit($length)
+               ->orderBy('idx', 'desc')
+               ->get();
    }
 
    $data = array();
@@ -27,11 +35,10 @@ function onStart()
       for ($i = 0; $i < count($fields); $i++) {
 
       // echo "<script>console.log('".$fields[$i]."')</script>";
+
          if (strpos($fields[$i], 'time')) {
            $sub_array[] = gmdate("Y-m-d", $row->{$fields[$i]});
-         }
-
-         else if ($fields[$i] == 'app_process') {
+         } else if ($fields[$i] == 'app_process') {
            $arrProcess = [
                1 => '개발준비중', 2 => '개발진행중', 3 => '심사중', 4 => '등록거부',
                5 => '재심사중', 6 => '등록대기', 7 => '등록완료', 8 => '서비스중지',

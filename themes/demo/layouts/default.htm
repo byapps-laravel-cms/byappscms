@@ -35,6 +35,7 @@ function onStart()
         <!-- Datatable style -->
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/jquery.dataTables.css'|theme }}">
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/buttons.dataTables.min.css'|theme }}">
+        <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/dataTables.checkboxes.css'|theme }}">
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/fixedHeader.dataTables.min.css'|theme }}">
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/responsive.dataTables.min.css'|theme }}">
 
@@ -111,15 +112,15 @@ function onStart()
             if(!cookie_history||cookie_history=="") byapps_setCookie("link_history", location.href, 14)
             else {
                 byapps_setCookie("link_history", cookie_history+"|"+location.href, 14)
-                
+
                 var ch = cookie_history.split("|");
                 var newcookie = "";
 
                 console.log("link_history", ch)
-                
-                for(i=0; i < ch.length; i++){                  
+
+                for(i=0; i < ch.length; i++){
                     if(ch[i-1]==ch[i]) newcookie+="";
-                    else newcookie += ch[i]+"|"; 
+                    else newcookie += ch[i]+"|";
                     console.log( "ch[i]",ch[i])
                 }
                 if(ch.length >= 20){
@@ -162,6 +163,7 @@ function onStart()
           <script src="{{ 'assets/javascript/datatables/buttons.html5.min.js'|theme }}"></script>
           <script src="{{ 'assets/javascript/datatables/buttons.print.min.js'|theme }}"></script>
 
+        <script src="{{ 'assets/javascript/datatables/dataTables.checkboxes.min.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/datatables/dataTables.fixedHeader.min.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/datatables/dataTables.responsive.min.js'|theme }}"></script>
         <!-- For Datatable 끝 -->

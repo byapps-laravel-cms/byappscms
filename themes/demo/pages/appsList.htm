@@ -37,7 +37,7 @@ use Jiwon\Byapps\Models\AppsData;
 function onStart()
 {
     $this['tableName'] = 'BYAPPS_apps_data';
-    $this['fields'] = "app_id|app_name|app_ver|byapps_ver|app_process|script_popup|custom_etc|apps_type|start_time|end_time";
+    $this['fields'] = "idx|app_id|app_name|app_ver|byapps_ver|app_process|script_popup|custom_etc|apps_type|start_time|end_time";
 }
 ?>
 ==
@@ -62,9 +62,14 @@ function onStart()
  <div class="method">
    <div class="col-md-12 margin-5">
 
+    <form name="form-datalist" id="form-datalist">
+      <p class="form-group">
+        <button type="submit" class="btn btn-primary">상태변경</button>
+      </p>
     <table id="datalist" class="table table-striped mb-3" style="width:100%;">
         <thead>
             <tr>
+                <th></th>
                 <th>앱 아이디</th>
                 <th>앱명</th>
                 <th>버전</th>
@@ -108,6 +113,7 @@ function onStart()
         </tbody> -->
     </table>
 
+  </form>
   </div>
 </div>
 
@@ -115,28 +121,54 @@ function onStart()
 
 $(document).ready(function() {
   var tableId = "datalist";
+  var selected = [];
+
   var table = $('#' + tableId).DataTable({
       processing: true,
       serverSide: true,
       ajax: {
           url: '/ajax?tb={{ tableName|raw() }}&fd={{ fields|raw() }}',
           type: 'GET',
-          //tb: 'BYAPPS_apps_data',
           error: function(e) {
             console.log(e);
           }
       },
-      "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+      'columnDefs': [
+         {
+            'targets': 0,
+            'className': 'select-checkbox',
+            'checkboxes': {
+               'selectRow': true
+            }
+         }
+      ],
+      'select': {
+         'style': 'multi'
+      },
+      "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
         if (aData[4] == '서비스중지'){
-          $('td:eq(4)', nRow).wrap('<span class="badge-sm badge-danger"></span>');
+          $('td:eq(4)', nRow).wrap('<span class="badge badge-pill badge-danger"></span>');
         } else if (aData[4] == '등록완료') {
-          $('td:eq(4)', nRow).wrap('<span class="badge-sm badge-primary"></span>');
+          $('td:eq(4)', nRow).wrap('<span class="badge badge-pill badge-primary"></span>');
+        } else if (aData[4] == '등록대기') {
+          $('td:eq(4)', nRow).wrap('<span class="badge badge-pill badge-info"></span>');
         } else if (aData[4] == '개발준비중') {
-          $('td:eq(4)', nRow).wrap('<span class="badge-sm badge-primary"></span>');
+          $('td:eq(4)', nRow).wrap('<span class="badge badge-pill badge-warning"></span>');
         }
+
       },
       paging: true,
       pageLength: 50,
+      "info": false,
+      "autoWidth": true,
+      "fixedHeader": false,
+      "responsive": true,
+      "orderClasses": false,
+      "stateSave": true,
+      "dom": 'Bfrtip',
+      "buttons": [
+          'excel', 'copy'
+      ],
       "language": {
         "emptyTable": "데이터가 없어요.",
           "lengthMenu": "페이지당 _MENU_ 개씩 보기",
@@ -156,17 +188,25 @@ $(document).ready(function() {
               "copy": "복사"
           }
       },
-      "info": false,
-      "autoWidth": true,
-      "fixedHeader": false,
-      "responsive": true,
-      "orderClasses": false,
-      "stateSave": true,
-      "dom": 'Bfrtip',
-      "buttons": [
-          'excel', 'copy'
-      ],
   });
+
+  $('#form-datalist').on('submit', function(e){
+     var form = this;
+     var rows_selected = table.column(0).checkboxes.selected();
+
+     // Iterate over all selected checkboxes
+     $.each(rows_selected, function(index, rowId){
+        console.log(rowId);
+        // Create a hidden element
+        $(form).append(
+            $('<input>')
+               .attr('type', 'hidden')
+               .attr('name', 'id[]')
+               .val(rowId)
+        );
+     });
+  });
+
 });
 
 </script>
