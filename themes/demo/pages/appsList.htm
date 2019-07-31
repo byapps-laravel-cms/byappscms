@@ -63,9 +63,9 @@ function onStart()
    <div class="col-md-12 margin-5">
 
     <form name="form-datalist" id="form-datalist">
-      <p class="form-group">
-        <button type="submit" class="btn btn-primary">상태변경</button>
-      </p>
+
+      <button type="submit" class="btn btn-primary mb-1" style="float:right;">상태변경</button>
+
     <table id="datalist" class="table table-striped mb-3" style="width:100%;">
         <thead>
             <tr>
@@ -133,7 +133,7 @@ $(document).ready(function() {
             console.log(e);
           }
       },
-      'columnDefs': [
+      columnDefs: [
          {
             'targets': 0,
             'className': 'select-checkbox',
@@ -148,13 +148,13 @@ $(document).ready(function() {
            }
          }
       ],
-      'select': {
+      select: {
          'style': 'multi'
       },
-      'order': [
+      order: [
         [ 0, 'desc']
       ],
-      "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+      fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
         if (aData[5] == '서비스중지'){
           $('td:eq(5)', nRow).wrap('<span class="badge badge-pill badge-danger"></span>');
         } else if (aData[5] == '등록완료') {
@@ -170,70 +170,84 @@ $(document).ready(function() {
       },
       paging: true,
       pageLength: 50,
-      "info": false,
-      "autoWidth": true,
-      "fixedHeader": false,
-      "responsive": true,
-      "orderClasses": false,
-      "stateSave": true,
-      "dom": 'Bfrtip',
-      "buttons": [
+      info: false,
+      autoWidth: true,
+      fixedHeader: false,
+      responsive: true,
+      orderClasses: false,
+      stateSave: true,
+      dom: 'Bfrtip',
+      buttons: [
           'excel', 'copy'
       ],
-      "language": {
-        "emptyTable": "데이터가 없어요.",
-          "lengthMenu": "페이지당 _MENU_ 개씩 보기",
-          "info": "현재 _START_ - _END_ / _TOTAL_건",
-          "infoEmpty": "데이터 없음",
-          "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
-          "search": "검색: ",
-          "zeroRecords": "일치하는 데이터가 없어요.",
-          "loadingRecords": "로딩중...",
-          "processing":     "잠시만 기다려 주세요...",
-          "paginate": {
-              "next": "다음",
-              "previous": "이전"
+      language: {
+        'emptyTable': '데이터가 없어요.',
+          'lengthMenu': '페이지당 _MENU_ 개씩 보기',
+          'info': '현재 _START_ - _END_ / _TOTAL_건',
+          'infoEmpty': '데이터 없음',
+          'infoFiltered': '( _MAX_건의 데이터에서 필터링됨 )',
+          'search': '검색: ',
+          'zeroRecords': '일치하는 데이터가 없어요.',
+          'loadingRecords': '로딩중...',
+          'processing':     '잠시만 기다려 주세요...',
+          'paginate': {
+              'next': '다음',
+              'previous': '이전'
           },
-          "buttons": {
-              "excel": "엑셀",
-              "copy": "복사"
+          'buttons': {
+              'excel': '엑셀',
+              'copy': '복사'
           }
       },
   });
 
-  $('#datalist tbody').on('click', 'tr', function () {
-      var idx = $(this).attr('rowidx');
-      //console.log(id);
-      var index = $.inArray(idx, selected);
-
-      if ( index === -1 ) {
-          selected.push(idx);
-      } else {
-          selected.splice( index, 1 );
-      }
-      //console.log(selected);
-      $(this).toggleClass('selected');
-      //console.log($(this).children(":first"));
-
-  });
-
-  $('#form-datalist').on('submit', function(e){
-     var form = this;
-     var rows_selected = table.column(0).checkboxes.selected();
-
-     // Iterate over all selected checkboxes
-     $.each(rows_selected, function(index, rowId){
-        console.log(rowId);
-        // Create a hidden element
-        $(form).append(
-            $('<input>')
-               .attr('type', 'hidden')
-               .attr('name', 'id[]')
-               .val(rowId)
-        );
-     });
-  });
-
+  // $('#datalist tbody').on('click', 'tr', function () {
+  //     var idx = $(this).attr('rowidx');
+  //     //console.log(id);
+  //     var index = $.inArray(idx, selected);
+  //
+  //     if ( index === -1 ) {
+  //         selected.push(idx);
+  //     } else {
+  //         selected.splice( index, 1 );
+  //     }
+  //     //console.log(selected);
+  //     $(this).toggleClass('selected');
+  // });
+  //
+  // $('#form-datalist').on('submit', function(e){
+  //    var form = this;
+  //    var rows_selected = table.column(0).checkboxes.selected();
+  //
+  //    // Iterate over all selected checkboxes
+  //    $.each(rows_selected, function(index, rowId){
+  //       console.log(rowId);
+  //       // Create a hidden element
+  //       $(form).append(
+  //           $('<input>')
+  //              .attr('type', 'hidden')
+  //              .attr('name', 'id[]')
+  //              .val(rowId)
+  //       );
+  //    });
+  //
+  //    $.ajax({
+  //      type: 'POST',
+  //      url: '/ajaxProcess',
+  //      data: {
+  //        'dt': form.serializeArray(),
+  //        'tb': {{ tableName|raw() }},
+  //        'fd': {{ fields|raw() }}
+  //      },
+  //      error: function(e) {
+  //        console.log(e);
+  //      },
+  //      success: function() {
+  //        table = $('#' + tableId).DataTable();
+  //        table.ajax.reload();
+  //      }
+  //    });
+  // });
 });
 
 </script>
