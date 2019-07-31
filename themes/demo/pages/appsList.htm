@@ -37,7 +37,7 @@ use Jiwon\Byapps\Models\AppsData;
 function onStart()
 {
     $this['tableName'] = 'BYAPPS_apps_data';
-    $this['fields'] = "app_id|app_name|app_ver|byapps_ver|app_process|apps_type|start_time|end_time";
+    $this['fields'] = "idx|app_id|app_name|app_ver|byapps_ver|app_process|script_popup|custom_etc|apps_type|start_time|end_time";
 }
 ?>
 ==
@@ -62,16 +62,21 @@ function onStart()
  <div class="method">
    <div class="col-md-12 margin-5">
 
+    <form name="form-datalist" id="form-datalist">
+
+      <button type="submit" class="btn btn-primary mb-1" style="float:right;">상태변경</button>
+
     <table id="datalist" class="table table-striped mb-3" style="width:100%;">
         <thead>
             <tr>
+                <th></th>
                 <th>앱 아이디</th>
                 <th>앱명</th>
                 <th>버전</th>
                 <th>BV</th>
                 <th>등록상태</th>
-                <!-- <th>SCRIPT</th> -->
-                <!-- <th>커스텀</th> -->
+                <th>SCRIPT</th>
+                <th>커스텀</th>
                 <th>신청OS</th>
                 <th>서비스기간(시작일)</th>
                 <th>서비스기간(종료일)</th>
@@ -108,6 +113,7 @@ function onStart()
         </tbody> -->
     </table>
 
+  </form>
   </div>
 </div>
 
@@ -115,65 +121,135 @@ function onStart()
 
 $(document).ready(function() {
   var tableId = "datalist";
+  var selected = [];
+
   var table = $('#' + tableId).DataTable({
       processing: true,
       serverSide: true,
       ajax: {
           url: '/ajax?tb={{ tableName|raw() }}&fd={{ fields|raw() }}',
           type: 'GET',
-          //tb: 'BYAPPS_apps_data',
           error: function(e) {
             console.log(e);
           }
       },
+      columnDefs: [
+         {
+            'targets': 0,
+            'className': 'select-checkbox',
+            'checkboxes': {
+               'selectRow': true
+            }
+         },
+         {
+           'targets': 1,
+           'render': function ( data, type, row, meta ) {
+              return '<a href="/apps/appsdetail/'+row[0]+'">'+data+'</a>';
+           }
+         }
+      ],
+      select: {
+         'style': 'multi'
+      },
+      order: [
+        [ 0, 'desc']
+      ],
+      fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+        if (aData[5] == '서비스중지'){
+          $('td:eq(5)', nRow).wrap('<span class="badge badge-pill badge-danger"></span>');
+        } else if (aData[5] == '등록완료') {
+          $('td:eq(5)', nRow).wrap('<span class="badge badge-pill badge-primary"></span>');
+        } else if (aData[5] == '등록대기') {
+          $('td:eq(5)', nRow).wrap('<span class="badge badge-pill badge-info"></span>');
+        } else if (aData[5] == '개발준비중') {
+          $('td:eq(5)', nRow).wrap('<span class="badge badge-pill badge-warning"></span>');
+        }
+
+        $(nRow).attr("rowidx", aData[0]);
+        return nRow;
+      },
       paging: true,
       pageLength: 50,
-      "language": {
-        "emptyTable": "데이터가 없어요.",
-          "lengthMenu": "페이지당 _MENU_ 개씩 보기",
-          "info": "현재 _START_ - _END_ / _TOTAL_건",
-          "infoEmpty": "데이터 없음",
-          "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
-          "search": "검색: ",
-          "zeroRecords": "일치하는 데이터가 없어요.",
-          "loadingRecords": "로딩중...",
-          "processing":     "잠시만 기다려 주세요...",
-          "paginate": {
-              "next": "다음",
-              "previous": "이전"
-          },
-          "buttons": {
-              "excel": "엑셀",
-              "copy": "복사"
-          }
-      },
-      "info": false,
-      "autoWidth": true,
-      "fixedHeader": false,
-      "responsive": true,
-      "orderClasses": false,
-      "stateSave": true,
-      "dom": 'Bfrtip',
-      "buttons": [
+      info: false,
+      autoWidth: true,
+      fixedHeader: false,
+      responsive: true,
+      orderClasses: false,
+      stateSave: true,
+      dom: 'Bfrtip',
+      buttons: [
           'excel', 'copy'
       ],
+      language: {
+        'emptyTable': '데이터가 없어요.',
+          'lengthMenu': '페이지당 _MENU_ 개씩 보기',
+          'info': '현재 _START_ - _END_ / _TOTAL_건',
+          'infoEmpty': '데이터 없음',
+          'infoFiltered': '( _MAX_건의 데이터에서 필터링됨 )',
+          'search': '검색: ',
+          'zeroRecords': '일치하는 데이터가 없어요.',
+          'loadingRecords': '로딩중...',
+          'processing':     '잠시만 기다려 주세요...',
+          'paginate': {
+              'next': '다음',
+              'previous': '이전'
+          },
+          'buttons': {
+              'excel': '엑셀',
+              'copy': '복사'
+          }
+      },
   });
 
-  $('.dataTables_filter input').bind('keyup', function () {
-      console.log('here');
-        table.search(this.value).draw();
-    });
+  // $('#datalist tbody').on('click', 'tr', function () {
+  //     var idx = $(this).attr('rowidx');
+  //     //console.log(id);
+  //     var index = $.inArray(idx, selected);
+  //
+  //     if ( index === -1 ) {
+  //         selected.push(idx);
+  //     } else {
+  //         selected.splice( index, 1 );
+  //     }
+  //     //console.log(selected);
+  //     $(this).toggleClass('selected');
+  // });
+  //
+  // $('#form-datalist').on('submit', function(e){
+  //    var form = this;
+  //    var rows_selected = table.column(0).checkboxes.selected();
+  //
+  //    // Iterate over all selected checkboxes
+  //    $.each(rows_selected, function(index, rowId){
+  //       console.log(rowId);
+  //       // Create a hidden element
+  //       $(form).append(
+  //           $('<input>')
+  //              .attr('type', 'hidden')
+  //              .attr('name', 'id[]')
+  //              .val(rowId)
+  //       );
+  //    });
+  //
+  //    $.ajax({
+  //      type: 'POST',
+  //      url: '/ajaxProcess',
+  //      data: {
+  //        'dt': form.serializeArray(),
+  //        'tb': {{ tableName|raw() }},
+  //        'fd': {{ fields|raw() }}
+  //      },
+  //      error: function(e) {
+  //        console.log(e);
+  //      },
+  //      success: function() {
+  //        table = $('#' + tableId).DataTable();
+  //        table.ajax.reload();
+  //      }
+  //    });
+  // });
 });
 
-</script>
-
-<script>
-$(document).ready(function() {
-  setTimeout(function() {
-    $('.table-striped tbody tr td:contains("서비스중지")').css('color', 'red');
-  }, 1000);
-
-});
 </script>
 
 <!-- {% set paginationEnabled =
