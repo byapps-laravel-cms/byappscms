@@ -108,7 +108,7 @@ badgeClass = "badge-danger"
                 </li>
                 </ul>
 
-                <form class="navbar-nav flex-row ml-md-auto d-none d-md-flex form-inline">
+                <form class="navbar-nav flex-row ml-md-auto d-none d-md-flex form-inline" action="{{ 'search' | page }}" method="get">
                     <div class="form-group">
                         <select name="" class="custom-select my-1 mr-sm-2">
                             <option value="1">주문검색</option>
@@ -116,10 +116,11 @@ badgeClass = "badge-danger"
                             <option value="3">MA목록</option>
                             <option value="4">결제정보</option>
                         </select>
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </div>
                 </form>
+                
                 <div class="float-right">
                     <ul class="navright nav float-md-right" >
                         <li class="separator hidden-xs"></li>

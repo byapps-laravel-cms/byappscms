@@ -22,27 +22,92 @@ class Plugin extends PluginBase
     {
     }
 
-    // public function registerNavigation()
-    // {
-    //     return [
-    //         'byapps' => [
-    //             'label'       => 'jiwon.byapps::lang.paymentdatas.menu_label',
-    //             'url'         => Backend::url('jiwon/byapps/paymentdatas'),
-    //             'icon'        => 'icon-pencil',
-    //             'iconSvg'     => 'plugins/rainlab/blog/assets/images/blog-icon.svg',
-    //             // 'permissions' => ['rainlab.blog.*'],
-    //             'order'       => 500,
-    //
-    //             'sideMenu' => [
-    //                 'promotiondatas' => [
-    //                     'label'       => 'jiwon.byapps::lang.promotiondatas.menu_label',
-    //                     'icon'        => 'icon-plus',
-    //                     'url'         => Backend::url('jiwon/byapps/promotiondatas'),
-    //                     // 'permissions' => ['rainlab.blog.access_posts']
-    //                     'counterLabel' => '99',
-    //                 ],
-    //             ]
-    //         ]
-    //     ];
-    // }
+    public function boot()
+    {
+      $this->search1();
+      $this->search2();
+    }
+
+    public function search1()
+    {
+        \Event::listen('offline.sitesearch.query', function ($query) {
+
+            // Search your plugin's contents
+            $items1 = Models\AppsData::where('app_name', 'like', "%${query}%")
+                                      ->orWhere('app_id', 'like', "%${query}%")
+                                      ->get();
+
+            // Now build a results array
+            $results1 = $items1->map(function ($item) use ($query) {
+
+                // If the query is found in the title, set a relevance of 2
+                $relevance = mb_stripos($item->title, $query) !== false ? 2 : 1;
+
+                // Optional: Add an age penalty to older results. This makes sure that
+                // newer results are listed first.
+                // if ($relevance > 1 && $item->published_at) {
+                //     $relevance -= $this->getAgePenalty($item->published_at->diffInDays(Carbon::now()));
+                // }
+
+                return [
+                    'title'     => $item->app_name,
+                    'text'      => $item->app_id,
+                    'url'       => '/apps/appsDetail/' . $item->idx,
+                    //'thumb'     => $item->images->first(), // Instance of System\Models\File
+                    'relevance' => $relevance, // higher relevance results in a higher
+                                               // position in the results listing
+                    // 'meta' => 'data',       // optional, any other information you want
+                                               // to associate with this result
+                    // 'model' => $item,       // optional, pass along the original model
+                ];
+            });
+
+            return [
+                'provider' => '앱 목록', // The badge to display for this result
+                'results'  =>  $results1,
+
+            ];
+          });
+        }
+
+        public function search2()
+        {
+            \Event::listen('offline.sitesearch.query', function ($query) {
+
+            // Search your plugin's contents
+            $items2 = Models\MAService::where('app_name', 'like', "%${query}%")
+                                      ->get();
+
+            // Now build a results array
+            $results2 = $items2->map(function ($item) use ($query) {
+
+                // If the query is found in the title, set a relevance of 2
+                $relevance = mb_stripos($item->title, $query) !== false ? 2 : 1;
+
+                // Optional: Add an age penalty to older results. This makes sure that
+                // newer results are listed first.
+                // if ($relevance > 1 && $item->published_at) {
+                //     $relevance -= $this->getAgePenalty($item->published_at->diffInDays(Carbon::now()));
+                // }
+
+                return [
+                    'title'     => $item->app_name,
+                    'text'      => $item->app_name,
+                    'url'       => '/service/servicedetail/' . $item->idx,
+                    //'thumb'     => $item->images->first(), // Instance of System\Models\File
+                    'relevance' => $relevance, // higher relevance results in a higher
+                                               // position in the results listing
+                    // 'meta' => 'data',       // optional, any other information you want
+                                               // to associate with this result
+                    // 'model' => $item,       // optional, pass along the original model
+                ];
+            });
+
+            return [
+                'provider' => '부가서비스 목록', // The badge to display for this result
+                'results'  =>  $results2,
+
+            ];
+        });
+    }
 }
