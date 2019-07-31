@@ -20,23 +20,27 @@ function onStart()
         <link rel="icon" type="image/png" href="/storage/app/media/byapps_logo_b_4.png">
 
 
+
         <link href="{{ 'assets/css/codefox/bootstrap.min.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/codefox/icons.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/codefox/style.css'|theme }}" rel="stylesheet">
+
         <link href="{{ 'assets/css/temp.css?v1'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/drag.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/appdata.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/billboard.css'|theme }}" rel="stylesheet">
-        <link href="{{ 'assets/vendor/jquery-ui.css'|theme }}" rel="stylesheet">
-        <link href="{{ 'assets/vendor/jquery-ui.min.css'|theme }}" rel="stylesheet">
+        <link href="{{ 'assets/vendor/jquery-ui-1.12.1/jquery-ui.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/classCustom.css?v1'|theme }}" rel="stylesheet">
-
 
         <!-- Datatable style -->
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/jquery.dataTables.css'|theme }}">
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/buttons.dataTables.min.css'|theme }}">
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/fixedHeader.dataTables.min.css'|theme }}">
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/responsive.dataTables.min.css'|theme }}">
+
+        <!-- JQuery -->
+        <script type="text/javascript" src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
+        <script type="text/javascript" src="{{ 'assets/vendor/jquery-ui-1.12.1/jquery-ui.js'|theme }}"></script>
 
         <!-- Font-awesome  -->
         <script src="https://kit.fontawesome.com/5e0ee1de75.js"></script>
@@ -45,10 +49,12 @@ function onStart()
         <!-- jQuery  -->
         <script src="{{ 'assets/javascript/codefox/jquery.min.js'|theme }}"></script>
 
+
         <!-- bootstrap.bundle.min.js -->
         <script src="{{ 'assets/javascript/codefox/bootstrap.bundle.min.js'|theme }}"></script>
 
         <script src="{{ 'assets/javascript/codefox/modernizr.min.js'|theme }}"></script>
+
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 
@@ -111,9 +117,7 @@ function onStart()
                 todayDate.setDate(todayDate.getDate() + ex);
                 document.cookie = name + "=" + encodeURIComponent(value) + "; path=/; expires=" + todayDate.toGMTString() + ";"
             }
-            window.addEventListener('load', function(){
-                
-            })
+
             var now_page = location.href
             var cookie_history = byapps_getCookie("link_history")
             if(!cookie_history||cookie_history=="") byapps_setCookie("link_history", "{{ this.page.title }}"+"&"+location.href, 14)
@@ -149,7 +153,6 @@ function onStart()
                     byapps_setCookie("link_history", cookie_history+"|"+"{{ this.page.title }}"+"&"+location.href, 14);
                 }
 
-
             }
 
             if( now_page.indexOf("list") != -1 ) {
@@ -167,6 +170,7 @@ function onStart()
             }
          
         </script>
+
         {% put scripts %}
 
 
@@ -192,8 +196,10 @@ function onStart()
         {% endput %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
+
         <script src="{{ 'assets/vendor/jquery-ui.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/jquery-ui.min.js'|theme }}"></script>
+
 
         <script src="{{ 'assets/vendor/jquery.bpopup.min.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/billboard.js'|theme }}"></script>

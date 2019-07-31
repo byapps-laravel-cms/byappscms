@@ -3,16 +3,58 @@
 {% set arrURL = [ 'pay/detail/', 'pay/promodetail/', 'apps/updateData/', 'apps/apkData/', 'apps/data/', 'apps/pushList/', 'apps/newsData/', 'apps/membersData/' ] %}
 {% set URL_BASE = 'http://ljw1.innoi.kr/' %}
 
-
-{% for comment in comments %}
+<!-- {% for comment in comments %}
 <div class="card bg-light mb-3" style="color:#000;">
   <div class="card-header">{{ comment.reg_time | date('Y-m-d') }} {{ comment.mem_name }} ({{ comment.mem_id }})</div>
   <div class="card-body">
-  <!-- {% if (comment.mmid == "order") or (comment.mmid == "payment") %} -->
         <a href="{{ URL_BASE }}{{ arrURL[6] }}{{ comment.pidx }}"><p class="card-title">{{ comment.comment }}</p></a>
-  <!-- {% else %} -->
     <a href="{{ URL_BASE }}{{ arrURL[0] }}{{ comment.pidx }}"><p class="card-text">{{ comment.comment }}</p></a>
-  <!-- {% endif %} -->
   </div>
 </div>
+{% endfor %} -->
+
+<!-- <div style="background: yellow; height: 100px; width:100px;">{{user}}</div> -->
+<div class="box box-warning direct-chat direct-chat-warning">
+    <div class="box-body">
+        <div class="direct-chat-messages">
+{% for comment in comments %}
+  {% if comment.mem_id != user['username'] %}
+            <div class="direct-chat-msg">
+                <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_1.jpg" alt="Message User Image">
+                <a href="{{ URL_BASE }}{{ arrURL[6] }}{{ comment.pidx }}">
+                  <div class="direct-chat-text">{{ comment.comment }}</div>
+                  <div class="direct-chat-info clearfix">
+                      <span class="direct-chat-name float-left">
+                        {{ comment.reg_time | date('Y-m-d') }}, {{ comment.mem_name }}({{ comment.mem_id }})
+                      </span>
+                  </div>
+                </a>
+            </div>
+  {% else %}
+            <div class="direct-chat-msg right">
+                <img class="direct-chat-img" src="{{ user.avatar.path == '' ? 'https://bootdey.com/img/Content/user_1.jpg' : user.avatar.path }}" alt="Message User Image">
+                <div class="direct-chat-text">
+                    {{ comment.comment }}
+                </div>
+                <div class="direct-chat-info clearfix">
+                    <span class="direct-chat-name float-right">
+                      {{ comment.reg_time | date('Y-m-d') }}, {{ comment.mem_name }}({{ comment.mem_id }})
+                    </span>
+                </div>
+            </div>
+  {% endif %}
 {% endfor %}
+        </div>
+    </div>
+
+    <div class="box-footer">
+        <form action="#" method="post">
+        <div class="input-group">
+            <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-warning btn-flat">Send</button>
+                </span>
+        </div>
+        </form>
+    </div>
+</div>
