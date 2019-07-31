@@ -1,20 +1,38 @@
 {% set crumbOptions = __SELF__.options %}
 {% if currentCrumb.show_crumb %}
-<ol class="{{crumbOptions['main-ol-class']}}">
-{% set activeCrumb = '' %}
-{% for crumb in breadcrumbs %}
-    {% if crumb.in_crumb_trail %}
-    <li class="{{crumbOptions['main-li-class']}} {% if crumb.crumb_disabled %} {{crumbOptions['disabled-class']}} {% endif %} {% if loop.last %} {{crumbOptions['active-class']}} {% endif %}" {% if loop.last %} id="bcLast" {% endif %}>
-        {% if not loop.last and not crumb.crumb_disabled %} <a href="{{crumb.baseFileName | page}}"> {% endif %} {{crumb.title}} {% if not loop.last and not crumb.is_disabled %}</a>{% endif %}
-    </li>
-    {% endif %}
+<style>
+.page-title-box {
+  margin: 1em 1em 0 1em;
+}
+.page-title-box .page-title-right {
+  float: right;
+}
+</style>
+<div class="page-title-box">
+  <div class="page-title-right">
+    <ol class="{{crumbOptions['main-ol-class']}}">
+    {% set activeCrumb = '' %}
+    {% for crumb in breadcrumbs %}
+        {% if crumb.in_crumb_trail %}
+        <li class="{{crumbOptions['main-li-class']}} {% if crumb.crumb_disabled %} {{crumbOptions['disabled-class']}} {% endif %} {% if loop.last %} {{crumbOptions['active-class']}} {% endif %}" {% if loop.last %} id="bcLast" {% endif %}>
+            {% if not loop.last and not crumb.crumb_disabled %} <a href="{{crumb.baseFileName | page}}"> {% endif %} {{crumb.title}} {% if not loop.last and not crumb.is_disabled %}</a>{% endif %}
+        </li>
+        {% endif %}
 
-    {% if loop.last %}
-        {% set activeCrumb = crumb %}
-    {% endif %}
+        {% if loop.last %}
+            {% set activeCrumb = crumb %}
+        {% endif %}
 
-{% endfor %}
-</ol>
+    {% endfor %}
+    </ol>
+  </div>
+
+  {% for crumb in breadcrumbs %}
+      {% if loop.last %}
+        <h4 class="page-title">{{crumb.title}}</h4>
+      {% endif %}
+  {% endfor %}
+</div>
 {% endif %}
 
 {# javascript to enable dynamic breadcrumbs. Helpful for ':slug' type routes #}
