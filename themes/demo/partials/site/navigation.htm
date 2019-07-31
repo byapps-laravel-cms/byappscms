@@ -3,8 +3,7 @@ description = "navigation"
 [badge]
 badgeClass = "badge-danger"
 ==
-
- <!-- Navigation Bar-->
+<!-- Navigation Bar-->
  <header id="topnav">
     <div class="topbar-main navbar m-b-0 b-0">
         <div class="container-fluid">
@@ -23,10 +22,9 @@ badgeClass = "badge-danger"
                 <!-- Right(Notification) -->
                 <ul class="nav navbar-right list-inline">
                     <li class="d-none d-sm-inline-block list-inline-item">
-                        <form role="search" class="app-search">
-                            <input type="text" placeholder="Search..."
-                                class="form-control">
-                            <a href=""><i class="fa fa-search"></i></a>
+                        <form role="search" class="app-search"  action="{{ 'search' | page }}" method="get">
+                            <input type="text" placeholder="Search..." class="form-control" name="q">
+                            <button class="btn" type="submit"><!-- <i class="fa fa-search"></i> --></button>
                         </form>
                     </li>
 
@@ -286,18 +284,18 @@ badgeClass = "badge-danger"
                 </li>
                 </ul>
 
-                <form class="navbar-nav flex-row ml-md-auto d-none d-md-flex form-inline" action="{{ 'search' | page }}" method="get">
-                    <div class="form-group">
-                        <select name="" class="custom-select my-1 mr-sm-2">
-                            <option value="1">주문검색</option>
-                            <option value="2">앱목록</option>
-                            <option value="3">MA목록</option>
-                            <option value="4">결제정보</option>
-                        </select>
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </div>
-                </form>
+               <!--  <form class="navbar-nav flex-row ml-md-auto d-none d-md-flex form-inline" action="{{ 'search' | page }}" method="get">
+                   <div class="form-group">
+                       <select name="" class="custom-select my-1 mr-sm-2">
+                           <option value="1">주문검색</option>
+                           <option value="2">앱목록</option>
+                           <option value="3">MA목록</option>
+                           <option value="4">결제정보</option>
+                       </select>
+                       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="q">
+                       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                   </div>
+               </form> -->
                 
                 <div class="float-right">
                     <ul class="navright nav float-md-right" >
