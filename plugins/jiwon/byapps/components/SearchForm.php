@@ -1,5 +1,10 @@
-<?php namespace \Jiwon/Byapps\Components;
+<?php namespace \Jiwon\Byapps\Components;
 
+use Flash;
+use Input;
+use Session;
+use Request;
+use Redirect;
 use Cms\Classes\ComponentBase;
 
 class SearchForm extends ComponentBase
@@ -8,7 +13,7 @@ class SearchForm extends ComponentBase
     {
         return [
             'name'        => 'SearchForm Component',
-            'description' => 'No description provided yet...'
+            'description' => '검색 폼 컴포넌트'
         ];
     }
 
