@@ -19,12 +19,12 @@ function onStart()
         <meta name="generator" content="OctoberCMS">
         <link rel="icon" type="image/png" href="/storage/app/media/byapps_logo_b_4.png">
 
-        <link href="{{ 'assets/vendor/bootstrap4.3.1/css/bootstrap.min.css?v1'|theme }}" rel="stylesheet">
-        <link href="{{ 'assets/vendor/bootstrap4.3.1/css/bootstrap-reboot.min.css?v1'|theme }}" rel="stylesheet">
-        <link href="{{ 'assets/vendor/bootstrap4.3.1/css/bootstrap-grid.min.css?v1'|theme }}" rel="stylesheet">
 
-        <!-- <link href="{{ 'assets/css/vendor.css'|theme }}" rel="stylesheet">
-        <link href="{{ 'assets/css/theme.css'|theme }}" rel="stylesheet"> -->
+
+        <link href="{{ 'assets/css/codefox/bootstrap.min.css'|theme }}" rel="stylesheet">
+        <link href="{{ 'assets/css/codefox/icons.css'|theme }}" rel="stylesheet">
+        <link href="{{ 'assets/css/codefox/style.css'|theme }}" rel="stylesheet">
+
         <link href="{{ 'assets/css/temp.css?v1'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/drag.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/appdata.css'|theme }}" rel="stylesheet">
@@ -44,8 +44,20 @@ function onStart()
 
         <!-- Font-awesome  -->
         <script src="https://kit.fontawesome.com/5e0ee1de75.js"></script>
+  
+
+        <!-- jQuery  -->
+        <script src="{{ 'assets/javascript/codefox/jquery.min.js'|theme }}"></script>
+
+
+        <!-- bootstrap.bundle.min.js -->
+        <script src="{{ 'assets/javascript/codefox/bootstrap.bundle.min.js'|theme }}"></script>
+
+        <script src="{{ 'assets/javascript/codefox/modernizr.min.js'|theme }}"></script>
 
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
 
         <!-- Step 1) Load D3.js -->
         <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -108,40 +120,87 @@ function onStart()
 
             var now_page = location.href
             var cookie_history = byapps_getCookie("link_history")
-            if(!cookie_history||cookie_history=="") byapps_setCookie("link_history", location.href, 14)
+            if(!cookie_history||cookie_history=="") byapps_setCookie("link_history", "{{ this.page.title }}"+"&"+location.href, 14)
             else {
-                byapps_setCookie("link_history", cookie_history+"|"+location.href, 14)
+                byapps_setCookie("link_history", cookie_history+"|"+"{{ this.page.title }}"+"&"+location.href, 14)
                 
                 var ch = cookie_history.split("|");
-                var newcookie = "";
-
-                console.log("link_history", ch)
+                var newcookie, prev = "";      
                 
-                for(i=0; i < ch.length; i++){                  
-                    if(ch[i-1]==ch[i]) newcookie+="";
-                    else newcookie += ch[i]+"|"; 
-                    console.log( "ch[i]",ch[i])
+                for(i=0; i < ch.length; i++){                   
+                var a = ch
+                    if(i!=0) {
+                        if( prev == a[i] ) {
+                            newcookie += "";
+                        } else {
+                            a[i] =="undefined"? newcookie += "": newcookie += a[i]+"|";
+                        }
+                    } else {
+                        a[i] =="undefined"? newcookie += "": newcookie += a[i]+"|";
+                        
+                    }
+
+                    prev = a[i];
+
+                    console.log( "ch[i]",ch[i]);
                 }
+                newcookie.replace("undefined","");
+                console.log( "newcookie",newcookie);
+                console.log("newcookie.length", newcookie.split("|").length);
                 if(ch.length >= 20){
-                    cookie_history = cookie_history.split(ch[0]+"|")[1]
-                    console.log("cookie", cookie_history)
-                    byapps_setCookie("link_history", cookie_history+"|"+location.href, 14)
+                    cookie_history = cookie_history.split(ch[0]+"|")[1];
+                    console.log("cookie", cookie_history);
+                    byapps_setCookie("link_history", cookie_history+"|"+"{{ this.page.title }}"+"&"+location.href, 14);
                 }
 
             }
 
             if( now_page.indexOf("list") != -1 ) {
-                document.querySelector('#comment').style.display="none"
+                var str, page_val = "";
+                document.querySelector('#comment').style.display="none";
+                cookie_history = newcookie;
+                ch = cookie_history.split("|");
+
+                for(i=ch.length; i > 0; i--) {
+                    page_val = ch[i-1].split("&");
+                    str += '<span class="border-top d-block"></span><div class="text-muted"><a href="'+page_val[1]+'">'+page_val[0]+'</a></div>';
+                }
+                document.querySelector("#movePage").innerHTML += str+'<span class="border-top d-block"></span>';
+
             }
+         
         </script>
 
         {% put scripts %}
-            <script src="{{ 'assets/vendor/bootstrap4.3.1/js/bootstrap.min.js'|theme }}"></script>
-            <script src="{{ 'assets/vendor/bootstrap4.3.1/js/bootstrap.bundle.min.js'|theme }}"></script>
+
+
+
+
+        <script src="{{ 'assets/javascript/codefox/bootstrap.bundle.min.js'|theme }}"></script>
+        <script src="{{ 'assets/javascript/codefox/waves.js'|theme }}"></script>
+        <script src="{{ 'assets/javascript/codefox/jquery.slimscroll.js'|theme }}"></script>
+
+        <!-- Counter js  -->
+        <script src="{{ 'assets/plugins/waypoints/jquery.waypoints.min.js'|theme }}"></script>
+        <script src="{{ 'assets/plugins/counterup/jquery.counterup.min.js'|theme }}"></script>
+
+
+        <!-- Dashboard init -->
+        <script src="assets/pages/jquery.dashboard.js"></script>
+        
+        <!-- App js -->
+        <script src="{{ 'assets/javascript/codefox/jquery.core.js'|theme }}"></script>
+        <script src="{{ 'assets/javascript/codefox/jquery.app.js'|theme }}"></script>
+
+
         {% endput %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
-        <script src="{{ 'assets/vendor/bootstrap.js'|theme }}"></script>
+
+        <script src="{{ 'assets/vendor/jquery-ui.js'|theme }}"></script>
+        <script src="{{ 'assets/vendor/jquery-ui.min.js'|theme }}"></script>
+
+
         <script src="{{ 'assets/vendor/jquery.bpopup.min.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/billboard.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/util.js'|theme }}"></script>

@@ -8,47 +8,41 @@ $(".show_btn").click(function (){
     $(".show_btn").css({"background-color":"#d9edf7"});   
   }
 });
-//카테고리 변경 확인
-if(Util.getCookie('searchType')){
-  $('.select_comm_1 option').eq(Util.getCookie('searchType')*1).attr('selected','selected');
-}
-$('.select_comm_1').change(function () {
-  document.cookie = `searchType=${$('.select_comm_1 option:selected').index()};path=/`;
-});
-//쿠키
-if(Util.getCookie('aside') == 'on' && $('#sidebar').length != 0){
-  $("html").toggleClass("open");
-}
-//home 만료예정업체
-$(".app_box_cover").eq(0).css({"display":"block"}); 
-$(".app_select li").eq(0).css({"background-color":"#c2d4ef"});
-//click
-$(".app_select li").click(function (){
-  var index = $(".app_select li").index(this);
-  $(".app_box_cover").css({"display":"none"});
-  $(".app_select li").css({"background-color":"#c6c6c6"});
-  $(".app_box_cover").eq(index).css({"display":"block"}); 
-  $(".app_select li").eq(index).css({"background-color":"#c2d4ef"});
-});
-//앱 상세 첫 ㅍ시 화면
-$(".develop_info_select li").eq(0).css({"background-color":"#c2d4ef"});
-$(".develop_info").eq(0).css({"display":"block"});
-//click
-$(".develop_info_select li").click(function (){
-  var index = $(".develop_info_select li").index(this);
-  //초기화
-  $(".develop_info_select li").css({"background-color":"#c6c6c6"});
-  $(".develop_info").css({"display":"none"});
-  //변경
-  $(".develop_info_select li").eq(index).css({"background-color":"#c2d4ef"});
-  $(".develop_info").eq(index).css({"display":"block"});
-});
-//header로 가는 버튼
-$('.top_btn').click( function () {
-  $( 'html, body' ).animate( { scrollTop : 0 }, 400 );
-  return false;
-});
-
+// //카테고리 변경 확인
+// if(Util.getCookie('searchType')){
+//   $('.select_comm_1 option').eq(Util.getCookie('searchType')*1).attr('selected','selected');
+// }
+// $('.select_comm_1').change(function () {
+//   document.cookie = `searchType=${$('.select_comm_1 option:selected').index()};path=/`;
+// });
+// //쿠키
+// if(Util.getCookie('aside') == 'on' && $('#sidebar').length != 0){
+//   $("html").toggleClass("open");
+// }
+// //home 만료예정업체
+// $(".app_box_cover").eq(0).css({"display":"block"}); 
+// $(".app_select li").eq(0).css({"background-color":"#c2d4ef"});
+// //click
+// $(".app_select li").click(function (){
+//   var index = $(".app_select li").index(this);
+//   $(".app_box_cover").css({"display":"none"});
+//   $(".app_select li").css({"background-color":"#c6c6c6"});
+//   $(".app_box_cover").eq(index).css({"display":"block"}); 
+//   $(".app_select li").eq(index).css({"background-color":"#c2d4ef"});
+// });
+// //앱 상세 첫 ㅍ시 화면
+// $(".develop_info_select li").eq(0).css({"background-color":"#c2d4ef"});
+// $(".develop_info").eq(0).css({"display":"block"});
+// //click
+// $(".develop_info_select li").click(function (){
+//   var index = $(".develop_info_select li").index(this);
+//   //초기화
+//   $(".develop_info_select li").css({"background-color":"#c6c6c6"});
+//   $(".develop_info").css({"display":"none"});
+//   //변경
+//   $(".develop_info_select li").eq(index).css({"background-color":"#c2d4ef"});
+//   $(".develop_info").eq(index).css({"display":"block"});
+// });
 
 
 // function platform_chk (){
