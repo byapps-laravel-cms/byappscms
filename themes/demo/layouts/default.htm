@@ -19,8 +19,6 @@ function onStart()
         <meta name="generator" content="OctoberCMS">
         <link rel="icon" type="image/png" href="/storage/app/media/byapps_logo_b_4.png">
 
-
-
         <link href="{{ 'assets/css/codefox/bootstrap.min.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/codefox/icons.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/codefox/style.css'|theme }}" rel="stylesheet">
@@ -45,7 +43,7 @@ function onStart()
 
         <!-- Font-awesome  -->
         <script src="https://kit.fontawesome.com/5e0ee1de75.js"></script>
-  
+
 
         <!-- jQuery  -->
         <script src="{{ 'assets/javascript/codefox/jquery.min.js'|theme }}"></script>
@@ -124,11 +122,11 @@ function onStart()
             if(!cookie_history||cookie_history=="") byapps_setCookie("link_history", "{{ this.page.title }}"+"&"+location.href, 14)
             else {
                 byapps_setCookie("link_history", cookie_history+"|"+"{{ this.page.title }}"+"&"+location.href, 14)
-                
+
                 var ch = cookie_history.split("|");
-                var newcookie, prev = "";      
-                
-                for(i=0; i < ch.length; i++){                   
+                var newcookie, prev = "";
+
+                for(i=0; i < ch.length; i++){
                 var a = ch
                     if(i!=0) {
                         if( prev == a[i] ) {
@@ -138,7 +136,7 @@ function onStart()
                         }
                     } else {
                         a[i] =="undefined"? newcookie += "": newcookie += a[i]+"|";
-                        
+
                     }
 
                     prev = a[i];
@@ -169,7 +167,7 @@ function onStart()
                 document.querySelector("#movePage").innerHTML += str+'<span class="border-top d-block"></span>';
 
             }
-         
+
         </script>
 
         {% put scripts %}
@@ -188,7 +186,7 @@ function onStart()
 
         <!-- Dashboard init -->
         <script src="assets/pages/jquery.dashboard.js"></script>
-        
+
         <!-- App js -->
         <script src="{{ 'assets/javascript/codefox/jquery.core.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/codefox/jquery.app.js'|theme }}"></script>

@@ -31,12 +31,13 @@ class Plugin extends PluginBase
     public function search1()
     {
         \Event::listen('offline.sitesearch.query', function ($query) {
+    info('searching search1');
 
             // Search your plugin's contents
             $items1 = Models\AppsData::where('app_name', 'like', "%${query}%")
                                       ->orWhere('app_id', 'like', "%${query}%")
                                       ->get();
-
+//    dd($items1);
             // Now build a results array
             $results1 = $items1->map(function ($item) use ($query) {
 
@@ -73,11 +74,12 @@ class Plugin extends PluginBase
         public function search2()
         {
             \Event::listen('offline.sitesearch.query', function ($query) {
+ info('searching search2');
 
             // Search your plugin's contents
             $items2 = Models\MAService::where('app_name', 'like', "%${query}%")
                                       ->get();
-
+  //  dd($items2);
             // Now build a results array
             $results2 = $items2->map(function ($item) use ($query) {
 
