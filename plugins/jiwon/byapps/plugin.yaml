@@ -58,7 +58,7 @@ navigation:
                 icon: icon-user
             side-menu-item2:
                 label: '회원 문의'
-                url: /
+                url: jiwon/byapps/qnamembers
                 icon: icon-user
     main-menu-item4:
         label: 부가서비스
