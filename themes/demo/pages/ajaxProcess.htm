@@ -1,0 +1,26 @@
+title = "Ajax Process"
+url = "/ajaxProcess"
+is_hidden = 0
+==
+<?
+use Illuminate\Support\Facades\DB;
+
+function onStart()
+{
+
+  $data = $_POST['dt'];
+  $table = $_POST['tb'];
+  $fields = explode("|", $_POST['fd']);
+
+//  echo "<script>console.log(".$table.")</script>";
+
+  
+   $result = DB::table($table)
+            ->where('idx', $data)
+            ->update(['app_process' => 10]);
+
+  echo json_encode($data);
+}
+
+?>
+==
