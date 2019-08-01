@@ -94,6 +94,10 @@ navigation:
                 label: '푸쉬 허용 통계'
                 url: jiwon/byapps/pushonoffstats
                 icon: icon-bar-chart
+            side-menu-item5:
+                label: '리타겟팅 푸쉬 통계'
+                url: jiwon/byapps/retargetpushstats
+                icon: icon-bar-chart
     main-menu-item6:
         label: 댓글
         url: jiwon/byapps/comments
