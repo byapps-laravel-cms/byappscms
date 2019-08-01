@@ -98,6 +98,10 @@ navigation:
                 label: '리타겟팅 푸쉬 통계'
                 url: jiwon/byapps/retargetpushstats
                 icon: icon-bar-chart
+            side-menu-item6:
+                label: '부가서비스 매출 통계'
+                url: jiwon/byapps/retargetsalestats
+                icon: icon-bar-chart
     main-menu-item6:
         label: 댓글
         url: jiwon/byapps/comments
