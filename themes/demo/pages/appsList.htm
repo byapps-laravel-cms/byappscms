@@ -37,7 +37,7 @@ use Jiwon\Byapps\Models\AppsData;
 function onStart()
 {
     $this['tableName'] = 'BYAPPS_apps_data';
-    $this['fields'] = "idx|app_id|app_name|app_ver|byapps_ver|app_process|script_popup|custom_etc|apps_type|start_time|end_time";
+    $this['fields'] = "idx|app_id|app_name|app_ver|byapps_ver|app_process|script_popup|custom_etc|apps_type|start_time|reg_time";
 }
 ?>
 ==
@@ -66,7 +66,7 @@ function onStart()
 
       <button type="submit" class="btn btn-primary mb-1" style="float:right;">상태변경</button>
 
-    <table id="datalist" class="table table-striped mb-3" style="width:100%;">
+    <table id="datalist" class="table table-striped mb-3 table-colored table-inverse" style="width:100%;">
         <thead>
             <tr>
                 <th></th>
@@ -78,8 +78,8 @@ function onStart()
                 <th>SCRIPT</th>
                 <th>커스텀</th>
                 <th>신청OS</th>
-                <th>서비스기간(시작일)</th>
-                <th>서비스기간(종료일)</th>
+                <th>서비스기간</th>
+                <th>등록일</th>
             </tr>
         </thead>
 
@@ -156,13 +156,13 @@ $(document).ready(function() {
       ],
       fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
         if (aData[5] == '서비스중지'){
-          $('td:eq(5)', nRow).wrap('<span class="badge badge-pill badge-danger"></span>');
+          $('td:eq(5)', nRow).wrap('<span class="badge badge-danger"></span>');
         } else if (aData[5] == '등록완료') {
-          $('td:eq(5)', nRow).wrap('<span class="badge badge-pill badge-primary"></span>');
+          $('td:eq(5)', nRow).wrap('<span class="badge badge-success"></span>');
         } else if (aData[5] == '등록대기') {
-          $('td:eq(5)', nRow).wrap('<span class="badge badge-pill badge-info"></span>');
+          $('td:eq(5)', nRow).wrap('<span class="badge badge-purple"></span>');
         } else if (aData[5] == '개발준비중') {
-          $('td:eq(5)', nRow).wrap('<span class="badge badge-pill badge-warning"></span>');
+          $('td:eq(5)', nRow).wrap('<span class="badge badge-warning"></span>');
         }
 
         $(nRow).attr("rowidx", aData[0]);
