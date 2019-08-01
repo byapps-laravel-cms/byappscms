@@ -88,7 +88,7 @@ navigation:
                 icon: icon-bar-chart
             side-menu-item3:
                 label: '앱 매출 통계'
-                url: /
+                url: jiwon/byapps/appssalestats
                 icon: icon-bar-chart
             side-menu-item4:
                 label: '푸쉬 허용 통계'

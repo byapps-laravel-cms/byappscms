@@ -1,0 +1,69 @@
+columns:
+    idx:
+        label: IDX
+        type: number
+        sortable: true
+    mem_id:
+        label: mem_id
+        type: text
+        sortable: true
+    app_id:
+        label: app_id
+        type: text
+        sortable: true
+    app_name:
+        label: app_name
+        type: text
+        sortable: true
+    total_c:
+        label: total_c
+        type: Number
+        sortable: true
+    today_c:
+        label: today_c
+        type: Number
+        sortable: true
+    yesterday_c:
+        label: yesterday_c
+        type: Number
+        sortable: true
+    total_m:
+        label: total_m
+        type: Number
+        sortable: true
+    today_m:
+        label: today_m
+        type: Number
+        sortable: true
+    yesterday_m:
+        label: total_m
+        type: Number
+        sortable: true
+    todate:
+        label: todate
+        type: date
+        format: Y-m-d
+        sortable: true
+    max_c:
+        label: max_c
+        type: Number
+        sortable: true
+    max_c_date:
+        label: max_c_date
+        type: date
+        format: Y-m-d
+        sortable: true
+    revisit_check:
+        label: revisit_check
+        type: Number
+        sortable: true
+    launch_date:
+        label: launch_date
+        type: date
+        format: Y-m-d
+        sortable: true
+    reg_date:
+        label: reg_date
+        type: date
+        format: Y-m-d h:i:s
+        sortable: true
