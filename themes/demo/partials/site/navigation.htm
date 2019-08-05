@@ -4,66 +4,88 @@ description = "navigation"
 badgeClass = "badge-danger"
 ==
 <!-- Navigation Bar-->
- <header id="topnav">
-    <div class="topbar-main navbar m-b-0 b-0">
+    <div class="navbar-custom">
         <div class="container-fluid">
 
+          <ul class="list-unstyled topnav-menu float-right mb-0">
+
+              <li class="dropdown notification-list">
+                  <!-- Mobile menu toggle-->
+                  <a class="navbar-toggle nav-link">
+                      <div class="lines">
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                      </div>
+                  </a>
+                  <!-- End mobile menu toggle-->
+              </li>
+
+              <li class="d-none d-sm-block">
+                  <form role="search" class="app-search" action="{{ 'search' | page }}" method="get">
+                      <div class="app-search-box">
+                          <div class="input-group">
+                              <input type="text" class="form-control" placeholder="Search..." name="q">
+                              <div class="input-group-append">
+                                  <button class="btn" type="submit">
+                                      <!-- <i class="fa fa-search"></i> -->
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+                  </form>
+              </li>
+
+              <li class="dropdown notification-list">
+                  <a class="nav-link dropdown-toggle nav-user waves-effect waves-light" data-toggle="dropdown" href="#" aria-haspopup="false" aria-expanded="true">
+                      <i class="fi-ellipsis rounded-circle user-img text-white" style="font-size:2.5em;"></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                      <!-- item-->
+                      <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class=" mdi mdi-bell-ring-outline"></i>
+                        <span>알림허용</span>
+                      </a>
+
+                      <!-- item-->
+                      <a href="http://innotiveinc.co.kr/desk/" class="dropdown-item">
+                        <i class="mdi mdi-calendar-check"></i>
+                        <span>이노팸</span>
+                      </a>
+
+                      <div class="dropdown-divider"></div>
+
+                      <!-- item-->
+                      <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="mdi mdi-logout-variant"></i>
+                        <span>로그아웃</span>
+                      </a>
+
+                  </div>
+              </li>
+          </ul>
+
             <!-- LOGO -->
-            <div class="topbar-left">
+            <div class="logo-box">
                 <a href="/" class="logo">
                     <img src="/storage/app/media/byapps_logo_b_1.gif" alt="logo" height="40">
                 </a>
             </div>
             <!-- End Logo container-->
 
-
-            <div class="menu-extras">
-
-                <!-- Right(Notification) -->
-                <ul class="nav navbar-right list-inline">
-                    <li class="d-none d-sm-inline-block list-inline-item">
-                        <form role="search" class="app-search"  action="{{ 'search' | page }}" method="get">
-                            <input type="text" placeholder="Search..." class="form-control" name="q">
-                            <button class="btn" type="submit"><!-- <i class="fa fa-search"></i> --></button>
-                        </form>
-                    </li>
-
-                    <li class="dropdown user-box list-inline-item" >
-                        <a href="" class="dropdown-toggle waves-effect user-link" data-toggle="dropdown" aria-expanded="true" >
-                            <i class="fi-ellipsis rounded-circle user-img text-white" style="font-size:2.5em;"></i>
-                        </a>
-
-                        <ul class="dropdown-menu dropdown-menu-right dropdown-lg user-list notify-list">
-                            <li><a href="javascript:void(0)" class="dropdown-item"><i class=" mdi mdi-bell-ring-outline"></i> &nbsp;알림허용</a></li>
-                            <li><a href="http://innotiveinc.co.kr/desk/" class="dropdown-item" target="_blank"><i class="mdi mdi-calendar-check"></i> &nbsp;이노팸</a></li>
-                            <li><a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-logout-variant"></i> &nbsp;로그아웃</a></li>
-                        </ul>
-                    </li>
-
-                </ul>
-                <div class="menu-item">
-                    <!-- Mobile menu toggle-->
-                    <a class="navbar-toggle nav-link">
-                        <div class="lines">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </a>
-                    <!-- End mobile menu toggle-->
-                </div>
-            </div>
-
         </div>
     </div>
 
-    <div class="navbar-custom">
-        <div class="container-fluid">
-            <div id="navigation">
+    <div class="topbar-menu active">
+        <div class="container-fluid in">
+            <div id="navigation" class="active">
                 <!-- Navigation Menu-->
-                <ul class="navigation-menu">
+                <ul class="navigation-menu in">
                     <li class="has-submenu">
-                        <a href="#"><i class="mdi mdi-credit-card"></i><span> 결제 관리{% component 'badge' %} </span> </a>
+                        <a href="#">
+                          <i class="mdi mdi-credit-card"></i>
+                            결제 관리{% component 'badge' %}
+                        </a>
                         <ul class="submenu megamenu">
                             <li>
                                 <ul>
@@ -74,7 +96,10 @@ badgeClass = "badge-danger"
                         </ul>
                     </li>
                     <li class="has-submenu">
-                        <a href="#"><i class="mdi mdi-android"></i> <span> 앱 관리 </span> </a>
+                        <a href="#">
+                          <i class="mdi mdi-android"></i>
+                          앱 관리
+                        </a>
                         <ul class="submenu megamenu">
                             <li>
                                 <ul>
@@ -91,27 +116,27 @@ badgeClass = "badge-danger"
                             </li>
                         </ul>
                     </li>
-
                     <li class="has-submenu">
-                        <a href="#"><i class="mdi mdi-loupe"></i> <span> 부가서비스 </span> </a>
+                        <a href="#">
+                          <i class="mdi mdi-loupe"></i>
+                          부가서비스
+                        </a>
                         <ul class="submenu megamenu">
                             <li>
                                 <ul>
                                     <li><a href="#">부가서비스 접수</a></li>
                                     <li><a href="#">MA 이용 업체</a></li>
                                     <li><a href="#">프리미엄 서비스</a></li>
-                                    <!-- <li><a href="#">제휴 광고상담 관리</a></li>
-                                    <div class="dropdown-divider"></div>
-                                    <li><a href="#">터틀체인</a></li>
-                                    <li><a href="#">리타쿠</a></li> -->
                                 </ul>
                             </li>
                         </ul>
                     </li>
-
                     <li class="has-submenu">
-                        <a href="#"><i class="mdi mdi-chart-bar"></i> <span> 통계 </span> </a>
-                            <ul class="submenu megamenu">
+                        <a href="#">
+                          <i class="mdi mdi-chart-bar"></i>
+                          통계
+                        </a>
+                        <ul class="submenu megamenu">
                             <li>
                                 <ul>
                                     <li><a href="#">앱 설치 통계</a></li>
@@ -126,26 +151,30 @@ badgeClass = "badge-danger"
                             </li>
                         </ul>
                     </li>
-
                     <li class="has-submenu">
-                        <a href="#"><i class="mdi mdi-account"></i> <span> 회원 관리 </span> </a>
+                        <a href="#">
+                          <i class="mdi mdi-account"></i>
+                          회원 관리
+                        </a>
                         <ul class="submenu megamenu">
-                        <li>
-                            <ul>
-                                <li><a href="{{ 'usersList'|page }}">회원 정보</a>
-                                <li><a href="#">회원 문의</a></li>
-                                <li><a href="#">비회원 문의</a></li>
-                                <div class="dropdown-divider"></div>
-                                <li><a href="#">제휴 광고상담 관리</a></li>
-                                <li><a href="#">터틀체인</a></li>
-                                <li><a href="#">리타쿠</a></li>
-                            </ul>
-                        </li>
+                          <li>
+                              <ul>
+                                  <li><a href="{{ 'usersList'|page }}">회원 정보</a>
+                                  <li><a href="#">회원 문의</a></li>
+                                  <li><a href="#">비회원 문의</a></li>
+                                  <div class="dropdown-divider"></div>
+                                  <li><a href="#">제휴 광고상담 관리</a></li>
+                                  <li><a href="#">터틀체인</a></li>
+                                  <li><a href="#">리타쿠</a></li>
+                              </ul>
+                          </li>
                         </ul>
                     </li>
-
                     <li class="has-submenu">
-                        <a href="#"><i class="mdi mdi-account-multiple"></i> <span> 리셀러 </span> </a>
+                        <a href="#">
+                          <i class="mdi mdi-account-multiple"></i>
+                          리셀러
+                        </a>
                         <ul class="submenu megamenu">
                             <li>
                                 <ul>
@@ -156,9 +185,11 @@ badgeClass = "badge-danger"
                             </li>
                         </ul>
                     </li>
-
-                    <li class="has-submenu">
-                        <a href="#"><i class="mdi mdi-worker"></i> <span> 관리자 </span> </a>
+                    <li class="has-submenu last-elements">
+                        <a href="#">
+                          <i class="mdi mdi-worker"></i>
+                          관리자
+                        </a>
                         <ul class="submenu megamenu">
                             <li>
                                 <ul>
@@ -174,8 +205,11 @@ badgeClass = "badge-danger"
                     </li>
                 </ul>
                 <!-- End navigation menu  -->
+                <div class="clearfix"></div>
             </div>
+            <!-- end #navigation -->
         </div>
+        <!-- end container -->
     </div>
 </header>
 <!-- End Navigation Bar-->

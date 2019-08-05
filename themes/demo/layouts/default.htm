@@ -21,7 +21,8 @@ function onStart()
         <!-- Codefox Theme -->
         <link href="{{ 'assets/codefox/css/bootstrap.min.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/codefox/css/icons.css'|theme }}" rel="stylesheet">
-        <link href="{{ 'assets/codefox/css/style.css'|theme }}" rel="stylesheet">
+        <link href="{{ 'assets/codefox/css/app.min.css'|theme }}" rel="stylesheet">
+        <!-- <link href="{{ 'assets/codefox/css/style.css'|theme }}" rel="stylesheet"> -->
         <link href="{{ 'assets/css/temp.css?v1'|theme }}" rel="stylesheet">
 
         <link href="{{ 'assets/css/drag.css'|theme }}" rel="stylesheet">
@@ -57,18 +58,19 @@ function onStart()
 
     <body>
         <!-- Nav -->
-        <header id="layout-navigation">
+        <header id="topnav">
             {% partial 'site/navigation' %}
         </header>
 
         <!-- Header -->
-        {% if this.page.title != 'Home' %}
+        <!-- {% if this.page.title != 'Home' %}
         <header id="layout-header">
             {% partial 'site/header' %}
         </header>
-        {% endif %}
+        {% endif %} -->
 
         <!-- Content -->
+      <div class="wrapper">
         <section id="layout-content">
             <div id="content" class="col-md-12">
                     <!-- <div class="top_btn"></div> -->
@@ -84,7 +86,7 @@ function onStart()
                 {% partial 'site/aside' %}
             </div>
         </section>
-
+      </div>
         <!-- Scripts -->
         {% framework extras %}
         {% scripts %}
@@ -175,8 +177,9 @@ function onStart()
 
         <!-- Dashboard init -->
         <script src="assets/codefox/js/jquery.dashboard.js"></script>
-
         <!-- App js -->
+        <script src="{{ 'assets/codefox/js/app.min.js'|theme }}"></script>
+
         <!-- <script src="{{ 'assets/javascript/codefox/jquery.core.js'|theme }}"></script> -->
         <script src="{{ 'assets/codefox/js/jquery.app.js'|theme }}"></script>
 
@@ -210,6 +213,8 @@ function onStart()
         <script src="{{ 'assets/javascript/datatables/dataTables.fixedHeader.min.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/datatables/dataTables.responsive.min.js'|theme }}"></script>
         <!-- For Datatable 끝 -->
+
+
 
     </body>
 </html>
