@@ -45,9 +45,18 @@ function onStart()
 
 <style>
 
+table {
+  word-wrap: break-word;
+}
+
 .dataTables_wrapper .dataTables_scroll {
   width:100%;
 }
+
+thead input {
+  width: 100%;
+}
+
 </style>
 
 <div class="container col-12 col-md-12">
@@ -69,7 +78,7 @@ function onStart()
     <table id="datalist" class="table table-striped mb-3 table-colored table-inverse" style="width:100%;">
         <thead>
             <tr>
-                <th></th>
+                <th class="chk"></th>
                 <th>앱 아이디</th>
                 <th>앱명</th>
                 <th>버전</th>
@@ -123,6 +132,21 @@ $(document).ready(function() {
   var tableId = "datalist";
   var selected = [];
 
+  $('#' + tableId + ' thead tr').clone(true).appendTo('#' + tableId + ' thead');
+  $('#' + tableId + ' thead tr:eq(1) th').not('th.chk').each(function(i){
+      var title = $(this).text();
+      $(this).html( '<input type="text" placeholder="'+title+'" />' );
+
+      $('input', this).on( 'keyup change', function () {
+          if (table.column(i).search() !== this.value) {
+              table
+                  .column(i)
+                  .search(this.value)
+                  .draw();
+          }
+      });
+  });
+
   var table = $('#' + tableId).DataTable({
       processing: true,
       serverSide: true,
@@ -133,6 +157,24 @@ $(document).ready(function() {
             console.log(e);
           }
       },
+      // initComplete: function() {
+      //
+      //   this.api().columns().every(function() {
+      //     var column = this;
+      //
+      //     var select = $('<select><option value=""></option></select>')
+      //                   .appendTo($(column.header()).empty())
+      //                   .on('change', function() {
+      //                     var val = $.fn.dataTable.util.escapeRegex($(this).val());
+      //                     column.search(this.value).draw();
+      //                    });
+      //         column.data().unique().sort().each(function(d, j) {
+      //           select.append('<option value="'+d+'">'+d+'</option>')
+      //         });
+      //     console.log(select);
+      //   });
+      // },
+
       columnDefs: [
          {
             'targets': 0,
@@ -146,7 +188,7 @@ $(document).ready(function() {
            'render': function ( data, type, row, meta ) {
               return '<a href="/apps/appsdetail/'+row[0]+'">'+data+'</a>';
            }
-         }
+         },
       ],
       select: {
          'style': 'multi'
@@ -156,13 +198,17 @@ $(document).ready(function() {
       ],
       fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
         if (aData[5] == '서비스중지'){
-          $('td:eq(5)', nRow).wrap('<span class="badge badge-danger"></span>');
+          $('td:eq(5)', nRow).html('<span class="btn btn-pink btn-rounded waves-effect waves-light px-1 py-0">' + aData[5] + '</span>');
+        } else if (aData[5] == '서비스유효') {
+          $('td:eq(5)', nRow).html('<span class="btn btn-warning btn-rounded waves-effect waves-light px-1 py-0">' + aData[5] + '</span>');
         } else if (aData[5] == '등록완료') {
-          $('td:eq(5)', nRow).wrap('<span class="badge badge-success"></span>');
+          $('td:eq(5)', nRow).html('<span class="btn btn-success btn-rounded waves-effect waves-light px-1 py-0">' + aData[5] + '</span>');
         } else if (aData[5] == '등록대기') {
-          $('td:eq(5)', nRow).wrap('<span class="badge badge-purple"></span>');
+          $('td:eq(5)', nRow).html('<span class="btn btn-info btn-rounded waves-effect waves-light px-1 py-0">' + aData[5] + '</span>');
+        } else if (aData[5] == '심사중') {
+          $('td:eq(5)', nRow).html('<span class="btn btn-purple btn-rounded waves-effect waves-light px-1 py-0">' + aData[5] + '</span>');
         } else if (aData[5] == '개발준비중') {
-          $('td:eq(5)', nRow).wrap('<span class="badge badge-warning"></span>');
+          $('td:eq(5)', nRow).html('<span class="btn btn-custom btn-rounded waves-effect waves-light px-1 py-0">' + aData[5] + '</span>');
         }
 
         $(nRow).attr("rowidx", aData[0]);
@@ -175,6 +221,7 @@ $(document).ready(function() {
       fixedHeader: false,
       responsive: true,
       orderClasses: false,
+      orderCellsTop: true,
       stateSave: true,
       dom: 'Bfrtip',
       buttons: [
