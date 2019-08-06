@@ -78,10 +78,9 @@ function onGetChartData()
                       ->where('end_time', '!=', 0)
                       ->count();
 
-    //샘플 데이터
     $result = array(
         'circle1' => array(
-            array('무료',134),
+            array('무료', 134),
             array('유료',152),
             array('관리',100),
         ),
@@ -95,8 +94,10 @@ function onGetChartData()
             array('연장',524,200,180,190,280,230,109),
             array('기타',85,300,100,120,110,111,130),
         ),
-
     );
+
+  //info($result);
+
     return $result;
 }
 
@@ -122,7 +123,7 @@ function onLayoutChange()
 ?>
 ==
 {% component 'session' %}
-<div class="col" style="padding: 58px 50px;">
+<div class="container-fluid">
 {% if not user %}
 <h2><center>로그인하는페이지</center></h2>
 {% elseif user %}
@@ -141,9 +142,9 @@ function onLayoutChange()
                 </div>
             </div>
             <div class="dragbox collapse show" id="salesList">
-                <div class="c_box_1">
+                <div class="c_box_1" id="take_order">
                     <div class="circle1">
-                        <p class="vertical_center">{{ maCount }}</p>
+                        <p class="vertical_center"><span data-plugin="counterup">{{ maCount }}</span></p>
                         <p class="c_box_1_font">주문접수</p>
                     </div>
                 </div>

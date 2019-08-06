@@ -17,7 +17,7 @@ function showChart (data) {
       },
     },
     donut: {
-      title: "MA 통계"
+      title: "앱 통계"
     },
       bindto: "#ma_stats"
     });
@@ -33,7 +33,7 @@ function showChart (data) {
         },
     },
     donut: {
-    title: "앱 통계"
+      title: "MA 통계"
     },
     bindto: "#app_stats"
     });
