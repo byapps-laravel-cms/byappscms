@@ -55,6 +55,25 @@ function onStart()
 {% component 'breadcrumbs' %}
 
 
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            
+            <ol class="breadcrumb float-right p-0 m-0">
+                <li>
+                    <a href="#">앱목록</a>
+                </li>
+                <li class="active">
+                    업데이트 관리
+                </li>
+            </ol>
+            <h4 class="page-title m-0">업데이트 관리</h4>
+        </div>
+
+    </div>
+</div>
+
+
 <!-- <div class="jumbotron">
         <h1 class="display-5">{{ this.page.title }}</h1>
         <p class="lead">{{ this.page.description }}</p>
@@ -103,7 +122,8 @@ function onStart()
                 </td>
 
                 <td>{{ record.app_name }}</td>
-                <td>{{ record.apps_type }}</td>
+                <!-- <td>{{ record.apps_type }}</td> -->
+                <td>{{ record.apps_type == '안드로이드+iOS' ? '<i class="mdi mdi-android-debug-bridge" style="color: #2ac250"></i><i class="mdi mdi-apple" style="color: darkgray"></i>' : '<i class="mdi mdi-android-debug-bridge" style="color: #2ac250"></i>' }}</td>
                 <td>{{ record.joins.app_ver }}</td>
                 <td>업데이트내역</td>
             </tr>
