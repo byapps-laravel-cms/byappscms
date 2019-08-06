@@ -21,9 +21,9 @@ function onStart()
         <!-- Codefox Theme -->
         <link href="{{ 'assets/codefox/css/bootstrap.min.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/codefox/css/icons.css'|theme }}" rel="stylesheet">
-        <link href="{{ 'assets/codefox/css/app.min.css'|theme }}" rel="stylesheet">
-        <!-- <link href="{{ 'assets/codefox/css/style.css'|theme }}" rel="stylesheet"> -->
+        <link href="{{ 'assets/codefox/css/style.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/temp.css?v1'|theme }}" rel="stylesheet">
+        <!-- //Codefox Theme -->
 
         <link href="{{ 'assets/css/drag.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/appdata.css'|theme }}" rel="stylesheet">
@@ -38,8 +38,6 @@ function onStart()
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/fixedHeader.dataTables.min.css'|theme }}">
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/responsive.dataTables.min.css'|theme }}">
 
-        <!-- Font-awesome  -->
-        <script src="https://kit.fontawesome.com/5e0ee1de75.js"></script>
 
         <!-- jQuery  -->
         <script src="{{ 'assets/codefox/js/jquery.min.js'|theme }}"></script>
@@ -47,7 +45,9 @@ function onStart()
         <!-- bootstrap.bundle.min.js -->
         <script src="{{ 'assets/codefox/js/bootstrap.bundle.min.js'|theme }}"></script>
 
+        <!-- Codefox Theme -->
         <script src="{{ 'assets/codefox/js/modernizr.min.js'|theme }}"></script>
+
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
         <!-- Step 1) Load D3.js -->
@@ -57,17 +57,12 @@ function onStart()
     </head>
 
     <body>
-        <!-- Nav -->
+  
+        <!-- Navigation Bar-->
         <header id="topnav">
             {% partial 'site/navigation' %}
         </header>
-
-        <!-- Header -->
-        <!-- {% if this.page.title != 'Home' %}
-        <header id="layout-header">
-            {% partial 'site/header' %}
-        </header>
-        {% endif %} -->
+        <!-- End Navigation Bar-->
 
         <!-- Content -->
       <div class="wrapper">
@@ -78,7 +73,7 @@ function onStart()
             </div>
             {% if this.page.title != 'Home' %}
             <div id="sidebar-toggle">
-                <span><i class="far fa-comment-dots"></i></span>
+                <span><i class="mdi mdi-comment-processing-outline"></i></span>
                 <p>OPEN</p>
             </div>
             {% endif %}
@@ -90,9 +85,6 @@ function onStart()
         <!-- Scripts -->
         {% framework extras %}
         {% scripts %}
-
-        <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
-        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 
         <script>
             function byapps_getCookie (cname) {
@@ -163,11 +155,14 @@ function onStart()
 
             }
 
+
         </script>
 
         {% put scripts %}
-        <script src="{{ 'assets/codefox/js/vendor.min.js'|theme }}"></script>
-
+        <!-- Codefox Theme -->
+        <!-- jQuery  -->
+        <script src="{{ 'assets/codefox/js/jquery.min.js'|theme }}"></script>
+        <script src="{{ 'assets/codefox/js/bootstrap.bundle.min.js'|theme }}"></script>
         <script src="{{ 'assets/codefox/js/waves.js'|theme }}"></script>
         <script src="{{ 'assets/codefox/js/jquery.slimscroll.js'|theme }}"></script>
 
@@ -176,13 +171,12 @@ function onStart()
         <script src="{{ 'assets/codefox/plugins/counterup/jquery.counterup.min.js'|theme }}"></script>
 
         <!-- Dashboard init -->
-        <script src="assets/codefox/js/jquery.dashboard.js"></script>
+        <script src="{{ 'assets/codefox/js/jquery.dashboard.js'|theme }}"></script>
+
         <!-- App js -->
-        <script src="{{ 'assets/codefox/js/app.min.js'|theme }}"></script>
-
-        <!-- <script src="{{ 'assets/javascript/codefox/jquery.core.js'|theme }}"></script> -->
+        <script src="{{ 'assets/codefox/js/jquery.core.js'|theme }}"></script>
         <script src="{{ 'assets/codefox/js/jquery.app.js'|theme }}"></script>
-
+        <!-- //Codefox Theme -->
         {% endput %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
