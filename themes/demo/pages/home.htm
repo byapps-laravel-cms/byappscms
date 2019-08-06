@@ -105,7 +105,7 @@ function onLayoutChange()
 ?>
 ==
 {% component 'session' %}
-<div class="col" style="padding: 58px 50px;">
+<div class="container-fluid" style="padding: 58px 0;">
 {% if not user %}
 <h2><center>로그인하는페이지</center></h2>
 {% elseif user %}
@@ -124,7 +124,7 @@ function onLayoutChange()
                 </div>
             </div>
             <div class="dragbox collapse show" id="salesList">
-                <div class="c_box_1">
+                <div class="c_box_1" id="take_order">
                     <div class="circle1">
                         <p class="vertical_center">10</p>
                         <p class="c_box_1_font">주문접수</p>
