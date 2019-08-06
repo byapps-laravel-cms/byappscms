@@ -44,6 +44,28 @@ function onStart()
 ==
 {% component 'breadcrumbs' %}
 
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            
+            <ol class="breadcrumb float-right p-0 m-0">
+                <li>
+                    <a href="#">Codefox</a>
+                </li>
+                <li>
+                    <a href="#">UI Elements</a>
+                </li>
+                <li class="active">
+                    Carousel
+                </li>
+            </ol>
+            <h4 class="page-title m-0">Carousel</h4>
+        </div>
+
+    </div>
+</div>
+
 <style>
 
 .dataTables_wrapper .dataTables_scroll {
@@ -63,7 +85,7 @@ function onStart()
  <div class="method">
    <div class="col-md-12 margin-5">
 
-    <table id="datalist" class="table table-striped mb-3" style="width:100%;">
+    <table id="datalist" class="table table-striped mb-3 table-colored table-inverse " style="width:100%;">
         <thead>
             <tr>
                 <th>앱 아이디</th>
@@ -98,8 +120,9 @@ function onStart()
               <!--   <td>{{ record.server_group }}</td> -->
                 <td>{{ record.app_process }}</td>
                 <td>{{ record.app_build }}</td>
-                <td>커스텀</td>
-                <td>{{ record.app_os_type == 'both' ? 'and+ios' : record.app_os_type }}</td>
+                <td><div class="btn btn-custom btn-rounded waves-light px-1 py-0">커스텀</div></td>
+                <!-- <td>{{ record.app_os_type == 'both' ? 'and+ios' : record.app_os_type }}</td> -->
+                <td>{{ record.app_os_type == 'both' ? '<i class="mdi mdi-android-debug-bridge" style="color: #2ac250"></i><i class="mdi mdi-apple" style="color: darkgray"></i>' : '<i class="mdi mdi-android-debug-bridge" style="color: #2ac250"></i>' }}</td>
                 <td>서비스기간</td>
 
                 <!-- <td>{{ func.dateFormat(record.reg_time) }}</td> -->
