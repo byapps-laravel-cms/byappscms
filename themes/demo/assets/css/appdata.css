@@ -32,8 +32,8 @@
 }
 
 html #sidebar {
-    top:0;
-    right:-40%;
+    top: 136px;
+    right:0;
     height: 100%;
     background: white;
     border-left: 1px solid #c6c6c6;
@@ -67,7 +67,7 @@ html.open #sidebar {
     height: 50px;
     font-family: sans-serif;
     border: 1px solid #d1cfcf;
-    top: 30%;
+    top: 40%;
 }
 #sidebar-toggle span {
   font-size: 1.5em;
@@ -78,7 +78,7 @@ html.open #sidebar {
 #sidebar-toggle p {
   color:black;
   font-size:0.5em;
-  line-height: 0;
+  line-height: 1em;
 }
 
 #comment {

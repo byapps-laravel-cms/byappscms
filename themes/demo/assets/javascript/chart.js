@@ -6,11 +6,11 @@ $.request('onGetChartData', {
 });
 
 function showChart (data) {
-  var chart = bb.generate({
+    var chart = bb.generate({
     data: {
-      columns: data.circle1,
-      type: "donut",
-      colors: {
+        columns: data.circle1,
+        type: "donut",
+        colors: {
         "무료": "#17b4dd",
         "유료": "#038db2",
         "관리": "#69bbd1"
@@ -19,8 +19,9 @@ function showChart (data) {
     donut: {
       title: "앱 통계"
     },
-      bindto: "#ma_stats"
+        bindto: "#ma_stats"
     });
+
 
   var chart = bb.generate({
     data: {
@@ -38,22 +39,24 @@ function showChart (data) {
     bindto: "#app_stats"
     });
 
+
   var chart = bb.generate({
+
     data: {
-      columns: data.bar,
-      type: "bar",
-      colors: {
+        columns: data.bar,
+        type: "bar",
+        colors: {
         "신규": "#fca1b0",
         "연장": "#f9637c",
         "기타": "#d7215c"
-      }
+        }
     },
     bar: {
-      width: {
+        width: {
         ratio: 0.8
-      }
+        }
     },
-      bindto: "#sale_stats"
+        bindto: "#sale_stats"
     });
 
 

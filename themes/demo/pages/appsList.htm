@@ -43,6 +43,28 @@ function onStart()
 ==
 {% component 'breadcrumbs' %}
 
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            
+            <ol class="breadcrumb float-right p-0 m-0">
+                <li>
+                    <a href="#">Codefox</a>
+                </li>
+                <li>
+                    <a href="#">UI Elements</a>
+                </li>
+                <li class="active">
+                    Carousel
+                </li>
+            </ol>
+            <h4 class="page-title m-0">Carousel</h4>
+        </div>
+
+    </div>
+</div>
+
 <style>
 
 table {
@@ -70,6 +92,7 @@ thead input {
 
  <div class="method">
    <div class="col-md-12 margin-5">
+
 
     <form name="form-datalist" id="form-datalist">
 
@@ -111,9 +134,10 @@ thead input {
                 <td>{{ record.byapps_ver }}</td>
                 <td>{{ record.app_process }}</td>
                 <td>{{ record.app_build }}</td>
-                <td>커스텀</td>
-                <td>{{ record.app_os_type == 'both' ? 'and+ios' : record.app_os_type }}</td>
+                <td><div class="btn btn-custom btn-rounded waves-light px-1 py-0">커스텀</div></td>
+                <td>{{ record.app_os_type == 'both' ? '<i class="mdi mdi-android-debug-bridge" style="color: #2ac250"></i><i class="mdi mdi-apple" style="color: darkgray"></i>' : '<i class="mdi mdi-android-debug-bridge" style="color: #2ac250"></i>' }}</td>
                 <td>{{ func.dateFormat(record.reg_time) }}</td>
+
             </tr>
 
          {% else %}
