@@ -1,8 +1,8 @@
 *{margin:0;padding:0;}
 #layout-content{
     background-color: #f8f8f8;
-    overflow-x: hidden;   
-    padding-top:39px;
+    overflow-x: hidden;
+    /* padding-top:61px; */
 }
 #content {
     background-color: #f8f8f8;

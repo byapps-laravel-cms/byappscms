@@ -17,13 +17,12 @@ function onStart()
         <meta name="author" content="Byapps">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="generator" content="OctoberCMS">
-        <link rel="icon" type="image/png" href="/storage/app/media/byapps_logo_b_4.png">
 
+        <link rel="icon" type="image/png" href="/storage/app/media/byapps_logo_b_4.png">
 
         <link href="{{ 'assets/vendor/bootstrap4.3.1/css/bootstrap.min.css?v1'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/bootstrap4.3.1/css/bootstrap-reboot.min.css?v1'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/bootstrap4.3.1/css/bootstrap-grid.min.css?v1'|theme }}" rel="stylesheet">
-
 
         <!-- <link href="{{ 'assets/css/vendor.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/theme.css'|theme }}" rel="stylesheet"> -->
@@ -31,10 +30,8 @@ function onStart()
         <link href="{{ 'assets/css/drag.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/appdata.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/billboard.css'|theme }}" rel="stylesheet">
-        <link href="{{ 'assets/vendor/jquery-ui.css'|theme }}" rel="stylesheet">
-        <link href="{{ 'assets/vendor/jquery-ui.min.css'|theme }}" rel="stylesheet">
+        <link href="{{ 'assets/vendor/jquery-ui-1.12.1/jquery-ui.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/classCustom.css'|theme }}" rel="stylesheet">
-
 
         <!-- Datatable style -->
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/jquery.dataTables.css'|theme }}">
@@ -42,11 +39,12 @@ function onStart()
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/fixedHeader.dataTables.min.css'|theme }}">
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/responsive.dataTables.min.css'|theme }}">
 
+        <!-- JQuery -->
+        <script type="text/javascript" src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
+        <script type="text/javascript" src="{{ 'assets/vendor/jquery-ui-1.12.1/jquery-ui.js'|theme }}"></script>
+
         <!-- Font-awesome  -->
         <script src="https://kit.fontawesome.com/5e0ee1de75.js"></script>
-
-        <!-- JQuery -->
-        <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
 
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
@@ -97,9 +95,6 @@ function onStart()
             <script src="{{ 'assets/vendor/bootstrap4.3.1/js/bootstrap.bundle.min.js'|theme }}"></script>
         {% endput %}
 
-
-        <script src="{{ 'assets/vendor/jquery-ui.js'|theme }}"></script>
-        <script src="{{ 'assets/vendor/jquery-ui.min.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/bootstrap.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/jquery.bpopup.min.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/billboard.js'|theme }}"></script>
@@ -142,7 +137,7 @@ function onStart()
                     "info": "현재 _START_ - _END_ / _TOTAL_건",
                     "infoEmpty": "데이터 없음",
                     "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
-                    "search": "에서 검색: ",
+                    "search": "검색: ",
                     "zeroRecords": "일치하는 데이터가 없어요.",
                     "loadingRecords": "로딩중...",
                     "processing":     "잠시만 기다려 주세요...",
@@ -170,17 +165,40 @@ function onStart()
               });
 
               //setTimeout(function(){
-                $('#' + tableFilter).prepend('<select id="' + tableSelect + '"></select>');
-                $('#' +tableId + '> thead > tr').children().each(function (indexInArray, valueOfElement) {
-                    $('#' +tableSelect).append('<option>'+valueOfElement.innerHTML+'</option>');
-                });
-                $('.dataTables_filter input').unbind().bind('keyup', function () {
-                      var colIndex = document.querySelector('#' +tableSelect).selectedIndex;
-                      table.column(colIndex).search(this.value).draw();
+                // $('#' + tableFilter).prepend('<select id="' + tableSelect + '"></select>');
+                // $('#' +tableId + '> thead > tr').children().each(function (indexInArray, valueOfElement) {
+                //     $('#' +tableSelect).append('<option>'+valueOfElement.innerHTML+'</option>');
+                // });
+                $('.dataTables_filter input').bind('keyup', function () {
+                      //var colIndex = document.querySelector('#' +tableSelect).selectedIndex;
+                      //table.column(colIndex).search(this.value).draw();
+                      table.search(this.value).draw();
                   });
               //}, 500);
 
                 $('#' + tableFilter).after('<p style="width:100%; height:10px;"></p>');
+
+                $('#' + tableFilter).prepend('<input type="text" id="toDate" placeholder="종료일"> ');
+                $('#' + tableFilter).prepend('<input type="text" id="fromDate" placeholder="시작일"> ~');
+
+                $("#fromDate").datepicker({ dateFormat: "yy-mm-dd" });
+                $("#toDate").datepicker({ dateFormat: "yy-mm-dd" });
+
+                $.fn.dataTable.ext.search.push(
+                    function(settings, data, dataIndex){
+                        var min = Date.parse($('#fromDate').val());
+                        var max = Date.parse($('#toDate').val());
+                        var targetDate = Date.parse(data[0]);
+
+                        if( (isNaN(min) && isNaN(max) ) ||
+                            (isNaN(min) && targetDate <= max )||
+                            ( min <= targetDate && isNaN(max) ) ||
+                            ( targetDate >= min && targetDate <= max) ){
+                                return true;
+                        }
+                        return false;
+                    }
+                );
           });
 
         </script>

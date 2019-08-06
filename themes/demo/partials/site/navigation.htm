@@ -3,69 +3,89 @@ description = "navigation"
 [badge]
 badgeClass = "badge-danger"
 ==
-
- <!-- Navigation Bar-->
- <header id="topnav">
-    <div class="topbar-main navbar m-b-0 b-0">
+<!-- Navigation Bar-->
+    <div class="navbar-custom">
         <div class="container-fluid">
 
+          <ul class="list-unstyled topnav-menu float-right mb-0">
+
+              <li class="dropdown notification-list">
+                  <!-- Mobile menu toggle-->
+                  <a class="navbar-toggle nav-link">
+                      <div class="lines">
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                      </div>
+                  </a>
+                  <!-- End mobile menu toggle-->
+              </li>
+
+              <li class="d-none d-sm-block">
+                  <form role="search" class="app-search" action="{{ 'search' | page }}" method="get">
+                      <div class="app-search-box">
+                          <div class="input-group">
+                              <input type="text" class="form-control" placeholder="Search..." name="q">
+                              <div class="input-group-append">
+                                  <button class="btn" type="submit">
+                                      <!-- <i class="fa fa-search"></i> -->
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+                  </form>
+              </li>
+
+              <li class="dropdown notification-list">
+                  <a class="nav-link dropdown-toggle nav-user waves-effect waves-light" data-toggle="dropdown" href="#" aria-haspopup="false" aria-expanded="true">
+                      <i class="fi-ellipsis rounded-circle user-img text-white" style="font-size:2.5em;"></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                      <!-- item-->
+                      <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class=" mdi mdi-bell-ring-outline"></i>
+                        <span>알림허용</span>
+                      </a>
+
+                      <!-- item-->
+                      <a href="http://innotiveinc.co.kr/desk/" class="dropdown-item">
+                        <i class="mdi mdi-calendar-check"></i>
+                        <span>이노팸</span>
+                      </a>
+
+                      <div class="dropdown-divider"></div>
+
+                      <!-- item-->
+                      <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="mdi mdi-logout-variant"></i>
+                        <span>로그아웃</span>
+                      </a>
+
+                  </div>
+              </li>
+          </ul>
+
             <!-- LOGO -->
-            <div class="topbar-left">
+            <div class="logo-box">
                 <a href="/" class="logo">
-                    <img src="/storage/app/media/byapps_logo_b_1.png" alt="logo" height="40">
+                    <img src="/storage/app/media/byapps_logo_b_1.gif" alt="logo" height="40">
                 </a>
             </div>
             <!-- End Logo container-->
 
-
-            <div class="menu-extras">
-
-                <!-- Right(Notification) -->
-                <ul class="nav navbar-right list-inline">
-                    <li class="d-none d-sm-inline-block list-inline-item">
-                        <form role="search" class="app-search">
-                            <input type="text" placeholder="Search..."
-                                class="form-control">
-                            <a href=""><i class="fa fa-search"></i></a>
-                        </form>
-                    </li>
-
-                    <li class="dropdown user-box list-inline-item" >
-                        <a href="" class="dropdown-toggle waves-effect user-link" data-toggle="dropdown" aria-expanded="true" >
-                            <i class="fi-ellipsis rounded-circle user-img text-white" style="font-size:2.5em;"></i>
-                        </a>
-
-                        <ul class="dropdown-menu dropdown-menu-right dropdown-lg user-list notify-list">
-                            <li><a href="javascript:void(0)" class="dropdown-item"><i class=" mdi mdi-bell-ring-outline"></i> &nbsp;알림허용</a></li>
-                            <li><a href="http://innotiveinc.co.kr/desk/" class="dropdown-item"><i class="mdi mdi-calendar-check"></i> &nbsp;이노팸</a></li>
-                            <li><a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-logout-variant"></i> &nbsp;로그아웃</a></li>
-                        </ul>
-                    </li>
-
-                </ul>
-                <div class="menu-item">
-                    <!-- Mobile menu toggle-->
-                    <a class="navbar-toggle">
-                        <div class="lines">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </a>
-                    <!-- End mobile menu toggle-->
-                </div>
-            </div>
-
         </div>
     </div>
 
-    <div class="navbar-custom">
-        <div class="container-fluid">
-            <div id="navigation">
+    <div class="topbar-menu active">
+        <div class="container-fluid in">
+            <div id="navigation" class="active">
                 <!-- Navigation Menu-->
-                <ul class="navigation-menu">
+                <ul class="navigation-menu in">
                     <li class="has-submenu">
-                        <a href="#"><i class="mdi mdi-credit-card"></i><span> 결제 관리{% component 'badge' %} </span> </a>
+                        <a href="#">
+                          <i class="mdi mdi-credit-card"></i>
+                            결제 관리{% component 'badge' %}
+                        </a>
                         <ul class="submenu megamenu">
                             <li>
                                 <ul>
@@ -76,44 +96,47 @@ badgeClass = "badge-danger"
                         </ul>
                     </li>
                     <li class="has-submenu">
-                        <a href="#"><i class="mdi mdi-android"></i> <span> 앱 관리 </span> </a>
+                        <a href="#">
+                          <i class="mdi mdi-android"></i>
+                          앱 관리
+                        </a>
                         <ul class="submenu megamenu">
                             <li>
                                 <ul>
                                     <li><a href="#sub">앱 접수</a></li>
                                     <li><a href="{{ 'updateList'|page }}">업데이트 관리</a></li>
-                                    <li><a href="{{ 'apkList'|page }}">apk 관리</a></li>
+                                    <li><a href="{{ 'apkList'|page }}">APK 관리</a></li>
                                     <li><a href="{{ 'appsList'|page }}">앱 목록</a></li>
                                     <li><a href="{{ 'pushList'|page }}">푸쉬 현황</a></li>
                                     <li><a href="{{ 'newsList'|page }}">소식 관리</a></li>
                                     <li><a href="{{ 'membersList'|page }}">인증회원 관리</a></li>
-                                    <li><a href="#">앱포인트 관리</a></li>
+                                    <li><a href="#">앱 포인트 관리</a></li>
                                     <li><a href="#">테스터</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
-
                     <li class="has-submenu">
-                        <a href="#"><i class="mdi mdi-loupe"></i> <span> 부가서비스 </span> </a>
+                        <a href="#">
+                          <i class="mdi mdi-loupe"></i>
+                          부가서비스
+                        </a>
                         <ul class="submenu megamenu">
                             <li>
                                 <ul>
                                     <li><a href="#">부가서비스 접수</a></li>
                                     <li><a href="#">MA 이용 업체</a></li>
-                                    <li><a href="#">프리미엄통계 업체</a></li>
-                                    <li><a href="#">제휴 광고상담 관리</a></li>
-                                    <div class="dropdown-divider"></div>
-                                    <li><a href="#">터틀체인</a></li>
-                                    <li><a href="#">리타쿠</a></li>
+                                    <li><a href="#">프리미엄 서비스</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
-
                     <li class="has-submenu">
-                        <a href="#"><i class="mdi mdi-chart-bar"></i> <span> 통계 </span> </a>
-                            <ul class="submenu megamenu">
+                        <a href="#">
+                          <i class="mdi mdi-chart-bar"></i>
+                          통계
+                        </a>
+                        <ul class="submenu megamenu">
                             <li>
                                 <ul>
                                     <li><a href="#">앱 설치 통계</a></li>
@@ -128,22 +151,30 @@ badgeClass = "badge-danger"
                             </li>
                         </ul>
                     </li>
-
                     <li class="has-submenu">
-                        <a href="#"><i class="mdi mdi-account"></i> <span> 회원 관리 </span> </a>
+                        <a href="#">
+                          <i class="mdi mdi-account"></i>
+                          회원 관리
+                        </a>
                         <ul class="submenu megamenu">
-                        <li>
-                            <ul>
-                                <li><a href="{{ 'usersList'|page }}">회원 정보</a>
-                                <li><a href="#">회원 문의</a></li>
-                                <li><a href="#">비회원 문의</a></li>
-                            </ul>
-                        </li>
+                          <li>
+                              <ul>
+                                  <li><a href="{{ 'usersList'|page }}">회원 정보</a>
+                                  <li><a href="#">회원 문의</a></li>
+                                  <li><a href="#">비회원 문의</a></li>
+                                  <div class="dropdown-divider"></div>
+                                  <li><a href="#">제휴 광고상담 관리</a></li>
+                                  <li><a href="#">터틀체인</a></li>
+                                  <li><a href="#">리타쿠</a></li>
+                              </ul>
+                          </li>
                         </ul>
                     </li>
-
                     <li class="has-submenu">
-                        <a href="#"><i class="mdi mdi-account-multiple"></i> <span> 리셀러 </span> </a>
+                        <a href="#">
+                          <i class="mdi mdi-account-multiple"></i>
+                          리셀러
+                        </a>
                         <ul class="submenu megamenu">
                             <li>
                                 <ul>
@@ -154,32 +185,37 @@ badgeClass = "badge-danger"
                             </li>
                         </ul>
                     </li>
-
-                    <li class="has-submenu">
-                        <a href="#"><i class="mdi mdi-worker"></i> <span> 관리자 </span> </a>
+                    <li class="has-submenu last-elements">
+                        <a href="#">
+                          <i class="mdi mdi-worker"></i>
+                          관리자
+                        </a>
                         <ul class="submenu megamenu">
                             <li>
                                 <ul>
-                                <li><a href="#">앱템플릿</a></li>
-                                <li><a href="#">앱카테고리</a></li>
+                                <li><a href="#">앱 템플릿</a></li>
+                                <li><a href="#">앱 카테고리</a></li>
                                 <li><a href="#">공지사항</a></li>
-                                <li><a href="#">팝업관리</a></li>
-                                <li><a href="#">SMS관리</a></li>
-                                <li><a href="#">CMS관리</a></li>
+                                <li><a href="#">팝업 관리</a></li>
+                                <li><a href="#">SMS 관리</a></li>
+                                <li><a href="#">CMS 관리</a></li>
                                 </ul>
                             </li>
                         </ul>
-                    </li>    
+                    </li>
                 </ul>
                 <!-- End navigation menu  -->
+                <div class="clearfix"></div>
             </div>
+            <!-- end #navigation -->
         </div>
+        <!-- end container -->
     </div>
 </header>
 <!-- End Navigation Bar-->
 
-<!-- Nav -->
-    <nav class="navbar navbar-expand-lg back-dark">
+    <!-- Nav -->
+    <!-- <nav class="navbar navbar-expand-lg back-dark">
         <a class="navbar-brand" href="{{ 'home'|page }}">
             <img class="navbar-brand" width="100px" src="/storage/app/media/byapps_logo_b_1.png" alt="logo">
         </a>
@@ -192,14 +228,15 @@ badgeClass = "badge-danger"
 
         <ul class="navbar-nav">
 
+
             <li class="nav-item dropdown {% if this.page.id == 'payManage' %}active{% endif %}">
                 <a class="nav-link" href="{{ 'payManage'|page }}" id="navbarDropdown_01"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
                         <i class="fas fa-receipt"></i>&nbsp;결제 관리{% component 'badge' %}
-                   <!-- <i class="fas fa-angle-down"></i> -->
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown_01">
-                    <a class="dropdown-item" href="{{ 'payManage'|page }}">결제 관리</a>
-                    <a class="dropdown-item" href="{{ 'payPromotion'|page }}"></i>프로모션</a>
+                    <a class="dropdown-item" href="{{ 'payList'|page }}">결제 관리</a>
+                    <a class="dropdown-item" href="{{ 'payPromoList'|page }}"></i>프로모션</a>
                 </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -223,7 +260,6 @@ badgeClass = "badge-danger"
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" id="navbarDropdown_03" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-plus"></i> 부가서비스
-                        <!-- <i class="fas fa-caret-down"></i> -->
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_03">
                         <a class="dropdown-item" href="#">부가서비스 접수</a>
@@ -238,7 +274,6 @@ badgeClass = "badge-danger"
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" id="navbarDropdown_04" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-chart-line"></i> 통계
-                        <!-- <i class="fas fa-caret-down"></i> -->
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_04">
                         <a class="dropdown-item" href="#">앱 설치 통계</a>
@@ -252,9 +287,8 @@ badgeClass = "badge-danger"
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="{{ 'usersManage'|page }}" id="navbarDropdown_05" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link" href="{{ 'usersList'|page }}" id="navbarDropdown_05" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-user-friends"></i> 회원 관리
-                        <!-- <i class="fas fa-caret-down"></i> -->
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_05">
                         <a class="dropdown-item" href="{{ 'usersList'|page }}">회원 정보</a>
@@ -265,7 +299,6 @@ badgeClass = "badge-danger"
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" id="navbarDropdown_06" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="far fa-address-card"></i> 리셀러 관리
-                        <!-- <i class="fas fa-caret-down"></i> -->
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_06">
                         <a class="dropdown-item" href="#">리셀러 정보</a>
@@ -276,7 +309,6 @@ badgeClass = "badge-danger"
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" id="navbarDropdown_06" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-user-tie"></i> 관리자
-                        <!-- <i class="fas fa-caret-down"></i> -->
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_06">
                         <a class="dropdown-item" href="#">앱템플릿</a>
@@ -289,18 +321,19 @@ badgeClass = "badge-danger"
                 </li>
                 </ul>
 
-                <form class="navbar-nav flex-row ml-md-auto d-none d-md-flex form-inline">
-                    <div class="form-group">
-                        <select name="" class="custom-select my-1 mr-sm-2">
-                            <option value="1">주문검색</option>
-                            <option value="2">앱목록</option>
-                            <option value="3">MA목록</option>
-                            <option value="4">결제정보</option>
-                        </select>
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </div>
-                </form>
+                <form class="navbar-nav flex-row ml-md-auto d-none d-md-flex form-inline" action="{{ 'search' | page }}" method="get">
+                   <div class="form-group">
+                       <select name="" class="custom-select my-1 mr-sm-2">
+                           <option value="1">주문검색</option>
+                           <option value="2">앱목록</option>
+                           <option value="3">MA목록</option>
+                           <option value="4">결제정보</option>
+                       </select>
+                       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="q">
+                       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                   </div>
+               </form>
+
                 <div class="float-right">
                     <ul class="navright nav float-md-right" >
                         <li class="separator hidden-xs"></li>
@@ -319,4 +352,4 @@ badgeClass = "badge-danger"
                     </ul>
                 </div>
         </div>
-    </nav>
+    </nav> -->

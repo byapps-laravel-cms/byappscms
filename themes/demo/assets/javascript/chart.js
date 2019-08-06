@@ -13,16 +13,17 @@ function showChart (data) {
         colors: {
         "무료": "#17b4dd",
         "유료": "#038db2",
-        "관리": "69bbd1"
-        },
+        "관리": "#69bbd1"
+      },
     },
     donut: {
-        title: "0000"
+      title: "앱 통계"
     },
         bindto: "#ma_stats"
     });
 
-    var chart = bb.generate({
+
+  var chart = bb.generate({
     data: {
     columns: data.circle2,
     type: "donut",
@@ -33,12 +34,14 @@ function showChart (data) {
         },
     },
     donut: {
-    title: "0000"
+      title: "MA 통계"
     },
     bindto: "#app_stats"
     });
 
-    var chart = bb.generate({
+
+  var chart = bb.generate({
+
     data: {
         columns: data.bar,
         type: "bar",
@@ -56,22 +59,5 @@ function showChart (data) {
         bindto: "#sale_stats"
     });
 
-    // var chart = bb.generate({
-    //     data: {
-    //         columns: data.bar,
-    //         type: "bar",
-    //         colors: {
-    //         "앱 접수": "#fca1b0",
-    //         "연장": "#f9637c",
-    //         "기타": "#d7215c"
-    //         }
-    //     },
-    //     bar: {
-    //         width: {
-    //         ratio: 0.8
-    //         }
-    //     },
-    //         bindto: "#take_order"
-    //     });
-    
+
 }

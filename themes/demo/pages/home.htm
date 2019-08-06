@@ -15,11 +15,14 @@ allowedUserGroups[] = "admin_level_1"
 redirect = "login"
 ==
 <?php
+
 use Jiwon\Byapps\Models\HomeLayout;
 use Jiwon\Byapps\Models\AppsData;
+use Jiwon\Byapps\Models\AdditionalService;
 use Jiwon\Byapps\Models\MAService;
 use Jiwon\Byapps\Models\UpdateManage;
 use Jiwon\Byapps\Models\QnaNonmember;
+use Jiwon\Byapps\Models\QnaMember;
 
 function onStart()
 {
@@ -55,34 +58,49 @@ function onStart()
 
     // 주문요청현황
     $this['maCount'] = MAService::where('app_process', 1)->count();
+    $this['asCount'] = AdditionalService::where('app_process', 1)->count();
     $this['updateCount'] = UpdateManage::where('app_process', 1)->count();
     $this['nonmemberCount'] = QnaNonmember::where('process', 1)->count();
-    
+    $this['memberCount'] = QnaMember::where('process', 1)->count();
+
+
 
  }
 function onGetChartData()
 {
-    //샘플 데이터
+  // 앱 통계 * 조건이 틀린 것 같음. 검토필요
+  // 무료
+  $this['appsFree'] = AppsData::where('service_type', 'lite')
+                      ->where('end_time', 0)
+                      ->count();
+//  echo $this['appsFree'];
+  $this['appsPaid'] = AppsData::where('service_type', 'biz')
+                      ->where('end_time', '!=', 0)
+                      ->count();
+
     $result = array(
         'circle1' => array(
-            array('무료',156),
-            array('유료',350),
+            array('무료', 134),
+            array('유료',152),
             array('관리',100),
         ),
         'circle2' => array(
-            array('무료',134),
-            array('유료',152),
-            array('관리',100),
+            array('무료', $this['appsFree']),
+            array('유료', $this['appsPaid']),
+            array('관리', 100),
         ),
         'bar' => array(
             array('신규',223,200,100,120,250,210,102),
             array('연장',524,200,180,190,280,230,109),
             array('기타',85,300,100,120,110,111,130),
         ),
-
     );
+
+  //info($result);
+
     return $result;
 }
+
 function onLayoutChange()
 {
     $userId = BackendAuth::getUser()['id'];
@@ -105,7 +123,7 @@ function onLayoutChange()
 ?>
 ==
 {% component 'session' %}
-<div class="container-fluid" style="padding: 58px 0;">
+<div class="container-fluid">
 {% if not user %}
 <h2><center>로그인하는페이지</center></h2>
 {% elseif user %}
@@ -126,19 +144,19 @@ function onLayoutChange()
             <div class="dragbox collapse show" id="salesList">
                 <div class="c_box_1" id="take_order">
                     <div class="circle1">
-                        <p class="vertical_center">10</p>
+                        <p class="vertical_center"><span data-plugin="counterup">{{ maCount }}</span></p>
                         <p class="c_box_1_font">주문접수</p>
                     </div>
                 </div>
                 <div class="c_box_1">
                     <div class="circle1">
-                        <h5 class="vertical_center">10</h5>
+                        <h5 class="vertical_center">{{ asCount }}</h5>
                         <p class="c_box_1_font">부가서비스 접수</p>
                     </div>
                 </div>
                 <div class="c_box_1">
                     <div class="circle1">
-                        <h5 class="vertical_center">10</h5>
+                        <h5 class="vertical_center">{{ updateCount }}</h5>
                         <p class="c_box_1_font">업데이트 접수</p>
                     </div>
                 </div>
@@ -150,7 +168,7 @@ function onLayoutChange()
                 </div>
                 <div class="c_box_1">
                     <div class="circle1">
-                        <p class="vertical_center">10</p>
+                        <p class="vertical_center">{{ memberCount }}</p>
                         <p class="c_box_1_font">회원 문의</p>
                     </div>
                 </div>
@@ -166,11 +184,11 @@ function onLayoutChange()
             </div>
             <div class="dragbox_hover row collapse show" id="allLank">
                 <div class="col-xs-12 col-md-3">
-                    <h6 class="theme1 p-1 text-center">앱 통계</h6>
-                    <div id="app_stats"></div>
+                    <!-- <h6 class="theme1 p-1 text-center">앱 통계</h6> -->
+                    <div id="app_stats">{{ appsCount }}</div>
                 </div>
                 <div class="col-xs-12 col-md-3">
-                    <h6 class="theme1 p-1 text-center">MA 통계</h6>
+                    <!-- <h6 class="theme1 p-1 text-center">MA 통계</h6> -->
                     <div id="ma_stats"></div>
                 </div>
                 <div class="col-xs-12 col-md-6">
@@ -219,39 +237,28 @@ function onLayoutChange()
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link active" id="nav-ios-tab" data-toggle="tab" href="#nav-ios" role="tab" aria-controls="nav-ios" aria-selected="true">IOS 계정 만료</a>
+                        <a class="nav-item nav-link" id="nav-ios2-tab" data-toggle="tab" href="#nav-ios2" role="tab" aria-controls="nav-ios2" aria-selected="true">IOS 계정 만료예정</a>
                         <a class="nav-item nav-link" id="nav-push-tab" data-toggle="tab" href="#nav-push" role="tab" aria-controls="nav-push" aria-selected="false">푸쉬 인증서만료</a>
                         <a class="nav-item nav-link" id="nav-ma-tab" data-toggle="tab" href="#nav-ma" role="tab" aria-controls="nav-ma" aria-selected="false">MA 서비스만료</a>
                     </div>
-                </nav>     
-            
-                <div class="tab-content p-2" id="nav-tabContent">  
-                    <div class="tab-pane mx-0 row active" id="nav-ios" role="tabpanel" aria-labelledby="nav-ios-tab">              
-                    {% for appData in appsData %}     
+                </nav>
+
+                <div class="tab-content p-2" id="nav-tabContent">
+                    <div class="tab-pane mx-0 row active" id="nav-ios" role="tabpanel" aria-labelledby="nav-ios-tab">
+                    {% for appData in appsData %}
                         <div class='card col-xs-12 col-md-5 col-lg-3 p-0 m-2 d-inline-block'>
                             {{ appData.end_time < nowDate ? "" : '<div style="position:absolute;top:0;right:0;width:0px;height:0px;border-top:25px solid #FF4646;border-left:25px solid transparent;border-right:25px solid #FF4646;border-bottom:25px solid transparent;"></div>' }}
-                            
+
                             <!-- <img class='p-2 d-inline-block float-left' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'> -->
                             <div class="mx-0 p-2 text-truncate" style="width:8rem;vertical-align:middle;">
                                 {{ appData.app_name }}
                                 <br>
                                 {{ func.dateFormat(appData.end_time) }}
-                            </div> 
-                        </div>                                
-                    {% endfor %}    
-                    </div>       
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
                     <div class="tab-pane fade row" id="nav-push" role="tabpanel" aria-labelledby="nav-push-tab">
-                    {% for appData in appsData %}       
-                        <div class='col-xs-12 col-md-2 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
-                            <!-- <img class='p-2 d-inline-block' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'> -->
-                            <div class="col-md-8 mx-0 float-right pt-4">
-                                {{ appData.app_name }}
-                                <br>
-                                {{ func.dateFormat(appData.end_time) }}
-                            </div> 
-                        </div>                       
-                    {% endfor %} 
-                    </div>           
-                    <div class="tab-pane fade row" id="nav-ma" role="tabpanel" aria-labelledby="nav-ma-tab">  
                     {% for appData in appsData %}
                         <div class='col-xs-12 col-md-2 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
                             <!-- <img class='p-2 d-inline-block' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'> -->
@@ -259,7 +266,19 @@ function onLayoutChange()
                                 {{ appData.app_name }}
                                 <br>
                                 {{ func.dateFormat(appData.end_time) }}
-                            </div> 
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                    <div class="tab-pane fade row" id="nav-ma" role="tabpanel" aria-labelledby="nav-ma-tab">
+                    {% for appData in appsData %}
+                        <div class='col-xs-12 col-md-2 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
+                            <!-- <img class='p-2 d-inline-block' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'> -->
+                            <div class="col-md-8 mx-0 float-right pt-4">
+                                {{ appData.app_name }}
+                                <br>
+                                {{ func.dateFormat(appData.end_time) }}
+                            </div>
                         </div>
                     {% endfor %}
                     </div>

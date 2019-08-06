@@ -58,7 +58,7 @@ navigation:
                 icon: icon-user
             side-menu-item2:
                 label: '회원 문의'
-                url: /
+                url: jiwon/byapps/qnamembers
                 icon: icon-user
     main-menu-item4:
         label: 부가서비스
@@ -88,11 +88,19 @@ navigation:
                 icon: icon-bar-chart
             side-menu-item3:
                 label: '앱 매출 통계'
-                url: /
+                url: jiwon/byapps/appssalestats
                 icon: icon-bar-chart
             side-menu-item4:
                 label: '푸쉬 허용 통계'
                 url: jiwon/byapps/pushonoffstats
+                icon: icon-bar-chart
+            side-menu-item5:
+                label: '리타겟팅 푸쉬 통계'
+                url: jiwon/byapps/retargetpushstats
+                icon: icon-bar-chart
+            side-menu-item6:
+                label: '부가서비스 매출 통계'
+                url: jiwon/byapps/retargetsalestats
                 icon: icon-bar-chart
     main-menu-item6:
         label: 댓글
