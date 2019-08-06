@@ -1,0 +1,53 @@
+columns:
+    idx:
+        label: IDX
+        type: number
+        sortable: true
+    app_id:
+        label: app_id
+        type: text
+        sortable: true
+    app_os:
+        label: app_os
+        type: text
+        sortable: true
+    device:
+        label: device
+        type: text
+        sortable: true
+    total_c:
+        label: total_c
+        type: Number
+        sortable: true
+    today_c:
+        label: today_c
+        type: Number
+        sortable: true
+    yesterday_c:
+        label: yesterday_c
+        type: Number
+        sortable: true
+    todate:
+        label: todate
+        type: date
+        format: Y-m-d
+        sortable: true
+    max_c:
+        label: max_c
+        type: Number
+        sortable: true
+    max_c_date:
+        label: max_c_date
+        type: date
+        format: Y-m-d
+        sortable: true
+    launch_date:
+        label: launch_date
+        type: date
+        format: Y-m-d
+        sortable: true
+    reg_date:
+        label: reg_date
+        type: datetime
+        format: Y-m-d h:i:s
+        sortable: true

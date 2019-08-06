@@ -1,0 +1,54 @@
+columns:
+    idx:
+        label: IDX
+        type: number
+        sortable: true
+    process:
+        label: process
+        type: number
+        sortable: true
+    name:
+        label: name
+        type: text
+        sortable: true
+    email:
+        label: email
+        type: text
+        sortable: true
+    phone:
+        label: phone
+        type: text
+        sortable: true
+    address:
+        label: address
+        type: text
+        sortable: true
+    comtype:
+        label: comtype
+        type: text
+        sortable: true
+    url:
+        label: url
+        type: text
+        sortable: true
+    hopeurl:
+        label: hopeurl
+        type: text
+        sortable: true
+    apptype:
+        label: apptype
+        type: text
+        sortable: true
+    comment:
+        label: comment
+        type: text
+        sortable: true
+    ip:
+        label: ip
+        type: text
+        sortable: true
+    reg_date:
+        label: reg_date
+        type: datetime
+        format: Y-m-d h:i:s
+        sortable: true

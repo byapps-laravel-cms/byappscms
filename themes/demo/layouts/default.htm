@@ -3,7 +3,6 @@ description = "Default layout"
 <?php
 function onStart()
 {
-
 }
 ?>
 ==
@@ -19,13 +18,13 @@ function onStart()
         <meta name="generator" content="OctoberCMS">
         <link rel="icon" type="image/png" href="/storage/app/media/byapps_logo_b_4.png">
 
-
-
-        <link href="{{ 'assets/css/codefox/bootstrap.min.css'|theme }}" rel="stylesheet">
-        <link href="{{ 'assets/css/codefox/icons.css'|theme }}" rel="stylesheet">
-        <link href="{{ 'assets/css/codefox/style.css'|theme }}" rel="stylesheet">
-
+        <!-- Codefox Theme -->
+        <link href="{{ 'assets/codefox/css/bootstrap.min.css'|theme }}" rel="stylesheet">
+        <link href="{{ 'assets/codefox/css/icons.css'|theme }}" rel="stylesheet">
+        <link href="{{ 'assets/codefox/css/app.min.css'|theme }}" rel="stylesheet">
+        <!-- <link href="{{ 'assets/codefox/css/style.css'|theme }}" rel="stylesheet"> -->
         <link href="{{ 'assets/css/temp.css?v1'|theme }}" rel="stylesheet">
+
         <link href="{{ 'assets/css/drag.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/appdata.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/billboard.css'|theme }}" rel="stylesheet">
@@ -39,45 +38,39 @@ function onStart()
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/fixedHeader.dataTables.min.css'|theme }}">
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/responsive.dataTables.min.css'|theme }}">
 
-        <!-- JQuery -->
-        <script type="text/javascript" src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
-        <script type="text/javascript" src="{{ 'assets/vendor/jquery-ui-1.12.1/jquery-ui.js'|theme }}"></script>
-
         <!-- Font-awesome  -->
         <script src="https://kit.fontawesome.com/5e0ee1de75.js"></script>
-  
 
         <!-- jQuery  -->
-        <script src="{{ 'assets/javascript/codefox/jquery.min.js'|theme }}"></script>
-
+        <script src="{{ 'assets/codefox/js/jquery.min.js'|theme }}"></script>
 
         <!-- bootstrap.bundle.min.js -->
-        <script src="{{ 'assets/javascript/codefox/bootstrap.bundle.min.js'|theme }}"></script>
+        <script src="{{ 'assets/codefox/js/bootstrap.bundle.min.js'|theme }}"></script>
 
-        <script src="{{ 'assets/javascript/codefox/modernizr.min.js'|theme }}"></script>
-
+        <script src="{{ 'assets/codefox/js/modernizr.min.js'|theme }}"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-
 
         <!-- Step 1) Load D3.js -->
         <script src="https://d3js.org/d3.v5.min.js"></script>
+
         {% styles %}
     </head>
+
     <body>
         <!-- Nav -->
-        <header id="layout-navigation">
+        <header id="topnav">
             {% partial 'site/navigation' %}
         </header>
 
         <!-- Header -->
-        {% if this.page.title != 'Home' %}
+        <!-- {% if this.page.title != 'Home' %}
         <header id="layout-header">
             {% partial 'site/header' %}
         </header>
-        {% endif %}
+        {% endif %} -->
 
         <!-- Content -->
+      <div class="wrapper">
         <section id="layout-content">
             <div id="content" class="col-md-12">
                     <!-- <div class="top_btn"></div> -->
@@ -93,7 +86,7 @@ function onStart()
                 {% partial 'site/aside' %}
             </div>
         </section>
-
+      </div>
         <!-- Scripts -->
         {% framework extras %}
         {% scripts %}
@@ -124,11 +117,11 @@ function onStart()
             if(!cookie_history||cookie_history=="") byapps_setCookie("link_history", "{{ this.page.title }}"+"&"+location.href, 14)
             else {
                 byapps_setCookie("link_history", cookie_history+"|"+"{{ this.page.title }}"+"&"+location.href, 14)
-                
+
                 var ch = cookie_history.split("|");
-                var newcookie, prev = "";      
-                
-                for(i=0; i < ch.length; i++){                   
+                var newcookie, prev = "";
+
+                for(i=0; i < ch.length; i++){
                 var a = ch
                     if(i!=0) {
                         if( prev == a[i] ) {
@@ -138,7 +131,7 @@ function onStart()
                         }
                     } else {
                         a[i] =="undefined"? newcookie += "": newcookie += a[i]+"|";
-                        
+
                     }
 
                     prev = a[i];
@@ -169,43 +162,37 @@ function onStart()
                 document.querySelector("#movePage").innerHTML += str+'<span class="border-top d-block"></span>';
 
             }
-         
+
         </script>
 
         {% put scripts %}
+        <script src="{{ 'assets/codefox/js/vendor.min.js'|theme }}"></script>
 
-
-
-
-        <script src="{{ 'assets/javascript/codefox/bootstrap.bundle.min.js'|theme }}"></script>
-        <script src="{{ 'assets/javascript/codefox/waves.js'|theme }}"></script>
-        <script src="{{ 'assets/javascript/codefox/jquery.slimscroll.js'|theme }}"></script>
+        <script src="{{ 'assets/codefox/js/waves.js'|theme }}"></script>
+        <script src="{{ 'assets/codefox/js/jquery.slimscroll.js'|theme }}"></script>
 
         <!-- Counter js  -->
-        <script src="{{ 'assets/plugins/waypoints/jquery.waypoints.min.js'|theme }}"></script>
-        <script src="{{ 'assets/plugins/counterup/jquery.counterup.min.js'|theme }}"></script>
-
+        <script src="{{ 'assets/codefox/plugins/waypoints/jquery.waypoints.min.js'|theme }}"></script>
+        <script src="{{ 'assets/codefox/plugins/counterup/jquery.counterup.min.js'|theme }}"></script>
 
         <!-- Dashboard init -->
-        <script src="assets/pages/jquery.dashboard.js"></script>
-        
+        <script src="assets/codefox/js/jquery.dashboard.js"></script>
         <!-- App js -->
-        <script src="{{ 'assets/javascript/codefox/jquery.core.js'|theme }}"></script>
-        <script src="{{ 'assets/javascript/codefox/jquery.app.js'|theme }}"></script>
+        <script src="{{ 'assets/codefox/js/app.min.js'|theme }}"></script>
 
+        <!-- <script src="{{ 'assets/javascript/codefox/jquery.core.js'|theme }}"></script> -->
+        <script src="{{ 'assets/codefox/js/jquery.app.js'|theme }}"></script>
 
         {% endput %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
-
         <script src="{{ 'assets/vendor/jquery-ui.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/jquery-ui.min.js'|theme }}"></script>
-
 
         <script src="{{ 'assets/vendor/jquery.bpopup.min.js'|theme }}"></script>
         <script src="{{ 'assets/vendor/billboard.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/util.js'|theme }}"></script>
-        <script src="{{ 'assets/javascript/temp.js'|theme }}"></script>
+        <script src="{{ 'assets/javascript/temp.js?v1'|theme }}"></script>
         <script src="{{ 'assets/javascript/app.js'|theme }}"></script>
         {% if this.page.title == 'Home' %}<script src="{{ 'assets/javascript/chart.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/drag.js'|theme }}"></script>{% else %}
@@ -226,6 +213,8 @@ function onStart()
         <script src="{{ 'assets/javascript/datatables/dataTables.fixedHeader.min.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/datatables/dataTables.responsive.min.js'|theme }}"></script>
         <!-- For Datatable 끝 -->
+
+
 
     </body>
 </html>

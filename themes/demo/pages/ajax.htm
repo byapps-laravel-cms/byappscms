@@ -47,8 +47,12 @@ function onStart()
 
       // echo "<script>console.log('".$fields[$i]."')</script>";
 
-         if (strpos($fields[$i], 'time')) {
-           $sub_array[] = gmdate("Y-m-d", $row->{$fields[$i]});
+        if ($fields[$i] == 'start_time') {
+            if ($row->service_type == 'lite' && !$row->end_time) {
+              $sub_array[] = '무제한';
+            } else {
+              $sub_array[] = $this->calculDate($row->start_time, $row->end_time)." 일";
+            }
          } else if ($fields[$i] == 'app_process') {
            $arrProcess = [
                1 => '개발준비중', 2 => '개발진행중', 3 => '심사중', 4 => '등록거부',
@@ -73,6 +77,8 @@ function onStart()
             } else {
               $sub_array[] = '-';
             }
+         } else if ($fields[$i] == 'reg_time') {
+            $sub_array[] = gmdate("Y-m-d", $row->{$fields[$i]});
          } else {
             $sub_array[] = $row->{$fields[$i]};
          }
@@ -90,5 +96,13 @@ function onStart()
    echo json_encode($output);
 }
 
+// 기간 계산 종료일 - 시작일
+public function calculDate($val1, $val2)
+{
+    // $today = date("Y-m-d h:i:s", time());
+    $dday = (($val2 - $val1) / 86400);
+
+    return ceil($dday);
+}
 ?>
 ==

@@ -13,15 +13,15 @@ function showChart (data) {
       colors: {
         "무료": "#17b4dd",
         "유료": "#038db2",
-        "관리": "69bbd1"
+        "관리": "#69bbd1"
       },
     },
     donut: {
-      title: "0000"
+      title: "앱 통계"
     },
       bindto: "#ma_stats"
     });
-    
+
   var chart = bb.generate({
     data: {
     columns: data.circle2,
@@ -33,11 +33,11 @@ function showChart (data) {
         },
     },
     donut: {
-    title: "0000"
+      title: "MA 통계"
     },
     bindto: "#app_stats"
     });
-    
+
   var chart = bb.generate({
     data: {
       columns: data.bar,
@@ -56,5 +56,5 @@ function showChart (data) {
       bindto: "#sale_stats"
     });
 
-    
+
 }

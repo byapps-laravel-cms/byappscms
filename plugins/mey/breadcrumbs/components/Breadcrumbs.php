@@ -35,7 +35,7 @@ class Breadcrumbs extends ComponentBase
                  'title'       => 'Item class',
                  'description' => 'The class attribute for the breadcrumb items (li).',
                  'type'        => 'string',
-                 'default'     => ''
+                 'default'     => 'breadcrumb-item'
             ],
             'active-class' => [
                  'title'       => 'Active class',
