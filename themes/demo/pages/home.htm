@@ -141,8 +141,63 @@ function onLayoutChange()
                     <button class="btn float-right" type="button" data-toggle="collapse" data-target="#salesList" aria-expanded="true" aria-controls="salesList"><i class="dripicons-chevron-down"></i></button>
                 </div>
             </div>
-            <div class="dragbox collapse show" id="salesList">
-                <div class="c_box_1" id="take_order">
+
+            
+            <div class="row dragbox collapse show" id="salesList">
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card widget-box-two widget-two-purple">
+                            <div class="card-body">
+                                <i class="mdi mdi-chart-line widget-two-icon"></i>
+                                <div class="wigdet-two-content">
+                                    <p class="m-0 text-uppercase text-white font-600 font-secondary text-overflow" title="Statistics">주문접수</p>
+                                    <h2 class="text-white"><span data-plugin="counterup">{{ maCount }}</span> <small><i class="mdi mdi-arrow-up text-white"></i></small></h2>
+                                    <p class="text-white m-0"><b>10%</b> From previous period</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card widget-box-two widget-two-info">
+                            <div class="card-body">
+                                <i class="mdi mdi-access-point-network widget-two-icon"></i>
+                                <div class="wigdet-two-content">
+                                    <p class="m-0 text-white text-uppercase font-600 font-secondary text-overflow" title="User Today">부가서비스 접수</p>
+                                    <h2 class="text-white"><span data-plugin="counterup">{{ asCount }}</span> <small><i class="mdi mdi-arrow-up text-white"></i></small></h2>
+                                    <p class="text-white m-0"><b>5.6%</b> From previous period</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                        <div class="col-xl-3 col-md-6">
+                        <div class="card widget-box-two widget-two-pink">
+                            <div class="card-body">
+                                <i class="mdi mdi-timetable widget-two-icon"></i>
+                                <div class="wigdet-two-content">
+                                    <p class="m-0 text-uppercase text-white font-600 font-secondary text-overflow" title="Request Per Minute">업데이트 접수</p>
+                                    <h2 class="text-white"><span data-plugin="counterup">{{ updateCount }}</span> <small><i class="mdi mdi-arrow-up text-white"></i></small></h2>
+                                    <p class="text-white m-0"><b>7.02%</b> From previous period</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card widget-box-two widget-two-success">
+                            <div class="card-body">
+                                <i class="mdi mdi-cloud-download widget-two-icon"></i>
+                                <div class="wigdet-two-content">
+                                    <p class="m-0 text-white text-uppercase font-600 font-secondary text-overflow" title="New Downloads">New Downloads</p>
+                                    <h2 class="text-white"><span data-plugin="counterup">854</span> <small><i class="mdi mdi-arrow-up text-white"></i></small></h2>
+                                    <p class="text-white m-0"><b>9.9%</b> From previous period</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                <!-- <div class="c_box_1" id="take_order">
                     <div class="circle1">
                         <p class="vertical_center"><span data-plugin="counterup">{{ maCount }}</span></p>
                         <p class="c_box_1_font">주문접수</p>
@@ -171,7 +226,7 @@ function onLayoutChange()
                         <p class="vertical_center">{{ memberCount }}</p>
                         <p class="c_box_1_font">회원 문의</p>
                     </div>
-                </div>
+                </div> -->
             </div>
         </li>
       {% elseif record == 'layout2' %}
@@ -237,23 +292,31 @@ function onLayoutChange()
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link active" id="nav-ios-tab" data-toggle="tab" href="#nav-ios" role="tab" aria-controls="nav-ios" aria-selected="true">IOS 계정 만료</a>
-                        <a class="nav-item nav-link" id="nav-ios2-tab" data-toggle="tab" href="#nav-ios2" role="tab" aria-controls="nav-ios2" aria-selected="true">IOS 계정 만료예정</a>
                         <a class="nav-item nav-link" id="nav-push-tab" data-toggle="tab" href="#nav-push" role="tab" aria-controls="nav-push" aria-selected="false">푸쉬 인증서만료</a>
                         <a class="nav-item nav-link" id="nav-ma-tab" data-toggle="tab" href="#nav-ma" role="tab" aria-controls="nav-ma" aria-selected="false">MA 서비스만료</a>
+                        <a class="nav-item nav-link" id="nav-ios2-tab" data-toggle="tab" href="#nav-app" role="tab" aria-controls="nav-ios2" aria-selected="true">앱서비스 만료예정</a>
                     </div>
                 </nav>
 
                 <div class="tab-content p-2" id="nav-tabContent">
                     <div class="tab-pane mx-0 row active" id="nav-ios" role="tabpanel" aria-labelledby="nav-ios-tab">
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-ios-tab" data-toggle="tab" href="#ios-stay" role="tab" aria-controls="ios-stay" aria-selected="true">만료예정</a>
+                                <a class="nav-item nav-link" id="nav-push-tab" data-toggle="tab" href="#ios-over" role="tab" aria-controls="ios-over" aria-selected="false">만료</a>
+                            </div>
+                        </nav>
                     {% for appData in appsData %}
                         <div class='card col-xs-12 col-md-5 col-lg-3 p-0 m-2 d-inline-block'>
-                            {{ appData.end_time < nowDate ? "" : '<div style="position:absolute;top:0;right:0;width:0px;height:0px;border-top:25px solid #FF4646;border-left:25px solid transparent;border-right:25px solid #FF4646;border-bottom:25px solid transparent;"></div>' }}
-
-                            <!-- <img class='p-2 d-inline-block float-left' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'> -->
-                            <div class="mx-0 p-2 text-truncate" style="width:8rem;vertical-align:middle;">
-                                {{ appData.app_name }}
-                                <br>
-                                {{ func.dateFormat(appData.end_time) }}
+                            <div class="tab-content p-2">
+                                {{ appData.end_time < nowDate ? '<div class="tab-pane mx-0 row active" id="ios-stay" role="tabpanel" aria-labelledby="nav-ios-tab">' : '<div class="tab-pane mx-0 row active" id="ios-over" role="tabpanel" aria-labelledby="nav-ios-tab">' }}
+                                <!-- <img class='p-2 d-inline-block float-left' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'> -->
+                                <div class="mx-0 p-2 text-truncate" style="width:8rem;vertical-align:middle;">
+                                    {{ appData.app_name }}
+                                    <br>
+                                    {{ func.dateFormat(appData.end_time) }}
+                                </div>
+                                </div>                           
                             </div>
                         </div>
                     {% endfor %}
@@ -282,6 +345,18 @@ function onLayoutChange()
                         </div>
                     {% endfor %}
                     </div>
+                    <div class="tab-pane fade row" id="nav-app" role="tabpanel" aria-labelledby="nav-ma-tab">
+                        {% for appData in appsData %}
+                            <div class='col-xs-12 col-md-2 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
+                                <!-- <img class='p-2 d-inline-block' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'> -->
+                                <div class="col-md-8 mx-0 float-right pt-4">
+                                    {{ appData.app_name }}
+                                    <br>
+                                    {{ func.dateFormat(appData.end_time) }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </div>
                 </div>
             </div>
         </li>
