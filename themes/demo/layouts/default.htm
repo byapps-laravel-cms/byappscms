@@ -128,12 +128,11 @@ function onStart()
 
                     prev = a[i];
 
-                    console.log( "ch[i]",ch[i]);
                 }
-                newcookie.replace("undefined","");
+                newcookie = newcookie.replace("undefined|","");
                 console.log( "newcookie",newcookie);
                 console.log("newcookie.length", newcookie.split("|").length);
-                if(ch.length >= 20){
+                if(ch.length >= 10) {
                     cookie_history = cookie_history.split(ch[0]+"|")[1];
                     console.log("cookie", cookie_history);
                     byapps_setCookie("link_history", cookie_history+"|"+"{{ this.page.title }}"+"&"+location.href, 14);
@@ -141,28 +140,36 @@ function onStart()
 
             }
 
-            if( now_page.indexOf("list") != -1 ) {
+
                 var str, page_val = "";
                 document.querySelector('#comment').style.display="none";
                 cookie_history = newcookie;
                 ch = cookie_history.split("|");
 
+
+               // if(ch.length>0) document.querySelector("#navigation .navigation-menu").innerHTML += '<li class="has-submenu last-elements"> <a href="#"><i class="mdi mdi-worker"></i>히스토리</a></li><ul id="nav_history" class="submenu megamenu"></ul>';
+                
+                str += "<li><ul>";
                 for(i=ch.length; i > 0; i--) {
                     page_val = ch[i-1].split("&");
-                    str += '<span class="border-top d-block"></span><div class="text-muted"><a href="'+page_val[1]+'">'+page_val[0]+'</a></div>';
+                    str += '<li><a href="'+page_val[1]+'">'+page_val[0]+'</a></li>';
                 }
-                document.querySelector("#movePage").innerHTML += str+'<span class="border-top d-block"></span>';
-
-            }
+                str += "</ul></li>";
+                console.log("str", str);
+                //document.getElementById('nav_history').innerHTML = str;
 
 
         </script>
 
         {% put scripts %}
-        <!-- Codefox Theme -->
+
+        {% endput %}
+
+
+                <!-- Codefox Theme -->
         <!-- jQuery  -->
-        <script src="{{ 'assets/codefox/js/jquery.min.js'|theme }}"></script>
-        <script src="{{ 'assets/codefox/js/bootstrap.bundle.min.js'|theme }}"></script>
+        <!-- <script src="{{ 'assets/codefox/js/jquery.min.js'|theme }}"></script>
+        <script src="{{ 'assets/codefox/js/bootstrap.bundle.min.js'|theme }}"></script> -->
         <script src="{{ 'assets/codefox/js/waves.js'|theme }}"></script>
         <script src="{{ 'assets/codefox/js/jquery.slimscroll.js'|theme }}"></script>
 
@@ -177,7 +184,8 @@ function onStart()
         <script src="{{ 'assets/codefox/js/jquery.core.js'|theme }}"></script>
         <script src="{{ 'assets/codefox/js/jquery.app.js'|theme }}"></script>
         <!-- //Codefox Theme -->
-        {% endput %}
+
+        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
         <script src="{{ 'assets/vendor/jquery-ui.js'|theme }}"></script>
