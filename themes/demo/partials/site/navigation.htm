@@ -18,10 +18,10 @@ badgeClass = "badge-danger"
 
             <div class="menu-extras">
                 <ul class="nav navbar-right list-inline">
-            
+
                     <li class="d-none d-sm-inline-block list-inline-item">
-                        <form role="search" class="app-search">
-                            <input type="text" placeholder="Search..." class="form-control">
+                        <form role="search" class="app-search" action="{{ 'search'|page }}" method="get">
+                            <input type="text" placeholder="Search..." class="form-control" name="q">
                             <a href=""><i class="fa fa-search"></i></a>
                         </form>
                     </li>
@@ -36,21 +36,21 @@ badgeClass = "badge-danger"
                                 <i class=" mdi mdi-bell-ring-outline"></i>
                                 <span>알림허용</span>
                             </a>
-        
+
                             <!-- item-->
                             <a href="http://innotiveinc.co.kr/desk/" class="dropdown-item">
                                 <i class="mdi mdi-calendar-check"></i>
                                 <span>이노팸</span>
                             </a>
-        
+
                             <div class="dropdown-divider"></div>
-        
+
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                 <i class="mdi mdi-logout-variant"></i>
                                 <span>로그아웃</span>
                             </a>
-        
+
                         </div>
                     </li>
                 </ul>
@@ -207,4 +207,3 @@ badgeClass = "badge-danger"
         </div>
         <!-- end container -->
     </div>
-
