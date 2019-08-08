@@ -44,10 +44,10 @@ function onStart()
 {% component 'breadcrumbs' %}
 
 
-<div class="row">
+<!-- <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            
+
             <ol class="breadcrumb float-right p-0 m-0">
                 <li>
                     <a href="#">Codefox</a>
@@ -63,7 +63,7 @@ function onStart()
         </div>
 
     </div>
-</div>
+</div> -->
 
 <style>
 
@@ -93,27 +93,26 @@ thead input {
  <div class="method">
    <div class="col-md-12 margin-5">
 
-
     <form name="form-datalist" id="form-datalist">
 
       <button type="submit" class="btn btn-primary mb-1" style="float:right;">상태변경</button>
 
-    <table id="datalist" class="table table-striped mb-3 table-colored table-inverse" style="width:100%;">
-        <thead>
-            <tr>
-                <th class="chk"></th>
-                <th>앱 아이디</th>
-                <th>앱명</th>
-                <th>버전</th>
-                <th>BV</th>
-                <th>등록상태</th>
-                <th>SCRIPT</th>
-                <th>커스텀</th>
-                <th>신청OS</th>
-                <th>서비스기간</th>
-                <th>등록일</th>
-            </tr>
-        </thead>
+      <table id="datalist" class="table table-striped mb-3 table-colored table-inverse" style="width:100%;">
+          <thead>
+              <tr>
+                  <th class="chk"></th>
+                  <th>앱 아이디</th>
+                  <th>앱명</th>
+                  <th>버전</th>
+                  <th>BV</th>
+                  <th>등록상태</th>
+                  <th>SCRIPT</th>
+                  <th>커스텀</th>
+                  <th>신청OS</th>
+                  <th>서비스기간</th>
+                  <th>등록일</th>
+              </tr>
+          </thead>
 
         <!-- <tbody>
          {% for record in records %}
@@ -144,9 +143,10 @@ thead input {
         <li class="no-data">{{ noRecordsMessage }}</li>
         {% endfor %}
         </tbody> -->
-    </table>
+      </table>
 
-  </form>
+    </form>
+
   </div>
 </div>
 
@@ -159,24 +159,26 @@ $(document).ready(function() {
   $('#' + tableId + ' thead tr').clone(true).appendTo('#' + tableId + ' thead');
   $('#' + tableId + ' thead tr:eq(1) th').not('th.chk').each(function(i){
       var title = $(this).text();
-      $(this).html( '<input type="text" placeholder="'+title+'" />' );
+      $(this).html( '<input type="text" class="filter-input" placeholder="'+title+'" name="filter-input" data-column="'+i+'"/>' );
 
-      $('input', this).on( 'keyup change', function () {
-          if (table.column(i).search() !== this.value) {
-              table
-                  .column(i)
-                  .search(this.value)
-                  .draw();
-          }
-      });
+      // $('input', this).on( 'keyup change', function () {
+      //     // if (table.column(i).search() !== this.value) {
+      //     //     table.column(i).search(this.value).draw();
+      //     // }
+      //     table.api().column(i).search(this.value).draw();
+      // });
   });
 
   var table = $('#' + tableId).DataTable({
       processing: true,
       serverSide: true,
       ajax: {
-          url: '/ajax?tb={{ tableName|raw() }}&fd={{ fields|raw() }}',
-          type: 'GET',
+          url: '/ajax',
+          type: 'POST',
+          data: {
+            tb: '{{ tableName|raw() }}',
+            fd: '{{ fields|raw() }}'
+          },
           error: function(e) {
             console.log(e);
           }
@@ -192,7 +194,7 @@ $(document).ready(function() {
       //                     var val = $.fn.dataTable.util.escapeRegex($(this).val());
       //                     column.search(this.value).draw();
       //                    });
-      //         column.data().unique().sort().each(function(d, j) {
+      //           column.data().unique().sort().each(function(d, j) {
       //           select.append('<option value="'+d+'">'+d+'</option>')
       //         });
       //     console.log(select);
@@ -246,7 +248,7 @@ $(document).ready(function() {
       responsive: true,
       orderClasses: false,
       orderCellsTop: true,
-      stateSave: true,
+      stateSave: false,
       dom: 'Bfrtip',
       buttons: [
           'excel', 'copy'
@@ -271,6 +273,27 @@ $(document).ready(function() {
           }
       },
   });
+    //     $('.filter-input').on( 'keyup change clear', function () {
+    //     var i = $(this).attr('data-column');
+    //     var v = $(this).val();
+    //     table.column(i).search(v).draw();
+    // });
+  // });
+
+  table.columns().every( function () {
+             var that = this;
+
+             $('.filter-input').on( 'keyup change', function () {
+                 // if ( that.search() !== this.value ) {
+                     that
+                         .search( this.value )
+                         .draw();
+                 // }
+             } );
+         } );
+
+
+
 
   // $('#datalist tbody').on('click', 'tr', function () {
   //     var idx = $(this).attr('rowidx');
