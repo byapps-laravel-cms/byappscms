@@ -1,6 +1,6 @@
 title: NewsManages
-modelClass: Jiwon\Byapps\Models\NewsManage
-list: $/jiwon/byapps/models/newsmanage/columns.yaml
+modelClass: Jiwon\Byapps\Models\PushNewsData
+list: $/jiwon/byapps/models/pushnewsdata/columns.yaml
 noRecordsMessage: 'backend::lang.list.no_records'
 recordsPerPage: 20
 showSetup: true

@@ -4,22 +4,22 @@ columns:
         type: number
         sortable: true
     app_id:
-        label: 앱아이디
+        label: app_id
         type: text
     app_name:
-        label: 앱명
+        label: app_name
         type: text
     subject:
-        label: 제목
+        label: subject
         type: text
     content:
-        label: 내용
+        label: content
         type: text
     attach_img:
-        label: 이미지
+        label: attach_img
         type: text
     link_url:
-        label: URL
+        label: link_url
         type: text
     reg_time:
         label: reg_time

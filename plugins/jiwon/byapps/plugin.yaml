@@ -41,7 +41,7 @@ navigation:
                 icon: icon-square
             side-menu-item4:
                 label: '소식 관리'
-                url: jiwon/byapps/newsmanages
+                url: jiwon/byapps/pushnewsdatas
                 icon: icon-square
             side-menu-item5:
                 label: '푸쉬 현황'

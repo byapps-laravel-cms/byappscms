@@ -5,7 +5,7 @@ use Model;
 /**
  * Model
  */
-class NewsManage extends Model
+class PushNewsData extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 
