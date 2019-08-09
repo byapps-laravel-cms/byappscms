@@ -3,10 +3,10 @@
 use Backend\Classes\Controller;
 use BackendMenu;
 
-class PointManages extends Controller
+class PointDatas extends Controller
 {
     public $implement = [        'Backend\Behaviors\ListController'    ];
-    
+
     public $listConfig = 'config_list.yaml';
 
     public function __construct()

@@ -1,6 +1,6 @@
 title: PointManages
-modelClass: Jiwon\Byapps\Models\PointManage
-list: $/jiwon/byapps/models/pointmanage/columns.yaml
+modelClass: Jiwon\Byapps\Models\PointData
+list: $/jiwon/byapps/models/pointdata/columns.yaml
 noRecordsMessage: 'backend::lang.list.no_records'
 recordsPerPage: 20
 showSetup: true
