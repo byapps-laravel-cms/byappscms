@@ -1,5 +1,5 @@
-list: $/jiwon/byapps/models/membermanage/columns.yaml
-modelClass: Jiwon\Byapps\Models\MemberManage
+list: $/jiwon/byapps/models/pointmemberdata/columns.yaml
+modelClass: Jiwon\Byapps\Models\PointMemberData
 title: MembersManages
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true

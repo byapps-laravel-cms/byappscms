@@ -53,7 +53,7 @@ navigation:
                 icon: icon-square
             side-menu-item7:
                 label: '인증회원 관리'
-                url: jiwon/byapps/membersmanages
+                url: jiwon/byapps/pointmemberdatas
                 icon: icon-user
     main-menu-item3:
         label: 회원관리

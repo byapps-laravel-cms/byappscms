@@ -5,7 +5,7 @@ use Model;
 /**
  * Model
  */
-class MemberManage extends Model
+class PointMemberData extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 

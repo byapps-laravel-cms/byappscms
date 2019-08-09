@@ -4,39 +4,39 @@ columns:
         type: number
         sortable: true
     app_id:
-        label: 앱아이디
+        label: app_id
         type: text
     mem_id:
-        label: 회원아이디
+        label: mem_id
         type: text
     mem_type:
-        label: 회원상태
+        label: mem_type
         type: text
     app_lang:
-        label: 앱언어
+        label: app_lang
         type: text
     app_name:
-        label: 앱명
+        label: app_name
         type: text
     mem_email:
-        label: 이메일
+        label: mem_email
         type: text
     app_udid:
-        label: 앱UDID
+        label: app_udid
         type: text
     app_os:
-        label: 앱OS
+        label: app_os
         type: text
     app_ver:
-        label: 앱버전
+        label: app_ver
         type: text
     total_point:
-        label: 포인트
+        label: total_point
         type: Number
     total_payback_point:
-        label: 페이백 포인트
+        label: total_payback_point
         type: Number
     reg_time:
-        label: 등록일
+        label: reg_time
         type: date
         format: Y-m-d
