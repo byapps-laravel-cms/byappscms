@@ -14,7 +14,6 @@ function onStart()
    $searchVar = $_POST['search']['value'];
 
    //$requestData = $_REQUEST['columns'];
-   //trace_log($requestData);
 
    $columnSortOrder = $_POST['order'][0]['column'];
    $sortBy = $_POST['order'][0]['dir'];
@@ -25,19 +24,13 @@ function onStart()
                ->orWhere('app_id', 'like', '%'.$searchVar.'%')
                ->orderBy('idx', 'desc')
                ->get();
-   } else /* if ($columnSortOrder != 0) */{
+   } else {
      $result = DB::table($table)
                ->skip($start)
                ->limit($length)
                ->orderBy($fields[$columnSortOrder], $sortBy)
                ->get();
-   } /*else {
-     $result = DB::table($table)
-               ->skip($start)
-               ->limit($length)
-               ->orderBy('idx', 'desc')
-               ->get();
-   }*/
+   }
 
    $data = array();
 
@@ -45,10 +38,6 @@ function onStart()
       $sub_array = array();
 
       for ($i = 0; $i < count($fields); $i++) {
-
-  //  echo "<script>console.log('".$fields[$i]."')</script>";
-//   echo "<script>console.log('".$requestData["columns"][$i]["search"]["value"]."')</script>";
-//  info($requestData["columns"][$i]["search"]["value"]);
 
         if ($fields[$i] == 'start_time') {
             if ($row->service_type == 'lite' && !$row->end_time) {
@@ -89,25 +78,17 @@ function onStart()
     $data[] = $sub_array;
   }
 
-//trace_log($data);
-
-//$newData = array();
-
+/*
 for ($j = 0; $j < $length; $j++) {
   for ($i = 0; $i < count($fields); $i++) {
-    //if ($_POST["columns"][$i]["search"]["value"] != '') {
-        //trace_log($_POST["columns"][$i]["search"]["value"]);
-      //  if (in_array($_POST["columns"][$i]["search"]["value"], $data[$j]) != false) {
-         if (isset($_POST["columns"][$i]["search"]["value"]) && ($_POST["columns"][$i]["search"]["value"] != '')
+    if (isset($_POST["columns"][$i]["search"]["value"]) && ($_POST["columns"][$i]["search"]["value"] != '')
          && (strpos($data[$j][$i], $_POST["columns"][$i]["search"]["value"], true) != false)) {
           trace_log("here=".$_POST["columns"][$i]["search"]["value"]."=");
         //  $newData[] = $data[$j];
-
       }
-    //}
   }
 }
-
+*/
 
    $output = array(
      "draw" => intval($_POST['draw']),
