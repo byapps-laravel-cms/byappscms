@@ -18,9 +18,10 @@ redirect = "login"
 
 use Jiwon\Byapps\Models\HomeLayout;
 use Jiwon\Byapps\Models\AppsData;
-use Jiwon\Byapps\Models\AdditionalService;
+use Jiwon\Byapps\Models\AppsOrderData;
+use Jiwon\Byapps\Models\AppendixOrderData;
 use Jiwon\Byapps\Models\MAService;
-use Jiwon\Byapps\Models\UpdateManage;
+use Jiwon\Byapps\Models\UpdateData;
 use Jiwon\Byapps\Models\QnaNonmember;
 use Jiwon\Byapps\Models\QnaMember;
 
@@ -56,10 +57,15 @@ function onStart()
         }
     };
 
-    // 주문요청현황
+    /* 주문요청현황 */
+    /*
+    /* 주문(앱)접수 */
+    $this['appsOrderCount'] = AppsOrderData::where('app_process', 1)->count();
+    /* 부가서비스 접수 */
+    $this['appendixOrderCount'] = AppendixOrderData::where('app_process', 1)->count();
+
     $this['maCount'] = MAService::where('app_process', 1)->count();
-    $this['asCount'] = AdditionalService::where('app_process', 1)->count();
-    $this['updateCount'] = UpdateManage::where('app_process', 1)->count();
+    $this['updateCount'] = UpdateData::where('app_process', 1)->count();
     $this['nonmemberCount'] = QnaNonmember::where('process', 1)->count();
     $this['memberCount'] = QnaMember::where('process', 1)->count();
 
@@ -73,20 +79,19 @@ function onGetChartData()
   $this['appsFree'] = AppsData::where('service_type', 'lite')
                       ->where('end_time', 0)
                       ->count();
-//  echo $this['appsFree'];
   $this['appsPaid'] = AppsData::where('service_type', 'biz')
                       ->where('end_time', '!=', 0)
                       ->count();
 
     $result = array(
         'circle1' => array(
-            array('무료', 134),
-            array('유료',152),
-            array('관리',100),
-        ),
-        'circle2' => array(
             array('무료', $this['appsFree']),
             array('유료', $this['appsPaid']),
+            array('관리', 100),
+        ),
+        'circle2' => array(
+            array('무료', 134),
+            array('유료', 152),
             array('관리', 100),
         ),
         'bar' => array(
@@ -95,8 +100,6 @@ function onGetChartData()
             array('기타',85,300,100,120,110,111,130),
         ),
     );
-
-  //info($result);
 
     return $result;
 }
@@ -142,30 +145,39 @@ function onLayoutChange()
                 </div>
             </div>
 
-            
+
             <div class="row dragbox collapse show" id="salesList">
                     <div class="col-xl-3 col-md-6">
                         <div class="card widget-box-two widget-two-purple">
                             <div class="card-body">
                                 <i class="mdi mdi-chart-line widget-two-icon"></i>
                                 <div class="wigdet-two-content">
-                                    <p class="m-0 text-uppercase text-white font-600 font-secondary text-overflow" title="Statistics">주문접수</p>
-                                    <h2 class="text-white"><span data-plugin="counterup">{{ maCount }}</span> <small><i class="mdi mdi-arrow-up text-white"></i></small></h2>
-                                    <p class="text-white m-0"><b>10%</b> From previous period</p>
+                                    <p class="m-0 text-uppercase text-white font-600 font-secondary text-overflow" title="Statistics">
+                                      주문접수
+                                    </p>
+                                    <h2 class="text-white">
+                                      <span data-plugin="counterup">{{ appsOrderCount }}</span>
+                                      <small><i class="mdi mdi-arrow-up text-white"></i></small>
+                                    </h2>
+                                    <p class="text-white m-0">어제보다 <b>10%</b> 늘었어요</p>
                                 </div>
                             </div>
                         </div>
-                    </div><!-- end col -->
+                    </div>
 
-                
+
                     <div class="col-xl-3 col-md-6">
                         <div class="card widget-box-two widget-two-info">
                             <div class="card-body">
                                 <i class="mdi mdi-access-point-network widget-two-icon"></i>
                                 <div class="wigdet-two-content">
-                                    <p class="m-0 text-white text-uppercase font-600 font-secondary text-overflow" title="User Today">부가서비스 접수</p>
-                                    <h2 class="text-white"><span data-plugin="counterup">{{ asCount }}</span> <small><i class="mdi mdi-arrow-up text-white"></i></small></h2>
-                                    <p class="text-white m-0"><b>5.6%</b> From previous period</p>
+                                    <p class="m-0 text-white text-uppercase font-600 font-secondary text-overflow" title="User Today">
+                                      부가서비스 접수
+                                    </p>
+                                    <h2 class="text-white"><span data-plugin="counterup">{{ appendixOrderCount }}</span>
+                                      <small><i class="mdi mdi-arrow-up text-white"></i></small>
+                                    </h2>
+                                    <p class="text-white m-0">어제보다 <b>5.6%</b> 줄었어요</p>
                                 </div>
                             </div>
                         </div>
@@ -176,9 +188,13 @@ function onLayoutChange()
                             <div class="card-body">
                                 <i class="mdi mdi-timetable widget-two-icon"></i>
                                 <div class="wigdet-two-content">
-                                    <p class="m-0 text-uppercase text-white font-600 font-secondary text-overflow" title="Request Per Minute">업데이트 접수</p>
-                                    <h2 class="text-white"><span data-plugin="counterup">{{ updateCount }}</span> <small><i class="mdi mdi-arrow-up text-white"></i></small></h2>
-                                    <p class="text-white m-0"><b>7.02%</b> From previous period</p>
+                                    <p class="m-0 text-uppercase text-white font-600 font-secondary text-overflow" title="Request Per Minute">
+                                      업데이트 접수
+                                    </p>
+                                    <h2 class="text-white"><span data-plugin="counterup">{{ updateCount }}</span>
+                                      <small><i class="mdi mdi-arrow-up text-white"></i></small>
+                                    </h2>
+                                    <p class="text-white m-0">어제보다 <b>7.02%</b> 늘었어요</p>
                                 </div>
                             </div>
                         </div>
@@ -316,7 +332,7 @@ function onLayoutChange()
                                     <br>
                                     {{ func.dateFormat(appData.end_time) }}
                                 </div>
-                                </div>                           
+                                </div>
                             </div>
                         </div>
                     {% endfor %}
