@@ -3,29 +3,51 @@ columns:
         label: idx
         type: number
         sortable: true
+    mem_id:
+        label: mem_id
+        type: text
+    order_id:
+        label: order_id
+        type: text
+    recom_id:
+        label: recom_id
+        type: text
+    process:
+        label: process
+        type: number
+        select: 'CASE process WHEN 1 THEN 1 WHEN 3 THEN "결제취소" END'
+    pay_type:
+        label: pay_type
+        type: number
+        select: 'CASE pay_type WHEN 1 THEN "연장" ELSE "신규" END'
     apps_type:
-        label: 구분
+        label: apps_type
         type: text
     app_name:
-        label: 앱명
+        label: app_name
         type: text
-        sortable: true
     term:
-        label: 기간
-        type: number
+        label: term
+        type: text
     start_time:
-        label: 시작일
+        label: start_time
         type: date
         format: Y-m-d
     end_time:
-        label: 종료일
+        label: end_time
         type: date
         format: Y-m-d
     amount:
-        label: 결제금액
-        type: number
+        label: amount
+        type: text
         select: FORMAT(amount, 0)
+    recipe:
+        label: recipe
+        type: number
+    promotion:
+        label: promotion
+        type: text
     reg_time:
-        label: 등록일
+        label: reg_time
         type: date
         format: Y-m-d

@@ -32,15 +32,14 @@ active-class = "active"
 disabled-class = "disabled"
 
 [datatable]
-tableName = "paymanageTable"
+tableName = "paymentTable"
 ==
 <?php
 use Jiwon\Byapps\Models\PaymentData;
-use Jiwon\Byapps\Models\PayManage;
 
 function onStart()
 {
-    $this['records'] = PayManage::orderBy('reg_time')->get();
+    $this['records'] = PaymentData::orderBy('reg_time')->get();
 
     $this['func'] = new Class {
         public function dateFormat($val)
@@ -50,9 +49,7 @@ function onStart()
         }
     };
 
-    $this['arrPaytype'] = array(
-      0 => '신규', 1 => '연장', 2 => '충전', 3 => '추가', 4=> '기타'
-    );
+    $this['arrPaytype'] = array(1 => '연장');
 }
 ?>
 ==
@@ -77,7 +74,7 @@ function onStart()
  <div class="method">
    <div class="col-md-12 margin-5">
 
-    <table id="paymanageTable" class="table table-striped mb-3" style="width:100%;">
+    <table id="paymentTable" class="table table-striped mb-3" style="width:100%;">
         <col width="40%">
         <col width="5%">
         <col width="30%">
@@ -110,11 +107,15 @@ function onStart()
 
                 <td>
                 {% for key,val in arrPaytype %}
-                  {{ key == record.pay_type ? val : "" }}
+                  {{ key == record.pay_type ? val : "신규" }}
                 {% endfor %}
                 </td>
 
-                <td>{{ record.term }}일 ({{ func.dateFormat(record.start_time) }} ~ {{ func.dateFormat(record.end_time) }})</td>
+                <td>{{ record.term }}일
+                  {% if record.start_time == 0 %}(미정)
+                  {% else %}({{ func.dateFormat(record.start_time) }} ~  {{ func.dateFormat(record.end_time) }})
+                  {% endif %}
+                </td>
                 <td>{{ record.amount | number_format(0, ',') }}</td>
                 <td>{{ func.dateFormat(record.reg_time) }}</td>
             </tr>
