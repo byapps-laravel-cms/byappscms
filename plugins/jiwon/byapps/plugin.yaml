@@ -49,7 +49,7 @@ navigation:
                 icon: icon-square
             side-menu-item6:
                 label: 테스터
-                url: jiwon/byapps/testermanages
+                url: jiwon/byapps/pushtesterdatas
                 icon: icon-square
             side-menu-item7:
                 label: '인증회원 관리'

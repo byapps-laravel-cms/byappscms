@@ -4,27 +4,27 @@ columns:
         type: number
         sortable: true
     app_id:
-        label: 앱아이디
+        label: app_id
         type: text
     app_udid:
-        label: 앱udid
+        label: app_udid
         type: text
-    app_udid:
-        label: 앱udid
+    app_os:
+        label: app_os
         type: text
     app_lang:
-        label: 앱언어
+        label: app_lang
         type: text
     app_name:
-        label: 앱명
+        label: app_name
         type: text
     app_ver:
-        label: 앱버전
+        label: app_ver
         type: text
     device_id:
-        label: 디바이스id
+        label: device_id
         type: text
     reg_time:
-        label: 신청일
+        label: reg_time
         type: date
         format: Y-m-d

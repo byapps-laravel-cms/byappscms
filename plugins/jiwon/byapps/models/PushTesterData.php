@@ -5,7 +5,7 @@ use Model;
 /**
  * Model
  */
-class TesterManage extends Model
+class PushTesterData extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 

@@ -1,6 +1,6 @@
 title: TesterManages
-modelClass: Jiwon\Byapps\Models\TesterManage
-list: $/jiwon/byapps/models/testermanage/columns.yaml
+modelClass: Jiwon\Byapps\Models\PushTesterData
+list: $/jiwon/byapps/models/pushtesterdata/columns.yaml
 noRecordsMessage: 'backend::lang.list.no_records'
 recordsPerPage: 20
 showSetup: true
