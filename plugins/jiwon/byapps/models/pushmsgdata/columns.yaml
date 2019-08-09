@@ -4,39 +4,39 @@ columns:
         type: number
         sortable: true
     app_id:
-        label: 앱아이디
+        label: app_id
         type: text
         sortable: true
     app_name:
-        label: 앱명
+        label: app_name
         type: text
         sortable: true
     os:
-        label: OS/LAN
+        label: os
         type: text
         sortable: true
     msg:
-        label: 알림내용
+        label: msg
         type: text
     send_gcm:
-        label: GCM
+        label: send_gcm
         type: text
     receive_gcm:
-        label: GCM2
+        label: receive_gcm
         type: text
     view_gcm:
-        label: GCM3
+        label: view_gcm
         type: text
     send_ios:
-        label: iOS
+        label: send_ios
         type: text
     receive_ios:
-        label: iOS2
+        label: receive_ios
         type: text
     view_ios:
-        label: iOS3
+        label: view_ios
         type: text
     reg_time:
-        label: 등록일
+        label: reg_time
         type: date
         format: Y-m-d

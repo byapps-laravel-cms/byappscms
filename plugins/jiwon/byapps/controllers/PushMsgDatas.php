@@ -3,10 +3,10 @@
 use Backend\Classes\Controller;
 use BackendMenu;
 
-class PushManages extends Controller
+class PushMsgDatas extends Controller
 {
     public $implement = [        'Backend\Behaviors\ListController'    ];
-    
+
     public $listConfig = 'config_list.yaml';
 
     public function __construct()

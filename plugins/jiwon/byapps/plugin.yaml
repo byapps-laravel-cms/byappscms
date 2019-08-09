@@ -45,7 +45,7 @@ navigation:
                 icon: icon-square
             side-menu-item5:
                 label: '푸쉬 현황'
-                url: jiwon/byapps/pushmanages
+                url: jiwon/byapps/pushmsgdatas
                 icon: icon-square
             side-menu-item6:
                 label: 테스터

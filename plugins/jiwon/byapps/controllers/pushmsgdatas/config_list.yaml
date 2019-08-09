@@ -1,6 +1,6 @@
 title: PushManages
-modelClass: Jiwon\Byapps\Models\PushManage
-list: $/jiwon/byapps/models/pushmanage/columns.yaml
+modelClass: Jiwon\Byapps\Models\PushMsgData
+list: $/jiwon/byapps/models/pushmsgdata/columns.yaml
 noRecordsMessage: 'backend::lang.list.no_records'
 recordsPerPage: 20
 showSetup: true
