@@ -57,7 +57,7 @@ function onStart()
     </head>
 
     <body>
-  
+
         <!-- Navigation Bar-->
         <header id="topnav">
             {% partial 'site/navigation' %}
@@ -140,18 +140,18 @@ function onStart()
 
             }
 
-                var str = ""; 
+                var str = "";
                 var page_val = "";
                 cookie_history = newcookie;
                 ch = cookie_history.split("|");
-                
+
                 str += "<li><ul>";
                 for(i=ch.length; i > 0; i--) {
                     if(i!=ch.length) page_val = ch[i-1].split("&");
                     if(page_val[0] && page_val[1]){
                         page_val[0] = page_val[0].replace("undefined","");
                         page_val[1] = page_val[1].replace("undefined", "")
-                        str += '<li><a href="'+page_val[1]+'">'+page_val[0]+'</a></li>';
+                        str += '<li id="page_history_sub"><a href="'+page_val[1]+'">'+page_val[0]+'</a></li>';
                     }
                 }
                 str += "</ul></li>";
@@ -162,14 +162,9 @@ function onStart()
         </script>
 
         {% put scripts %}
-
         {% endput %}
 
-
-                <!-- Codefox Theme -->
-        <!-- jQuery  -->
-        <!-- <script src="{{ 'assets/codefox/js/jquery.min.js'|theme }}"></script>
-        <script src="{{ 'assets/codefox/js/bootstrap.bundle.min.js'|theme }}"></script> -->
+        <!-- Codefox Theme -->
         <script src="{{ 'assets/codefox/js/waves.js'|theme }}"></script>
         <script src="{{ 'assets/codefox/js/jquery.slimscroll.js'|theme }}"></script>
 
@@ -185,7 +180,6 @@ function onStart()
         <script src="{{ 'assets/codefox/js/jquery.app.js'|theme }}"></script>
         <!-- //Codefox Theme -->
 
-        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
         <script src="{{ 'assets/vendor/jquery-ui.js'|theme }}"></script>
@@ -196,9 +190,13 @@ function onStart()
         <script src="{{ 'assets/javascript/util.js'|theme }}"></script>
         <script src="{{ 'assets/javascript/temp.js?v1'|theme }}"></script>
         <script src="{{ 'assets/javascript/app.js'|theme }}"></script>
-        {% if this.page.title == 'Home' %}<script src="{{ 'assets/javascript/chart.js'|theme }}"></script>
-        <script src="{{ 'assets/javascript/drag.js'|theme }}"></script>{% else %}
-        <script src="{{ 'assets/javascript/aside.js'|theme }}"></script>{% endif %}
+
+        {% if this.page.title == 'Home' %}
+          <script src="{{ 'assets/javascript/chart.js'|theme }}"></script>
+          <script src="{{ 'assets/javascript/drag.js'|theme }}"></script>
+        {% else %}
+          <script src="{{ 'assets/javascript/aside.js'|theme }}"></script>
+        {% endif %}
 
         <!-- For Datatable -->
         <script src="{{ 'assets/javascript/datatables/jquery.dataTables.min.js'|theme }}"></script>

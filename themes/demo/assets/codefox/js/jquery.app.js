@@ -24,9 +24,9 @@
           $(this).toggleClass('open');
           $('#navigation').slideToggle(400);
         });
-    
+
         $('.navigation-menu>li').slice(-1).addClass('last-elements');
-    
+
         $('.navigation-menu li.has-submenu a[href="#"]').on('click', function(e) {
           if ($(window).width() < 992) {
             e.preventDefault();
@@ -36,10 +36,12 @@
       }
 
       function initMenuItem () {
-        
         $("#navigation a").each(function() {
+          //console.log(this.parentNode.id);
             var pageUrl = window.location.href.split(/[?#]/)[0];
-            if (this.href == pageUrl) {
+            var pid = this.parentNode.id;
+
+            if ((this.href == pageUrl) && (pid == '')) {
                 $(this).parent().addClass("active"); // add active to li of the current link
                 $(this).parent().parent().parent().addClass("active"); // add active class to an anchor
                 $(this).parent().parent().parent().parent().parent().addClass("active"); // add active class to an anchor
@@ -60,4 +62,3 @@
     init();
 
 })(jQuery)
-
