@@ -33,7 +33,7 @@ navigation:
                 icon: icon-square
             side-menu-item8:
                 label: 앱목록
-                url: jiwon/byapps/appsmanages
+                url: jiwon/byapps/appsdatas
                 icon: icon-square
             side-menu-item3:
                 label: '앱포인트 관리'
