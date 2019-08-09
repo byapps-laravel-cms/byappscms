@@ -3,10 +3,10 @@
 use Backend\Classes\Controller;
 use BackendMenu;
 
-class ApkManages extends Controller
+class ApkDatas extends Controller
 {
     public $implement = [        'Backend\Behaviors\ListController'    ];
-    
+
     public $listConfig = 'config_list.yaml';
 
     public function __construct()
