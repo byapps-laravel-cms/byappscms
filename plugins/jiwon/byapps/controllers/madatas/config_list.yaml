@@ -1,6 +1,6 @@
-list: $/jiwon/byapps/models/maservice/columns.yaml
-modelClass: Jiwon\Byapps\Models\MAService
-title: MAServices
+list: $/jiwon/byapps/models/madata/columns.yaml
+modelClass: Jiwon\Byapps\Models\MaData
+title: MaData
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

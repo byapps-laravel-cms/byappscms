@@ -79,7 +79,7 @@ navigation:
                 icon: icon-th-large
             side-menu-item2:
                 label: 'MA 이용업체'
-                url: jiwon/byapps/maservices
+                url: jiwon/byapps/madatas
                 icon: icon-th-large
     main-menu-item5:
         label: 통계

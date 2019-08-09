@@ -4,80 +4,80 @@ columns:
         type: number
         sortable: true
     mem_id:
-        label: 회원아이디
+        label: mem_id
         type: text
     ma_id:
-        label: MA아이디
+        label: ma_id
         type: text
     app_process:
-        label: 상태
+        label: app_process
         type: text
     app_name:
-        label: 앱명
+        label: app_name
         type: text
     order_id:
-        label: 주문번호
+        label: order_id
         type: text
     recom_id:
-        label: 추천인
+        label: recom_id
         type: text
     service_type:
-        label: 서비스형태
+        label: service_type
         type: text
     server_group:
-        label: 서버그룹
+        label: server_group
         type: text
     ma_ver:
-        label: MA버전
+        label: ma_ver
         type: text
     vip_check:
-        label: VIP여부
+        label: vip_check
         type: text
     host_name:
-        label: 호스트명
+        label: host_name
         type: text
     txtencode:
-        label: 인코딩
+        label: txtencode
         type: text
     app_lang:
-        label: 언어
+        label: app_lang
         type: text
     home_url:
-        label: 홈페이지URL
+        label: home_url
         type: text
     pn:
-        label: 패키지명
+        label: pn
         type: text
     aid:
-        label: AID
+        label: aid
         type: text
     schm:
-        label: SCHM
+        label: schm
         type: text
     push_center:
-        label: 푸쉬센터
+        label: push_center
         type: text
     web_push:
-        label: 웹푸쉬
+        label: web_push
         type: text
     auto_push:
-        label: 자동화push
+        label: auto_push
         type: text
     info:
-        label: 기타정보
+        label: info
         type: text
     opt_sst:
         label: opt_sst
         type: text
     start_time:
-        label: 시작일
+        label: start_time
         type: date
         format: Y-m-d
     end_time:
-        label: 종료일
+        label: end_time
         type: date
         format: Y-m-d
     reg_time:
-        label: 등록일
+        label: reg_time
         type: date
         format: Y-m-d

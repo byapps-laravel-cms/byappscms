@@ -3,10 +3,10 @@
 use Backend\Classes\Controller;
 use BackendMenu;
 
-class MAServices extends Controller
+class MaDatas extends Controller
 {
     public $implement = [        'Backend\Behaviors\ListController'    ];
-    
+
     public $listConfig = 'config_list.yaml';
 
     public function __construct()
