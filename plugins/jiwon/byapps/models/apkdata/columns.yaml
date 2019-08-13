@@ -3,14 +3,14 @@ columns:
         label: idx
         type: number
     app_id:
-        label: 앱아이디
+        label: app_id
         type: text
     app_process:
-        label: 등록상태
-        select: 'CASE app_process WHEN 1 THEN ''완료'' WHEN 2 THEN ''대기'' END'
+        label: app_process
+        select: 'CASE app_process WHEN 1 THEN ''대기'' WHEN 2 THEN ''완료'' END'
         type: text
     app_name:
-        label: 앱명
+        label: app_name
         type: text
         searchable: true
     app_type:
@@ -20,6 +20,6 @@ columns:
         label: apk_file
         type: text
     reg_time:
-        label: 등록일
+        label: reg_time
         type: date
         format: Y-m-d

@@ -1,0 +1,27 @@
+columns:
+    idx:
+        label: IDX
+        type: number
+        sortable: true
+    app_id:
+        label: app_id
+        type: text
+    app_name:
+        label: app_name
+        type: text
+    subject:
+        label: subject
+        type: text
+    content:
+        label: content
+        type: text
+    attach_img:
+        label: attach_img
+        type: text
+    link_url:
+        label: link_url
+        type: text
+    reg_time:
+        label: reg_time
+        type: date
+        format: Y-m-d

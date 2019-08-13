@@ -16,36 +16,44 @@ navigation:
                 icon: icon-star
     main-menu-item2:
         label: '앱 관리'
-        url: jiwon/byapps/appsmanages
+        url: jiwon/byapps/appsorderdatas
         icon: icon-android
         sideMenu:
+            side-menu-item9:
+                label: '앱 접수'
+                url: jiwon/byapps/appsorderdatas
+                icon: icon-square
             side-menu-item:
                 label: 'APK 관리'
-                url: jiwon/byapps/apkmanages
+                url: jiwon/byapps/apkdatas
                 icon: icon-square
             side-menu-item2:
                 label: '업데이트 관리'
-                url: jiwon/byapps/updatemanages
+                url: jiwon/byapps/updatedatas
+                icon: icon-square
+            side-menu-item8:
+                label: 앱목록
+                url: jiwon/byapps/appsdatas
                 icon: icon-square
             side-menu-item3:
                 label: '앱포인트 관리'
-                url: jiwon/byapps/pointmanages
+                url: jiwon/byapps/pointdatas
                 icon: icon-square
             side-menu-item4:
                 label: '소식 관리'
-                url: jiwon/byapps/newsmanages
+                url: jiwon/byapps/pushnewsdatas
                 icon: icon-square
             side-menu-item5:
                 label: '푸쉬 현황'
-                url: jiwon/byapps/pushmanages
+                url: jiwon/byapps/pushmsgdatas
                 icon: icon-square
             side-menu-item6:
                 label: 테스터
-                url: jiwon/byapps/testermanages
+                url: jiwon/byapps/pushtesterdatas
                 icon: icon-square
             side-menu-item7:
                 label: '인증회원 관리'
-                url: jiwon/byapps/membersmanages
+                url: jiwon/byapps/pointmemberdatas
                 icon: icon-user
     main-menu-item3:
         label: 회원관리
@@ -62,16 +70,16 @@ navigation:
                 icon: icon-user
     main-menu-item4:
         label: 부가서비스
-        url: jiwon/byapps/additionalservices
+        url: jiwon/byapps/appendixorderdatas
         icon: icon-delicious
         sideMenu:
             side-menu-item:
                 label: '부가서비스 접수'
-                url: jiwon/byapps/additionalservices
+                url: jiwon/byapps/appendixorderdatas
                 icon: icon-th-large
             side-menu-item2:
                 label: 'MA 이용업체'
-                url: jiwon/byapps/maservices
+                url: jiwon/byapps/madatas
                 icon: icon-th-large
     main-menu-item5:
         label: 통계

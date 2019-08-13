@@ -1,0 +1,83 @@
+columns:
+    idx:
+        label: IDX
+        type: number
+        sortable: true
+    mem_id:
+        label: mem_id
+        type: text
+    ma_id:
+        label: ma_id
+        type: text
+    app_process:
+        label: app_process
+        type: text
+    app_name:
+        label: app_name
+        type: text
+    order_id:
+        label: order_id
+        type: text
+    recom_id:
+        label: recom_id
+        type: text
+    service_type:
+        label: service_type
+        type: text
+    server_group:
+        label: server_group
+        type: text
+    ma_ver:
+        label: ma_ver
+        type: text
+    vip_check:
+        label: vip_check
+        type: text
+    host_name:
+        label: host_name
+        type: text
+    txtencode:
+        label: txtencode
+        type: text
+    app_lang:
+        label: app_lang
+        type: text
+    home_url:
+        label: home_url
+        type: text
+    pn:
+        label: pn
+        type: text
+    aid:
+        label: aid
+        type: text
+    schm:
+        label: schm
+        type: text
+    push_center:
+        label: push_center
+        type: text
+    web_push:
+        label: web_push
+        type: text
+    auto_push:
+        label: auto_push
+        type: text
+    info:
+        label: info
+        type: text
+    opt_sst:
+        label: opt_sst
+        type: text
+    start_time:
+        label: start_time
+        type: date
+        format: Y-m-d
+    end_time:
+        label: end_time
+        type: date
+        format: Y-m-d
+    reg_time:
+        label: reg_time
+        type: date
+        format: Y-m-d

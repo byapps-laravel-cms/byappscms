@@ -1,0 +1,15 @@
+title: PointManages
+modelClass: Jiwon\Byapps\Models\PointData
+list: $/jiwon/byapps/models/pointdata/columns.yaml
+noRecordsMessage: 'backend::lang.list.no_records'
+recordsPerPage: 20
+showSetup: true
+showCheckboxes: true
+showPageNumbers: false
+defaultSort:
+    column: app_idx
+    direction: desc
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'

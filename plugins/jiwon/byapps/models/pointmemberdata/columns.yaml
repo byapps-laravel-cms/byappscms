@@ -1,0 +1,42 @@
+columns:
+    idx:
+        label: IDX
+        type: number
+        sortable: true
+    app_id:
+        label: app_id
+        type: text
+    mem_id:
+        label: mem_id
+        type: text
+    mem_type:
+        label: mem_type
+        type: text
+    app_lang:
+        label: app_lang
+        type: text
+    app_name:
+        label: app_name
+        type: text
+    mem_email:
+        label: mem_email
+        type: text
+    app_udid:
+        label: app_udid
+        type: text
+    app_os:
+        label: app_os
+        type: text
+    app_ver:
+        label: app_ver
+        type: text
+    total_point:
+        label: total_point
+        type: Number
+    total_payback_point:
+        label: total_payback_point
+        type: Number
+    reg_time:
+        label: reg_time
+        type: date
+        format: Y-m-d

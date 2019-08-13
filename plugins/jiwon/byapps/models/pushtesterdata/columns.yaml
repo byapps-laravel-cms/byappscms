@@ -1,0 +1,30 @@
+columns:
+    idx:
+        label: IDX
+        type: number
+        sortable: true
+    app_id:
+        label: app_id
+        type: text
+    app_udid:
+        label: app_udid
+        type: text
+    app_os:
+        label: app_os
+        type: text
+    app_lang:
+        label: app_lang
+        type: text
+    app_name:
+        label: app_name
+        type: text
+    app_ver:
+        label: app_ver
+        type: text
+    device_id:
+        label: device_id
+        type: text
+    reg_time:
+        label: reg_time
+        type: date
+        format: Y-m-d

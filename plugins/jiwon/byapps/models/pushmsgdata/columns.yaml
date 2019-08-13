@@ -1,0 +1,42 @@
+columns:
+    idx:
+        label: IDX
+        type: number
+        sortable: true
+    app_id:
+        label: app_id
+        type: text
+        sortable: true
+    app_name:
+        label: app_name
+        type: text
+        sortable: true
+    os:
+        label: os
+        type: text
+        sortable: true
+    msg:
+        label: msg
+        type: text
+    send_gcm:
+        label: send_gcm
+        type: text
+    receive_gcm:
+        label: receive_gcm
+        type: text
+    view_gcm:
+        label: view_gcm
+        type: text
+    send_ios:
+        label: send_ios
+        type: text
+    receive_ios:
+        label: receive_ios
+        type: text
+    view_ios:
+        label: view_ios
+        type: text
+    reg_time:
+        label: reg_time
+        type: date
+        format: Y-m-d

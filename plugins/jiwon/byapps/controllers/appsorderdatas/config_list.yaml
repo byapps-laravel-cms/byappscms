@@ -1,0 +1,11 @@
+list: $/jiwon/byapps/models/appsorderdata/columns.yaml
+modelClass: Jiwon\Byapps\Models\AppsOrderData
+title: AppsOrderDatas
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'

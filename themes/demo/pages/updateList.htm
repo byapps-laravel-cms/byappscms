@@ -9,7 +9,7 @@ remove_crumb_trail = 0
 crumb_disabled = 0
 
 [builderList]
-modelClass = "Jiwon\Byapps\Models\UpdateManage"
+modelClass = "Jiwon\Byapps\Models\UpdateData"
 scope = "-"
 scopeValue = "{{ :scope }}"
 displayColumn = "app_id"
@@ -33,7 +33,7 @@ active-class = "active"
 disabled-class = "disabled"
 ==
 <?php
-use Jiwon\Byapps\Models\UpdateManage;
+use Jiwon\Byapps\Models\UpdateData;
 use Jiwon\Byapps\Models\AppsData;
 
 function onStart()
@@ -47,7 +47,7 @@ function onStart()
     };
 
     $this['appProcess'] = array(
-      5 =>'취소', 0 =>'접수', 1 =>'신청확인', 2 =>'진행중', 3 =>'심사중', 4 =>'완료'
+      0 =>'취소', 1 =>'접수', 2 =>'신청확인', 3 =>'진행중', 4 =>'심사중', 9 =>'완료'
     );
 }
 ?>
@@ -81,7 +81,7 @@ function onStart()
          {% for record in records %}
             <tr>
                 <td class="regdate">{{ func.dateFormatSimple(record.reg_time) }}</td>
-                <td>  {% for key,val in appProcess %}
+                <td>{% for key,val in appProcess %}
                      {{ key == record.app_process ? val : "" }}
                   {% endfor %}
                 </td>
