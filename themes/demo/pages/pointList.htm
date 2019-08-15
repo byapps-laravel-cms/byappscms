@@ -9,7 +9,7 @@ remove_crumb_trail = 0
 crumb_disabled = 0
 
 [builderList]
-modelClass = "Jiwon\Byapps\Models\PointManage"
+modelClass = "Jiwon\Byapps\Models\PointData"
 scope = "-"
 scopeValue = "{{ :scope }}"
 displayColumn = "app_name"
@@ -30,7 +30,7 @@ active-class = "active"
 disabled-class = "disabled"
 ==
 <?php
-use Jiwon\Byapps\Models\PointManage;
+use Jiwon\Byapps\Models\PointData;
 
 function onStart()
 {
@@ -42,7 +42,7 @@ function onStart()
     }
   };
 
-  //$data = new PointManage()->count();
+  //$data = new PointData()->count();
   //echo $data;
 }
 ?>

@@ -1,0 +1,48 @@
+columns:
+    idx:
+        label: IDX
+        type: number
+        sortable: true
+    mem_id:
+        label: mem_id
+        type: text
+    app_id:
+        label: app_id
+        type: text
+    order_id:
+        label: order_id
+        type: text
+    app_process:
+        label: app_process
+        type: text
+    service_type:
+        label: service_type
+        type: text
+    app_name:
+        label: app_name
+        type: text
+    app_company:
+        label: app_company
+        type: text
+    order_name:
+        label: order_name
+        type: text
+    cellno:
+        label: cellno
+        type: text
+    email:
+        label: email
+        type: text
+    pay_way:
+        label: pay_way
+        type: text
+    payment:
+        label: payment
+        type: text
+    receipt:
+        label: receipt
+        type: text
+    reg_time:
+        label: reg_time
+        type: date
+        format: Y-m-d

@@ -1,0 +1,47 @@
+columns:
+    idx:
+        label: idx
+        type: number
+    mem_id:
+        label: mem_id
+        type: text
+    app_id:
+        label: app_id
+        type: text
+    app_process:
+        label: app_process
+        type: text
+        select: 'CASE app_process WHEN 0 THEN "취소" WHEN 1 THEN "접수" WHEN 2 THEN "신청확인" WHEN 3 THEN "진행중" WHEN 4 THEN "심사중" WHEN 9 THEN "완료" END'
+    apps_type:
+        label: apps_type
+        type: text
+    app_name:
+        label: app_name
+        type: text
+    app_ver:
+        label: app_ver
+        type: text
+        relation: joins
+        select: app_ver
+    appsicon:
+        label: appsicon
+        type: text
+    appsplash:
+        label: appsplash
+        type: text
+    apptab:
+        label: apptab
+        type: text
+    tab_urls:
+        label: tab_urls
+        type: text
+    appcapture:
+        label: appcapture
+        type: text
+    app_intro:
+        label: app_intro
+        type: text
+    reg_time:
+        label: reg_time
+        type: date
+        format: Y-m-d

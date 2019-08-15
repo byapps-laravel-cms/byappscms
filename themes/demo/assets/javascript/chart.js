@@ -11,32 +11,32 @@ function showChart (data) {
         columns: data.circle1,
         type: "donut",
         colors: {
-        "무료": "#17b4dd",
-        "유료": "#038db2",
-        "관리": "#69bbd1"
-      },
+          "무료": "#17b4dd",
+          "유료": "#038db2",
+          "관리": "#69bbd1"
+        },
     },
     donut: {
       title: "앱 통계"
     },
-        bindto: "#ma_stats"
+    bindto: "#app_stats"
     });
 
 
   var chart = bb.generate({
     data: {
-    columns: data.circle2,
-    type: "donut",
-    colors: {
-        "무료": "#f6b300",
-        "유료": "#e88d00",
-        "관리": "#fcca8f"
-        },
+      columns: data.circle2,
+      type: "donut",
+      colors: {
+          "무료": "#f6b300",
+          "유료": "#e88d00",
+          "관리": "#fcca8f"
+      },
     },
     donut: {
       title: "MA 통계"
     },
-    bindto: "#app_stats"
+    bindto: "#ma_stats"
     });
 
 

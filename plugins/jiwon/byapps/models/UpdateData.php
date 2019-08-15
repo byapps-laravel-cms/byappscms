@@ -13,7 +13,7 @@ class UpdateData extends Model
      * Disable timestamps by default.
      * Remove this line if timestamps are defined in the database table.
      */
-    public $timestamps = false;
+    public $primaryKey = 'idx';
 
     public $connection = 'byapps';
     /**
@@ -25,5 +25,13 @@ class UpdateData extends Model
      * @var array Validation rules
      */
     public $rules = [
+    ];
+
+    public $hasOne = [
+      'joins' => [
+        'Jiwon\Byapps\Models\AppsData',
+        'key' => 'app_id',
+        'otherKey' => 'app_id'
+      ]
     ];
 }

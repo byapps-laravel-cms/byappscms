@@ -1,0 +1,18 @@
+columns:
+    idx:
+        label: IDX
+        type: number
+        sortable: true
+        # select: 'limit 100'
+    app_id:
+       label: app_id
+       type: TEXT
+    mem_id:
+       label: mem_id
+       type: TEXT
+    point:
+      label: point
+      type: number
+    point_title:
+      label: point_title
+      type: text

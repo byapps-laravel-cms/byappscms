@@ -1,0 +1,88 @@
+columns:
+    idx:
+        label: IDX
+        type: number
+        sortable: true
+    mem_id:
+        label: mem_id
+        type: text
+        sortable: true
+    order_id:
+        label: order_id
+        type: text
+    recom_id:
+        label: recom_id
+        type: text
+    app_process:
+        label: app_process
+        type: text
+    app_cate:
+        label: app_cate
+        type: text
+    app_name:
+        label: app_name
+        type: text
+    app_company:
+        label: app_company
+        type: text
+    app_home_url:
+        label: app_home_url
+        type: text
+    host_name:
+        label: host_name
+        type: text
+    app_lang:
+        label: app_lang
+        type: text
+    order_name:
+        label: order_name
+        type: text
+    cellno:
+        label: cellno
+        type: text
+    email:
+        label: email
+        type: text
+    service_type:
+        label: service_type
+        type: text
+    apps_type:
+        label: apps_type
+        type: text
+    tabmenu_url:
+        label: tabmenu_url
+        type: text
+    sns_url:
+        label: sns_url
+        type: text
+    call_no:
+        label: call_no
+        type: text
+    kakaocell:
+        label: kakaocell
+        type: text
+    recom_msg:
+        label: recom_msg
+        type: text
+    design_source:
+        label: design_source
+        type: text
+    app_intro:
+        label: app_intro
+        type: text
+    order_content:
+        label: order_content
+        type: text
+    pay_way:
+        label: pay_way
+        type: text
+    payment:
+        label: payment
+        type: text
+    receipt:
+        label: receipt
+        type: text
+    reg_time:
+        label: reg_time
+        type: date
+        format: Y-m-d
