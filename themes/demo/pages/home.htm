@@ -18,9 +18,10 @@ redirect = "login"
 
 use Jiwon\Byapps\Models\HomeLayout;
 use Jiwon\Byapps\Models\AppsData;
+use Jiwon\Byapps\Models\PaymentData;
 use Jiwon\Byapps\Models\AppsOrderData;
 use Jiwon\Byapps\Models\AppendixOrderData;
-use Jiwon\Byapps\Models\MAService;
+use Jiwon\Byapps\Models\MaData;
 use Jiwon\Byapps\Models\UpdateData;
 use Jiwon\Byapps\Models\QnaNonmember;
 use Jiwon\Byapps\Models\QnaMember;
@@ -64,7 +65,7 @@ function onStart()
     /* 부가서비스 접수 */
     $this['appendixOrderCount'] = AppendixOrderData::where('app_process', 1)->count();
 
-    $this['maCount'] = MAService::where('app_process', 1)->count();
+    $this['maCount'] = MaData::where('app_process', 1)->count();
     $this['updateCount'] = UpdateData::where('app_process', 1)->count();
     $this['nonmemberCount'] = QnaNonmember::where('process', 1)->count();
     $this['memberCount'] = QnaMember::where('process', 1)->count();
@@ -76,12 +77,20 @@ function onGetChartData()
 {
   // 앱 통계 * 조건이 틀린 것 같음. 검토필요
   // 무료
-  $this['appsFree'] = AppsData::where('service_type', 'lite')
-                      ->where('end_time', 0)
+  $this['appsFree'] = PaymentData::where('process', '1')
+                      ->where('idx', '=', '')
+                      ->orWhere('amount', '=', '0')
                       ->count();
-  $this['appsPaid'] = AppsData::where('service_type', 'biz')
-                      ->where('end_time', '!=', 0)
+  // 유료
+  $this['appsPaid'] = PaymentData::where('process', '1')
+                      ->where('amount', '>', '0')
                       ->count();
+
+  // MA 통계
+  // 무료 (조건 수정 필요)
+  $this['maFree'] = MaData::where('app_process', '3')
+                    ->where('end_time', '>', '0')
+                    ->count();
 
     $result = array(
         'circle1' => array(
@@ -90,7 +99,7 @@ function onGetChartData()
             array('관리', 100),
         ),
         'circle2' => array(
-            array('무료', 134),
+            array('무료', $this['maFree']),
             array('유료', 152),
             array('관리', 100),
         ),
