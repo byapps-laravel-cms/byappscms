@@ -53,6 +53,8 @@ function onStart()
         <!-- Step 1) Load D3.js -->
         <script src="https://d3js.org/d3.v5.min.js"></script>
 
+        <script src="{{ 'assets/javascript/initial.min.js'|theme }}"></script>
+
         {% styles %}
     </head>
 
@@ -158,6 +160,14 @@ function onStart()
                 console.log("str", str);
                 $('#page_history .submenu.megamenu').append(str);
 
+        </script>
+
+        <script type="text/javascript">
+
+            $('.profile').initial({
+              width: 32,
+              height: 32,
+              fontSize: 16 });
 
         </script>
 

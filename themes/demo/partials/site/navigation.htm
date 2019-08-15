@@ -2,10 +2,13 @@ description = "navigation"
 
 [badge]
 badgeClass = "badge-danger"
+
+[session]
+security = "user"
+allowedUserGroups[] = "admin_level_1"
+redirect = "login"
 ==
-
-
-    <div class="topbar-main navbar m-b-0 b-0">
+<div class="topbar-main navbar m-b-0 b-0">
         <div class="container-fluid">
 
             <!-- LOGO -->
@@ -26,7 +29,15 @@ badgeClass = "badge-danger"
                         </form>
                     </li>
 
+                    {% component 'session' %}
+
+                    <li class="list-inline-item user-box mt-3">
+                        <img data-name="{{ user.name }}" class="profile" />
+                    </li>
+
                     <li class="list-inline-item user-box">
+
+
                         <a class="nav-link dropdown-toggle waves-effect user-link" data-toggle="dropdown" href="#" aria-haspopup="false" aria-expanded="true">
                             <i class="fi-ellipsis rounded-circle user-img text-white" style="font-size:2.5em;"></i>
                         </a>
