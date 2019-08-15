@@ -151,6 +151,11 @@ thead input {
 </div>
 
 <script>
+function filterColumn ( i ) {
+    $('#datalist').DataTable().column( i ).search(
+        $('#col'+i+'_filter').val()
+    ).draw();
+}
 
 $(document).ready(function() {
   var tableId = "datalist";
@@ -159,7 +164,7 @@ $(document).ready(function() {
   $('#' + tableId + ' thead tr').clone(true).appendTo('#' + tableId + ' thead');
   $('#' + tableId + ' thead tr:eq(1) th').not('th.chk').each(function(i){
       var title = $(this).text();
-      $(this).html( '<input type="text" class="filter-input" placeholder="'+title+'" name="filter-input" data-column="'+i+'"/>' );
+      $(this).html( '<input type="text" class="filter-input" placeholder="'+title+'" id="col'+i+'_filter" name="filter-input" data-column="'+i+'"/>' );
 
       // $('input', this).on( 'keyup change', function () {
       //     // if (table.column(i).search() !== this.value) {
@@ -280,17 +285,30 @@ $(document).ready(function() {
     // });
   // });
 
-  table.columns().every( function () {
-             var that = this;
+// table.columns().every( function () {
+//      var that = this;
+//
+//      $('.filter-input').on( 'keyup change', function () {
+//          if ( that.search() !== this.value ) {
+//              that
+//                  .search( this.value )
+//                  .draw();
+//          }
+//      });
+// });
 
-             $('.filter-input').on( 'keyup change', function () {
-                 // if ( that.search() !== this.value ) {
-                     that
-                         .search( this.value )
-                         .draw();
-                 // }
-             } );
-         } );
+  // table.columns().every( function () {
+    // $('.filter-input').on( 'keyup change', function () {
+    //   $('#datalist')
+    //                .DataTable()
+    //                .search($('.filter-input').val(), false, true)
+    //                .draw();
+    // });
+  // });
+
+
+
+
 
 
 
