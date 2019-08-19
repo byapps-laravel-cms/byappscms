@@ -26,4 +26,12 @@ class MaData extends Model
      */
     public $rules = [
     ];
+
+    public $hasOne = [
+      'joins' => [
+        'Jiwon\Byapps\Models\PaymentData',
+        'key' => 'order_id',
+        'otherKey' => 'order_id'
+      ]
+    ];
 }
