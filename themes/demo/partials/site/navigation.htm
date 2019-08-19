@@ -2,11 +2,6 @@ description = "navigation"
 
 [badge]
 badgeClass = "badge-danger"
-
-[session]
-security = "user"
-allowedUserGroups[] = "admin_level_1"
-redirect = "login"
 ==
 <div class="topbar-main navbar m-b-0 b-0">
         <div class="container-fluid">
@@ -29,7 +24,6 @@ redirect = "login"
                         </form>
                     </li>
 
-                    {% component 'session' %}
 
                     <li class="list-inline-item user-box mt-3">
                         <img data-name="{{ user.name }}" class="profile" />
@@ -57,10 +51,18 @@ redirect = "login"
                             <div class="dropdown-divider"></div>
 
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            {% if user %}
+                            <!-- <a href="javascript:void(0);" class="dropdown-item notify-item"> -->
+                            <a class="dropdown-item notify-item" data-request="onLogout" data-request-data="redirect: '{{ 'home'|page }}'">
                                 <i class="mdi mdi-logout-variant"></i>
                                 <span>로그아웃</span>
                             </a>
+                            {% else %}
+                            <a class="dropdown-item notify-item" href="{{ 'login'|page }}">
+                                <i class="mdi mdi-logout-variant"></i>
+                                <span>로그인</span>
+                            </a>
+                            {% endif %}
 
                         </div>
                     </li>
