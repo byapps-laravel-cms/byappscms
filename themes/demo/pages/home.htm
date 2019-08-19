@@ -34,15 +34,17 @@ function onStart()
         ->select('layout_name')
         ->orderBy('sequence')
         ->get();
-    if(count($records) == 0){
+
+    if (count($records) == 0){
         $this['records'] = array('layout1','layout2','layout3');
-    }else{
+    } else {
         $temp = array();
         foreach($records as $record){
             $temp[] = $record->layout_name;
         }
         $this['records'] = $temp;
     }
+
     $this['appsData'] = AppsData::inRandomOrder()
         ->select('app_name')
         ->addSelect('app_icon')
@@ -70,9 +72,9 @@ function onStart()
     $this['nonmemberCount'] = QnaNonmember::where('process', 1)->count();
     $this['memberCount'] = QnaMember::where('process', 1)->count();
 
+}
 
-
- }
+/*
 function onGetChartData()
 {
   // 앱 통계 * 조건이 틀린 것 같음. 검토필요
@@ -92,26 +94,99 @@ function onGetChartData()
                     ->where('end_time', '>', '0')
                     ->count();
 
-    $result = array(
-        'circle1' => array(
-            array('무료', $this['appsFree']),
-            array('유료', $this['appsPaid']),
-            array('관리', 100),
-        ),
-        'circle2' => array(
-            array('무료', $this['maFree']),
-            array('유료', 152),
-            array('관리', 100),
-        ),
-        'bar' => array(
-            array('신규',223,200,100,120,250,210,102),
-            array('연장',524,200,180,190,280,230,109),
-            array('기타',85,300,100,120,110,111,130),
-        ),
-    );
+  $result = array(
+      'circle1' => array(
+          array('무료', $this['appsFree']),
+          array('유료', $this['appsPaid']),
+          array('관리', 100),
+      ),
+      'circle2' => array(
+          array('무료', $this['maFree']),
+          array('유료', 152),
+          array('관리', 100),
+      ),
+      'bar' => array(
+          array('신규',223,200,100,120,250,210,102),
+          array('연장',524,200,180,190,280,230,109),
+          array('기타',85,300,100,120,110,111,130),
+      ),
+  );
 
-    return $result;
+  return $result;
 }
+*/
+
+function onGetAppChartData()
+{
+  // 앱 통계 * 조건 검토필요
+  // 무료
+  // 결제금액이 없는 경우, 관리업체가 아닌 경우(is_cherrypicker != Y), 서비스중지가 아님
+  $this['appsFree'] = PaymentData::where('pay_type', '!=', '1')
+                      ->where('amount', '=', '0')
+                      //->where('appProcess', '!=', '8')
+                      ->count();
+  // 유료
+  // 연장(pay_type = 1), 신규, 결제금액이 있는 경우, 서비스중지가 아님
+  $this['appsPaid'] = PaymentData::where('pay_type', '1')
+                      ->where('amount', '>', '0')
+                      ->count();
+
+  // MA 통계
+  // 무료 (조건 수정 필요)
+  $this['maFree'] = MaData::where('app_process', '3')
+                    ->where('end_time', '>', '0')
+                    ->count();
+
+  $result = array(
+      'circle1' => array(
+          array('무료', $this['appsFree']),
+          array('유료', $this['appsPaid']),
+          array('관리', 100),
+      )
+  );
+
+  return $result;
+}
+
+function onGetMaChartData()
+{
+  $result = array(
+    'circle2' => array(
+        array('무료', $this['maFree']),
+        array('유료', 152),
+        array('관리', 100),
+    )
+  );
+
+  return $result;
+}
+
+function onGetSalesChartData()
+{
+  $result = array(
+    'bar' => array(
+        array('신규',223,200,100,120,250,210,102),
+        array('연장',524,200,180,190,280,230,109),
+        array('기타',85,300,100,120,110,111,130),
+    )
+  );
+
+  return $result;
+}
+
+function onGetDailyChartData()
+{
+  $result = array(
+      'circle1' => array(
+          array('무료', 300),
+          array('유료', 200),
+          array('관리', 100),
+      )
+  );
+
+  return $result;
+}
+
 
 function onLayoutChange()
 {
@@ -150,7 +225,9 @@ function onLayoutChange()
             <div class="cal_box col-md-12 col-sm-12">
                 <div class="card-title mt-2">
                     <i class="fi-menu"></i> 주문요청현황
-                    <button class="btn float-right" type="button" data-toggle="collapse" data-target="#salesList" aria-expanded="true" aria-controls="salesList"><i class="dripicons-chevron-down"></i></button>
+                    <button class="btn float-right" type="button" data-toggle="collapse" data-target="#salesList" aria-expanded="true" aria-controls="salesList">
+                      <i class="dripicons-chevron-down"></i>
+                    </button>
                 </div>
             </div>
 
@@ -214,8 +291,12 @@ function onLayoutChange()
                             <div class="card-body">
                                 <i class="mdi mdi-cloud-download widget-two-icon"></i>
                                 <div class="wigdet-two-content">
-                                    <p class="m-0 text-white text-uppercase font-600 font-secondary text-overflow" title="New Downloads">New Downloads</p>
-                                    <h2 class="text-white"><span data-plugin="counterup">854</span> <small><i class="mdi mdi-arrow-up text-white"></i></small></h2>
+                                    <p class="m-0 text-white text-uppercase font-600 font-secondary text-overflow" title="New Downloads">
+                                      New Downloads
+                                    </p>
+                                    <h2 class="text-white"><span data-plugin="counterup">854</span>
+                                      <small><i class="mdi mdi-arrow-up text-white"></i></small>
+                                    </h2>
                                     <p class="text-white m-0"><b>9.9%</b> From previous period</p>
                                 </div>
                             </div>
@@ -259,13 +340,19 @@ function onLayoutChange()
             <div class="cal_box col-md-12 col-sm-12">
                 <div class="card-title mt-2">
                     <i class="fi-menu"></i> 통계
-                    <button class="btn float-right" type="button" data-toggle="collapse" data-target="#allLank" aria-expanded="true" aria-controls="allLank"><i class="dripicons-chevron-down"></i></button>
+                    <button class="btn float-right" type="button" data-toggle="collapse" data-target="#allLank" aria-expanded="true" aria-controls="allLank">
+                      <i class="dripicons-chevron-down"></i>
+                    </button>
                 </div>
             </div>
             <div class="dragbox_hover row collapse show" id="allLank">
                 <div class="col-xs-12 col-md-3">
-                    <!-- <h6 class="theme1 p-1 text-center">앱 통계</h6> -->
-                    <div id="app_stats">{{ appsCount }}</div>
+                  <div align="center">
+                    <button class="btn btn-custom btn-rounded btn-bordered waves-effect waves-light btn-xs" onclick="app_stats_daily()">일간</button>
+                    <button class="btn btn-info btn-rounded btn-bordered waves-effect waves-light btn-xs">주간</button>
+                    <button class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light btn-xs">월간</button>
+                  </div>
+                  <div id="app_stats"></div>
                 </div>
                 <div class="col-xs-12 col-md-3">
                     <!-- <h6 class="theme1 p-1 text-center">MA 통계</h6> -->
