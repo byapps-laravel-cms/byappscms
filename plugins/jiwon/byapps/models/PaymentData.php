@@ -30,4 +30,12 @@ class PaymentData extends Model
     public $fillable = [
       'receipt'
     ];
+
+    public $hasMany = [
+      'joins' => [
+        'Jiwon\Byapps\Models\AppsData',
+        'key' => 'app_name',
+        'otherKey' => 'app_name'
+      ]
+    ];
 }

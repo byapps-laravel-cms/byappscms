@@ -2,6 +2,9 @@ columns:
     idx:
         label: idx
         type: number
+    mem_id:
+        label: app_id
+        type: text
     app_id:
         label: app_id
         type: text
@@ -11,6 +14,11 @@ columns:
     app_process:
         label: app_process
         type: text
+    joins:
+        label: amount
+        type: number
+        relation: joins
+        select: amount
     service_type:
         label: service_type
         type: text

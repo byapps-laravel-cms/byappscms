@@ -74,74 +74,41 @@ function onStart()
 
 }
 
-/*
-function onGetChartData()
-{
-  // 앱 통계 * 조건이 틀린 것 같음. 검토필요
-  // 무료
-  $this['appsFree'] = PaymentData::where('process', '1')
-                      ->where('idx', '=', '')
-                      ->orWhere('amount', '=', '0')
-                      ->count();
-  // 유료
-  $this['appsPaid'] = PaymentData::where('process', '1')
-                      ->where('amount', '>', '0')
-                      ->count();
-
-  // MA 통계
-  // 무료 (조건 수정 필요)
-  $this['maFree'] = MaData::where('app_process', '3')
-                    ->where('end_time', '>', '0')
-                    ->count();
-
-  $result = array(
-      'circle1' => array(
-          array('무료', $this['appsFree']),
-          array('유료', $this['appsPaid']),
-          array('관리', 100),
-      ),
-      'circle2' => array(
-          array('무료', $this['maFree']),
-          array('유료', 152),
-          array('관리', 100),
-      ),
-      'bar' => array(
-          array('신규',223,200,100,120,250,210,102),
-          array('연장',524,200,180,190,280,230,109),
-          array('기타',85,300,100,120,110,111,130),
-      ),
-  );
-
-  return $result;
-}
-*/
-
+// 앱 통계
 function onGetAppChartData()
 {
-  // 앱 통계 * 조건 검토필요
-  // 무료
-  // 결제금액이 없는 경우, 관리업체가 아닌 경우(is_cherrypicker != Y), 서비스중지가 아님
-  $this['appsFree'] = PaymentData::where('pay_type', '!=', '1')
-                      ->where('amount', '=', '0')
-                      //->where('appProcess', '!=', '8')
-                      ->count();
-  // 유료
-  // 연장(pay_type = 1), 신규, 결제금액이 있는 경우, 서비스중지가 아님
-  $this['appsPaid'] = PaymentData::where('pay_type', '1')
-                      ->where('amount', '>', '0')
+  $this['appsTotal'] = Db::table('marutm1.BYAPPS_apps_data as A')
+                      ->where('A.app_process', '=', '7')
+                      ->selectRaw("'A.service_type' = 'lite' or 'A.end_time' > unix_timestamp()")
                       ->count();
 
-  // MA 통계
-  // 무료 (조건 수정 필요)
-  $this['maFree'] = MaData::where('app_process', '3')
-                    ->where('end_time', '>', '0')
-                    ->count();
+  // 유료
+  // 연장(pay_type = 1), 신규, 결제금액이 있는 경우, 서비스유효
+
+  $this['appsPaid'] = Db::table('marutm1.BYAPPS_apps_data as A')
+                      ->leftJoin('marutm1.BYAPPS_apps_payment_data as B', 'A.order_id', '=', 'B.order_id')
+                      ->where('A.app_process', '=', '7')
+                      ->selectRaw("'A.service_type' = 'lite' or 'A.end_time' > unix_timestamp()")
+                      //->selectRaw("'A.service_type' = 'lite' or (('A.end_time' - unix_timestamp())/86400) > '0'")
+                      ->where('B.process', '=', '1')
+                      ->where('B.amount', '>', '0')
+                      ->distinct()
+                      ->count('A.order_id');
+
+  // 무료
+  // 결제금액이 없는 경우, 관리업체가 아닌 경우(is_cherrypicker != Y), 서비스유효
+  $this['appsFree'] = $this['appsTotal'] - $this['appsPaid'];
+
+
+  // 관리
+  // 관리업체에 체크(is_cherrypicker = Y), 서비스유효
+  $this['appsCheck'] = 100;
 
   $result = array(
       'circle1' => array(
           array('무료', $this['appsFree']),
           array('유료', $this['appsPaid']),
-          array('관리', 100),
+          array('관리', $this['appsCheck']),
       )
   );
 
@@ -150,6 +117,12 @@ function onGetAppChartData()
 
 function onGetMaChartData()
 {
+  // MA 통계
+  // 무료 (조건 수정 필요)
+  $this['maFree'] = MaData::where('app_process', '3')
+                    ->where('end_time', '>', '0')
+                    ->count();
+
   $result = array(
     'circle2' => array(
         array('무료', $this['maFree']),
