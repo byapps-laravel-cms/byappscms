@@ -18,7 +18,6 @@ redirect = "login"
 
 use Jiwon\Byapps\Models\HomeLayout;
 use Jiwon\Byapps\Models\AppsData;
-use Jiwon\Byapps\Models\PaymentData;
 use Jiwon\Byapps\Models\AppsOrderData;
 use Jiwon\Byapps\Models\AppendixOrderData;
 use Jiwon\Byapps\Models\MaData;
@@ -71,7 +70,6 @@ function onStart()
     $this['updateCount'] = UpdateData::where('app_process', 1)->count();
     $this['nonmemberCount'] = QnaNonmember::where('process', 1)->count();
     $this['memberCount'] = QnaMember::where('process', 1)->count();
-
 }
 
 // 앱 통계
@@ -122,16 +120,42 @@ function onGetAppChartData()
 // MA 통계
 function onGetMaChartData()
 {
-  // 무료 (조건 수정 필요)
-  $this['maFree'] = MaData::where('app_process', '3')
-                    ->where('end_time', '>', '0')
-                    ->count();
+  // 전체
+  // original query: select count(*) from BYAPPS_MA_data where app_process='3' and ((end_time-".time().")/86400)>'0'";
+  $this['maTotal'] = Db::table('marutm1.BYAPPS_MA_data as A')
+                      ->where('A.app_process', '=', '3')
+                      ->selectRaw("'A.end_time' > unix_timestamp()")
+                      ->count();
+
+  // 유료
+  // original query: select count(*) from (select order_id from BYAPPS_MA_data where app_process='3' and ((end_time-".time().")/86400)>'0') a
+  //                 inner join (select order_id from BYAPPS_apps_payment_data where process='1' and amount>'0' group by order_id) b on a.order_id=b.order_id
+
+ // original query: select count(*) from (select order_id from BYAPPS_apps_data where app_process='7' and ( service_type='lite' or ((end_time-".time().")/86400)>'0') ) a
+ //                 inner join (select order_id from BYAPPS_apps_payment_data where process='1' and amount>'0' group by order_id) b on a.order_id=b.order_id
+
+  $this['maPaid'] = Db::table('marutm1.BYAPPS_MA_data as A')
+                      ->leftJoin('marutm1.BYAPPS_apps_payment_data as B', 'A.order_id', '=', 'B.order_id')
+                      ->where('A.app_process', '=', '3')
+                      ->selectRaw("'A.end_time' > unix_timestamp()")
+                      ->where('B.process', '=', '1')
+                      ->where('B.amount', '>', '0')
+                      ->distinct()
+                      ->count('A.order_id');
+
+  // 무료
+  $this['maFree'] = $this['maTotal'] - $this['maPaid'];
+
+  // 관리
+  // original query: 없음
+  //
+  $this['maCheck'] = 100;
 
   $result = array(
     'circle2' => array(
         array('무료', $this['maFree']),
-        array('유료', 152),
-        array('관리', 100),
+        array('유료', $this['maPaid']),
+        array('관리', $this['maCheck']),
     )
   );
 
@@ -163,7 +187,6 @@ function onGetDailyChartData()
 
   return $result;
 }
-
 
 function onLayoutChange()
 {

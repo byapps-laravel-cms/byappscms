@@ -68,9 +68,17 @@ function showMaChart (data) {
           "유료": "#e88d00",
           "관리": "#fcca8f"
       },
+      onover: function(d, i) {
+        console.log("onover", d, i)
+      }
     },
     donut: {
-      title: "MA 통계"
+      title: "MA 통계",
+      label: {
+        format: function(value, ratio, id) {
+          return value + "개 \n" + (ratio * 100).toFixed(1) + "%";
+        }
+      }
     },
     bindto: "#ma_stats"
     });
