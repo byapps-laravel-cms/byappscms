@@ -77,12 +77,16 @@ function onStart()
 // 앱 통계
 function onGetAppChartData()
 {
+  // 전체
+  // original query: select count(*) from BYAPPS_apps_data where app_process='7' and ( service_type='lite' or ((end_time-".time().")/86400)>'0' )
   $this['appsTotal'] = Db::table('marutm1.BYAPPS_apps_data as A')
                       ->where('A.app_process', '=', '7')
                       ->selectRaw("'A.service_type' = 'lite' or 'A.end_time' > unix_timestamp()")
                       ->count();
 
   // 유료
+  // original query: select count(*) from (select order_id from BYAPPS_apps_data where app_process='7' and ( service_type='lite' or ((end_time-".time().")/86400)>'0') ) a
+  //                 inner join (select order_id from BYAPPS_apps_payment_data where process='1' and amount>'0' group by order_id) b on a.order_id=b.order_id
   // 연장(pay_type = 1), 신규, 결제금액이 있는 경우, 서비스유효
 
   $this['appsPaid'] = Db::table('marutm1.BYAPPS_apps_data as A')
@@ -99,8 +103,8 @@ function onGetAppChartData()
   // 결제금액이 없는 경우, 관리업체가 아닌 경우(is_cherrypicker != Y), 서비스유효
   $this['appsFree'] = $this['appsTotal'] - $this['appsPaid'];
 
-
   // 관리
+  // original query: 없음
   // 관리업체에 체크(is_cherrypicker = Y), 서비스유효
   $this['appsCheck'] = 100;
 
@@ -115,9 +119,9 @@ function onGetAppChartData()
   return $result;
 }
 
+// MA 통계
 function onGetMaChartData()
 {
-  // MA 통계
   // 무료 (조건 수정 필요)
   $this['maFree'] = MaData::where('app_process', '3')
                     ->where('end_time', '>', '0')
