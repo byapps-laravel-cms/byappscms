@@ -175,15 +175,15 @@ function onStart()
         <!-- sortable -->
          <script>
          $(function () {
-                 $("#items").sortable({
-                         start: function (event, ui) {
-                                 ui.item.toggleClass("highlight");
-                         },
-                         stop: function (event, ui) {
-                                 ui.item.toggleClass("highlight");
-                         }
-                 });
-                 $("#items").disableSelection();
+             $("#items").sortable({
+                 start: function (event, ui) {
+                      ui.item.toggleClass("highlight");
+                 },
+                 stop: function (event, ui) {
+                      ui.item.toggleClass("highlight");
+                 }
+             });
+             $("#items").disableSelection();
          });
          </script>
 
