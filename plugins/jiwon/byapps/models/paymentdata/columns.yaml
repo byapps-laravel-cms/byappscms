@@ -9,6 +9,7 @@ columns:
     order_id:
         label: order_id
         type: text
+        searchable: true
     recom_id:
         label: recom_id
         type: text
@@ -16,6 +17,11 @@ columns:
         label: process
         type: number
         select: 'CASE process WHEN 1 THEN 1 WHEN 3 THEN "결제취소" END'
+    joins:
+        label: app_process
+        type: number
+        relation: joins
+        select: app_process
     pay_type:
         label: pay_type
         type: number

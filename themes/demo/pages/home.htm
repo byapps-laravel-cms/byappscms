@@ -18,7 +18,6 @@ redirect = "login"
 
 use Jiwon\Byapps\Models\HomeLayout;
 use Jiwon\Byapps\Models\AppsData;
-use Jiwon\Byapps\Models\PaymentData;
 use Jiwon\Byapps\Models\AppsOrderData;
 use Jiwon\Byapps\Models\AppendixOrderData;
 use Jiwon\Byapps\Models\MaData;
@@ -34,15 +33,17 @@ function onStart()
         ->select('layout_name')
         ->orderBy('sequence')
         ->get();
-    if(count($records) == 0){
+
+    if (count($records) == 0){
         $this['records'] = array('layout1','layout2','layout3');
-    }else{
+    } else {
         $temp = array();
         foreach($records as $record){
             $temp[] = $record->layout_name;
         }
         $this['records'] = $temp;
     }
+
     $this['appsData'] = AppsData::inRandomOrder()
         ->select('app_name')
         ->addSelect('app_icon')
@@ -69,48 +70,123 @@ function onStart()
     $this['updateCount'] = UpdateData::where('app_process', 1)->count();
     $this['nonmemberCount'] = QnaNonmember::where('process', 1)->count();
     $this['memberCount'] = QnaMember::where('process', 1)->count();
+}
 
-
-
- }
-function onGetChartData()
+// 앱 통계
+function onGetAppChartData()
 {
-  // 앱 통계 * 조건이 틀린 것 같음. 검토필요
-  // 무료
-  $this['appsFree'] = PaymentData::where('process', '1')
-                      ->where('idx', '=', '')
-                      ->orWhere('amount', '=', '0')
+  // 전체
+  // original query: select count(*) from BYAPPS_apps_data where app_process='7' and ( service_type='lite' or ((end_time-".time().")/86400)>'0' )
+  $this['appsTotal'] = Db::table('marutm1.BYAPPS_apps_data as A')
+                      ->where('A.app_process', '=', '7')
+                      ->selectRaw("'A.service_type' = 'lite' or 'A.end_time' > unix_timestamp()")
                       ->count();
+
   // 유료
-  $this['appsPaid'] = PaymentData::where('process', '1')
-                      ->where('amount', '>', '0')
+  // original query: select count(*) from (select order_id from BYAPPS_apps_data where app_process='7' and ( service_type='lite' or ((end_time-".time().")/86400)>'0') ) a
+  //                 inner join (select order_id from BYAPPS_apps_payment_data where process='1' and amount>'0' group by order_id) b on a.order_id=b.order_id
+  // 연장(pay_type = 1), 신규, 결제금액이 있는 경우, 서비스유효
+
+  $this['appsPaid'] = Db::table('marutm1.BYAPPS_apps_data as A')
+                      ->leftJoin('marutm1.BYAPPS_apps_payment_data as B', 'A.order_id', '=', 'B.order_id')
+                      ->where('A.app_process', '=', '7')
+                      ->selectRaw("'A.service_type' = 'lite' or 'A.end_time' > unix_timestamp()")
+                      //->selectRaw("'A.service_type' = 'lite' or (('A.end_time' - unix_timestamp())/86400) > '0'")
+                      ->where('B.process', '=', '1')
+                      ->where('B.amount', '>', '0')
+                      ->distinct()
+                      ->count('A.order_id');
+
+  // 무료
+  // 결제금액이 없는 경우, 관리업체가 아닌 경우(is_cherrypicker != Y), 서비스유효
+  $this['appsFree'] = $this['appsTotal'] - $this['appsPaid'];
+
+  // 관리
+  // original query: 없음
+  // 관리업체에 체크(is_cherrypicker = Y), 서비스유효
+  $this['appsCheck'] = 100;
+
+  $result = array(
+      'circle1' => array(
+          array('무료', $this['appsFree']),
+          array('유료', $this['appsPaid']),
+          array('관리', $this['appsCheck']),
+      )
+  );
+
+  return $result;
+}
+
+// MA 통계
+function onGetMaChartData()
+{
+  // 전체
+  // original query: select count(*) from BYAPPS_MA_data where app_process='3' and ((end_time-".time().")/86400)>'0'";
+  $this['maTotal'] = Db::table('marutm1.BYAPPS_MA_data as A')
+                      ->where('A.app_process', '=', '3')
+                      ->selectRaw("'A.end_time' > unix_timestamp()")
                       ->count();
 
-  // MA 통계
-  // 무료 (조건 수정 필요)
-  $this['maFree'] = MaData::where('app_process', '3')
-                    ->where('end_time', '>', '0')
-                    ->count();
+  // 유료
+  // original query: select count(*) from (select order_id from BYAPPS_MA_data where app_process='3' and ((end_time-".time().")/86400)>'0') a
+  //                 inner join (select order_id from BYAPPS_apps_payment_data where process='1' and amount>'0' group by order_id) b on a.order_id=b.order_id
 
-    $result = array(
-        'circle1' => array(
-            array('무료', $this['appsFree']),
-            array('유료', $this['appsPaid']),
-            array('관리', 100),
-        ),
-        'circle2' => array(
-            array('무료', $this['maFree']),
-            array('유료', 152),
-            array('관리', 100),
-        ),
-        'bar' => array(
-            array('신규',223,200,100,120,250,210,102),
-            array('연장',524,200,180,190,280,230,109),
-            array('기타',85,300,100,120,110,111,130),
-        ),
-    );
+ // original query: select count(*) from (select order_id from BYAPPS_apps_data where app_process='7' and ( service_type='lite' or ((end_time-".time().")/86400)>'0') ) a
+ //                 inner join (select order_id from BYAPPS_apps_payment_data where process='1' and amount>'0' group by order_id) b on a.order_id=b.order_id
 
-    return $result;
+  $this['maPaid'] = Db::table('marutm1.BYAPPS_MA_data as A')
+                      ->leftJoin('marutm1.BYAPPS_apps_payment_data as B', 'A.order_id', '=', 'B.order_id')
+                      ->where('A.app_process', '=', '3')
+                      ->selectRaw("'A.end_time' > unix_timestamp()")
+                      ->where('B.process', '=', '1')
+                      ->where('B.amount', '>', '0')
+                      ->distinct()
+                      ->count('A.order_id');
+
+  // 무료
+  $this['maFree'] = $this['maTotal'] - $this['maPaid'];
+
+  // 관리
+  // original query: 없음
+  //
+  $this['maCheck'] = 100;
+
+  $result = array(
+    'circle2' => array(
+        array('무료', $this['maFree']),
+        array('유료', $this['maPaid']),
+        array('관리', $this['maCheck']),
+    )
+  );
+
+  return $result;
+}
+
+// 매출 통계
+function onGetSalesChartData()
+{
+  $result = array(
+    'bar' => array(
+        array('신규',223,200,100,120,250,210,102),
+        array('연장',524,200,180,190,280,230,109),
+        array('기타',85,300,100,120,110,111,130),
+    )
+  );
+
+  return $result;
+}
+
+function onGetDailyChartData()
+{
+  $result = array(
+      'circle1' => array(
+          array('무료', 300),
+          array('유료', 200),
+          array('관리', 100),
+      )
+  );
+
+  return $result;
 }
 
 function onLayoutChange()
@@ -141,8 +217,6 @@ function onLayoutChange()
 {% elseif user %}
 
 
-
-
 <div class="sortable">
   {% for record in records %}
       {% if record == 'layout1' %}
@@ -150,13 +224,16 @@ function onLayoutChange()
             <div class="cal_box col-md-12 col-sm-12">
                 <div class="card-title mt-2">
                     <i class="fi-menu"></i> 주문요청현황
-                    <button class="btn float-right" type="button" data-toggle="collapse" data-target="#salesList" aria-expanded="true" aria-controls="salesList"><i class="dripicons-chevron-down"></i></button>
+                    <button class="btn float-right" type="button" data-toggle="collapse" data-target="#salesList" aria-expanded="true" aria-controls="salesList">
+                      <i class="dripicons-chevron-down"></i>
+                    </button>
                 </div>
             </div>
 
 
-            <div class="row dragbox collapse show" id="salesList">
-                    <div class="col-xl-3 col-md-6">
+            <div class="row dragbox collapse show" id="items">
+
+                    <div class="col-xl-3 col-md-6 list">
                         <div class="card widget-box-two widget-two-purple">
                             <div class="card-body">
                                 <i class="mdi mdi-chart-line widget-two-icon"></i>
@@ -175,8 +252,8 @@ function onLayoutChange()
                     </div>
 
 
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card widget-box-two widget-two-info">
+                    <div class="col-xl-3 col-md-6 list">
+                        <div class="card widget-box-two widget-two-info list">
                             <div class="card-body">
                                 <i class="mdi mdi-access-point-network widget-two-icon"></i>
                                 <div class="wigdet-two-content">
@@ -192,7 +269,7 @@ function onLayoutChange()
                         </div>
                     </div><!-- end col -->
 
-                        <div class="col-xl-3 col-md-6">
+                      <div class="col-xl-3 col-md-6 list">
                         <div class="card widget-box-two widget-two-pink">
                             <div class="card-body">
                                 <i class="mdi mdi-timetable widget-two-icon"></i>
@@ -209,13 +286,17 @@ function onLayoutChange()
                         </div>
                     </div><!-- end col -->
 
-                    <div class="col-xl-3 col-md-6">
+                    <div class="col-xl-3 col-md-6 list">
                         <div class="card widget-box-two widget-two-success">
                             <div class="card-body">
                                 <i class="mdi mdi-cloud-download widget-two-icon"></i>
                                 <div class="wigdet-two-content">
-                                    <p class="m-0 text-white text-uppercase font-600 font-secondary text-overflow" title="New Downloads">New Downloads</p>
-                                    <h2 class="text-white"><span data-plugin="counterup">854</span> <small><i class="mdi mdi-arrow-up text-white"></i></small></h2>
+                                    <p class="m-0 text-white text-uppercase font-600 font-secondary text-overflow" title="New Downloads">
+                                      New Downloads
+                                    </p>
+                                    <h2 class="text-white"><span data-plugin="counterup">854</span>
+                                      <small><i class="mdi mdi-arrow-up text-white"></i></small>
+                                    </h2>
                                     <p class="text-white m-0"><b>9.9%</b> From previous period</p>
                                 </div>
                             </div>
@@ -259,16 +340,28 @@ function onLayoutChange()
             <div class="cal_box col-md-12 col-sm-12">
                 <div class="card-title mt-2">
                     <i class="fi-menu"></i> 통계
-                    <button class="btn float-right" type="button" data-toggle="collapse" data-target="#allLank" aria-expanded="true" aria-controls="allLank"><i class="dripicons-chevron-down"></i></button>
+                    <button class="btn float-right" type="button" data-toggle="collapse" data-target="#allLank" aria-expanded="true" aria-controls="allLank">
+                      <i class="dripicons-chevron-down"></i>
+                    </button>
                 </div>
             </div>
             <div class="dragbox_hover row collapse show" id="allLank">
                 <div class="col-xs-12 col-md-3">
-                    <!-- <h6 class="theme1 p-1 text-center">앱 통계</h6> -->
-                    <div id="app_stats">{{ appsCount }}</div>
+                  <div align="center">
+                    <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs" onclick="app_stats_daily()">일간</button>
+                    <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs">주간</button>
+                    <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs">월간</button>
+                    <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs" onclick="app_stats_total()">전체</button>
+                  </div>
+                  <div id="app_stats"></div>
                 </div>
                 <div class="col-xs-12 col-md-3">
-                    <!-- <h6 class="theme1 p-1 text-center">MA 통계</h6> -->
+                    <div align="center">
+                      <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs" onclick="app_stats_daily()">일간</button>
+                      <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs">주간</button>
+                      <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs">월간</button>
+                      <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs">전체</button>
+                    </div>
                     <div id="ma_stats"></div>
                 </div>
                 <div class="col-xs-12 col-md-6">
@@ -387,7 +480,7 @@ function onLayoutChange()
         </li>
       {% endif %}
   {% endfor %}
-</div>
+  </div>
 
 <!-- Pages -->
 

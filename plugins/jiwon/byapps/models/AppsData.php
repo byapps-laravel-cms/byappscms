@@ -29,4 +29,12 @@ class AppsData extends Model
      */
     public $rules = [
     ];
+
+    public $hasMany = [
+      'joins' => [
+        'Jiwon\Byapps\Models\PaymentData',
+        'key' => 'app_name',
+        'otherKey' => 'app_name'
+      ]
+    ];
 }
