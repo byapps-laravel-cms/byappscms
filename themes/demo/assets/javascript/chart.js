@@ -25,6 +25,14 @@ function app_stats_daily() {
   });
 }
 
+function app_stats_total() {
+  $.request('onGetAppChartData', {
+    success: function(data) {
+      showAppChart(data);
+    }
+  });
+}
+
 function showAppChart (data) {
     var chart = bb.generate({
     data: {
@@ -50,7 +58,7 @@ function showAppChart (data) {
       title: "앱 통계",
       label: {
         format: function(value, ratio, id) {
-          return value + "개 \n" + (ratio * 100).toFixed(1) + "%";
+          return value + "개\n" + (ratio * 100).toFixed(1) + "%";
         }
       }
     },
