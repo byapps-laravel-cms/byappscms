@@ -215,7 +215,19 @@ function onLayoutChange()
 <h2><center>로그인하는페이지</center></h2>
 {% elseif user %}
 
+<style>
+#grid-snap {
+  width: 40%;
+  background-color: #29e;
+  color: #fff;
+  font-size: 1.2em;
+  border-radius: 4px;
+  padding: 2%;
+  margin: 5%;
+  touch-action: none;
+}
 
+</style>
 
 
 <div class="sortable">
@@ -232,8 +244,11 @@ function onLayoutChange()
             </div>
 
 
-            <div class="row dragbox collapse show" id="salesList">
-                    <div class="col-xl-3 col-md-6">
+            <div class="row dragbox collapse show" id="items">
+
+
+
+                    <div class="col-xl-3 col-md-6 list">
                         <div class="card widget-box-two widget-two-purple">
                             <div class="card-body">
                                 <i class="mdi mdi-chart-line widget-two-icon"></i>
@@ -252,8 +267,8 @@ function onLayoutChange()
                     </div>
 
 
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card widget-box-two widget-two-info">
+                    <div class="col-xl-3 col-md-6 list">
+                        <div class="card widget-box-two widget-two-info list">
                             <div class="card-body">
                                 <i class="mdi mdi-access-point-network widget-two-icon"></i>
                                 <div class="wigdet-two-content">
@@ -269,7 +284,7 @@ function onLayoutChange()
                         </div>
                     </div><!-- end col -->
 
-                        <div class="col-xl-3 col-md-6">
+                      <div class="col-xl-3 col-md-6 list">
                         <div class="card widget-box-two widget-two-pink">
                             <div class="card-body">
                                 <i class="mdi mdi-timetable widget-two-icon"></i>
@@ -286,7 +301,7 @@ function onLayoutChange()
                         </div>
                     </div><!-- end col -->
 
-                    <div class="col-xl-3 col-md-6">
+                    <div class="col-xl-3 col-md-6 list">
                         <div class="card widget-box-two widget-two-success">
                             <div class="card-body">
                                 <i class="mdi mdi-cloud-download widget-two-icon"></i>
@@ -348,14 +363,20 @@ function onLayoutChange()
             <div class="dragbox_hover row collapse show" id="allLank">
                 <div class="col-xs-12 col-md-3">
                   <div align="center">
-                    <button class="btn btn-custom btn-rounded btn-bordered waves-effect waves-light btn-xs" onclick="app_stats_daily()">일간</button>
-                    <button class="btn btn-info btn-rounded btn-bordered waves-effect waves-light btn-xs">주간</button>
-                    <button class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light btn-xs">월간</button>
+                    <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs" onclick="app_stats_daily()">일간</button>
+                    <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs">주간</button>
+                    <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs">월간</button>
+                    <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs" onclick="app_stats_total()">전체</button>
                   </div>
                   <div id="app_stats"></div>
                 </div>
                 <div class="col-xs-12 col-md-3">
-                    <!-- <h6 class="theme1 p-1 text-center">MA 통계</h6> -->
+                    <div align="center">
+                      <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs" onclick="app_stats_daily()">일간</button>
+                      <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs">주간</button>
+                      <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs">월간</button>
+                      <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs">전체</button>
+                    </div>
                     <div id="ma_stats"></div>
                 </div>
                 <div class="col-xs-12 col-md-6">
@@ -474,7 +495,7 @@ function onLayoutChange()
         </li>
       {% endif %}
   {% endfor %}
-</div>
+  </div>
 
 <!-- Pages -->
 
