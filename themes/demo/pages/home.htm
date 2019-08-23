@@ -63,11 +63,18 @@ function onStart()
     /*
     /* 주문(앱)접수 */
     $this['appsOrderCount'] = AppsOrderData::where('app_process', 1)->count();
+    // $this['appsOrderCount'] = AppsOrderData::where('app_process', 1)->where('reg_time', '>=', time())->count();
+
     /* 부가서비스 접수 */
     $this['appendixOrderCount'] = AppendixOrderData::where('app_process', 1)->count();
+    // $this['appendixOrderCount'] = AppendixOrderData::where('app_process', 1)->where('reg_time', '>=', time())->count();
 
-    $this['maCount'] = MaData::where('app_process', 1)->count();
+    /* 업데이트 접수 */
+    // original query: select sum(case when update_process='1' then 1 else 0 end) order_no, sum(case when update_process='2' then 1 else 0 end) confirm_no,  sum(case when update_process='3' then 1 else 0 end) app_no
+    // from BYAPPS2015_apps_update_data where (update_process='1' or update_process='2' or update_process='3') and reg_time>='".$search_time."'
     $this['updateCount'] = UpdateData::where('app_process', 1)->count();
+    // $this['updateCount'] = UpdateData::where('app_process', 1)->where('reg_time', '>=', time())->count();
+
     $this['nonmemberCount'] = QnaNonmember::where('process', 1)->count();
     $this['memberCount'] = QnaMember::where('process', 1)->count();
 }
