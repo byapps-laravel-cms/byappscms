@@ -17,14 +17,16 @@ $.request('onGetSalesChartData', {
   }
 });
 
+// 앱 일간
 function app_stats_daily() {
-  $.request('onGetDailyChartData', {
+  $.request('onGetAppDailyChartData', {
     success: function(data) {
       showAppChart(data);
     }
   });
 }
 
+// 앱 전체
 function app_stats_total() {
   $.request('onGetAppChartData', {
     success: function(data) {
@@ -32,6 +34,25 @@ function app_stats_total() {
     }
   });
 }
+
+// MA 일간
+function ma_stats_daily() {
+  $.request('onGetMaDailyChartData', {
+    success: function(data) {
+      showMaChart(data);
+    }
+  });
+}
+
+// MA 전체
+function ma_stats_total() {
+  $.request('onGetMaChartData', {
+    success: function(data) {
+      showMaChart(data);
+    }
+  });
+}
+
 
 function showAppChart (data) {
     var chart = bb.generate({
@@ -94,10 +115,14 @@ function showMaChart (data) {
 
 function showSalesChart (data) {
   var chart = bb.generate({
+    title: {
+      text: "매출 통계"
+    },
     data: {
         columns: data.bar,
         type: "bar",
         colors: {
+        "전체": "#97215c",
         "신규": "#fca1b0",
         "연장": "#f9637c",
         "기타": "#d7215c"
@@ -105,9 +130,16 @@ function showSalesChart (data) {
     },
     bar: {
         width: {
-        ratio: 0.8
+          ratio: 0.8
         }
     },
+    tooltip: {
+      format: {
+        title: function(d) {
+  		      return 'Data ' + d;
+          },
+        }
+      },
     bindto: "#sale_stats"
     });
 }

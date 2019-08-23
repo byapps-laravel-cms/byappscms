@@ -77,10 +77,16 @@ function onGetAppChartData()
 {
   // 전체
   // original query: select count(*) from BYAPPS_apps_data where app_process='7' and ( service_type='lite' or ((end_time-".time().")/86400)>'0' )
-  $this['appsTotal'] = Db::table('marutm1.BYAPPS_apps_data as A')
-                      ->where('A.app_process', '=', '7')
-                      ->selectRaw("'A.service_type' = 'lite' or 'A.end_time' > unix_timestamp()")
+  // select count(*) from BYAPPS_apps_data where app_process='7' and ( service_type='lite' or (end_time-unix_timestamp())>'0' )
+  // select count(*) from BYAPPS_apps_data where app_process='7' and ( service_type='lite' or (end_time > unix_timestamp()))
+  $this['appsTotal'] = Db::table('marutm1.BYAPPS_apps_data')
+                      ->where('app_process', '=', '7')
+                      ->where(function($query){
+                        $query->where('service_type', '=', 'lite')->orWhere('end_time', '>', time());
+                      })
                       ->count();
+
+  //echo $this['appsTotal'];
 
   // 유료
   // original query: select count(*) from (select order_id from BYAPPS_apps_data where app_process='7' and ( service_type='lite' or ((end_time-".time().")/86400)>'0') ) a
@@ -90,8 +96,10 @@ function onGetAppChartData()
   $this['appsPaid'] = Db::table('marutm1.BYAPPS_apps_data as A')
                       ->leftJoin('marutm1.BYAPPS_apps_payment_data as B', 'A.order_id', '=', 'B.order_id')
                       ->where('A.app_process', '=', '7')
-                      ->selectRaw("'A.service_type' = 'lite' or 'A.end_time' > unix_timestamp()")
-                      //->selectRaw("'A.service_type' = 'lite' or (('A.end_time' - unix_timestamp())/86400) > '0'")
+                      //->selectRaw("'A.service_type' = 'lite' or 'A.end_time' > unix_timestamp()")
+                      ->where(function($query){
+                        $query->where('A.service_type', '=', 'lite')->orWhere('A.end_time', '>', time());
+                      })
                       ->where('B.process', '=', '1')
                       ->where('B.amount', '>', '0')
                       ->distinct()
@@ -122,22 +130,20 @@ function onGetMaChartData()
 {
   // 전체
   // original query: select count(*) from BYAPPS_MA_data where app_process='3' and ((end_time-".time().")/86400)>'0'";
-  $this['maTotal'] = Db::table('marutm1.BYAPPS_MA_data as A')
-                      ->where('A.app_process', '=', '3')
-                      ->selectRaw("'A.end_time' > unix_timestamp()")
+  $this['maTotal'] = Db::table('marutm1.BYAPPS_MA_data')
+                      ->where('app_process', '=', '3')
+                      ->where('end_time', '>', time())
                       ->count();
 
   // 유료
   // original query: select count(*) from (select order_id from BYAPPS_MA_data where app_process='3' and ((end_time-".time().")/86400)>'0') a
   //                 inner join (select order_id from BYAPPS_apps_payment_data where process='1' and amount>'0' group by order_id) b on a.order_id=b.order_id
-
- // original query: select count(*) from (select order_id from BYAPPS_apps_data where app_process='7' and ( service_type='lite' or ((end_time-".time().")/86400)>'0') ) a
- //                 inner join (select order_id from BYAPPS_apps_payment_data where process='1' and amount>'0' group by order_id) b on a.order_id=b.order_id
+  // select count(*) from (select order_id from BYAPPS_MA_data where app_process='3' and ((end_time-unix_timestamp())/86400)>'0') a inner join (select order_id from BYAPPS_apps_payment_data where process='1' and amount>'0' group by order_id) b on a.order_id=b.order_id
 
   $this['maPaid'] = Db::table('marutm1.BYAPPS_MA_data as A')
                       ->leftJoin('marutm1.BYAPPS_apps_payment_data as B', 'A.order_id', '=', 'B.order_id')
                       ->where('A.app_process', '=', '3')
-                      ->selectRaw("'A.end_time' > unix_timestamp()")
+                      ->where('A.end_time', '>', time())
                       ->where('B.process', '=', '1')
                       ->where('B.amount', '>', '0')
                       ->distinct()
@@ -149,7 +155,7 @@ function onGetMaChartData()
   // 관리
   // original query: 없음
   //
-  $this['maCheck'] = 100;
+  $this['maCheck'] = 10;
 
   $result = array(
     'circle2' => array(
@@ -165,18 +171,52 @@ function onGetMaChartData()
 // 매출 통계
 function onGetSalesChartData()
 {
+  // 전체
+  // origianl query: SELECT sum(amount) as total, sum(case when pay_type='0' then amount end) as newt, sum(case when pay_type='1' then amount end) as con
+  //                 FROM BYAPPS_apps_payment_data where process=1 and (reg_time between '".get_mktime(date("Y-m")."-01-0-0-0")."' and '".get_mktime(date("Y-m")."-31-23-59-59")."')
+  //                 order by idx asc
+  // SELECT sum(amount) as total, sum(case when pay_type='0' then amount end) as newt, sum(case when pay_type='1' then amount end) as con
+  // FROM BYAPPS_apps_payment_data where process=1 and (reg_time between unix_timestamp('2019-03-01 00:00:00') and unix_timestamp('2019-03-31 23:59:59')) order by idx asc
+
+  $from = mktime(0, 0, 0, date("03"), 01, date("Y"));
+  $to = mktime(23, 59, 59, date("03"), 31, date("Y"));
+
+  $this['salesTotal'] = Db::table('marutm1.BYAPPS_apps_payment_data')
+                        ->where('process', '=', '1')
+                        ->whereBetween('reg_time', [$from, $to])
+                        ->orderBy('idx', 'asc')
+                        ->sum('amount');
+
+  // 신규
+  $this['salesNew'] = Db::table('marutm1.BYAPPS_apps_payment_data')
+                        ->where('process', '=', '1')
+                        ->whereBetween('reg_time', [$from, $to])
+                        ->orderBy('idx', 'asc')
+                        ->sum(DB::Raw("case when pay_type='0' then amount end"));
+
+  // 연장
+  $this['salesCon'] = Db::table('marutm1.BYAPPS_apps_payment_data')
+                        ->where('process', '=', '1')
+                        ->whereBetween('reg_time', [$from, $to])
+                        ->orderBy('idx', 'asc')
+                        ->sum(DB::Raw("case when pay_type='1' then amount end"));
+
+  $this['salesEtc'] = $this['salesTotal'] - ($this['salesNew'] + $this['salesCon']);
+  info($this['salesCon']);
+
   $result = array(
     'bar' => array(
-        array('신규',223,200,100,120,250,210,102),
-        array('연장',524,200,180,190,280,230,109),
-        array('기타',85,300,100,120,110,111,130),
+        array('전체', $this['salesTotal']),
+        array('신규', $this['salesNew']),
+        array('연장', $this['salesCon']),
+        array('기타', $this['salesEtc']),
     )
   );
 
   return $result;
 }
 
-function onGetDailyChartData()
+function onGetAppDailyChartData()
 {
   $result = array(
       'circle1' => array(
@@ -184,6 +224,19 @@ function onGetDailyChartData()
           array('유료', 200),
           array('관리', 100),
       )
+  );
+
+  return $result;
+}
+
+function onGetMaDailyChartData()
+{
+  $result = array(
+    'circle2' => array(
+        array('무료', 180),
+        array('유료', 270),
+        array('관리', 100),
+    )
   );
 
   return $result;
@@ -357,15 +410,15 @@ function onLayoutChange()
                 </div>
                 <div class="col-xs-12 col-md-3">
                     <div align="center">
-                      <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs" onclick="app_stats_daily()">일간</button>
+                      <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs" onclick="ma_stats_daily()">일간</button>
                       <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs">주간</button>
                       <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs">월간</button>
-                      <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs">전체</button>
+                      <button class="btn btn-light btn-rounded btn-bordered waves-effect waves-light btn-xs" onclick="ma_stats_total()">전체</button>
                     </div>
                     <div id="ma_stats"></div>
                 </div>
                 <div class="col-xs-12 col-md-6">
-                    <h6 class="theme1 p-1 text-center">매출통계</h6>
+                    <!-- <h6 class="theme1 p-1 text-center">매출통계</h6> -->
                     <div id="sale_stats" data-toggle="modal" data-target="#lankDetail"></div>
                 </div>
             </div>
