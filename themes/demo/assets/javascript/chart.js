@@ -133,6 +133,13 @@ function showSalesChart (data) {
           ratio: 0.8
         }
     },
+    tooltip: {
+      format: {
+        title: function(d) {
+  		      return 'Data ' + d;
+          },
+        }
+      },
     bindto: "#sale_stats"
     });
 }
