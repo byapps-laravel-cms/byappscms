@@ -66,7 +66,6 @@ class Plugin extends PluginBase
             return [
                 'provider' => '앱 목록', // The badge to display for this result
                 'results'  =>  $results1,
-
             ];
           });
         }
@@ -74,11 +73,10 @@ class Plugin extends PluginBase
         public function search2()
         {
             \Event::listen('offline.sitesearch.query', function ($query) {
- info('searching search2');
+ //info('searching search2');
 
             // Search your plugin's contents
-            $items2 = Models\MAService::where('app_name', 'like', "%${query}%")
-                                      ->get();
+            $items2 = Models\AppendixOrderData::where('app_name', 'like', "%${query}%")->get();
   //  dd($items2);
             // Now build a results array
             $results2 = $items2->map(function ($item) use ($query) {
