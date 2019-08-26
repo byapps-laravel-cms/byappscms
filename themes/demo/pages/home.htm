@@ -44,12 +44,16 @@ function onStart()
         $this['records'] = $temp;
     }
 
-    $this['appsData'] = AppsData::inRandomOrder()
-        ->select('app_name')
-        ->addSelect('app_icon')
-        ->addSelect('end_time')
-        ->limit(40)
-        ->get();
+    // iOS 계정만료 예정업체
+    // original query: select app_id,app_name,ios_dev_exp from BYAPPS_apps_data where ios_dev_exp!='' and ios_dev_exp<'".$next_month."' order by ios_dev_exp
+    //  select app_id,app_name,ios_dev_exp from BYAPPS_apps_data where ios_dev_exp!='' and ios_dev_exp < '2019-08-01' order by ios_dev_exp
+
+    $next_month=date("Y-m-d",strtotime("now +30 day"));
+    $this['appsData'] = AppsData::select('app_name', 'app_id', 'ios_dev_exp')
+                        ->where('ios_dev_exp', '!=', '')
+                        ->where('ios_dev_exp', '<', $next_month)
+                        ->orderBy('ios_dev_exp')
+                        ->get();
 
     $this['func'] = new Class {
         public function dateFormat($val)
@@ -462,7 +466,9 @@ function onLayoutChange()
             <div class="cal_box col-md-12 col-sm-12">
                 <div class="card-title mt-2">
                     <i class="fi-menu"></i> 만료예정업체
-                    <button class="btn float-right" type="button" data-toggle="collapse" data-target="#endList" aria-expanded="true" aria-controls="endList"><i class="dripicons-chevron-down"></i></button>
+                    <button class="btn float-right" type="button" data-toggle="collapse" data-target="#endList" aria-expanded="true" aria-controls="endList">
+                      <i class="dripicons-chevron-down"></i>
+                    </button>
                 </div>
             </div>
 
@@ -492,7 +498,7 @@ function onLayoutChange()
                                 <div class="mx-0 p-2 text-truncate" style="width:8rem;vertical-align:middle;">
                                     {{ appData.app_name }}
                                     <br>
-                                    {{ func.dateFormat(appData.end_time) }}
+                                    {{ appData.ios_dev_exp }}
                                 </div>
                                 </div>
                             </div>
@@ -506,7 +512,7 @@ function onLayoutChange()
                             <div class="col-md-8 mx-0 float-right pt-4">
                                 {{ appData.app_name }}
                                 <br>
-                                {{ func.dateFormat(appData.end_time) }}
+                                {{ appData.ios_dev_exp }}
                             </div>
                         </div>
                     {% endfor %}
@@ -518,7 +524,7 @@ function onLayoutChange()
                             <div class="col-md-8 mx-0 float-right pt-4">
                                 {{ appData.app_name }}
                                 <br>
-                                {{ func.dateFormat(appData.end_time) }}
+                                {{ appData.ios_dev_exp }}
                             </div>
                         </div>
                     {% endfor %}
