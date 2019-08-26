@@ -13,9 +13,12 @@ allowedUserGroups[] = "admin_level_3"
 allowedUserGroups[] = "admin_level_2"
 allowedUserGroups[] = "admin_level_1"
 redirect = "login"
+
+[chartData]
+
+[expiredData]
 ==
 <?php
-
 use Jiwon\Byapps\Models\HomeLayout;
 use Jiwon\Byapps\Models\AppsData;
 use Jiwon\Byapps\Models\AppsOrderData;
@@ -44,13 +47,6 @@ function onStart()
         $this['records'] = $temp;
     }
 
-    $this['appsData'] = AppsData::inRandomOrder()
-        ->select('app_name')
-        ->addSelect('app_icon')
-        ->addSelect('end_time')
-        ->limit(40)
-        ->get();
-
     $this['func'] = new Class {
         public function dateFormat($val)
         {
@@ -63,183 +59,20 @@ function onStart()
     /*
     /* 주문(앱)접수 */
     $this['appsOrderCount'] = AppsOrderData::where('app_process', 1)->count();
+    // $this['appsOrderCount'] = AppsOrderData::where('app_process', 1)->where('reg_time', '>=', time())->count();
+
     /* 부가서비스 접수 */
     $this['appendixOrderCount'] = AppendixOrderData::where('app_process', 1)->count();
+    // $this['appendixOrderCount'] = AppendixOrderData::where('app_process', 1)->where('reg_time', '>=', time())->count();
 
-    $this['maCount'] = MaData::where('app_process', 1)->count();
+    /* 업데이트 접수 */
+    // original query: select sum(case when update_process='1' then 1 else 0 end) order_no, sum(case when update_process='2' then 1 else 0 end) confirm_no,  sum(case when update_process='3' then 1 else 0 end) app_no
+    // from BYAPPS2015_apps_update_data where (update_process='1' or update_process='2' or update_process='3') and reg_time>='".$search_time."'
     $this['updateCount'] = UpdateData::where('app_process', 1)->count();
+    // $this['updateCount'] = UpdateData::where('app_process', 1)->where('reg_time', '>=', time())->count();
+
     $this['nonmemberCount'] = QnaNonmember::where('process', 1)->count();
     $this['memberCount'] = QnaMember::where('process', 1)->count();
-}
-
-// 앱 통계
-function onGetAppChartData()
-{
-  // 전체
-  // original query: select count(*) from BYAPPS_apps_data where app_process='7' and ( service_type='lite' or ((end_time-".time().")/86400)>'0' )
-  // select count(*) from BYAPPS_apps_data where app_process='7' and ( service_type='lite' or (end_time-unix_timestamp())>'0' )
-  // select count(*) from BYAPPS_apps_data where app_process='7' and ( service_type='lite' or (end_time > unix_timestamp()))
-  $this['appsTotal'] = Db::table('marutm1.BYAPPS_apps_data')
-                      ->where('app_process', '=', '7')
-                      ->where(function($query){
-                        $query->where('service_type', '=', 'lite')->orWhere('end_time', '>', time());
-                      })
-                      ->count();
-
-  //echo $this['appsTotal'];
-
-  // 유료
-  // original query: select count(*) from (select order_id from BYAPPS_apps_data where app_process='7' and ( service_type='lite' or ((end_time-".time().")/86400)>'0') ) a
-  //                 inner join (select order_id from BYAPPS_apps_payment_data where process='1' and amount>'0' group by order_id) b on a.order_id=b.order_id
-  // 연장(pay_type = 1), 신규, 결제금액이 있는 경우, 서비스유효
-
-  $this['appsPaid'] = Db::table('marutm1.BYAPPS_apps_data as A')
-                      ->leftJoin('marutm1.BYAPPS_apps_payment_data as B', 'A.order_id', '=', 'B.order_id')
-                      ->where('A.app_process', '=', '7')
-                      //->selectRaw("'A.service_type' = 'lite' or 'A.end_time' > unix_timestamp()")
-                      ->where(function($query){
-                        $query->where('A.service_type', '=', 'lite')->orWhere('A.end_time', '>', time());
-                      })
-                      ->where('B.process', '=', '1')
-                      ->where('B.amount', '>', '0')
-                      ->distinct()
-                      ->count('A.order_id');
-
-  // 무료
-  // 결제금액이 없는 경우, 관리업체가 아닌 경우(is_cherrypicker != Y), 서비스유효
-  $this['appsFree'] = $this['appsTotal'] - $this['appsPaid'];
-
-  // 관리
-  // original query: 없음
-  // 관리업체에 체크(is_cherrypicker = Y), 서비스유효
-  $this['appsCheck'] = 100;
-
-  $result = array(
-      'circle1' => array(
-          array('무료', $this['appsFree']),
-          array('유료', $this['appsPaid']),
-          array('관리', $this['appsCheck']),
-      )
-  );
-
-  return $result;
-}
-
-// MA 통계
-function onGetMaChartData()
-{
-  // 전체
-  // original query: select count(*) from BYAPPS_MA_data where app_process='3' and ((end_time-".time().")/86400)>'0'";
-  $this['maTotal'] = Db::table('marutm1.BYAPPS_MA_data')
-                      ->where('app_process', '=', '3')
-                      ->where('end_time', '>', time())
-                      ->count();
-
-  // 유료
-  // original query: select count(*) from (select order_id from BYAPPS_MA_data where app_process='3' and ((end_time-".time().")/86400)>'0') a
-  //                 inner join (select order_id from BYAPPS_apps_payment_data where process='1' and amount>'0' group by order_id) b on a.order_id=b.order_id
-  // select count(*) from (select order_id from BYAPPS_MA_data where app_process='3' and ((end_time-unix_timestamp())/86400)>'0') a inner join (select order_id from BYAPPS_apps_payment_data where process='1' and amount>'0' group by order_id) b on a.order_id=b.order_id
-
-  $this['maPaid'] = Db::table('marutm1.BYAPPS_MA_data as A')
-                      ->leftJoin('marutm1.BYAPPS_apps_payment_data as B', 'A.order_id', '=', 'B.order_id')
-                      ->where('A.app_process', '=', '3')
-                      ->where('A.end_time', '>', time())
-                      ->where('B.process', '=', '1')
-                      ->where('B.amount', '>', '0')
-                      ->distinct()
-                      ->count('A.order_id');
-
-  // 무료
-  $this['maFree'] = $this['maTotal'] - $this['maPaid'];
-
-  // 관리
-  // original query: 없음
-  //
-  $this['maCheck'] = 10;
-
-  $result = array(
-    'circle2' => array(
-        array('무료', $this['maFree']),
-        array('유료', $this['maPaid']),
-        array('관리', $this['maCheck']),
-    )
-  );
-
-  return $result;
-}
-
-// 매출 통계
-function onGetSalesChartData()
-{
-  // 전체
-  // origianl query: SELECT sum(amount) as total, sum(case when pay_type='0' then amount end) as newt, sum(case when pay_type='1' then amount end) as con
-  //                 FROM BYAPPS_apps_payment_data where process=1 and (reg_time between '".get_mktime(date("Y-m")."-01-0-0-0")."' and '".get_mktime(date("Y-m")."-31-23-59-59")."')
-  //                 order by idx asc
-  // SELECT sum(amount) as total, sum(case when pay_type='0' then amount end) as newt, sum(case when pay_type='1' then amount end) as con
-  // FROM BYAPPS_apps_payment_data where process=1 and (reg_time between unix_timestamp('2019-03-01 00:00:00') and unix_timestamp('2019-03-31 23:59:59')) order by idx asc
-
-  $from = mktime(0, 0, 0, date("03"), 01, date("Y"));
-  $to = mktime(23, 59, 59, date("03"), 31, date("Y"));
-
-  $this['salesTotal'] = Db::table('marutm1.BYAPPS_apps_payment_data')
-                        ->where('process', '=', '1')
-                        ->whereBetween('reg_time', [$from, $to])
-                        ->orderBy('idx', 'asc')
-                        ->sum('amount');
-
-  // 신규
-  $this['salesNew'] = Db::table('marutm1.BYAPPS_apps_payment_data')
-                        ->where('process', '=', '1')
-                        ->whereBetween('reg_time', [$from, $to])
-                        ->orderBy('idx', 'asc')
-                        ->sum(DB::Raw("case when pay_type='0' then amount end"));
-
-  // 연장
-  $this['salesCon'] = Db::table('marutm1.BYAPPS_apps_payment_data')
-                        ->where('process', '=', '1')
-                        ->whereBetween('reg_time', [$from, $to])
-                        ->orderBy('idx', 'asc')
-                        ->sum(DB::Raw("case when pay_type='1' then amount end"));
-
-  $this['salesEtc'] = $this['salesTotal'] - ($this['salesNew'] + $this['salesCon']);
-  info($this['salesCon']);
-
-  $result = array(
-    'bar' => array(
-        array('전체', $this['salesTotal']),
-        array('신규', $this['salesNew']),
-        array('연장', $this['salesCon']),
-        array('기타', $this['salesEtc']),
-    )
-  );
-
-  return $result;
-}
-
-function onGetAppDailyChartData()
-{
-  $result = array(
-      'circle1' => array(
-          array('무료', 300),
-          array('유료', 200),
-          array('관리', 100),
-      )
-  );
-
-  return $result;
-}
-
-function onGetMaDailyChartData()
-{
-  $result = array(
-    'circle2' => array(
-        array('무료', 180),
-        array('유료', 270),
-        array('관리', 100),
-    )
-  );
-
-  return $result;
 }
 
 function onLayoutChange()
@@ -284,7 +117,7 @@ function onLayoutChange()
             </div>
 
 
-            <div class="row dragbox collapse show" id="items">
+            <div class="row dragbox collapse show" id="salesList">
 
                     <div class="col-xl-3 col-md-6 list">
                         <div class="card widget-box-two widget-two-purple">
@@ -455,7 +288,9 @@ function onLayoutChange()
             <div class="cal_box col-md-12 col-sm-12">
                 <div class="card-title mt-2">
                     <i class="fi-menu"></i> 만료예정업체
-                    <button class="btn float-right" type="button" data-toggle="collapse" data-target="#endList" aria-expanded="true" aria-controls="endList"><i class="dripicons-chevron-down"></i></button>
+                    <button class="btn float-right" type="button" data-toggle="collapse" data-target="#endList" aria-expanded="true" aria-controls="endList">
+                      <i class="dripicons-chevron-down"></i>
+                    </button>
                 </div>
             </div>
 
@@ -480,12 +315,12 @@ function onLayoutChange()
                     {% for appData in appsData %}
                         <div class='card col-xs-12 col-md-5 col-lg-3 p-0 m-2 d-inline-block'>
                             <div class="tab-content p-2">
-                                {{ appData.end_time < nowDate ? '<div class="tab-pane mx-0 row active" id="ios-stay" role="tabpanel" aria-labelledby="nav-ios-tab">' : '<div class="tab-pane mx-0 row active" id="ios-over" role="tabpanel" aria-labelledby="nav-ios-tab">' }}
+                                {{ appData.ios_dev_exp < nowDate ? '<div class="tab-pane mx-0 row active" id="ios-stay" role="tabpanel" aria-labelledby="nav-ios-tab">' : '<div class="tab-pane mx-0 row active" id="ios-over" role="tabpanel" aria-labelledby="nav-ios-tab">' }}
                                 <!-- <img class='p-2 d-inline-block float-left' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'> -->
                                 <div class="mx-0 p-2 text-truncate" style="width:8rem;vertical-align:middle;">
                                     {{ appData.app_name }}
                                     <br>
-                                    {{ func.dateFormat(appData.end_time) }}
+                                    {{ appData.ios_dev_exp }}
                                 </div>
                                 </div>
                             </div>
@@ -493,31 +328,31 @@ function onLayoutChange()
                     {% endfor %}
                     </div>
                     <div class="tab-pane fade row" id="nav-push" role="tabpanel" aria-labelledby="nav-push-tab">
-                    {% for appData in appsData %}
+                    <!-- {% for appData in appsData %} -->
                         <div class='col-xs-12 col-md-2 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
                             <!-- <img class='p-2 d-inline-block' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'> -->
                             <div class="col-md-8 mx-0 float-right pt-4">
                                 {{ appData.app_name }}
                                 <br>
-                                {{ func.dateFormat(appData.end_time) }}
+                                {{ appData.ios_dev_exp }}
                             </div>
                         </div>
-                    {% endfor %}
+                    <!-- {% endfor %} -->
                     </div>
                     <div class="tab-pane fade row" id="nav-ma" role="tabpanel" aria-labelledby="nav-ma-tab">
-                    {% for appData in appsData %}
+                    <!-- {% for appData in appsData %} -->
                         <div class='col-xs-12 col-md-2 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
                             <!-- <img class='p-2 d-inline-block' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'> -->
                             <div class="col-md-8 mx-0 float-right pt-4">
                                 {{ appData.app_name }}
                                 <br>
-                                {{ func.dateFormat(appData.end_time) }}
+                                {{ appData.ios_dev_exp }}
                             </div>
                         </div>
-                    {% endfor %}
+                    <!-- {% endfor %} -->
                     </div>
                     <div class="tab-pane fade row" id="nav-app" role="tabpanel" aria-labelledby="nav-ma-tab">
-                        {% for appData in appsData %}
+                        <!-- {% for appData in appsData %} -->
                             <div class='col-xs-12 col-md-2 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
                                 <!-- <img class='p-2 d-inline-block' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'> -->
                                 <div class="col-md-8 mx-0 float-right pt-4">
@@ -526,7 +361,7 @@ function onLayoutChange()
                                     {{ func.dateFormat(appData.end_time) }}
                                 </div>
                             </div>
-                        {% endfor %}
+                        <!-- {% endfor %} -->
                         </div>
                 </div>
             </div>

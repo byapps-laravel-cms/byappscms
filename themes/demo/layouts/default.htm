@@ -174,8 +174,10 @@ function onStart()
 
         <!-- sortable -->
          <script>
-         $(function () {
-             $("#items").sortable({
+         $(function (id) {
+             id = '#salesList';
+             
+             $(id).sortable({
                  start: function (event, ui) {
                       ui.item.toggleClass("highlight");
                  },
@@ -183,7 +185,7 @@ function onStart()
                       ui.item.toggleClass("highlight");
                  }
              });
-             $("#items").disableSelection();
+             $(id).disableSelection();
          });
          </script>
 
