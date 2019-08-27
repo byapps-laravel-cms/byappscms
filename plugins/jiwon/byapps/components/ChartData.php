@@ -116,7 +116,6 @@ class ChartData extends ComponentBase
 
       // 관리
       // original query: 없음
-      //
       $maCheck = 10;
 
       $result = array(

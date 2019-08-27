@@ -333,10 +333,9 @@ function onLayoutChange()
                       <div class="tab-pane fade show active" id="ios-over" role="tabpanel" aria-labelledby="ios-over-tab">
                         <!-- 탭1-1 -->
                         {% for appData in expiredApps %}
-                            <div class="card col-xs-12 col-md-5 col-lg-3 m-2 p-0 d-inline-block">
+                            <div class="card col-xs-12 col-md-5 col-lg-2 m-1 p-0 d-inline-block">
                                 <div class="mx-0 p-2 text-truncate" style="width:8rem;vertical-align:middle;">
-                                    {{ appData.app_name }}
-                                    <br>
+                                    {{ appData.app_name }}<br>
                                     {{ appData.ios_dev_exp }}
                                 </div>
                             </div>
@@ -345,10 +344,9 @@ function onLayoutChange()
                       <div class="tab-pane fade" id="ios-stay" role="tabpanel" aria-labelledby="ios-stay-tab">
                         <!-- 탭1-2 -->
                         {% for appData in willBeExpiredApps %}
-                            <div class="card col-xs-12 col-md-5 col-lg-3 m-2 p-0 d-inline-block">
+                            <div class="card col-xs-12 col-md-5 col-lg-2 m-1 p-0 d-inline-block">
                                 <div class="mx-0 p-2 text-truncate" style="width:8rem;vertical-align:middle;">
-                                    {{ appData.app_name }}
-                                    <br>
+                                    {{ appData.app_name }}<br>
                                     {{ appData.ios_dev_exp }}
                                 </div>
                             </div>
@@ -374,10 +372,9 @@ function onLayoutChange()
                       <div class="tab-pane fade show active" id="push-over" role="tabpanel" aria-labelledby="push-over-tab">
                         <!-- 탭2-1 -->
                         {% for pushData in expiredPush %}
-                            <div class="card col-xs-12 col-md-5 col-lg-3 m-2 p-0 d-inline-block">
+                            <div class="card col-xs-12 col-md-5 col-lg-2 m-1 p-0 d-inline-block">
                                 <div class="mx-0 p-2 text-truncate" style="width:8rem;vertical-align:middle;">
-                                    {{ pushData.app_name }}
-                                    <br>
+                                    {{ pushData.app_name }}<br>
                                     {{ pushData.ios_cer_exp }}
                                 </div>
                             </div>
@@ -386,10 +383,9 @@ function onLayoutChange()
                       <div class="tab-pane fade" id="push-stay" role="tabpanel" aria-labelledby="push-stay-tab">
                         <!-- 탭2-2 -->
                         {% for pushData in willBeExpiredPush %}
-                            <div class="card col-xs-12 col-md-5 col-lg-3 m-2 p-0 d-inline-block">
+                            <div class="card col-xs-12 col-md-5 col-lg-2 m-1 p-0 d-inline-block">
                                 <div class="mx-0 p-2 text-truncate" style="width:8rem;vertical-align:middle;">
-                                    {{ pushData.app_name }}
-                                    <br>
+                                    {{ pushData.app_name }}<br>
                                     {{ pushData.ios_cer_exp }}
                                 </div>
                             </div>
