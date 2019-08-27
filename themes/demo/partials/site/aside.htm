@@ -3,12 +3,9 @@ display = 5
 target = "payment"
 ==
 <div id="sidebar-close" class="my-2"><i class="mdi mdi-close"></i></div>
-<div class="col-md-12">
 
-    <div class="col-md-12 py-3" id="movePage">
-        <div class="col-md-12 p-3 text-body">최근에 봤던 페이지</div>
-    </div>
-   <div class="col-md-12 py-3" id="comment">
+   
+   <div class="col-md-12 py-3" id="inner-side">
         <form class="navbar-nav flex-row ml-md-auto d-none d-md-flex form-inline">
                 <div class="form-group">
                     <select name="" class="custom-select my-1 mr-sm-2">
@@ -26,9 +23,183 @@ target = "payment"
                 </div>
         </form>
 
-            <div class="box direct-chat direct-chat-warning">
-                <div class="box-body">
-                    <div class="direct-chat-messages">
+        <div id="app-accordion" class="accordion" style="z-index:100;">
+                <!-- card -->
+                <div class="card card-border card-warning mb-0">
+
+                    <div class="card-heading bg-warning py-2" >
+                        <h3 class="card-title"> 
+                            <a class="text-white collapsed" data-toggle="collapse" data-target="#app_noti" aria-expanded="false" aria-controls="app_noti">
+                            {{ attribute(record, displayColumn) }}
+                            </a>
+                        </h3>
+                    </div>
+
+                    <div id="app_noti" class="card-body row collapse" data-parent="#app-accordion" >
+
+                        <div class="col-12" style="overflow:auto;" >
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link active" id="nav-company-info-tab" data-toggle="tab" href="#nav-company-info" role="tab" aria-controls="nav-company-info" aria-selected="true">업체정보</a>
+                                    <a class="nav-item nav-link" id="nav-app-info-tab" data-toggle="tab" href="#nav-app-info" role="tab" aria-controls="nav-app-info" aria-selected="false">앱정보</a>
+                                    <a class="nav-item nav-link" id="nav-ma-tab" data-toggle="tab" href="#nav-ma" role="tab" aria-controls="nav-ma" aria-selected="false">MA정보</a>
+                                </div>
+                            </nav>
+            
+                            
+                            <div class="tab-content">
+                                <!-- #nav-company-info -->
+                                <div class="tab-pane px-3 active" id="nav-company-info" role="tabpanel" aria-labelledby="nav-company-info-tab">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 col-xs-12 control-label">ID</label>
+                                                <strong class="form-control-static mr-3">email@example.com</strong>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-5 col-xs-12 control-label">RESELLER</label>
+                                                <strong class="form-control-static">cafe24</strong>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-5 col-xs-12 control-label">비밀번호</label>
+                                                <input type="password" name="pw" class="col-4" value="">
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-5 col-xs-12 control-label">비밀번호 확인</label>
+                                                <input type="password" name="check_pw" class="col-4" value="">
+                                            </div>
+                                            
+                                        </div>
+        
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-md-5 col-xs-12 control-label">대표자</label>
+                                                <strong class="form-control-static">정민희</strong>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-5 col-xs-12 control-label">담당자</label>
+                                                <strong class="form-control-static mr-3">정민희</strong>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-5 col-xs-12 control-label">연락처</label>
+                                                <input type="text" name="phone" class="col-4" value="010-9804-8898">
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-5 col-xs-12 control-label">이메일</label>
+                                                <input type="text" name="email" class="col-4" value="byapps01@naver.com">
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-sm btn-inverse waves-effect w-md waves-light float-right"> <i class="mdi mdi-account"></i> <span>회원정보 수정</span> </button>
+                                    </div>
+                                </div>
+                                <!-- //#nav-company-info -->
+                                
+                                
+                                    <!-- #nav-company-info -->
+                                    <div class="tab-pane fade px-3" id="nav-app-info" role="tabpanel" aria-labelledby="nav-app-info-tab">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <label class="col-md-5 col-xs-12 control-label">APP ID</label>
+                                                    <strong class="form-control-static">yeosinj</strong>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-md-5 col-xs-12 control-label">APP NAME</label>
+                                                    <input type="text" name="pw" class="col-4" value="여신제이">
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-md-5 col-xs-12 control-label">SERVICE TYPE</label>
+                                                    <div class="radio radio-success m-t-0">
+                                                        <label>
+                                                            <input type="radio" name="service_type" value="app" checked="">
+                                                            <span class="cr"><i class="cr-icon mdi mdi-checkbox-blank-circle"></i></span>
+                                                            일반
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio radio-info ml-1">    
+                                                        <label>
+                                                            <input type="radio" name="service_type" value="lite" >
+                                                            <span class="cr"><i class="cr-icon mdi mdi-checkbox-blank-circle radio radio-info m-t-0"></i></span>
+                                                            라이트
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio radio-warning ml-1">
+                                                        <label>
+                                                            <input type="radio" name="service_type" value="tester" >
+                                                            <span class="cr"><i class="cr-icon mdi mdi-checkbox-blank-circle"></i></span>
+                                                            테스터
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-md-5 col-xs-12control-label">APP OS</label>
+                                                    <div class="checkbox checkbox-success m-t-0">
+                                                        <label>
+                                                            <input type="checkbox" value="android" checked="">
+                                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                            android
+                                                        </label>
+                                                    </div>
+                                                    <div class="checkbox checkbox-info ml-3">
+                                                        <label>
+                                                            <input type="checkbox" value="iphone" checked="">
+                                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                            ios
+                                                        </label>
+                                                    </div>
+                                                </div>                                                        
+                                            </div>
+                
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <label class="col-md-5 col-xs-12 control-label">대표자</label>
+                                                    <strong class="form-control-static">정민희</strong>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-md-5 col-xs-12 control-label">담당자</label>
+                                                    <strong class="form-control-static mr-3">정민희</strong>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-md-5 col-xs-12 control-label">연락처</label>
+                                                    <input type="text" name="phone" class="col-4" value="010-9804-8898">
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-md-5 col-xs-12 control-label">이용기간</label>
+                                                    
+                                                    <div class="form-inline">
+                                                        <div class="input-daterange input-group row" id="date-range">
+                                                            <input type="date" class="col-md-3 col-xs-3" name="start">
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text bg-custom text-white b-0">to</span>
+                                                            </div>
+                                                            <input type="date" class="col-md-3 col-xs-3" name="end">
+                                                            <input type="text" class="col-md-2 col-xs-2" name="count-day" value="">일
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div> <!-- //#nav-company-info -->
+                                </div>
+                            </div>
+
+                    </div><!-- //card body -->
+                </div><!-- //card -->
+            </div><!-- //app-accordion -->
+
+            <div id="comment_accordion" class="accordion"> 
+            <!-- 코멘트박스 -->
+            <div class="card card-border card-warning direct-chat direct-chat-warning mb-0">
+                <div class="card-heading bg-warning py-2">
+                    <h3 class="card-title">
+                        <a class="text-white collapsed" data-toggle="collapse" data-target="#comment_box" aria-expanded="false" aria-controls="comment_box">
+                                Comment
+                        </a>
+                    </h3>
+                </div>
+                <div id="comment_box" class="box-body row ml-3 collapse" data-parent="#comment_accordion" >
+                    <div class="direct-chat-messages" style="height:25rem;">
 
                         <div class="direct-chat-msg">
                             <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_1.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
@@ -38,78 +209,76 @@ target = "payment"
                             <div class="direct-chat-info clearfix">
                                 <span class="direct-chat-name float-left">23 Jan 2:00 pm, 이지원 </span>
                             </div>
-                        </div>r
+                        </div>
 
-                      <div class="direct-chat-msg">
-                          <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_1.jpg" alt="Message User Image">
-                          <div class="direct-chat-text">
-                              접수중 → 심사대기
-                          </div>
-                          <div class="direct-chat-info clearfix">
-                              <span class="direct-chat-name float-left">23 Jan 2:00 pm, 이지원 </span>
-                          </div>
-                      </div>
+                        <div class="direct-chat-msg">
+                            <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_1.jpg" alt="Message User Image">
+                            <div class="direct-chat-text">
+                                접수중 → 심사대기
+                            </div>
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-name float-left">23 Jan 2:00 pm, 이지원 </span>
+                            </div>
+                        </div>
 
-                      <div class="direct-chat-msg">
-                          <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_2.jpg" alt="Message User Image">
-                          <div class="direct-chat-text">
-                              이관예정 업체
-                          </div>
-                          <div class="direct-chat-info clearfix">
-                              <span class="direct-chat-name float-left">23 Jan 2:00 pm, 김여진 </span>
-                          </div>
-                      </div>
+                        <div class="direct-chat-msg">
+                            <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_2.jpg" alt="Message User Image">
+                            <div class="direct-chat-text">
+                                이관예정 업체
+                            </div>
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-name float-left">23 Jan 2:00 pm, 김여진 </span>
+                            </div>
+                        </div>
 
-                      <div class="direct-chat-msg">
-                          <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_2.jpg" alt="Message User Image">
-                          <div class="direct-chat-text">
-                              디자인 재접수 예정 업체
-                          </div>
-                          <div class="direct-chat-info clearfix">
-                              <span class="direct-chat-name float-left">23 Jan 2:00 pm, 임성미 </span>
-                          </div>
-                      </div>
+                        <div class="direct-chat-msg">
+                            <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_2.jpg" alt="Message User Image">
+                            <div class="direct-chat-text">
+                                디자인 재접수 예정 업체
+                            </div>
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-name float-left">23 Jan 2:00 pm, 임성미 </span>
+                            </div>
+                        </div>
 
-                      <div class="direct-chat-msg right">
-                          <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_2.jpg" alt="Message User Image">
-                          <div class="direct-chat-text">
-                              고도몰 ⇢ 카페24 솔루션 이동 업데이트
-                          </div>
-                          <div class="direct-chat-info clearfix">
-                              <span class="direct-chat-name float-right">23 Jan 2:00 pm, 정민희 </span>
-                          </div>
-                      </div>
+                        <div class="direct-chat-msg right">
+                            <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_2.jpg" alt="Message User Image">
+                            <div class="direct-chat-text">
+                                고도몰 ⇢ 카페24 솔루션 이동 업데이트
+                            </div>
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-name float-right">23 Jan 2:00 pm, 정민희 </span>
+                            </div>
+                        </div>
 
-                      <div class="direct-chat-msg">
-                          <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_1.jpg" alt="Message User Image">
-                          <div class="direct-chat-text">
-                              부운영자 계정 불일치 / 보류중<br/>
-                              업체에서 계정을 안알려주고있음, 계정확인 전화 했으나 부재중<br/>
-                              연락 오는대로 지원주임님께 전달 예정
-                          </div>
-                          <div class="direct-chat-info clearfix">
-                              <span class="direct-chat-name float-left">23 Jan 2:00 pm, 박철환 </span>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+                        <div class="direct-chat-msg">
+                            <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_1.jpg" alt="Message User Image">
+                            <div class="direct-chat-text">
+                                부운영자 계정 불일치 / 보류중<br/>
+                                업체에서 계정을 안알려주고있음, 계정확인 전화 했으나 부재중<br/>
+                                연락 오는대로 지원주임님께 전달 예정
+                            </div>
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-name float-left">23 Jan 2:00 pm, 박철환 </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- //코멘트박스 -->
+        </div>
+            <!-- 코멘트 푸터 고정-->
+            <div class="box-footer">
+                <form action="#" method="post">
+                <div class="input-group">
+                    <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-warning btn-flat">Send</button>
+                    </span>
+                </div>
+                </form>
+            </div><!-- 코멘트 푸터 고정-->
+        </div> <!-- 전체를 감싸고있는 박스 -->
 
-              <div class="box-footer">
-                  <form action="#" method="post">
-                  <div class="input-group">
-                      <input type="text" name="message" placeholder="Type Message ..." class="form-control">
-                          <span class="input-group-btn">
-                              <button type="submit" class="btn btn-warning btn-flat">Send</button>
-                          </span>
-                  </div>
-                  </form>
-              </div>
-          </div> -->
-    </div>
-    <!-- 댓글 끝 -->
-
-
-</div>
 
 <!-- <script type="text/javascript">
 $(document).ready(function() {

@@ -26,10 +26,11 @@ function onStart()
         <!-- //Codefox Theme -->
 
         <link href="{{ 'assets/css/drag.css'|theme }}" rel="stylesheet">
-        <link href="{{ 'assets/css/appdata.css'|theme }}" rel="stylesheet">
+        <link href="{{ 'assets/css/appdata.css?v20190823'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/billboard.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/vendor/jquery-ui-1.12.1/jquery-ui.css'|theme }}" rel="stylesheet">
         <link href="{{ 'assets/css/classCustom.css?v1'|theme }}" rel="stylesheet">
+        <link href="{{ 'assets/css/chatbox.css?v2019-08-23'|theme }}" rel="stylesheet">
 
         <!-- Datatable style -->
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/jquery.dataTables.css'|theme }}">
@@ -54,7 +55,6 @@ function onStart()
         <script src="https://d3js.org/d3.v5.min.js"></script>
 
         <script src="{{ 'assets/javascript/initial.min.js'|theme }}"></script>
-
 
         {% styles %}
     </head>
@@ -82,7 +82,7 @@ function onStart()
                 <p>OPEN</p>
             </div>
             {% endif %}
-            <div id="sidebar">
+            <div id="sidebar" style="overflow-y:auto;">
                 {% partial 'site/aside' %}
             </div>
         </section>
@@ -166,10 +166,12 @@ function onStart()
         </script>
 
         <script type="text/javascript">
+
             $('.profile').initial({
               width: 32,
               height: 32,
               fontSize: 16 });
+
         </script>
 
         <!-- sortable -->
@@ -188,6 +190,8 @@ function onStart()
              $(id).disableSelection();
          });
          </script>
+
+
 
 
         {% put scripts %}
@@ -224,7 +228,7 @@ function onStart()
           <script src="{{ 'assets/javascript/chart.js'|theme }}"></script>
           <script src="{{ 'assets/javascript/drag.js'|theme }}"></script>
         {% else %}
-          <script src="{{ 'assets/javascript/aside.js'|theme }}"></script>
+          <script src="{{ 'assets/javascript/aside.js?20190827'|theme }}"></script>
         {% endif %}
 
         <!-- For Datatable -->

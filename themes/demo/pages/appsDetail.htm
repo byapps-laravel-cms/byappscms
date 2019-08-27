@@ -214,7 +214,7 @@ function onStart()
 ==
 {% component 'breadcrumbs' %}
 
-<div class="container bg-white">
+<div class="card">
     <div class="col-md-12">
     {% set record = builderDetails.record %}
     {% set displayColumn = builderDetails.displayColumn %}
@@ -236,152 +236,343 @@ function onStart()
         <hr />
         <div class="curtain"></div>
         <div class="method">
-            <div class="row margin-0">
+            <!-- app-accordion -->
+            
+            <div class="col-12">
             {{ form_open() }}
-            <div class="row top_banner">
-                    <div class="form-group row">
-                        <label class="col-md-2 col-xs-10  control-label">ID</label>
-                        <div class="col-md-10 col-xs-12">
-                            <div class="col-md-6 col-xs-8">
+                <div class="row">
+                    <div class="col-md-6 col-xs-12">
+                        <div class="form-group row">
+                            <label class="col-md-2 col-xs-12  control-label">ID</label>
+                            <div class="form-inline">
                                 <input type="text" name="" class="form-control">
-                            </div>
-                            <div class="col-md-2 col-xs-4">
                                 <a href="#"><input type="button" class="form-control" value="회원로그인"></a>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group  row">
-                        <label class="col-md-2 col-xs-12"></label>
-                        <div class="col-md-10 col-xs-12">
-                            <div class="col-md-2 col-xs-4">
+
+                        <div class="form-group row">
+                            <label class="col-md-2 col-xs-12"></label>
+                            <div class="form-inline">
                                 <a href="#"><input type="button" class="form-control" value="주문내역"></a>
-                            </div>
-                            <div class="col-md-2 col-xs-4">
                                 <a href="#"><input type="button" class="form-control" value="결제내역"></a>
-                            </div>
-                            <div class="col-md-2 col-xs-4">
                                 <a href="#"><input type="button" class="form-control" value="앱관리"></a>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2 col-xs-12"></label>
-                        <div class="col-md-10 col-xs-12">
-                            <div class="col-md-2 col-xs-4">
+
+                        <div class="form-group row">
+                            <label class="col-md-2 col-xs-12"></label>
+                            <div class="form-inline">
                                 <a href="#"><input type="button" class="form-control" value="프로모션발급"></a>
-                            </div>
-                            <div class="col-md-2 col-xs-4">
                                 <a href="#"><input type="button" class="form-control" value="ID변경"></a>
-                            </div>
-                            <div class="col-md-2 col-xs-4">
                                 <a href="#"><input type="button" class="form-control" value="리샐러지정"></a>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2 col-xs-12 control-label">업체명</label>
-                        <div class="col-md-10 col-xs-12">
-                            <div class="col-md-6 col-xs-10 ">
-                                <input type="text" name="" class="form-control">
+
+                        <div class="form-group row">
+                            <label class="col-md-2 col-xs-12 control-label">업체명</label>
+                            <div class="form-inline">
+                                <strong class="form-control-static">여신제이</strong>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2 col-xs-12 control-label">대표자명</label>
-                        <div class="col-md-10 col-xs-12">
-                            <div class="col-md-6 col-xs-10">
-                                <input type="text" name="" class="form-control">
+
+                        <div class="form-group row">
+                            <label class="col-md-2 col-xs-12 control-label">대표자</label>
+                            <div class="form-inline">
+                                    <strong class="form-control-static">최재원</strong>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2 col-xs-12 control-label">담당자명</label>
-                        <div class="col-md-10 col-xs-12">
-                            <div class="col-md-6 col-xs-10">
-                                <input type="text" name="" class="form-control">
+
+                        <div class="form-group row">
+                            <label class="col-md-2 col-xs-12 control-label">담당자</label>
+                            <div class="form-inline">
+                                    <strong class="form-control-static">임성미</strong>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2 col-xs-12 control-label">연락처</label>
-                        <div class="col-md-10 col-xs-12">
-                        <div class="col-md-2 col-xs-3">
-                            <input type="text" name="" class="form-control" maxlength="3" size="10">
-                        </div>
-                        <span  class="col-md-0 col-xs-0" style="float:left;">-</span>
-                        <div class="col-md-2 col-xs-4">
-                            <input type="text" name="" class="form-control" maxlength="4"size="10">
-                        </div>
-                        <span  class="col-md-0 col-xs-0" style="float:left;">-</span>
-                        <div class="col-md-2 col-xs-4">
-                            <input type="text" name="" class="form-control" maxlength="4"size="10">
-                        </div>
-                        <div class="col-md-2 col-xs-12">
-                            <input type="button" class="form-control" value="SMS 보내기">
-                        </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-12 col-md-2 control-label">완료알림 연락처</label>
-                        <div class="col-md-10 col-xs-12">
-                            <div class="col-md-2 col-xs-3">
-                                <input type="text" name="" class="form-control" maxlength="3" size="10">
-                            </div>
-                            <span style="float:left;">-</span>
-                            <div class="col-md-2 col-xs-4">
-                                <input type="text" name="" class="form-control" maxlength="4"size="10">
-                            </div>
-                            <span style="float:left;">-</span>
-                            <div class="col-md-2 col-xs-4">
-                                <input type="text" name="" class="form-control" maxlength="4"size="10">
-                            </div>
-                            <div class="col-md-2 col-xs-12">
+
+                        <div class="form-group row">
+                            <label class="col-md-2 col-xs-12 control-label">연락처</label>
+                            <div class="form-inline">
+                                <input type="text" name="" class="form-control" maxlength="3" size="10" value="010">
+                                <span  class="col-md-0 col-xs-0" style="float:left;">-</span>
+                                <input type="text" name="" class="form-control" maxlength="4"size="10" value="9804">
+                                <span  class="col-md-0 col-xs-0" style="float:left;">-</span>
+                                <input type="text" name="" class="form-control" maxlength="4"size="10" value="8898">
                                 <input type="button" class="form-control" value="SMS 보내기">
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-md-2 control-label">이메일</label>
-                        <div class="col-md-10 col-xs-12">
-                            <div class="col-md-6 col-xs-10">
-                                <input type="text" name="" class="form-control">
+
+                        <div class="form-group row">
+                            <label class="col-sm-12 col-md-2 control-label">완료알림 연락처</label>
+                                <div class="form-inline">
+                                    <input type="text" name="" class="form-control" maxlength="3" size="10" value="010">
+                                    <span  class="col-md-0 col-xs-0" style="float:left;">-</span>
+                                    <input type="text" name="" class="form-control" maxlength="4"size="10" value="9804">
+                                    <span  class="col-md-0 col-xs-0" style="float:left;">-</span>
+                                    <input type="text" name="" class="form-control" maxlength="4"size="10" value="8898">
+                                    <input type="button" class="form-control" value="SMS 보내기">
+                                </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-md-2 control-label">이메일</label>
+                            <div class="form-inline">
+                                <input type="text" name="" class="form-control" value="byapps01@naver.com">
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-md-2 control-label">로그정보</label>
-                        <div class="col-md-10 col-xs-12">
-                            <div class="col-md-6 col-xs-10">
-                                <span class="form-control"></span>
+    
+                            <div class="form-group row">
+                                <label class="col-sm-12 col-md-2 control-label">완료알림 연락처</label>
+                                    <div class="form-inline">
+                                        <input type="text" name="" class="form-control" maxlength="3" size="10" value="010">
+                                        <span  class="col-md-0 col-xs-0" style="float:left;">-</span>
+                                        <input type="text" name="" class="form-control" maxlength="4"size="10" value="9804">
+                                        <span  class="col-md-0 col-xs-0" style="float:left;">-</span>
+                                        <input type="text" name="" class="form-control" maxlength="4"size="10" value="8898">
+                                        <input type="button" class="form-control" value="SMS 보내기">
+                                    </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2 col-xs-12 control-label">담당자명</label>
-                        <div class="col-md-10 col-xs-12">
-                            <div class="col-md-6 col-xs-10">
-                                <input type="text" name="" class="form-control">
+    
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-md-2 control-label">이메일</label>
+                                <div class="form-inline">
+                                    <input type="text" name="" class="form-control" value="byapps01@naver.com">
+                                </div>
                             </div>
-                        </div>
+
                     </div>
-                    <div class="form-group row">
-                        <label class="col-md-2 col-xs-12 control-label">담당자명</label>
-                        <div class="col-md-10 col-xs-12">
-                            <div class="col-md-6 col-xs-10">
-                                <label class="radio-inline"><input type="radio" name="option" checked>수정</label>
-                                <label class="radio-inline"><input type="radio" name="option">삭제</label>
+                    <!-- //col-md-6 col-xs-12-->
+
+
+                    <div class="col-md-6 col-xs-12">
+                            <div class="form-group row">
+                                <label class="col-md-2 col-xs-12  control-label">Process</label>
+                                <div class="form-inline">
+                                    <select name="" class="custom-select my-1 mr-sm-2">
+                                        <option value="1">개발준비중</option>
+                                        <option value="2">개발진행중</option>
+                                        <option value="3">심사중</option>
+                                        <option value="4">등록거부</option>
+                                        <option value="5">재심사중</option>
+                                        <option value="6">등록대기</option>
+                                        <option value="7" selected>등록완료</option>
+                                        <option value="8">서비스중지</option>
+                                        <option value="9">서비스유효</option>
+                                    </select>
+                                </div>
                             </div>
+    
+                            <div class="form-group row">
+                                <label class="col-md-2 col-xs-12">스토어정보</label>
+                                <div class="form-inline">
+                                    <button type="button" class="btn btn-custom waves-effect waves-light" data-toggle="modal" data-target="#con-close-modal"> 업데이트요청 </button>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-2 col-xs-12">앱아이콘</label>
+                                <div class="form-inline">
+                                    <div class="file_dropzone form-control" style="height:200px;width:200px;">
+                                        <div style="height:100%;line-height:1100%;text-align:center;">drop here</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                    <label class="col-md-2 col-xs-12">SERVICE TYPE</label>
+                                    <div class="radio radio-success m-t-0">
+                                        <label>
+                                            <input type="radio" name="service_type" value="app" checked="">
+                                            <span class="cr"><i class="cr-icon mdi mdi-checkbox-blank-circle"></i></span>
+                                            일반
+                                        </label>
+                                    </div>
+                                    <div class="radio radio-info ml-1">    
+                                        <label>
+                                            <input type="radio" name="service_type" value="lite" >
+                                            <span class="cr"><i class="cr-icon mdi mdi-checkbox-blank-circle radio radio-info m-t-0"></i></span>
+                                            라이트
+                                        </label>
+                                    </div>
+                                    <div class="radio radio-warning ml-1">
+                                        <label>
+                                            <input type="radio" name="service_type" value="tester" >
+                                            <span class="cr"><i class="cr-icon mdi mdi-checkbox-blank-circle"></i></span>
+                                            테스터
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-2 col-xs-12">APP OS</label>
+                                    <div class="checkbox checkbox-success m-t-0">
+                                        <label>
+                                            <input type="checkbox" value="android" checked="">
+                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                            android
+                                        </label>
+                                    </div>
+                                    <div class="checkbox checkbox-info ml-3">
+                                        <label>
+                                            <input type="checkbox" value="iphone" checked="">
+                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                            ios
+                                        </label>
+                                    </div>
+                                </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-2 col-xs-12">서버그룹</label>
+                                <div class="form-inline">
+                                    <strong class="form-control-static">1그룹</strong>
+                                </div>
+                            </div>
+    
+                            <div class="form-group row">
+                                <label class="col-md-2 col-xs-12 control-label">GCM Key</label>
+                                <div class="form-inline">
+                                    <input type="text" name="" class="form-control" maxlength="80" size="80" value="AIzaSyC8vVGIDtSB8u8q3XFMuT-FbkyDwkcrJEQ">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-2 col-xs-12 control-label">GCM Num</label>
+                                <div class="form-inline">
+                                    <input type="text" name="" class="form-control" maxlength="80" size="80" value="842691433742">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-2 col-xs-12 control-label">Google Project Id</label>
+                                <div class="form-inline">
+                                    <input type="text" name="" class="form-control" maxlength="80" size="80" value="">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-2 col-xs-12 control-label">GCM App Id</label>
+                                <div class="form-inline">
+                                    <input type="text" name="" class="form-control" maxlength="80" size="80" value="9aa7b1875887909a">
+                                </div>
+                            </div>
+    
+                            <div class="form-group row">
+                                <label class="col-md-2 col-xs-12 control-label">Google API Key</label>
+                                <div class="form-inline">
+                                    <input type="text" name="" class="form-control" maxlength="80" size="80" value="">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-2 col-xs-12 control-label">대표자</label>
+                                <div class="form-inline">
+                                    <strong class="form-control-static">최재원</strong>
+                                </div>
+                            </div>
+    
+                            <div class="form-group row">
+                                <label class="col-md-2 col-xs-12 control-label">담당자</label>
+                                <div class="form-inline">
+                                    <strong class="form-control-static">임성미</strong>
+                                </div>
+                            </div>
+    
+                            <div class="form-group row">
+                                <label class="col-md-2 col-xs-12 control-label">연락처</label>
+                                <div class="form-inline">
+                                    <input type="text" name="" class="form-control" maxlength="3" size="10" value="010">
+                                    <span  class="col-md-0 col-xs-0" style="float:left;">-</span>
+                                    <input type="text" name="" class="form-control" maxlength="4"size="10" value="9804">
+                                    <span  class="col-md-0 col-xs-0" style="float:left;">-</span>
+                                    <input type="text" name="" class="form-control" maxlength="4"size="10" value="8898">
+                                    <input type="button" class="form-control" value="SMS 보내기">
+                                </div>
+                            </div>
+    
+                            <div class="form-group row">
+                                <label class="col-sm-12 col-md-2 control-label">완료알림 연락처</label>
+                                    <div class="form-inline">
+                                        <input type="text" name="" class="form-control" maxlength="3" size="10" value="010">
+                                        <span  class="col-md-0 col-xs-0" style="float:left;">-</span>
+                                        <input type="text" name="" class="form-control" maxlength="4"size="10" value="9804">
+                                        <span  class="col-md-0 col-xs-0" style="float:left;">-</span>
+                                        <input type="text" name="" class="form-control" maxlength="4"size="10" value="8898">
+                                        <input type="button" class="form-control" value="SMS 보내기">
+                                    </div>
+                            </div>
+    
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-md-2 control-label">이메일</label>
+                                <div class="form-inline">
+                                    <input type="text" name="" class="form-control" value="byapps01@naver.com">
+                                </div>
+                            </div>
+    
                         </div>
-                    </div>
+
                 </div>
+                
+                <div id="con-close-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title mt-0">스토어정보 변경   경</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="field-1" class="control-label">App Name</label>
+                                                <input type="text" class="form-control" id="field-1" placeholder="여신제이">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="field-1" class="control-label">APP OS</label>
+                                            <div class="checkbox checkbox-success m-t-0">
+                                                <label>
+                                                    <input type="checkbox" value="android" checked="">
+                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                    android
+                                                </label>
+                                            </div>
+                                            <div class="checkbox checkbox-info ml-3">
+                                                <label>
+                                                    <input type="checkbox" value="iphone" checked="">
+                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                    ios
+                                                </label>
+                                            </div>
+                                        </div>   
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="field-3" class="control-label">제목</label>
+                                                <input type="text" class="form-control" id="field-3" placeholder="도메인변경">
+                                            </div>
+                                        </div>
+                                    </div>
 
-                <!-- 업체정보 버튼 -->
-                <div class="show_btn">
-                    <p><i class="fas fa-chevron-down"></i></p>
-                </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group no-margin">
+                                                <label for="field-7" class="control-label">변경내용</label>
+                                                <textarea class="form-control autogrow" id="field-7" placeholder="안드로이드 도메인변경 업데이트 요청드립니다. http://pnm9603.cafe24.com" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-info waves-effect waves-light">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.modal -->
 
-
-            {% for item in itemlist %}
+            <!-- {% for item in itemlist %}
                 <div class="form-group row" id="appsData">
                     <label class="col-sm-2 control-label">{{ item.0 }}</label>
                     <div class="col-md-10 col-xs-10">
@@ -466,7 +657,7 @@ function onStart()
             {% endfor %}
 
 
-            {{ form_close() }}
+            {{ form_close() }} -->
 
     {{ form_open() }}
             </div>
