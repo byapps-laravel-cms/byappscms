@@ -13,9 +13,9 @@ class Plugin extends PluginBase
             'Jiwon\Byapps\Components\PromotionForm'       => 'promotionForm',
             'Jiwon\Byapps\Components\Badge'               => 'badge',
             'Jiwon\Byapps\Components\Comments'            => 'comments',
-            'Jiwon\Byapps\Components\Datatable'            => 'datatable',
-            'Jiwon\Byapps\Components\ChartData'            => 'chartData',
-            'Jiwon\Byapps\Components\ExpiredData'            => 'expiredData',
+            'Jiwon\Byapps\Components\Datatable'           => 'datatable',
+            'Jiwon\Byapps\Components\ChartData'           => 'chartData',
+            'Jiwon\Byapps\Components\ExpiredData'         => 'expiredData',
             //'RainLab\Builder\Components\RecordDetails'    => 'builderDetails'
         ];
     }

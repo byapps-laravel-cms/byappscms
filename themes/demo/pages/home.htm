@@ -31,7 +31,10 @@ use Jiwon\Byapps\Models\QnaMember;
 function onStart()
 {
     $userId = BackendAuth::getUser()['id'];
-    $this['nowDate'] = time();
+    $this['nowDate'] = date("Y-m-d");
+
+    info($this['nowDate']);
+
     $records = HomeLayout::where('user_cd','=',$userId)
         ->select('layout_name')
         ->orderBy('sequence')
@@ -295,75 +298,107 @@ function onLayoutChange()
             </div>
 
             <div class="dragbox collapse show" id="endList">
-                <nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <a class="nav-item nav-link active" id="nav-ios-tab" data-toggle="tab" href="#nav-ios" role="tab" aria-controls="nav-ios" aria-selected="true">IOS 계정 만료</a>
-                        <a class="nav-item nav-link" id="nav-push-tab" data-toggle="tab" href="#nav-push" role="tab" aria-controls="nav-push" aria-selected="false">푸쉬 인증서만료</a>
-                        <a class="nav-item nav-link" id="nav-ma-tab" data-toggle="tab" href="#nav-ma" role="tab" aria-controls="nav-ma" aria-selected="false">MA 서비스만료</a>
-                        <a class="nav-item nav-link" id="nav-ios2-tab" data-toggle="tab" href="#nav-app" role="tab" aria-controls="nav-ios2" aria-selected="true">앱서비스 만료예정</a>
-                    </div>
-                </nav>
-
-                <div class="tab-content p-2" id="nav-tabContent">
-                    <div class="tab-pane mx-0 row active" id="nav-ios" role="tabpanel" aria-labelledby="nav-ios-tab">
-                        <nav>
-                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="nav-ios-tab" data-toggle="tab" href="#ios-stay" role="tab" aria-controls="ios-stay" aria-selected="true">만료예정</a>
-                                <a class="nav-item nav-link" id="nav-push-tab" data-toggle="tab" href="#ios-over" role="tab" aria-controls="ios-over" aria-selected="false">만료</a>
-                            </div>
-                        </nav>
-                    {% for appData in appsData %}
-                        <div class='card col-xs-12 col-md-5 col-lg-3 p-0 m-2 d-inline-block'>
-                            <div class="tab-content p-2">
-                                {{ appData.ios_dev_exp < nowDate ? '<div class="tab-pane mx-0 row active" id="ios-stay" role="tabpanel" aria-labelledby="nav-ios-tab">' : '<div class="tab-pane mx-0 row active" id="ios-over" role="tabpanel" aria-labelledby="nav-ios-tab">' }}
-                                <!-- <img class='p-2 d-inline-block float-left' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'> -->
+                <ul class="nav nav-tabs" id="tab-depth1" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="ios-tab" data-toggle="tab" href="#ios" role="tab" aria-controls="ios" aria-selected="true">
+                      IOS 계정 만료</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="push-tab" data-toggle="tab" href="#push" role="tab" aria-controls="push" aria-selected="false">
+                      푸쉬 인증서만료</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="ma-tab" data-toggle="tab" href="#ma" role="tab" aria-controls="ma" aria-selected="false">
+                      MA 서비스만료</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="apps-tab" data-toggle="tab" href="#apps" role="tab" aria-controls="apps" aria-selected="false">
+                      앱서비스 만료예정</a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="tab-depth1-content">
+                  <!-- 탭1 -->
+                  <div class="tab-pane fade show active" id="ios" role="tabpanel" aria-labelledby="ios-tab">
+                    <ul class="nav nav-tabs" id="tab-depth2" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="ios-over-tab" data-toggle="tab" href="#ios-over" role="tab" aria-controls="ios-over" aria-selected="true">
+                          IOS 만료</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="ios-stay-tab" data-toggle="tab" href="#ios-stay" role="tab" aria-controls="ios-stay" aria-selected="false">
+                          IOS 만료예정</a>
+                      </li>
+                    </ul>
+                    <div class="tab-content" id="tab-depth2-content">
+                      <div class="tab-pane fade show active" id="ios-over" role="tabpanel" aria-labelledby="ios-over-tab">
+                        <!-- 탭1-1 -->
+                        {% for appData in expiredApps %}
+                            <div class="card col-xs-12 col-md-5 col-lg-2 m-1 p-0 d-inline-block">
                                 <div class="mx-0 p-2 text-truncate" style="width:8rem;vertical-align:middle;">
-                                    {{ appData.app_name }}
-                                    <br>
+                                    {{ appData.app_name }}<br>
                                     {{ appData.ios_dev_exp }}
                                 </div>
+                            </div>
+                        {% endfor %}
+                      </div>
+                      <div class="tab-pane fade" id="ios-stay" role="tabpanel" aria-labelledby="ios-stay-tab">
+                        <!-- 탭1-2 -->
+                        {% for appData in willBeExpiredApps %}
+                            <div class="card col-xs-12 col-md-5 col-lg-2 m-1 p-0 d-inline-block">
+                                <div class="mx-0 p-2 text-truncate" style="width:8rem;vertical-align:middle;">
+                                    {{ appData.app_name }}<br>
+                                    {{ appData.ios_dev_exp }}
                                 </div>
                             </div>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                      </div>
                     </div>
-                    <div class="tab-pane fade row" id="nav-push" role="tabpanel" aria-labelledby="nav-push-tab">
-                    <!-- {% for appData in appsData %} -->
-                        <div class='col-xs-12 col-md-2 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
-                            <!-- <img class='p-2 d-inline-block' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'> -->
-                            <div class="col-md-8 mx-0 float-right pt-4">
-                                {{ appData.app_name }}
-                                <br>
-                                {{ appData.ios_dev_exp }}
-                            </div>
-                        </div>
-                    <!-- {% endfor %} -->
-                    </div>
-                    <div class="tab-pane fade row" id="nav-ma" role="tabpanel" aria-labelledby="nav-ma-tab">
-                    <!-- {% for appData in appsData %} -->
-                        <div class='col-xs-12 col-md-2 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
-                            <!-- <img class='p-2 d-inline-block' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'> -->
-                            <div class="col-md-8 mx-0 float-right pt-4">
-                                {{ appData.app_name }}
-                                <br>
-                                {{ appData.ios_dev_exp }}
-                            </div>
-                        </div>
-                    <!-- {% endfor %} -->
-                    </div>
-                    <div class="tab-pane fade row" id="nav-app" role="tabpanel" aria-labelledby="nav-ma-tab">
-                        <!-- {% for appData in appsData %} -->
-                            <div class='col-xs-12 col-md-2 p-0 d-inline-block {{ appData.end_time < nowDate ? "opacity" : "" }}'>
-                                <!-- <img class='p-2 d-inline-block' src='http://byapps.co.kr/member/apps/{{ appData.app_icon }}' alt='{{ appData.app_name }}'> -->
-                                <div class="col-md-8 mx-0 float-right pt-4">
-                                    {{ appData.app_name }}
-                                    <br>
-                                    {{ func.dateFormat(appData.end_time) }}
+                  </div>
+                  <!-- 탭1 End -->
+
+                  <!-- 탭2 -->
+                  <div class="tab-pane fade" id="push" role="tabpanel" aria-labelledby="push-tab">
+                    <ul class="nav nav-tabs" id="tab-depth2" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="push-over-tab" data-toggle="tab" href="#push-over" role="tab" aria-controls="push-over" aria-selected="true">
+                          PUSH 인증서 만료</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="push-stay-tab" data-toggle="tab" href="#push-stay" role="tab" aria-controls="push-stay" aria-selected="false">
+                          PUSH 인증서 만료예정</a>
+                      </li>
+                    </ul>
+                    <div class="tab-content" id="tab-depth2-content">
+                      <div class="tab-pane fade show active" id="push-over" role="tabpanel" aria-labelledby="push-over-tab">
+                        <!-- 탭2-1 -->
+                        {% for pushData in expiredPush %}
+                            <div class="card col-xs-12 col-md-5 col-lg-2 m-1 p-0 d-inline-block">
+                                <div class="mx-0 p-2 text-truncate" style="width:8rem;vertical-align:middle;">
+                                    {{ pushData.app_name }}<br>
+                                    {{ pushData.ios_cer_exp }}
                                 </div>
                             </div>
-                        <!-- {% endfor %} -->
-                        </div>
+                        {% endfor %}
+                      </div>
+                      <div class="tab-pane fade" id="push-stay" role="tabpanel" aria-labelledby="push-stay-tab">
+                        <!-- 탭2-2 -->
+                        {% for pushData in willBeExpiredPush %}
+                            <div class="card col-xs-12 col-md-5 col-lg-2 m-1 p-0 d-inline-block">
+                                <div class="mx-0 p-2 text-truncate" style="width:8rem;vertical-align:middle;">
+                                    {{ pushData.app_name }}<br>
+                                    {{ pushData.ios_cer_exp }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 탭2 End -->
+
+                  <div class="tab-pane fade" id="ma" role="tabpanel" aria-labelledby="ma-tab">탭3</div>
+                  <div class="tab-pane fade" id="apps" role="tabpanel" aria-labelledby="apps-tab">탭4</div>
                 </div>
+
             </div>
         </li>
       {% endif %}
