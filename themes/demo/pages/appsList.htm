@@ -37,33 +37,13 @@ use Jiwon\Byapps\Models\AppsData;
 function onStart()
 {
     $this['tableName'] = 'BYAPPS_apps_data';
-    $this['fields'] = "idx|app_id|app_name|app_ver|byapps_ver|app_process|script_popup|custom_etc|apps_type|start_time|reg_time";
+    $this['joinTable'] = 'BYAPPS_apps_payment_data';
+    $this['fields'] = "idx|app_id|app_name|app_ver|byapps_ver|app_process|script_popup|custom_etc|apps_type|end_time|reg_time";
 }
 ?>
 ==
 {% component 'breadcrumbs' %}
 
-
-<!-- <div class="row">
-    <div class="col-sm-12">
-        <div class="page-title-box">
-
-            <ol class="breadcrumb float-right p-0 m-0">
-                <li>
-                    <a href="#">Codefox</a>
-                </li>
-                <li>
-                    <a href="#">UI Elements</a>
-                </li>
-                <li class="active">
-                    Carousel
-                </li>
-            </ol>
-            <h4 class="page-title m-0">Carousel</h4>
-        </div>
-
-    </div>
-</div> -->
 
 <style>
 
@@ -182,7 +162,8 @@ $(document).ready(function() {
           type: 'POST',
           data: {
             tb: '{{ tableName|raw() }}',
-            fd: '{{ fields|raw() }}'
+            fd: '{{ fields|raw() }}',
+            jtb: '{{ joinTable|raw() }}'
           },
           error: function(e) {
             console.log(e);
