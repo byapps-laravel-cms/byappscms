@@ -75,13 +75,12 @@ thead input {
 
     <form name="form-datalist" id="form-datalist">
 
-      <button type="submit" id="status8" class="btn btn-danger mb-1" style="float:right;">일괄 서비스중지</button>
-      <button type="submit" id="status7" class="btn btn-primary mb-1 mr-1" style="float:right;">일괄 등록완료</button>
+      <button type="submit" class="btn btn-primary mb-1" style="float:right;">상태변경</button>
 
       <table id="datalist" class="table table-striped mb-3 table-colored table-inverse" style="width:100%;">
           <thead>
               <tr>
-                  <th><input type="checkbox" class="checkAll" id="checkAll"></th>
+                  <th class="chk"></th>
                   <th>앱 아이디</th>
                   <th>앱명</th>
                   <th>버전</th>
@@ -145,7 +144,7 @@ $(document).ready(function() {
   $('#' + tableId + ' thead tr').clone(true).appendTo('#' + tableId + ' thead');
   $('#' + tableId + ' thead tr:eq(1) th').not('th.chk').each(function(i){
       var title = $(this).text();
-      $(this).html( '<input type="text" class="filter-input" placeholder="'+title+'" id="col'+i+'_filter" name="input" data-column="'+i+'" autocomplete="off" />' );
+      $(this).html( '<input type="text" class="filter-input" placeholder="'+title+'" id="col'+i+'_filter" name="filter-input" data-column="'+i+'"/>' );
   });
 
   var table = $('#' + tableId).DataTable({
@@ -155,56 +154,29 @@ $(document).ready(function() {
           url: '/ajax',
           type: 'POST',
           data: {
-            request: 1
+            tb: '{{ tableName|raw() }}',
+            fd: '{{ fields|raw() }}',
+            jtb: '{{ joinTable|raw() }}'
           },
-            // tb: '{{ tableName|raw() }}',
-            // fd: '{{ fields|raw() }}',
-            // jtb: '{{ joinTable|raw() }}'
           error: function(e) {
             console.log(e);
-          },
+          }
       },
-      columns: [
-          { "data" : "idx" },
-          { "data" : "app_id" },
-          { "data" : "app_name" },
-          { "data" : "app_ver" },
-          { "data" : "byapps_ver" },
-          { "data" : "app_process" },
-          { "data" : "script_popup" },
-          { "data" : "custom_etc" },
-          { "data" : "apps_type" },
-          { "data" : "end_time" },
-          { "data" : "reg_time" }
-      ],
+
       columnDefs: [
          {
             'targets': 0,
             'className': 'select-checkbox',
-            'searchable': false,
-            'orderable': false,
             'checkboxes': {
                'selectRow': true
-            },
+            }
          },
          {
            'targets': 1,
-           'render': function ( data, type, full, meta ) {
-              return '<a href="/apps/appsdetail/'+full.idx+'">'+data+'</a>';
+           'render': function ( data, type, row, meta ) {
+              return '<a href="/apps/appsdetail/'+row[0]+'">'+data+'</a>';
            }
          },
-         {
-           'targets': 3,
-           'width': '5%'
-         },
-         {
-           'targets': 4,
-           'width': '5%'
-         },
-         {
-           'targets': 7,
-           'width': '15%'
-         }
       ],
       select: {
          'style': 'multi'
@@ -213,21 +185,21 @@ $(document).ready(function() {
         [ 0, 'desc']
       ],
       fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-        if (aData.app_process == '서비스중지'){
-          $('td:eq(5)', nRow).html('<span class="btn btn-pink btn-rounded waves-effect waves-light px-1 py-0">' + aData.app_process + '</span>');
-        } else if (aData.app_process == '서비스유효') {
-          $('td:eq(5)', nRow).html('<span class="btn btn-warning btn-rounded waves-effect waves-light px-1 py-0">' + aData.app_process + '</span>');
-        } else if (aData.app_process == '등록완료') {
-          $('td:eq(5)', nRow).html('<span class="btn btn-success btn-rounded waves-effect waves-light px-1 py-0">' + aData.app_process + '</span>');
-        } else if (aData.app_process == '등록대기') {
-          $('td:eq(5)', nRow).html('<span class="btn btn-info btn-rounded waves-effect waves-light px-1 py-0">' + aData.app_process + '</span>');
-        } else if (aData.app_process == '심사중') {
-          $('td:eq(5)', nRow).html('<span class="btn btn-purple btn-rounded waves-effect waves-light px-1 py-0">' + aData.app_process + '</span>');
-        } else if (aData.app_process == '개발준비중') {
-          $('td:eq(5)', nRow).html('<span class="btn btn-custom btn-rounded waves-effect waves-light px-1 py-0">' + aData.app_process + '</span>');
+        if (aData[5] == '서비스중지'){
+          $('td:eq(5)', nRow).html('<span class="btn btn-pink btn-rounded waves-effect waves-light px-1 py-0">' + aData[5] + '</span>');
+        } else if (aData[5] == '서비스유효') {
+          $('td:eq(5)', nRow).html('<span class="btn btn-warning btn-rounded waves-effect waves-light px-1 py-0">' + aData[5] + '</span>');
+        } else if (aData[5] == '등록완료') {
+          $('td:eq(5)', nRow).html('<span class="btn btn-success btn-rounded waves-effect waves-light px-1 py-0">' + aData[5] + '</span>');
+        } else if (aData[5] == '등록대기') {
+          $('td:eq(5)', nRow).html('<span class="btn btn-info btn-rounded waves-effect waves-light px-1 py-0">' + aData[5] + '</span>');
+        } else if (aData[5] == '심사중') {
+          $('td:eq(5)', nRow).html('<span class="btn btn-purple btn-rounded waves-effect waves-light px-1 py-0">' + aData[5] + '</span>');
+        } else if (aData[5] == '개발준비중') {
+          $('td:eq(5)', nRow).html('<span class="btn btn-custom btn-rounded waves-effect waves-light px-1 py-0">' + aData[5] + '</span>');
         }
 
-        $(nRow).attr("rowidx", aData.idx);
+        $(nRow).attr("rowidx", aData[0]);
         return nRow;
       },
       paging: true,
@@ -263,92 +235,34 @@ $(document).ready(function() {
           }
       },
   });
+    //     $('.filter-input').on( 'keyup change clear', function () {
+    //     var i = $(this).attr('data-column');
+    //     var v = $(this).val();
+    //     table.column(i).search(v).draw();
+    // });
+  // });
 
-  table.columns().every( function () {
-     var that = this;
+// table.columns().every( function () {
+//      var that = this;
+//
+//      $('.filter-input').on( 'keyup change', function () {
+//          if ( that.search() !== this.value ) {
+//              that
+//                  .search( this.value )
+//                  .draw();
+//          }
+//      });
+// });
 
-     $('.filter-input').on( 'keyup change', function () {
-         if ( that.search() !== this.value ) {
-             that
-                 .search( this.value )
-                 .draw();
-         }
-     });
-  });
+  // table.columns().every( function () {
+    // $('.filter-input').on( 'keyup change', function () {
+    //   $('#datalist')
+    //                .DataTable()
+    //                .search($('.filter-input').val(), false, true)
+    //                .draw();
+    // });
+  // });
 
-  // Check all
-   $('#checkAll').click(function(){
-      if($(this).is(':checked')){
-         $('.dt-checkboxes').prop('checked', true);
-      }else{
-         $('.dt-checkboxes').prop('checked', false);
-      }
-   });
-
-   // 서비스중지
-   $('#status8').click(function(e){
-      //alert("clicked");
-      var checked_ids_arr = [];
-      var form = this;
-      var rowsel = table.column(0).checkboxes.selected();
-
-      $.each(rowsel, function(index, rowId){
-        checked_ids_arr.push(rowId);
-     });
-      e.preventDefault();
-
-      console.log(checked_ids_arr);
-
-      if(checked_ids_arr.length > 0){
-         // Confirm alert
-         var confirmMsg = confirm("정말 서비스중지를 하시겠습니까?");
-         if (confirmMsg == true) {
-            $.ajax({
-               url: '/ajax',
-               type: 'POST',
-               data: {
-                 request: 8,
-                 checked_ids_arr: checked_ids_arr
-               },
-               success: function(response){
-                  table.ajax.reload();
-               }
-            });
-         }
-      }
-   });
-
-   $('#status7').click(function(e){
-      //alert("clicked");
-      var checked_ids_arr = [];
-      var form = this;
-      var rowsel = table.column(0).checkboxes.selected();
-
-      $.each(rowsel, function(index, rowId){
-        checked_ids_arr.push(rowId);
-     });
-      e.preventDefault();
-
-      console.log(checked_ids_arr);
-
-      if(checked_ids_arr.length > 0){
-         // Confirm alert
-         var confirmMsg = confirm("정말 등록완료로 변경하시겠습니까?");
-         if (confirmMsg == true) {
-            $.ajax({
-               url: '/ajax',
-               type: 'POST',
-               data: {
-                 request: 7,
-                 checked_ids_arr: checked_ids_arr
-               },
-               success: function(response){
-                  table.ajax.reload();
-               }
-            });
-         }
-      }
-   });
 
 });
 

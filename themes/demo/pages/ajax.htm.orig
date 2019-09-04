@@ -1,0 +1,138 @@
+title = "Ajax"
+url = "/ajax"
+is_hidden = 0
+==
+<?
+use Illuminate\Support\Facades\DB;
+
+function onStart()
+{
+   $table = $_POST['tb'];
+   $joinTable = 'marutm1.'.$_POST['jtb'];
+   $length = $_POST['length'];
+   $start = $_POST['start'];
+   $fields = explode("|", $_POST['fd']);
+   $searchVar = $_POST['search']['value'];
+
+   //$requestData = $_REQUEST['columns'];
+
+   $columnSortOrder = $_POST['order'][0]['column'];
+   $sortBy = $_POST['order'][0]['dir'];
+
+   if ($searchVar != '') {
+     $result = DB::table($table.' as A')
+               ->where('A.app_name', 'like', '%'.$searchVar.'%')
+               ->orWhere('A.app_id', 'like', '%'.$searchVar.'%')
+               ->leftJoin($joinTable.' as B', function($join){
+                   $join->on('A.order_id', '=', 'B.order_id')
+                        ->where('B.process', '=', '1');
+               })
+               ->orderBy('A.idx', 'desc')
+               ->get();
+   } else {
+     $result = DB::table($table.' as A')
+               ->skip($start)
+               ->limit($length)
+               ->leftJoin($joinTable.' as B', function($join){
+                   $join->on('A.order_id', '=', 'B.order_id')
+                        ->where('B.process', '=', '1');
+               })
+               ->orderBy('A.'.$fields[$columnSortOrder], $sortBy)
+               ->get();
+   }
+
+   $data = array();
+
+   foreach($result as $row) {
+      $sub_array = array();
+
+      for ($i = 0; $i < count($fields); $i++) {
+
+        if ($fields[$i] == 'end_time') {
+            if (!$row->end_time || $row->service_type == 'lite') {
+              if ($row->amount == 0) {
+                $sub_array[] = '∞(무료)';
+              } else {
+                $sub_array[] = '∞';
+              }
+            } else {
+              if ($row->amount == 0) {
+                $sub_array[] = $this->remainDays($row->end_time)." 일(무료)";
+              } else {
+                $sub_array[] = $this->remainDays($row->end_time)." 일";
+              }
+            }
+
+         } else if ($fields[$i] == 'app_process') {
+           $arrProcess = [
+               1 => '개발준비중', 2 => '개발진행중', 3 => '심사중', 4 => '등록거부',
+               5 => '재심사중', 6 => '등록대기', 7 => '등록완료', 8 => '서비스중지',
+               9 => '기간만료', 10 => '서비스유효'
+            ];
+
+           foreach ($arrProcess as $key=>$val) {
+             if($row->{$fields[$i]} == $key) {
+                $sub_array[] = $arrProcess[$key];
+             }
+           }
+         } else if ($fields[$i] == 'script_popup') {
+             if ($row->{$fields[$i]} == 'Y') {
+               $sub_array[] = '설치됨';
+             } else {
+               $sub_array[] = '-';
+             }
+         } else if ($fields[$i] == 'custom_etc') {
+            if ($row->{$fields[$i]} != '') {
+              $sub_array[] .= $row->{$fields[$i]}." 커스텀";
+            } else {
+              $sub_array[] = '-';
+            }
+         } else if ($fields[$i] == 'reg_time') {
+            $sub_array[] = date("Y-m-d", $row->{$fields[$i]});
+         } else {
+            $sub_array[] = $row->{$fields[$i]};
+         }
+      }
+    $data[] = $sub_array;
+  }
+
+/*
+for ($j = 0; $j < $length; $j++) {
+  for ($i = 0; $i < count($fields); $i++) {
+    if (isset($_POST["columns"][$i]["search"]["value"]) && ($_POST["columns"][$i]["search"]["value"] != '')
+         && (strpos($data[$j][$i], $_POST["columns"][$i]["search"]["value"], true) != false)) {
+          trace_log("here=".$_POST["columns"][$i]["search"]["value"]."=");
+        //  $newData[] = $data[$j];
+      }
+  }
+}
+*/
+
+   $output = array(
+     "draw" => intval($_POST['draw']),
+     "recordsTotal" => DB::table($table)->count(),
+     "recordsFiltered" => DB::table($table)->count(),
+     "data" => $data,
+   );
+
+   echo json_encode($output);
+}
+
+// 기간 계산 종료일 - 시작일
+public function calculDate($val1, $val2)
+{
+    $dday = (($val2 - $val1) / 86400);
+
+    return ceil($dday);
+}
+
+// 남은 기간 계산: 종료일 - 오늘
+public function remainDays($val2)
+{
+    //$today = date("Y-m-d h:i:s", time());
+    $remain_day = (($val2 - time()) / 86400);
+
+    return ceil($remain_day);
+}
+?>
+==
