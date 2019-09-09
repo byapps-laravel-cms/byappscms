@@ -16,28 +16,28 @@
 <!-- <div style="background: yellow; height: 100px; width:100px;">{{user}}</div> -->
 <div class="box box-warning direct-chat direct-chat-warning">
     <div class="box-body">
-        <div class="direct-chat-messages">
+        <div class="direct-chat-messages" style="height:100%">
 {% for comment in comments %}
   {% if comment.mem_id != user['username'] %}
-            <div class="direct-chat-msg">
+            <div class="direct-chat-msg col-12">
                 <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_1.jpg" alt="Message User Image">
                 <a href="{{ URL_BASE }}{{ arrURL[6] }}{{ comment.pidx }}">
-                  <div class="direct-chat-text">{{ comment.comment }}</div>
+                  <div class="direct-chat-text col-10">{{ comment.comment }}</div>
                   <div class="direct-chat-info clearfix">
-                      <span class="direct-chat-name float-left">
+                      <span class="direct-chat-name float-left text-dark">
                         {{ comment.reg_time | date('Y-m-d') }}, {{ comment.mem_name }}({{ comment.mem_id }})
                       </span>
                   </div>
                 </a>
             </div>
   {% else %}
-            <div class="direct-chat-msg right">
+            <div class="direct-chat-msg right col-12">
                 <img class="direct-chat-img" src="{{ user.avatar.path == '' ? 'https://bootdey.com/img/Content/user_1.jpg' : user.avatar.path }}" alt="Message User Image">
-                <div class="direct-chat-text">
+                <div class="direct-chat-text col-10">
                     {{ comment.comment }}
                 </div>
                 <div class="direct-chat-info clearfix">
-                    <span class="direct-chat-name float-right">
+                    <span class="direct-chat-name float-right text-dark">
                       {{ comment.reg_time | date('Y-m-d') }}, {{ comment.mem_name }}({{ comment.mem_id }})
                     </span>
                 </div>
@@ -45,16 +45,5 @@
   {% endif %}
 {% endfor %}
         </div>
-    </div>
-
-    <div class="box-footer">
-        <form action="#" method="post">
-        <div class="input-group">
-            <input type="text" name="message" placeholder="Type Message ..." class="form-control">
-                <span class="input-group-btn">
-                    <button type="submit" class="btn btn-warning btn-flat">Send</button>
-                </span>
-        </div>
-        </form>
     </div>
 </div>
