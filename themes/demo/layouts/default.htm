@@ -39,6 +39,9 @@ function onStart()
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/fixedHeader.dataTables.min.css'|theme }}">
         <link rel="stylesheet" type="text/css" href="{{ 'assets/css/datatables/responsive.dataTables.min.css'|theme }}">
 
+        <!-- datepicker -->
+        <link rel="stylesheet" type="text/css" href="{{ 'assets/codefox/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css'|theme }}" >
+        <link rel="stylesheet" type="text/css" href="{{ 'assets/codefox/plugins/bootstrap-daterangepicker/daterangepicker.css'|theme }}" >
 
         <!-- jQuery  -->
         <script src="{{ 'assets/codefox/js/jquery.min.js'|theme }}"></script>
@@ -230,7 +233,7 @@ function onStart()
         {% else %}
           <script src="{{ 'assets/javascript/aside.js?20190827'|theme }}"></script>
         {% endif %}
-
+        <script src="{{ 'assets/codefox/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js'|theme }}"></script>
         <!-- For Datatable -->
         <script src="{{ 'assets/javascript/datatables/jquery.dataTables.min.js'|theme }}"></script>
 
