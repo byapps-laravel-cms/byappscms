@@ -56,18 +56,18 @@ class Comments extends ComponentBase
       return [
         'apps' => '앱 접수',
         'csqna'=> '고객 문의',
-        // 'design_order' => '',
-        // 'free_order' => '',
+        // 'design_order' => '', //필요없어보임
+        // 'free_order' => '', // 주문확인 클릭시 자동으로 달리는 댓글
         'ma' => '부가서비스 접수',
         'member' => '회원 문의',
         'myqna' => '고객 상담',
         'new_update' => '업데이트 관리',
-        'order' => '기타 서비스',
+        'order' => '주문접수 관리',
         'payment' => '결제 관리',
         'promotion' => '프로모션',
-        // 'retaku' => '',
+        // 'retaku' => '', // 리타쿠페이지에서만 필요할것 같음
         'reseller' => '리셀러 정보',
-        // 'work' => ''
+        // 'work' => '' //안쓰여지는것으로 보임
       ];
   }
 
