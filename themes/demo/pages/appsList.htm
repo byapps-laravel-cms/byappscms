@@ -75,8 +75,8 @@ thead input {
 
     <form name="form-datalist" id="form-datalist">
 
-      <button type="submit" id="status8" class="btn btn-danger mb-1" style="float:right;">일괄 서비스중지</button>
-      <button type="submit" id="status7" class="btn btn-primary mb-1 mr-1" style="float:right;">일괄 등록완료</button>
+      <button type="submit" id="status8" class="btn btn-pink btn-rounded waves-effect waves-light mb-1" style="float:right;">선택 서비스중지</button>
+      <button type="submit" id="status7" class="btn btn-success btn-rounded waves-effect waves-light mb-1 mr-1" style="float:right;">선택 등록완료</button>
 
       <table id="datalist" class="table table-striped mb-3 table-colored table-inverse" style="width:100%;">
           <thead>
@@ -297,7 +297,7 @@ $(document).ready(function() {
      });
       e.preventDefault();
 
-      console.log(checked_ids_arr);
+      //console.log(checked_ids_arr);
 
       if(checked_ids_arr.length > 0){
          // Confirm alert
@@ -329,7 +329,7 @@ $(document).ready(function() {
      });
       e.preventDefault();
 
-      console.log(checked_ids_arr);
+      //console.log(checked_ids_arr);
 
       if(checked_ids_arr.length > 0){
          // Confirm alert

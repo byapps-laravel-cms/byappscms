@@ -41,8 +41,7 @@ function allDatas()
       for($i = 0; $i < count($_POST['columns']); $i++){
 
         trace_log("필터".$_POST['columns'][$i]['search']['value']);
-        //trace_log("컬럼". $_POST['columns'][$i]);
-        trace_log("컬럼인덱스".$columnIndex);
+        trace_log("컬럼".print_r($_POST['columns'][$i]));
 
         if($_POST['columns'][$i]['search']['value'] != ""){
            $dat[$_POST['columns'][$i]['data']] = $_POST['columns'][$i]['search']['value'];
@@ -80,6 +79,7 @@ function allDatas()
             foreach ($datas as $k => $search){
                 if ($first){
                     $query->where($k,'LIKE',"%{$search}%");
+                    //trace_log("쿼리", $k);
                     $first = false;
                 } else {
                     $query->orWhere($k,'LIKE',"%{$search}%");
@@ -157,7 +157,7 @@ function allDatas()
   if ($request == 8) {
     $checked_arr = $_POST['checked_ids_arr'];
 
-    //info($checked_arr);
+    info($checked_arr);
 
     $nestedData = array();
     $data = array();
