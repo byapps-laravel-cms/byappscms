@@ -27,7 +27,7 @@
                   {% partial __SELF__ ~ '::thumbnail' result = result %}
               {% endif %} -->
               <div class="ss-result__content">
-                  {% partial __SELF__ ~ '::content' result = result %}
+                  {% partial __SELF__ ~ '::content' result = result[0] %}
               </div>
               <hr/>
           </div>

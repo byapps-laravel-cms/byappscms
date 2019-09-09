@@ -37,33 +37,13 @@ use Jiwon\Byapps\Models\AppsData;
 function onStart()
 {
     $this['tableName'] = 'BYAPPS_apps_data';
-    $this['fields'] = "idx|app_id|app_name|app_ver|byapps_ver|app_process|script_popup|custom_etc|apps_type|start_time|reg_time";
+    $this['joinTable'] = 'BYAPPS_apps_payment_data';
+    $this['fields'] = "idx|app_id|app_name|app_ver|byapps_ver|app_process|script_popup|custom_etc|apps_type|end_time|reg_time";
 }
 ?>
 ==
 {% component 'breadcrumbs' %}
 
-
-<!-- <div class="row">
-    <div class="col-sm-12">
-        <div class="page-title-box">
-
-            <ol class="breadcrumb float-right p-0 m-0">
-                <li>
-                    <a href="#">Codefox</a>
-                </li>
-                <li>
-                    <a href="#">UI Elements</a>
-                </li>
-                <li class="active">
-                    Carousel
-                </li>
-            </ol>
-            <h4 class="page-title m-0">Carousel</h4>
-        </div>
-
-    </div>
-</div> -->
 
 <style>
 
@@ -95,12 +75,13 @@ thead input {
 
     <form name="form-datalist" id="form-datalist">
 
-      <button type="submit" class="btn btn-primary mb-1" style="float:right;">상태변경</button>
+      <button type="submit" id="status8" class="btn btn-pink btn-rounded waves-effect waves-light mb-1" style="float:right;">선택 서비스중지</button>
+      <button type="submit" id="status7" class="btn btn-success btn-rounded waves-effect waves-light mb-1 mr-1" style="float:right;">선택 등록완료</button>
 
       <table id="datalist" class="table table-striped mb-3 table-colored table-inverse" style="width:100%;">
           <thead>
               <tr>
-                  <th class="chk"></th>
+                  <th><input type="checkbox" class="checkAll" id="checkAll"></th>
                   <th>앱 아이디</th>
                   <th>앱명</th>
                   <th>버전</th>
@@ -164,14 +145,7 @@ $(document).ready(function() {
   $('#' + tableId + ' thead tr').clone(true).appendTo('#' + tableId + ' thead');
   $('#' + tableId + ' thead tr:eq(1) th').not('th.chk').each(function(i){
       var title = $(this).text();
-      $(this).html( '<input type="text" class="filter-input" placeholder="'+title+'" id="col'+i+'_filter" name="filter-input" data-column="'+i+'"/>' );
-
-      // $('input', this).on( 'keyup change', function () {
-      //     // if (table.column(i).search() !== this.value) {
-      //     //     table.column(i).search(this.value).draw();
-      //     // }
-      //     table.api().column(i).search(this.value).draw();
-      // });
+      $(this).html( '<input type="text" class="filter-input" placeholder="'+title+'" id="col'+i+'_filter" name="input" data-column="'+i+'" autocomplete="off" />' );
   });
 
   var table = $('#' + tableId).DataTable({
@@ -181,45 +155,56 @@ $(document).ready(function() {
           url: '/ajax',
           type: 'POST',
           data: {
-            tb: '{{ tableName|raw() }}',
-            fd: '{{ fields|raw() }}'
+            request: 1
           },
+            // tb: '{{ tableName|raw() }}',
+            // fd: '{{ fields|raw() }}',
+            // jtb: '{{ joinTable|raw() }}'
           error: function(e) {
             console.log(e);
-          }
+          },
       },
-      // initComplete: function() {
-      //
-      //   this.api().columns().every(function() {
-      //     var column = this;
-      //
-      //     var select = $('<select><option value=""></option></select>')
-      //                   .appendTo($(column.header()).empty())
-      //                   .on('change', function() {
-      //                     var val = $.fn.dataTable.util.escapeRegex($(this).val());
-      //                     column.search(this.value).draw();
-      //                    });
-      //           column.data().unique().sort().each(function(d, j) {
-      //           select.append('<option value="'+d+'">'+d+'</option>')
-      //         });
-      //     console.log(select);
-      //   });
-      // },
-
+      columns: [
+          { "data" : "idx" },
+          { "data" : "app_id" },
+          { "data" : "app_name" },
+          { "data" : "app_ver" },
+          { "data" : "byapps_ver" },
+          { "data" : "app_process" },
+          { "data" : "script_popup" },
+          { "data" : "custom_etc" },
+          { "data" : "apps_type" },
+          { "data" : "end_time" },
+          { "data" : "reg_time" }
+      ],
       columnDefs: [
          {
             'targets': 0,
             'className': 'select-checkbox',
+            'searchable': false,
+            'orderable': false,
             'checkboxes': {
                'selectRow': true
-            }
+            },
          },
          {
            'targets': 1,
-           'render': function ( data, type, row, meta ) {
-              return '<a href="/apps/appsdetail/'+row[0]+'">'+data+'</a>';
+           'render': function ( data, type, full, meta ) {
+              return '<a href="/apps/appsdetail/'+full.idx+'">'+data+'</a>';
            }
          },
+         {
+           'targets': 3,
+           'width': '5%'
+         },
+         {
+           'targets': 4,
+           'width': '5%'
+         },
+         {
+           'targets': 7,
+           'width': '15%'
+         }
       ],
       select: {
          'style': 'multi'
@@ -228,21 +213,21 @@ $(document).ready(function() {
         [ 0, 'desc']
       ],
       fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-        if (aData[5] == '서비스중지'){
-          $('td:eq(5)', nRow).html('<span class="btn btn-pink btn-rounded waves-effect waves-light px-1 py-0">' + aData[5] + '</span>');
-        } else if (aData[5] == '서비스유효') {
-          $('td:eq(5)', nRow).html('<span class="btn btn-warning btn-rounded waves-effect waves-light px-1 py-0">' + aData[5] + '</span>');
-        } else if (aData[5] == '등록완료') {
-          $('td:eq(5)', nRow).html('<span class="btn btn-success btn-rounded waves-effect waves-light px-1 py-0">' + aData[5] + '</span>');
-        } else if (aData[5] == '등록대기') {
-          $('td:eq(5)', nRow).html('<span class="btn btn-info btn-rounded waves-effect waves-light px-1 py-0">' + aData[5] + '</span>');
-        } else if (aData[5] == '심사중') {
-          $('td:eq(5)', nRow).html('<span class="btn btn-purple btn-rounded waves-effect waves-light px-1 py-0">' + aData[5] + '</span>');
-        } else if (aData[5] == '개발준비중') {
-          $('td:eq(5)', nRow).html('<span class="btn btn-custom btn-rounded waves-effect waves-light px-1 py-0">' + aData[5] + '</span>');
+        if (aData.app_process == '서비스중지'){
+          $('td:eq(5)', nRow).html('<span class="btn btn-pink btn-rounded waves-effect waves-light px-1 py-0">' + aData.app_process + '</span>');
+        } else if (aData.app_process == '서비스유효') {
+          $('td:eq(5)', nRow).html('<span class="btn btn-warning btn-rounded waves-effect waves-light px-1 py-0">' + aData.app_process + '</span>');
+        } else if (aData.app_process == '등록완료') {
+          $('td:eq(5)', nRow).html('<span class="btn btn-success btn-rounded waves-effect waves-light px-1 py-0">' + aData.app_process + '</span>');
+        } else if (aData.app_process == '등록대기') {
+          $('td:eq(5)', nRow).html('<span class="btn btn-info btn-rounded waves-effect waves-light px-1 py-0">' + aData.app_process + '</span>');
+        } else if (aData.app_process == '심사중') {
+          $('td:eq(5)', nRow).html('<span class="btn btn-purple btn-rounded waves-effect waves-light px-1 py-0">' + aData.app_process + '</span>');
+        } else if (aData.app_process == '개발준비중') {
+          $('td:eq(5)', nRow).html('<span class="btn btn-custom btn-rounded waves-effect waves-light px-1 py-0">' + aData.app_process + '</span>');
         }
 
-        $(nRow).attr("rowidx", aData[0]);
+        $(nRow).attr("rowidx", aData.idx);
         return nRow;
       },
       paging: true,
@@ -278,88 +263,93 @@ $(document).ready(function() {
           }
       },
   });
-    //     $('.filter-input').on( 'keyup change clear', function () {
-    //     var i = $(this).attr('data-column');
-    //     var v = $(this).val();
-    //     table.column(i).search(v).draw();
-    // });
-  // });
 
-// table.columns().every( function () {
-//      var that = this;
-//
-//      $('.filter-input').on( 'keyup change', function () {
-//          if ( that.search() !== this.value ) {
-//              that
-//                  .search( this.value )
-//                  .draw();
-//          }
-//      });
-// });
+  table.columns().every( function () {
+     var that = this;
 
-  // table.columns().every( function () {
-    // $('.filter-input').on( 'keyup change', function () {
-    //   $('#datalist')
-    //                .DataTable()
-    //                .search($('.filter-input').val(), false, true)
-    //                .draw();
-    // });
-  // });
+     $('.filter-input').on( 'keyup change', function () {
+         if ( that.search() !== this.value ) {
+             that
+                 .search( this.value )
+                 .draw();
+         }
+     });
+  });
 
+  // Check all
+   $('#checkAll').click(function(){
+      if($(this).is(':checked')){
+         $('.dt-checkboxes').prop('checked', true);
+      }else{
+         $('.dt-checkboxes').prop('checked', false);
+      }
+   });
 
+   // 서비스중지
+   $('#status8').click(function(e){
+      //alert("clicked");
+      var checked_ids_arr = [];
+      var form = this;
+      var rowsel = table.column(0).checkboxes.selected();
 
+      $.each(rowsel, function(index, rowId){
+        checked_ids_arr.push(rowId);
+     });
+      e.preventDefault();
 
+      //console.log(checked_ids_arr);
 
+      if(checked_ids_arr.length > 0){
+         // Confirm alert
+         var confirmMsg = confirm("정말 서비스중지를 하시겠습니까?");
+         if (confirmMsg == true) {
+            $.ajax({
+               url: '/ajax',
+               type: 'POST',
+               data: {
+                 request: 8,
+                 checked_ids_arr: checked_ids_arr
+               },
+               success: function(response){
+                  table.ajax.reload();
+               }
+            });
+         }
+      }
+   });
 
+   $('#status7').click(function(e){
+      //alert("clicked");
+      var checked_ids_arr = [];
+      var form = this;
+      var rowsel = table.column(0).checkboxes.selected();
 
+      $.each(rowsel, function(index, rowId){
+        checked_ids_arr.push(rowId);
+     });
+      e.preventDefault();
 
-  // $('#datalist tbody').on('click', 'tr', function () {
-  //     var idx = $(this).attr('rowidx');
-  //     //console.log(id);
-  //     var index = $.inArray(idx, selected);
-  //
-  //     if ( index === -1 ) {
-  //         selected.push(idx);
-  //     } else {
-  //         selected.splice( index, 1 );
-  //     }
-  //     //console.log(selected);
-  //     $(this).toggleClass('selected');
-  // });
-  //
-  // $('#form-datalist').on('submit', function(e){
-  //    var form = this;
-  //    var rows_selected = table.column(0).checkboxes.selected();
-  //
-  //    // Iterate over all selected checkboxes
-  //    $.each(rows_selected, function(index, rowId){
-  //       console.log(rowId);
-  //       // Create a hidden element
-  //       $(form).append(
-  //           $('<input>')
-  //              .attr('type', 'hidden')
-  //              .attr('name', 'id[]')
-  //              .val(rowId)
-  //       );
-  //    });
-  //
-  //    $.ajax({
-  //      type: 'POST',
-  //      url: '/ajaxProcess',
-  //      data: {
-  //        'dt': form.serializeArray(),
-  //        'tb': {{ tableName|raw() }},
-  //        'fd': {{ fields|raw() }}
-  //      },
-  //      error: function(e) {
-  //        console.log(e);
-  //      },
-  //      success: function() {
-  //        table = $('#' + tableId).DataTable();
-  //        table.ajax.reload();
-  //      }
-  //    });
-  // });
+      //console.log(checked_ids_arr);
+
+      if(checked_ids_arr.length > 0){
+         // Confirm alert
+         var confirmMsg = confirm("정말 등록완료로 변경하시겠습니까?");
+         if (confirmMsg == true) {
+            $.ajax({
+               url: '/ajax',
+               type: 'POST',
+               data: {
+                 request: 7,
+                 checked_ids_arr: checked_ids_arr
+               },
+               success: function(response){
+                  table.ajax.reload();
+               }
+            });
+         }
+      }
+   });
+
 });
 
 </script>

@@ -1,8 +1,3 @@
 <?php
 
-use Jiwon\ByApps\Models\PayManage;
-
-Route::get('paymanages', function() {
-  $paymanages = PayManage::all();
-  return $paymanages;
-});
+Route::get('pay/paylist/default', 'Jiwon\Byapps\Components\Datatable@getIndex');

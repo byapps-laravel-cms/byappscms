@@ -1,0 +1,14 @@
+{
+  "name": "jiwon/byapps-plugin",
+  "type": "byapps-plugin",
+  "description": "OctoberCMS plugin for demonstrating the use of Laravel Packages within October plugins",
+  "authors": [
+    {
+      "name": "Byapps",
+      "email": "ljwjulian@gmail.com"
+    }
+  ],
+  "require": {
+      "yajra/laravel-datatables-oracle": "~8.0"
+  }
+}

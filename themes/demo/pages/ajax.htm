@@ -4,109 +4,249 @@ is_hidden = 0
 ==
 <?
 use Illuminate\Support\Facades\DB;
+use Jiwon\Byapps\Models\AppsData;
+use Jiwon\Byapps\Models\PaymentData;
 
 function onStart()
 {
-   $table = $_POST['tb'];
-   $length = $_POST['length'];
-   $start = $_POST['start'];
-   $fields = explode("|", $_POST['fd']);
-   $searchVar = $_POST['search']['value'];
-
-   //$requestData = $_REQUEST['columns'];
-
-   $columnSortOrder = $_POST['order'][0]['column'];
-   $sortBy = $_POST['order'][0]['dir'];
-
-   if ($searchVar != '') {
-     $result = DB::table($table)
-               ->where('app_name', 'like', '%'.$searchVar.'%')
-               ->orWhere('app_id', 'like', '%'.$searchVar.'%')
-               ->orderBy('idx', 'desc')
-               ->get();
-   } else {
-     $result = DB::table($table)
-               ->skip($start)
-               ->limit($length)
-               ->orderBy($fields[$columnSortOrder], $sortBy)
-               ->get();
-   }
-
-   $data = array();
-
-   foreach($result as $row) {
-      $sub_array = array();
-
-      for ($i = 0; $i < count($fields); $i++) {
-
-        if ($fields[$i] == 'start_time') {
-            if ($row->service_type == 'lite' && !$row->end_time) {
-              $sub_array[] = '무제한';
-            } else {
-              $sub_array[] = $this->calculDate($row->start_time, $row->end_time)." 일";
-            }
-         } else if ($fields[$i] == 'app_process') {
-           $arrProcess = [
-               1 => '개발준비중', 2 => '개발진행중', 3 => '심사중', 4 => '등록거부',
-               5 => '재심사중', 6 => '등록대기', 7 => '등록완료', 8 => '서비스중지',
-               9 => '기간만료', 10 => '서비스유효'
-            ];
-
-           foreach ($arrProcess as $key=>$val) {
-             if($row->{$fields[$i]} == $key) {
-                $sub_array[] = $arrProcess[$key];
-             }
-           }
-         } else if ($fields[$i] == 'script_popup') {
-             if ($row->{$fields[$i]} == 'Y') {
-               $sub_array[] = '설치됨';
-             } else {
-               $sub_array[] = '-';
-             }
-         } else if ($fields[$i] == 'custom_etc') {
-            if ($row->{$fields[$i]} != '') {
-              $sub_array[] .= $row->{$fields[$i]}." 커스텀";
-            } else {
-              $sub_array[] = '-';
-            }
-         } else if ($fields[$i] == 'reg_time') {
-            $sub_array[] = gmdate("Y-m-d", $row->{$fields[$i]});
-         } else {
-            $sub_array[] = $row->{$fields[$i]};
-         }
-      }
-    $data[] = $sub_array;
-  }
-
-/*
-for ($j = 0; $j < $length; $j++) {
-  for ($i = 0; $i < count($fields); $i++) {
-    if (isset($_POST["columns"][$i]["search"]["value"]) && ($_POST["columns"][$i]["search"]["value"] != '')
-         && (strpos($data[$j][$i], $_POST["columns"][$i]["search"]["value"], true) != false)) {
-          trace_log("here=".$_POST["columns"][$i]["search"]["value"]."=");
-        //  $newData[] = $data[$j];
-      }
-  }
-}
-*/
-
-   $output = array(
-     "draw" => intval($_POST['draw']),
-     "recordsTotal" => DB::table($table)->count(),
-     "recordsFiltered" => DB::table($table)->count(),
-     "data" => $data,
-   );
-
-   echo json_encode($output);
+  $this->allDatas();
 }
 
-// 기간 계산 종료일 - 시작일
-public function calculDate($val1, $val2)
+function allDatas()
 {
-    // $today = date("Y-m-d h:i:s", time());
-    $dday = (($val2 - $val1) / 86400);
+  $request = $_POST['request'];
 
-    return ceil($dday);
+  if ($request == 1) {
+
+    $draw = $_POST['draw'];
+
+    $totalData = AppsData::count();
+    $limit = $_POST['length'];
+    $start = $_POST['start'];
+
+    $columnIndex = $_POST['order'][0]['column']; // Column index
+    $columnName = $_POST['columns'][$columnIndex]['data']; // Column name
+
+    $dir = $_POST['order'][0]['dir'];
+
+    $searchVar = $_POST['search']['value'];
+
+    $datas = array();
+    $dat = array();
+
+    // 검색어가 없으면
+    if (empty($searchVar)){
+      info ("검색어 없음");
+
+      for($i = 0; $i < count($_POST['columns']); $i++){
+
+        trace_log("필터".$_POST['columns'][$i]['search']['value']);
+        //trace_log("컬럼". $_POST['columns'][$i]);
+        trace_log("컬럼인덱스".$columnIndex);
+
+        if($_POST['columns'][$i]['search']['value'] != ""){
+           $dat[$_POST['columns'][$i]['data']] = $_POST['columns'][$i]['search']['value'];
+        }
+
+        $datas = $dat;
+      }
+
+      // 필터가 비어있지 않다면
+      if (!empty($datas)){
+
+        info("데이터", $datas);
+
+        $appsDatas = AppsData::where(function($query) use ($datas){
+          $first = true;
+
+          foreach($datas as $k => $search){
+
+              if ($first) {
+                $query->where($k, 'LIKE', "%{$search}%");
+                trace_log("k1 ". $k);
+                $first = false;
+              } else {
+                $query->orWhere($k, 'LIKE', "%{$search}%");
+                trace_log("k2 ". $k);
+              }
+           }
+         })->offset($start)
+           ->limit($limit)
+           ->orderBy($columnName, $dir)
+           ->get();
+
+        $totalFiltered = AppsData::where(function ($query) use ($datas){
+            $first = true;
+            foreach ($datas as $k => $search){
+                if ($first){
+                    $query->where($k,'LIKE',"%{$search}%");
+                    $first = false;
+                } else {
+                    $query->orWhere($k,'LIKE',"%{$search}%");
+                }
+            }
+        })->count();
+      } else {
+
+        $appsDatas = AppsData::offset($start)
+                               ->limit($limit)
+                               ->orderBy($columnName, $dir)
+                               ->get();
+
+        $totalFiltered = $totalData;
+      }
+
+    } else {
+      // 검색어 있을때
+        info("검색어있음".$_POST['search']['value']);
+
+        $search = $_POST['search']['value'];
+        $appsDatas = AppsData::where('app_name','LIKE',"%{$search}%")
+                                ->orWhere('app_id', 'LIKE',"%{$search}%")
+                                ->orWhere('mem_id', 'LIKE',"%{$search}%")
+                                ->offset($start)
+                                ->limit($limit)
+                                ->orderBy($columnName, $dir)
+                                ->get();
+
+        $totalFiltered = AppsData::where('app_id','LIKE', "%{$search}%")
+                                    ->orWhere('app_name', 'LIKE',"%{$search}%")
+                                    ->orWhere('app_ver', 'LIKE',"%{$search}%")
+                                    ->orWhere('byapps_ver', 'LIKE',"%{$search}%")
+                                    ->orWhere('app_process', 'LIKE',"%{$search}%")
+                                    ->orWhere('script_popup', 'LIKE',"%{$search}%")
+                                    ->orWhere('custom_etc', 'LIKE',"%{$search}%")
+                                    ->orWhere('apps_type', 'LIKE',"%{$search}%")
+                                    ->orWhere('end_time', 'LIKE',"%{$search}%")
+                                    ->orWhere('reg_time', 'LIKE',"%{$search}%")
+                                    ->count();
+    }
+
+    $data = array();
+
+    if(!empty($appsDatas))
+    {
+        foreach ($appsDatas as $appsData)
+        {
+            $nestedData['idx'] = $appsData->idx;
+            $nestedData['app_id'] = $appsData->app_id;
+            $nestedData['app_name'] = $appsData->app_name;
+            $nestedData['app_ver'] = $appsData->app_ver;
+            $nestedData['byapps_ver'] = $appsData->byapps_ver;
+            $nestedData['app_process'] = $this->getArrProcess($appsData->app_process);
+            $nestedData['script_popup'] = $this->script($appsData->script_popup);
+            $nestedData['custom_etc'] = $appsData->custom_etc;
+            $nestedData['apps_type'] = $appsData->apps_type;
+            $nestedData['end_time'] = $this->remainDays($appsData->end_time, $appsData->service_type).$this->isFree($appsData->order_id);
+            $nestedData['reg_time'] = date("Y-m-d", $appsData->reg_time);
+            $data[] = $nestedData;
+        }
+    }
+    $json_data = array(
+                "draw"            => intval($draw),
+                "recordsTotal"    => intval($totalData),
+                "recordsFiltered" => intval($totalFiltered),
+                "data"            => $data,
+                );
+
+    echo json_encode($json_data);
+    exit;
+  }
+
+  // 서비스중지
+  if ($request == 8) {
+    $checked_arr = $_POST['checked_ids_arr'];
+
+    //info($checked_arr);
+
+    $nestedData = array();
+    $data = array();
+
+    foreach ($checked_arr as $checked_data) {
+        $nestedData[] = AppsData::where('idx','=', $checked_data)
+                                  ->update(['app_process' => 8]);
+        $data[] = $nestedData;
+    }
+
+    echo 1;
+    exit;
+  }
+
+  // 등록완료
+  if ($request == 7) {
+    $checked_arr = $_POST['checked_ids_arr'];
+
+    $nestedData = array();
+    $data = array();
+
+    foreach ($checked_arr as $checked_data) {
+        $nestedData[] = AppsData::where('idx','=', $checked_data)
+                                  ->update(['app_process' => 7]);
+        $data[] = $nestedData;
+    }
+
+    echo 1;
+    exit;
+  }
 }
+
+
+// 서비스기간 계산: 종료일 - 오늘
+// 기간이 안맞아보이는건 현재 CMS 데이터와 dump된 데이터가 달라서 그럼
+public function remainDays($end_time, $service_type)
+{
+    //$today = date("Y-m-d h:i:s", time());
+    $remain_day = floor(($end_time - time()) / 86400);
+
+    if (!$end_time || $service_type == 'lite') {
+      $remain_day = '∞';
+    }
+
+    return $remain_day;
+}
+
+// 등록상태 구별
+public function getArrProcess($val) {
+  $arrProcess = [
+    1 => '개발준비중', 2 => '개발진행중', 3 => '심사중', 4 => '등록거부',
+    5 => '재심사중', 6 => '등록대기', 7 => '등록완료', 8 => '서비스중지',
+    9 => '기간만료', 10 => '서비스유효'
+  ];
+
+  foreach ($arrProcess as $key=>$value) {
+    if($val == $key) {
+       return $value;
+    }
+  }
+}
+
+// 스크립트 설치여부
+public function script($val) {
+  return $val == 'Y' ? "설치됨" : "-";
+}
+
+// 유료,무료 판단
+public function isFree($val) {
+  $idx = PaymentData::select('idx')
+                      ->where('order_id', '=', $val)
+                      ->where('process', '=', '1')
+                      ->orderBy('idx', 'desc')
+                      ->limit(1)
+                      ->value('idx');
+
+  $amount = PaymentData::select('amount')
+                      ->where('order_id', '=', $val)
+                      ->where('process', '=', '1')
+                      ->orderBy('idx', 'desc')
+                      ->limit(1)
+                      ->value('amount');
+
+  //info($amount);
+
+  if (empty($idx) || $amount == 0) {
+    return "(무료)";
+  }
+}
+
 ?>
 ==

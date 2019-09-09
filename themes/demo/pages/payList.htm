@@ -28,11 +28,11 @@ redirect = "permission"
 
 [breadcrumbs]
 main-ol-class = "breadcrumb"
+main-li-class = "breadcrumb-item"
 active-class = "active"
 disabled-class = "disabled"
 
 [datatable]
-tableName = "paymentTable"
 ==
 <?php
 use Jiwon\Byapps\Models\PaymentData;
@@ -61,7 +61,8 @@ function onStart()
 }
 </style>
 
-<div class="container col-12 col-md-12">
+
+<!-- <div class="container col-12 col-md-12">
 
 {% set records = builderList.records %}
 {% set displayColumn = builderList.displayColumn %}
@@ -127,7 +128,7 @@ function onStart()
     </table>
 
   </div>
-</div>
+</div> -->
 <!-- {% set paginationEnabled =
     records.currentPage > 1 or
     records.lastPage > 1 or
@@ -271,5 +272,4 @@ var table = $('#paymanageTable').DataTable({
 
 });
 </script> -->
-
 {% component 'datatable' %}
