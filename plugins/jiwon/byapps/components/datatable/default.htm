@@ -1,62 +1,104 @@
 
+
+<div class="container col-12 col-md-12">
+
+ <div class="method">
+   <div class="col-md-12 margin-5">
+
+    <table id="paymentTable" class="table table-striped mb-3" style="width:100%;">
+        <col width="40%">
+        <col width="5%">
+        <col width="30%">
+        <col width="10%">
+        <col width="15%">
+        <thead>
+            <tr>
+                <th>idx</th>
+                <th>앱명</th>
+                <th>구분</th>
+                <th>기간</th>
+                <th>결제금액</th>
+                <th>결제일</th>
+            </tr>
+        </thead>
+    </table>
+
+  </div>
+</div>
+
 <script type="text/javascript">
 
 $(document).ready(function() {
 
-  var tableId = {{ tableName|json_encode()|raw  }};
-  //var tableId = "aaa";
-  console.log(tableId);
+  //var tableId = {{ tableName|json_encode()|raw  }};
+  var tableId = "paymentTable";
+  //console.log(tableId);
   var tableFilter = tableId + "_filter";
   var tableSelect = tableId + "_select";
-  console.log(tableFilter);
+  //console.log(tableFilter);
 
   var table = $('#' + tableId).DataTable({
-        "language": {
-          "emptyTable": "데이터가 없어요.",
-            "lengthMenu": "페이지당 _MENU_ 개씩 보기",
-            "info": "현재 _START_ - _END_ / _TOTAL_건",
-            "infoEmpty": "데이터 없음",
-            "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
-            "search": "에서 검색: ",
-            "zeroRecords": "일치하는 데이터가 없어요.",
-            "loadingRecords": "로딩중...",
-            "processing":     "잠시만 기다려 주세요...",
-            "paginate": {
-                "next": "다음",
-                "previous": "이전"
-            },
-            "buttons": {
-                "excel": "엑셀",
-                "copy": "복사"
-            }
+        processing: true,
+        serverSide: true,
+        ajax: {
+          url: "{% __SELF__ %}",
+          crossDomain: true
         },
-        "paging": true,
-        "pageLength": 50,
-        "info": false,
-        "autoWidth": true,
-        "fixedHeader": false,
-        "responsive": true,
-        "orderClasses": false,
-        "stateSave": true,
-        "dom": 'Bfrtip',
-        "buttons": [
-            'excel', 'copy'
-        ],
+        columns: [
+          { data: 'idx', name: 'idx ' },
+          { data: 'app_name', name: 'app_name' },
+          { data: 'pay_type', name: 'pay_type' },
+          { data: 'term', name: 'term' },
+          { data: 'amount', name: 'amount' },
+          { data: 'reg_time', name: 'reg_time' }
+        ]
+
+
+
+        // "language": {
+        //   "emptyTable": "데이터가 없어요.",
+        //     "lengthMenu": "페이지당 _MENU_ 개씩 보기",
+        //     "info": "현재 _START_ - _END_ / _TOTAL_건",
+        //     "infoEmpty": "데이터 없음",
+        //     "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
+        //     "search": "에서 검색: ",
+        //     "zeroRecords": "일치하는 데이터가 없어요.",
+        //     "loadingRecords": "로딩중...",
+        //     "processing":     "잠시만 기다려 주세요...",
+        //     "paginate": {
+        //         "next": "다음",
+        //         "previous": "이전"
+        //     },
+        //     "buttons": {
+        //         "excel": "엑셀",
+        //         "copy": "복사"
+        //     }
+        // },
+        // "paging": true,
+        // "pageLength": 50,
+        // "info": false,
+        // "autoWidth": true,
+        // "fixedHeader": false,
+        // "responsive": true,
+        // "orderClasses": false,
+        // "stateSave": true,
+        // "dom": 'Bfrtip',
+        // "buttons": [
+        //     'excel', 'copy'
+        // ],
 
       });
 
-      //setTimeout(function(){
-        $('#' + tableFilter).prepend('<select id="' + tableSelect + '"></select>');
-        $('#' +tableId + '> thead > tr').children().each(function (indexInArray, valueOfElement) {
-            $('#' +tableSelect).append('<option>'+valueOfElement.innerHTML+'</option>');
-        });
-        $('.dataTables_filter input').unbind().bind('keyup', function () {
-              var colIndex = document.querySelector('#' +tableSelect).selectedIndex;
-              table.column(colIndex).search(this.value).draw();
-          });
-      //}, 500);
-
-        $('#' + tableFilter).after('<p style="width:100%; height:10px;"></p>');
+        // $('#' + tableFilter).prepend('<select id="' + tableSelect + '"></select>');
+        // $('#' +tableId + '> thead > tr').children().each(function (indexInArray, valueOfElement) {
+        //     $('#' +tableSelect).append('<option>'+valueOfElement.innerHTML+'</option>');
+        // });
+        // $('.dataTables_filter input').unbind().bind('keyup', function () {
+        //       var colIndex = document.querySelector('#' +tableSelect).selectedIndex;
+        //       table.column(colIndex).search(this.value).draw();
+        //   });
+        //
+        // $('#' + tableFilter).after('<p style="width:100%; height:10px;"></p>');
   });
 
 </script>
