@@ -53,6 +53,23 @@ function ma_stats_total() {
   });
 }
 
+// 매출 일간
+function sales_stats_daily() {
+  $.request('onGetSalesDailyChartData', {
+    success: function(data) {
+      showSalesChart(data);
+    }
+  });
+}
+
+// 매출 전체
+function sales_stats_total() {
+  $.request('onGetSalesChartData', {
+    success: function(data) {
+      showSalesChart(data);
+    }
+  });
+}
 
 function showAppChart (data) {
     var chart = bb.generate({
