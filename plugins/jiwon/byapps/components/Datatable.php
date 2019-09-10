@@ -40,9 +40,6 @@ class Datatable extends ComponentBase
     {
        // $tableName = $this->property('tableName');
        // $this->page['tableName'] = $tableName;
-       
-       // $this->getIndex();
-       // $this->anyData();
     }
 
     public function anyData()
@@ -52,9 +49,7 @@ class Datatable extends ComponentBase
 
     public function getIndex()
    {
-       //return 'default';
        $paymentData = PaymentData::select('idx', 'app_name', 'pay_type', 'term', 'amount', 'reg_time');
-
 
        return Datatables::of($paymentData)->make(true);
    }
