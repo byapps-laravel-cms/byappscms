@@ -56,6 +56,15 @@ function onStart()
         }
     };
 
+    $this['func'] = new Class {
+        public function calculateDday($date)
+        {
+           $todate = date("Y-m-d", time());
+           $dday = intval((strtotime($todate) - strtotime($date)) / 86400);
+           return $dday;
+        }
+    };
+
     /* 주문요청현황 */
     /*
     /* 주문(앱)접수 */
@@ -95,6 +104,7 @@ function onLayoutChange()
         }
     }
 }
+
 ?>
 ==
 <style>
@@ -403,6 +413,7 @@ function onLayoutChange()
                                 <div class="mx-0 p-2 text-truncate" style="width:8rem;vertical-align:middle;">
                                     {{ iosData.app_name }}<br>
                                     {{ iosData.ios_dev_exp }}
+                                    <span class="badge badge-pink">D +{{ func.calculateDday(iosData.ios_dev_exp) }}</span>
                                 </div>
                             </div>
                         {% endfor %}
@@ -414,6 +425,7 @@ function onLayoutChange()
                                 <div class="mx-0 p-2 text-truncate" style="width:8rem;vertical-align:middle;">
                                     {{ iosData.app_name }}<br>
                                     {{ iosData.ios_dev_exp }}
+                                    <span class="badge badge-info">D {{ func.calculateDday(iosData.ios_dev_exp) }}</span>
                                 </div>
                             </div>
                         {% endfor %}
