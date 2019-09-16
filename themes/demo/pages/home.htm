@@ -39,7 +39,7 @@ function onStart()
         ->get();
 
     if (count($records) == 0){
-        $this['records'] = array('layout1','layout2','layout3');
+        $this['records'] = array('layout1','layout2','layout3', 'layout4');
     } else {
         $temp = array();
         foreach($records as $record){
@@ -238,6 +238,7 @@ function onLayoutChange()
                 </div> -->
             </div>
         </li>
+
       {% elseif record == 'layout2' %}
         <li class="ui-state-default card" id="layout2">
             <div class="cal_box col-md-12 col-sm-12">
@@ -361,8 +362,112 @@ function onLayoutChange()
             </div>
             <!-- Modal End -->
         </li>
-      {% elseif record == 'layout3' %}
 
+      {% elseif record == 'layout3' %}
+      <li class="ui-state-default card" id="layout2">
+          <div class="cal_box col-md-12 col-sm-12">
+              <div class="card-title mt-2">
+                  <i class="fi-menu"></i> 매출 통계표
+                  <button class="btn float-right" type="button" data-toggle="collapse" data-target="#allLank" aria-expanded="true" aria-controls="allLank">
+                    <i class="dripicons-chevron-down"></i>
+                  </button>
+              </div>
+          </div>
+
+          <!-- 기간조회 -->
+          <div class="card-title">
+            <div class="row justify-content-md-center mb-5">
+
+              <div class="col-md-9">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">통계기간</span>
+                  </div>
+                  <input type="text" id="start_date" name="start_date" value="" maxlength="10" class="form-control datepicker" placeholder="날짜입력" autocomplete="false">
+                  <div class="input-group-append">
+                    <span class="input-group-text">부터</span>
+                  </div>
+                  <input type="text" id="end_date" name="end_date" value="" maxlength="10" class="form-control datepicker" placeholder="날짜입력" autocomplete="false">
+                  <div class="input-group-append">
+                    <span class="input-group-text">까지</span>
+                  </div>
+                  <div class="input-group-append">
+                    <span class="input-group-text">
+                      <a href="javascript:void(0)" onclick="stat_searchDateTerm(7)">일주일</a>
+                    </span>
+                  </div>
+                  <div class="input-group-append">
+                    <span class="input-group-text">
+                      <a href="javascript:void(0)" onclick="stat_searchDateTerm(30)">1개월</a>
+                    </span>
+                  </div>
+                  <div class="input-group-append">
+                    <span class="input-group-text">
+                      <a href="javascript:void(0)" onclick="stat_searchDateTerm(90)">3개월</a>
+                    </span>
+                  </div>
+                  <div class="input-group-append">
+                    <span class="input-group-text">
+                      <a href="javascript:void(0)" onclick="stat_searchDateTerm(180)">6개월</a>
+                    </span>
+                  </div>
+                  <div class="input-group-append">
+                    <span class="input-group-text">
+                      <a href="javascript:void(0)" onclick="WA_searchDate()"><i class="entypo-chart-bar"></i> 보기</a>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!-- 기간조회 End -->
+
+          <div class="dragbox_hover row collapse show" id="allLank">
+              <!-- 매출 통계 표 -->
+                  <table class="table mx-5">
+                      <thead>
+                      <tr>
+                          <th>#</th>
+                          <th>Project Name</th>
+                          <th>Start Date</th>
+                          <th>Due Date</th>
+                          <th>Status</th>
+                          <th>Assign</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>1</td>
+                              <td>Codefox Admin v1</td>
+                              <td>01/01/2017</td>
+                              <td>26/04/2017</td>
+                              <td><span class="badge badge-info">Released</span></td>
+                              <td>Coderthemes</td>
+                          </tr>
+                          <tr>
+                              <td>2</td>
+                              <td>Codefox Frontend v1</td>
+                              <td>01/01/2017</td>
+                              <td>26/04/2017</td>
+                              <td><span class="badge badge-success">Released</span></td>
+                              <td>Coderthemes</td>
+                          </tr>
+                          <tr>
+                              <td>3</td>
+                              <td>Codefox Admin v1.1</td>
+                              <td>01/05/2017</td>
+                              <td>10/05/2017</td>
+                              <td><span class="badge badge-pink">Pending</span></td>
+                              <td>Coderthemes</td>
+                          </tr>
+                      </tbody>
+                  </table>
+          </div>
+
+      </li>
+
+      {% elseif record == 'layout4' %}
         <li class="ui-state-default one card" id="layout3">
             <div class="cal_box col-md-12 col-sm-12">
                 <div class="card-title mt-2">
