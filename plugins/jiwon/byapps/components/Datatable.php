@@ -44,7 +44,7 @@ class Datatable extends ComponentBase
 
     public function getPaymentData()
    {
-       $paymentData = PaymentData::select('idx', 'app_name', 'pay_type', 'term', 'amount', 'reg_time');
+       $paymentData = PaymentData::select('idx', 'app_name', 'pay_type', 'term', 'amount', 'start_time', 'reg_time');
 
        return Datatables::of($paymentData)
               // ->setRowClass(function ($paymentData) {
@@ -55,7 +55,17 @@ class Datatable extends ComponentBase
               })
               ->editColumn('pay_type', '{{ $pay_type == 1 ? "연장" : "신규" }}')
               ->editColumn('amount', '{{ number_format($amount)." 원" }}')
-              ->editColumn('term', '{{ $term." 일" }} <button class="btn btn-xs btn-info">기간연장</button>')
+              // ->editColumn('term', '
+              // {{ $start_time == "" ? "미정" : $term." 일" }}
+              // <button class="btn btn-xs btn-info">기간연장</button>
+              // ')
+              ->editColumn('term', function($eloquent) {
+                 if (empty($eloquent->start_time)) {
+                   return $eloquent->term." 일(미정)";
+                 } else {
+                   return $eloquent->term." 일";
+                 }
+              })
               ->rawColumns([ 'term' ])
               ->editColumn('reg_time', '{{ date("Y-m-d", $reg_time) }}')
               ->orderColumn('reg_time', 'reg_time $1')
