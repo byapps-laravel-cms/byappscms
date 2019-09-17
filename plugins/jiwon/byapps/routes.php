@@ -1,3 +1,3 @@
 <?php
 
-Route::get('pay/paylist/:page', 'Jiwon\Byapps\Components\Datatable@getIndex');
+Route::get('pay/paylist/:page', 'Jiwon\Byapps\Components\Datatable@getPaymentData');
