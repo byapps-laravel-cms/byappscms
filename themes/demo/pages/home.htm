@@ -525,7 +525,7 @@ function onLayoutChange()
                         <!-- 탭1-1 -->
                         {% for iosData in expiredIos %}
                             <div class="card col-xs-12 col-md-5 col-lg-2 m-1 p-0 d-inline-block">
-                                <div class="mx-0 p-2 text-truncate" style="width:8rem;vertical-align:middle;">
+                                <div class="mx-0 p-2 text-truncate" style="width:10rem;vertical-align:middle;">
                                     {{ iosData.app_name }}<br><span class="badge badge-pink">D +{{ func.calculateDday(iosData.ios_dev_exp) }}</span>
                                     {{ iosData.ios_dev_exp }}
                                 </div>
@@ -536,7 +536,7 @@ function onLayoutChange()
                         <!-- 탭1-2 -->
                         {% for iosData in willBeExpiredIos %}
                             <div class="card col-xs-12 col-md-5 col-lg-2 m-1 p-0 d-inline-block">
-                                <div class="mx-0 p-2 text-truncate" style="width:8rem;vertical-align:middle;">
+                                <div class="mx-0 p-2 text-truncate" style="width:10rem;vertical-align:middle;">
                                     {{ iosData.app_name }}<br><span class="badge badge-info">D {{ func.calculateDday(iosData.ios_dev_exp) }}</span>
                                     {{ iosData.ios_dev_exp }}
                                 </div>
