@@ -1,0 +1,150 @@
+
+<div class="container col-12 col-md-12">
+
+ <div class="method">
+   <div class="col-md-12 margin-5">
+
+    <form name="form-datalist" id="form-datalist">
+
+      <button type="submit" id="status8" class="btn btn-pink btn-rounded waves-effect waves-light mb-1" style="float:right;">선택 서비스중지</button>
+      <button type="submit" id="status7" class="btn btn-success btn-rounded waves-effect waves-light mb-1 mr-1" style="float:right;">선택 등록완료</button>
+
+    <table id="paymentTable" class="table table-striped mb-3 table-colored table-inverse" style="width:100%;">
+        <col width="5%">
+        <col width="35%">
+        <col width="15%">
+        <col width="15%">
+        <col width="15%">
+        <col width="15%">
+        <thead>
+            <tr>
+                <th>idx</th>
+                <th>앱명</th>
+                <th>구분</th>
+                <th>기간</th>
+                <th>결제금액</th>
+                <th>결제일</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>
+                  <input type="text" class="form-control filter-input" placeholder="앱명 검색..." data-column="1" />
+                </th>
+                <th>
+                  <input type="text" class="form-control filter-input" placeholder="구분 검색..." data-column="2" />
+                </th>
+                <th>
+                  <input type="text" class="form-control filter-input" placeholder="기간 검색..." data-column="3" />
+                </th>
+                <th>
+                  <input type="text" class="form-control filter-input" placeholder="결제금액 검색..." data-column="4" />
+                </th>
+                <th>
+                  <input type="text" class="form-control filter-input" placeholder="결제일 검색..." data-column="5" />
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+
+    </table>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+  //var tableId = {{ tableName|json_encode()|raw  }};
+  var tableId = "paymentTable";
+  var tableFilter = tableId + "_filter";
+  var tableSelect = tableId + "_select";
+
+  var table = $('#' + tableId).DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+          url: "/pay/paylist/:page",
+          crossDomain: true
+        },
+        columns: [
+          { data: 'idx' },
+          { data: 'app_name' },
+          { data: 'pay_type' },
+          { data: 'term' },
+          { data: 'amount' },
+          { data: 'reg_time' }
+        ],
+        columnDefs: [
+           {
+              'targets': 0,
+              //'width': '5%',
+              'className': 'select-checkbox',
+              'searchable': false,
+              'orderable': false,
+              'checkboxes': {
+                 'selectRow': true
+              },
+           },
+           {
+             'targets': 1,
+             'render': function ( data, type, full, meta ) {
+                return '<a href="/pay/paydetail/'+full.idx+'">'+data+'</a>';
+             }
+           },
+        ],
+        select: {
+           'style': 'multi'
+        },
+        order: [[ 5, 'desc']],
+        language: {
+            emptyTable: "데이터가 없어요.",
+            lengthMenu: "페이지당 _MENU_ 개씩 보기",
+            info: "현재 _START_ - _END_ / _TOTAL_건",
+            infoEmpty: "데이터 없음",
+            infoFiltered: "( _MAX_건의 데이터에서 필터링됨 )",
+            search: "검색: ",
+            zeroRecords: "일치하는 데이터가 없어요.",
+            loadingRecords: "로딩중...",
+            processing:     "잠시만 기다려 주세요...",
+            paginate: {
+                next: "다음",
+                previous: "이전"
+            },
+            buttons: {
+                excel: "엑셀",
+                copy: "복사"
+            }
+        },
+        "paging": true,
+        "pageLength": 50,
+        // "info": false,
+        // "autoWidth": true,
+        "fixedHeader": false,
+        "responsive": true,
+        "orderClasses": false,
+        "stateSave": false,
+        // "dom": 'Bfrtip',
+        // "buttons": [
+        //     'excel', 'copy'
+        // ],
+      });
+
+      $('.filter-input').keyup(function() {
+        table.column($(this).data('column')).search($(this).val()).draw();
+      });
+
+        // $('#' + tableFilter).prepend('<select id="' + tableSelect + '"></select>');
+        // $('#' +tableId + '> thead > tr').children().each(function (indexInArray, valueOfElement) {
+        //     $('#' +tableSelect).append('<option>'+valueOfElement.innerHTML+'</option>');
+        // });
+        // $('.dataTables_filter input').unbind().bind('keyup', function () {
+        //       var colIndex = document.querySelector('#' +tableSelect).selectedIndex;
+        //       table.column(colIndex).search(this.value).draw();
+        //   });
+        //
+        // $('#' + tableFilter).after('<p style="width:100%; height:10px;"></p>');
+  });
+
+</script>

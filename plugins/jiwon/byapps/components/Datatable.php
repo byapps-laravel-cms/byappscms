@@ -4,6 +4,7 @@ use Cms\Classes\ComponentBase;
 use Exception;
 use Yajra\Datatables\Datatables;
 use Jiwon\Byapps\Models\PaymentData;
+use Jiwon\Byapps\Models\PromotionData;
 
 class Datatable extends ComponentBase
 {
@@ -71,6 +72,39 @@ class Datatable extends ComponentBase
               ->orderColumn('reg_time', 'reg_time $1')
               ->make(true);
    }
+
+   public function getPromotionData()
+  {
+      $promotionData = PromotionData::select('idx', 'pm_title', 'mem_id', 'mem_name', 'pm_used', 'pm_target', 'pm_content', 'used_time', 'reg_time');
+
+      return Datatables::of($promotionData)
+
+             ->setRowId(function($promotionData) {
+               return $promotionData->idx;
+             })
+             ->editColumn('pm_used', '{{ $pm_used == 1 ? "사용" : "미사용" }}')
+             ->editColumn('pm_used', function($eloquent) {
+                if (!($eloquent->pm_used)) {
+                  return "미사용";
+                } else {
+                  return "사용 ".date('Y/m/d', $eloquent->used_time);
+                }
+             })
+             ->editColumn('pm_target', function($eloquent) {
+                if ($eloquent->pm_target == "ma") {
+                  return "마케팅 오토메이션";
+                } elseif ($eloquent->pm_target == "app") {
+                  return "앱 서비스";
+                }
+             })
+             ->editColumn('pm_content', function($eloquent) {
+                $vv = explode(":", $eloquent->pm_content);
+                return "월 ".number_format($vv[0])."원 지정결제";
+             })
+             ->editColumn('reg_time', '{{ date("Y-m-d", $reg_time) }}')
+             ->orderColumn('reg_time', 'reg_time $1')
+             ->make(true);
+  }
 
     // public function getMultiFilterSearchData()
     // {
