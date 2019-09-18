@@ -89,11 +89,10 @@ function onLayoutChange()
 {
     $userId = BackendAuth::getUser()['id'];
     $params = Input::all();
+    $temp = HomeLayout::where('user_cd','=',$userId)
+            ->count();
     foreach($params as $key => $value){
         unset($data);
-        $temp = HomeLayout::where('user_cd','=',$userId)
-            ->where('layout_name','=',$key)
-            ->count();
         $data['sequence'] = $value;
         if($temp == 0){
             $data['layout_name'] = $key;
@@ -125,8 +124,8 @@ function onLayoutChange()
   {% for record in records %}
       {% if record == 'layout1' %}
         <li class="ui-state-default one card" id="layout1">
-            <div class="cal_box col-md-12 col-sm-12">
-                <div class="card-title mt-2">
+            <div class="cal_box">
+                <div class="card-title m-2">
                     <i class="fi-menu"></i> 주문요청현황
                     <button class="btn float-right" type="button" data-toggle="collapse" data-target="#salesList" aria-expanded="true" aria-controls="salesList">
                       <i class="dripicons-chevron-down"></i>
@@ -241,8 +240,8 @@ function onLayoutChange()
 
       {% elseif record == 'layout2' %}
         <li class="ui-state-default card" id="layout2">
-            <div class="cal_box col-md-12 col-sm-12">
-                <div class="card-title mt-2">
+            <div class="cal_box">
+                <div class="card-title m-2">
                     <i class="fi-menu"></i> 통계
                     <button class="btn float-right" type="button" data-toggle="collapse" data-target="#allLank" aria-expanded="true" aria-controls="allLank">
                       <i class="dripicons-chevron-down"></i>
@@ -364,9 +363,9 @@ function onLayoutChange()
         </li>
 
       {% elseif record == 'layout3' %}
-      <li class="ui-state-default card" id="layout2">
-          <div class="cal_box col-md-12 col-sm-12">
-              <div class="card-title mt-2">
+      <li class="ui-state-default card" id="layout3">
+          <div class="cal_box">
+              <div class="card-title m-2">
                   <i class="fi-menu"></i> 매출 통계표
                   <button class="btn float-right" type="button" data-toggle="collapse" data-target="#allLank" aria-expanded="true" aria-controls="allLank">
                     <i class="dripicons-chevron-down"></i>
@@ -425,62 +424,62 @@ function onLayoutChange()
 
           <div class="dragbox_hover row collapse show" id="allLank">
               <!-- 매출 통계 표 -->
-                  <table class="table mx-5">
-                      <thead>
-                      <tr>
-                          <th colspan="2" rowspan="2" class="center">구분</th>
-                          <th colspan="3">이번주</th>
-                          <th colspan="3">지난주</th>
-                          <th colspan="3">증감수</th>
-                      </tr>
-                      <tr>
-                          <th>전체</th>
-                          <th>유료</th>
-                          <th>무료</th>
-                          <th>전체</th>
-                          <th>유료</th>
-                          <th>무료</th>
-                          <th>전체</th>
-                          <th>유료</th>
-                          <th>무료</th>
-                      </tr>
-                      <tr>
-                          <th rowspan="2">이용수</th>
-                          <th>플랫폼</th>
-                          <td></td>
-                    			<td></td>
-                    			<td></td>
-                    			<td></td>
-                    			<td></td>
-                    			<td></td>
-                    			<td></td>
-                    			<td></td>
-                    			<td></td>
-                      </tr>
-                      <tr>
-                          <th>MA</th>
-                          <td></td>
-                    			<td></td>
-                    			<td></td>
-                    			<td></td>
-                    			<td></td>
-                    			<td></td>
-                    			<td></td>
-                    			<td></td>
-                    			<td></td>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                  </table>
+              <table class="table table-bordered mx-5">
+                <thead>
+                  <tr>
+                      <th colspan="2" rowspan="2">구분</th>
+                      <th colspan="3">이번주</th>
+                      <th colspan="3">지난주</th>
+                      <th colspan="3">증감수</th>
+                  </tr>
+                  <tr>
+                      <th>전체</th>
+                      <th>유료</th>
+                      <th>무료</th>
+                      <th>전체</th>
+                      <th>유료</th>
+                      <th>무료</th>
+                      <th>전체</th>
+                      <th>유료</th>
+                      <th>무료</th>
+                  </tr>
+                  <tr>
+                      <th rowspan="2">이용수</th>
+                      <th>플랫폼</th>
+                      <td></td>
+                			<td></td>
+                			<td></td>
+                			<td></td>
+                			<td></td>
+                			<td></td>
+                			<td></td>
+                			<td></td>
+                			<td></td>
+                  </tr>
+                  <tr>
+                      <th>MA</th>
+                      <td></td>
+                			<td></td>
+                			<td></td>
+                			<td></td>
+                			<td></td>
+                			<td></td>
+                			<td></td>
+                			<td></td>
+                			<td></td>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
           </div>
 
       </li>
 
       {% elseif record == 'layout4' %}
-        <li class="ui-state-default one card" id="layout3">
-            <div class="cal_box col-md-12 col-sm-12">
-                <div class="card-title mt-2">
+        <li class="ui-state-default one card" id="layout4">
+            <div class="cal_box">
+                <div class="card-title m-2">
                     <i class="fi-menu"></i> 만료예정업체
                     <button class="btn float-right" type="button" data-toggle="collapse" data-target="#endList" aria-expanded="true" aria-controls="endList">
                       <i class="dripicons-chevron-down"></i>
