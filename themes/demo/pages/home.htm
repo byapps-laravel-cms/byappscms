@@ -85,6 +85,7 @@ function onStart()
     $this['memberCount'] = QnaMember::where('process', 1)->count();
 }
 
+// 만약 레이아웃이 추가되면 DB 초기화 필요 --> 이부분에 대한 수정이 필요함(19/09/18)
 function onLayoutChange()
 {
     $userId = BackendAuth::getUser()['id'];
@@ -422,9 +423,11 @@ function onLayoutChange()
           </div>
           <!-- 기간조회 End -->
 
-          <div class="dragbox_hover row collapse show" id="allLank">
+          <!-- <div class="dragbox_hover row collapse show" id="allLank"> -->
+          <div class="dragbox_hover collapse show p-3" id="allLank">
               <!-- 매출 통계 표 -->
-              <table class="table table-bordered mx-5">
+              <div class="table-responsive">
+                <table class="table table-bordered">
                 <thead>
                   <tr>
                       <th colspan="2" rowspan="2">구분</th>
@@ -472,6 +475,7 @@ function onLayoutChange()
                 <tbody>
                 </tbody>
               </table>
+              </div>
           </div>
 
       </li>
