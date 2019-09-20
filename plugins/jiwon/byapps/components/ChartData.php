@@ -24,6 +24,92 @@ class ChartData extends ComponentBase
         return [];
     }
 
+    public function onGetEntireChartData($day1, $day2)
+    {
+
+      $end_time = strtotime($day2, time());
+      // 앱 통계
+      $appsTotal = AppsData::where('app_process', '=', '7')
+                    ->where(function($query){
+                      $query->where('service_type', '=', 'lite')->orWhere('end_time', '>', $end_time);
+                    })
+                    ->count();
+
+      $appsPaid = Db::table('marutm1.BYAPPS_apps_data as A')
+                  ->leftJoin('marutm1.BYAPPS_apps_payment_data as B', 'A.order_id', '=', 'B.order_id')
+                  ->where('A.app_process', '=', '7')
+                  //->selectRaw("'A.service_type' = 'lite' or 'A.end_time' > unix_timestamp()")
+                  ->where(function($query){
+                    $query->where('A.service_type', '=', 'lite')->orWhere('A.end_time', '>', $end_time);
+                  })
+                  ->where('B.process', '=', '1')
+                  ->where('B.amount', '>', '0')
+                  ->distinct()
+                  ->count('A.order_id');
+
+      $appsFree = $appsTotal - $appsPaid;
+      $appsCheck = 100;
+
+      // MA 통계
+      $maTotal = MaData::where('app_process', '=', '3')
+                  ->where('end_time', '>', $end_time)
+                  ->count();
+      $maPaid = Db::table('marutm1.BYAPPS_MA_data as A')
+                ->leftJoin('marutm1.BYAPPS_apps_payment_data as B', 'A.order_id', '=', 'B.order_id')
+                ->where('A.app_process', '=', '3')
+                ->where('A.end_time', '>', $end_time)
+                ->where('B.process', '=', '1')
+                ->where('B.amount', '>', '0')
+                ->distinct()
+                ->count('A.order_id');
+
+      $maFree = $maTotal - $maPaid;
+      $maCheck = 10;
+
+      // 매출통계
+      // mktime (시, 분, 초, 월, 일, 년)
+      $from = mktime(0, 0, 0, date("03"), date("d"), date("Y"));
+      $to = mktime(23, 59, 59, date("03"), date("d"), date("Y"));
+
+      $salesTotal = PaymentData::where('process', '=', '1')
+                    ->whereBetween('reg_time', [$from, $to])
+                    ->orderBy('idx', 'asc')
+                    ->sum('amount');
+      $salesNew = PaymentData::where('process', '=', '1')
+                  ->whereBetween('reg_time', [$from, $to])
+                  ->orderBy('idx', 'asc')
+                  ->sum(DB::Raw("case when pay_type='0' then amount end"));
+      $salesCon = PaymentData::where('process', '=', '1')
+                  ->whereBetween('reg_time', [$from, $to])
+                  ->orderBy('idx', 'asc')
+                  ->sum(DB::Raw("case when pay_type='1' then amount end"));
+
+      $salesEtc = $salesTotal - ($salesNew + $salesCon);
+
+
+      // 전체 데이터 반환
+      $result = array(
+          'circle1' => array(
+              array('무료', $appsFree),
+              array('유료', $appsPaid),
+              array('관리', $appsCheck),
+          ),
+          'circle2' => array(
+              array('무료', $maFree),
+              array('유료', $maPaid),
+              array('관리', $maCheck),
+          ),
+          'bar' => array(
+              array('전체', $salesTotal),
+              array('신규', $salesNew),
+              array('연장', $salesCon),
+              array('기타', $salesEtc),
+          )
+      );
+
+      return $result;
+    }
+
     // 앱 통계
     public function onGetAppChartData()
     {
