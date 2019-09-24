@@ -5,8 +5,7 @@ target = "apps"
 <div id="sidebar-close" class="my-2"><i class="mdi mdi-close"></i></div>
 
         <form class="navbar-nav flex-row ml-md-auto d-none d-md-flex form-inline">
-                <div class="form-group">
-
+                <div class="form-group ml-3">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
                 </div>
@@ -17,12 +16,15 @@ target = "apps"
                 <div class="col-12" style="overflow:auto;" >
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-comment-tab" data-toggle="tab" href="#nav-comment" role="tab" aria-controls="nav-comment" aria-selected="true">댓글</a>
+                            {% if this.page.title == '앱 상세정보' %}
+                            <a class="nav-item nav-link active" id="nav-comment-tab" data-toggle="tab" href="#nav-comment" role="tab" aria-controls="nav-comment" aria-selected="true">댓글</a> 
+                            {% endif %}
                             <a class="nav-item nav-link" id="nav-search-info-tab" data-toggle="tab" href="#nav-search-info" role="tab" aria-controls="nav-search-info" aria-selected="false">검색업체 정보</a>
                         </div>
                     </nav>
                     <div class="tab-content">
                         <!-- #nav-comment -->
+                        {% if this.page.title == '앱 상세정보' %}
                         <div class="tab-pane px-3 active" id="nav-comment" role="tabpanel" aria-labelledby="nav-comment-tab">
                                 <div id="comment"> 
                                 <!-- 코멘트박스 -->
@@ -41,7 +43,7 @@ target = "apps"
                                                 Comment
                                         </a>
                                     </h3>
-
+                                    
                                     <div id="comment_box" class="row" >
                                         {% component 'comments' %}
                                     </div>
@@ -59,8 +61,9 @@ target = "apps"
                                     </form>
                                 </div><!-- 코멘트 푸터 고정-->
                             </div>
+                            {% endif %}
                         <!-- #nav-comment -->
-                        <div class="tab-pane px-3" id="nav-search-info" role="tabpanel" aria-labelledby="nav-search-info">
+                        <div class="tab-pane px-3 active" id="nav-search-info" role="tabpanel" aria-labelledby="nav-search-info">
                                 <!-- card -->
                                     <h3 class="card-title my-2"> 
                                         <a class="text-dark" >
@@ -181,12 +184,9 @@ target = "apps"
                                                                 </div>
                                                                 <div class="form-group row">
                                                                     <label class="col-md-5 col-xs-12 control-label">이용기간</label>
-                                                                    
-                                                                    <div class="form-inline">
-                                                                        <div class="input-daterange input-group row" id="date-range">
-                                                                                <input class="form-control input-limit-datepicker" type="text" name="daterange" value="06/01/2015 - 06/07/2015"/>
-                                                                            <input type="text" class="col-md-2 col-xs-2" name="count-day" value="">일
-                                                                        </div>
+                                                                    <div class="input-daterange input-group col-md-7 col-xs-12" id="date-range">
+                                                                        <input class="form-control input-limit-datepicker" type="text" name="daterange" value="06/01/2015 - 06/07/2015"/>
+                                                                        <input type="text" class="form-control col-md-2 col-xs-2" name="count-day" value="">일
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
