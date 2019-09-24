@@ -1,10 +1,11 @@
 <?php return [
     // This contains the Laravel Packages that you want this plugin to utilize listed under their package identifiers
     'packages' => [
-        'yajra/laravel-datatables-oracle' => [
+        'yajra/laravel-datatables' => [
             // Service providers to be registered by your plugin
             'providers' => [
                 '\Yajra\DataTables\DataTablesServiceProvider',
+                '\Yajra\DataTables\HtmlServiceProvider',
             ],
 
             // Aliases to be registered by your plugin in the form of $alias => $pathToFacade
@@ -126,6 +127,11 @@
                    * If set to *, all columns are allowed.
                    */
                   'whitelist' => '*',
+              ],
+
+              'table' => [
+                  'class' => 'table',
+                  'id' => 'dataTableId'
               ],
 
               /*
